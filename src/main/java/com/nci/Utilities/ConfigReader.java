@@ -13,7 +13,7 @@ public class ConfigReader {
 	
 	public ConfigReader(){
 		try{
-			File file= new File ("./configuration/ConfigPROD.property");
+			File file= new File ("./configuration/ConfigQA.property");
 			FileInputStream fis= new FileInputStream(file);
 			properties= new Properties();
     		properties.load(fis);				
@@ -63,4 +63,9 @@ public class ConfigReader {
 	public String getScreenShotsPath() {
 		return properties.getProperty("ScreenShots");
 	}
+	
+	public String getProperty(String property) {
+		return properties.getProperty(property);
+	}
+	
 }
