@@ -24,23 +24,21 @@ import gov.nci.WebAnalytics.AnalyticsLoadEvents;
 
 public class Analytics_Test extends BaseClass {
 
-	// WebDriver driver;
 	AnalyticsLoadEvents analyticsLoad;
 	AnalyticsClickEvents analyticsClick;
-	
-	// New instance of BrowserMob proxy
     BrowserMobProxy proxy = new BrowserMobProxyServer();
 	
-	// HAR data object
-	/** A HAR (HTTP Archive) is a file format that can be used by HTTP monitoring 
-	 * tools to export collected data. 
-	 * BrowserMob Proxy allows us to manipulate HTTP requests and responses, capture 
-	 * HTTP content, and export performance data as a HAR file. */
+	// A HAR (HTTP Archive) is a file format that can be used by HTTP monitoring tools to export collected data. 
+	// BrowserMob Proxy allows us to manipulate HTTP requests and responses, capture HTTP content, 
+    // and export performance data as a HAR file object.
 	Har har;
-
+	String clickHar = "";
+	String loadHar = "";
+	
 	@BeforeClass(groups = { "Smoke" })
 	@Parameters({ "browser" })
 	public void setup(String browser) throws MalformedURLException {
+		
 		logger = report.startTest(this.getClass().getSimpleName());
 		pageURL = config.getPageURL("HomePage");
 		System.out.println("PageURL: " + pageURL);
@@ -58,8 +56,8 @@ public class Analytics_Test extends BaseClass {
 				
 		getHarObject();
 		System.out.println("Analytics setup done");
-	}
-
+	}	
+	
 	/**
 	 * Configure BrowserMob Proxy for Selenium.<br>
 	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
@@ -87,14 +85,13 @@ public class Analytics_Test extends BaseClass {
 	    }  
 	    
 		System.out.println("BMP proxy setup done");
-	}
+	}	
 	
 	/**
 	 * Start and configure BrowserMob Proxy for Selenium.<br/>
 	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
 	 * @throws RuntimeException
 	 */
-	// public void setupProxy(WebDriver driver) throws RuntimeException {	 
 	private void initializeProxy(String url) throws RuntimeException {
 	    // Start the proxy
 	    proxy.start();
@@ -104,10 +101,11 @@ public class Analytics_Test extends BaseClass {
 
 	    // Create a new HAR with a label matching the hostname
 	    proxy.newHar(url);	   
-	}
-	
+	}	
+
 	
 	/******** Begin testing section ********/	
+	
 	
 	/// Check for NCIAnalytics in HTML
 	@Test(groups = { "Smoke" }, priority = 1)
@@ -118,4 +116,12 @@ public class Analytics_Test extends BaseClass {
 		logger.log(LogStatus.PASS, "NCIAnalytics attribute is present on search form.");
 	}
 
+	/// 1 == 1
+	@Test(groups = { "Smoke" })
+	public void verifyHar() {
+		int h = 1;
+		Assert.assertTrue(h == 1);
+		logger.log(LogStatus.PASS, "One equals one");
+
+	}	
 }
