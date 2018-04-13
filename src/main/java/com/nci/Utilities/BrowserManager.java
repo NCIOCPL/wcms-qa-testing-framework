@@ -11,9 +11,7 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import net.lightbody.bmp.BrowserMobProxy;
-import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.client.ClientUtil;
-import net.lightbody.bmp.proxy.CaptureType;
 
 import org.apache.commons.lang3.SystemUtils;
 
@@ -118,7 +116,8 @@ public class BrowserManager {
 	 * TODO: create headless drivers
 	 * TODO: create Firefox/IE drivers		
 	 */
-	public static WebDriver startProxyBrowser(String browserName, String url, BrowserMobProxy myProxy){
+	public static WebDriver startProxyBrowser(String browserName, String url, BrowserMobProxy myProxy)
+	{
 
 		ConfigReader config = new ConfigReader();
 		
@@ -128,7 +127,7 @@ public class BrowserManager {
 	    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
 		
 		// Chrome browser & settings (this is the only browser supported for now)
-		if(browserName.equalsIgnoreCase("Chrome")){
+		if(browserName.equalsIgnoreCase("Chrome")) {
 			System.out.println("Chrome browser");
 			String driverFullPath = getDriverPath(config, "ChromeDriver");
 			System.setProperty("webdriver.chrome.driver", driverFullPath);
@@ -138,8 +137,8 @@ public class BrowserManager {
 			driver.manage().window().maximize();
 			driver.get(url); // open proxy page
 		}
-		else {			
-			throw new IllegalArgumentException();
+		else {
+			throw new IllegalArgumentException("Invalid browser type; check configuration settings.");
 		}
 		
 		return driver;
