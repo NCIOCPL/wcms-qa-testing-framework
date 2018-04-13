@@ -17,7 +17,6 @@ import net.lightbody.bmp.proxy.CaptureType;
 
 import com.nci.Utilities.BrowserManager;
 import com.relevantcodes.extentreports.LogStatus;
-
 import gov.nci.WebAnalytics.AnalyticsBase;
 import gov.nci.WebAnalytics.AnalyticsClickEvents;
 import gov.nci.WebAnalytics.AnalyticsLoadEvents;
@@ -77,6 +76,9 @@ public class Analytics_Test extends BaseClass {
 	    		String result = entry.getRequest().getUrl();
 	    		try {
 					result = URLDecoder.decode(result, "UTF-8");
+					if(result.contains("=event1,")) {
+						loadHar = result;
+					}
 				} catch (Exception e) {
 					result = "bleah";
 				} 
@@ -104,24 +106,34 @@ public class Analytics_Test extends BaseClass {
 	}	
 
 	
-	/******** Begin testing section ********/	
-	
+	/******** Begin testing section ********/		
+	// TODO: Set expected load values for different pages
+	// TODO: Work out what we need to fire off on click/resize/other events
+	// 		- Do we need to create a new HAR with each call? 
+	//		- How do we differentiate between load and click calls?	
+	// TODO: add "analytics" group
 	
 	/// Check for NCIAnalytics in HTML
 	@Test(groups = { "Smoke" }, priority = 1)
 	public void veriFySAccount() {
 		String sAccountBlob = analyticsLoad.getSitewideSearchWAFunction();
-		//System.out.println("onsubmit attribute: " + sAccountBlob);
 		Assert.assertTrue(sAccountBlob.contains(AnalyticsLoadEvents.NCI_FUNCTIONS_NAME));
 		logger.log(LogStatus.PASS, "NCIAnalytics attribute is present on search form.");
+	}
+	
+	/// Load event fired off
+	@Test(groups = { "Smoke" })
+	public void verifyHar() {
+		Assert.assertTrue(loadHar.contains("event1,event47="));
+		logger.log(LogStatus.PASS, "Load events are captured.");
 	}
 
 	/// 1 == 1
 	@Test(groups = { "Smoke" })
-	public void verifyHar() {
+	public void onePlusOne() {
 		int h = 1;
 		Assert.assertTrue(h == 1);
 		logger.log(LogStatus.PASS, "One equals one");
-
-	}	
+	}
+	
 }

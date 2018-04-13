@@ -1,5 +1,6 @@
 package com.nci.Utilities;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,8 +13,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.client.ClientUtil;
-
-import org.apache.commons.lang3.SystemUtils;
 
 public class BrowserManager {
 
