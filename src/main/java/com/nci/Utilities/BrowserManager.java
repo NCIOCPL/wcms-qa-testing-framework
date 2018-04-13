@@ -110,7 +110,8 @@ public class BrowserManager {
 	
 
 	/**
-	 * Create a new web driver for given browser and set that browser's options
+	 * Create a proxy web driver for a given browser and URL.<br/>
+	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
 	 * @param browserName name of the browser
 	 * @param url URL to open
 	 * @return WebDriver driver
@@ -118,27 +119,15 @@ public class BrowserManager {
 	 * TODO: create Firefox/IE drivers		
 	 */
 	public static WebDriver startProxyBrowser(String browserName, String url, BrowserMobProxy myProxy){
-		
-	    // get the Selenium proxy object
-	    Proxy seleniumProxy = ClientUtil.createSeleniumProxy(myProxy);
 
-	    // configure it as a desired capability
-	    DesiredCapabilities capabilities = new DesiredCapabilities();
-	    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
-
-	    /**
-
-	    // New driver
-	    WebDriver driver = new ChromeDriver(capabilities);
-	    
-
-	    // Open proxy page
-	    driver.get("https://www.cancer.gov/");			
-		*/
-		
 		ConfigReader config = new ConfigReader();
 		
-		/* Chrome browser & settings */
+	    // Get the Selenium proxy object and configure it as a desired capability
+	    Proxy seleniumProxy = ClientUtil.createSeleniumProxy(myProxy);
+	    DesiredCapabilities capabilities = new DesiredCapabilities();
+	    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+		
+		// Chrome browser & settings (this is the only browser supported for now)
 		if(browserName.equalsIgnoreCase("Chrome")){
 			System.out.println("Chrome browser");
 			String driverFullPath = getDriverPath(config, "ChromeDriver");
@@ -147,12 +136,12 @@ public class BrowserManager {
 			
 			driver = new ChromeDriver(capabilities);
 			driver.manage().window().maximize();
-			driver.get(url);
+			driver.get(url); // open proxy page
 		}
 		else {			
 			throw new IllegalArgumentException();
 		}
 		
 		return driver;
-	}	
+	}
 }

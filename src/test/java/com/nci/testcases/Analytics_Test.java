@@ -55,24 +55,18 @@ public class Analytics_Test extends BaseClass {
 		logger = report.startTest(this.getClass().getSimpleName());
 		pageURL = config.getPageURL("HomePage");
 		System.out.println("PageURL: " + pageURL);
+						
+		// setupProxy(driver);
+		startProxyBrowser();
 		
 		// Initialize driver and open browser
-		driver = BrowserManager.startBrowser(browser, pageURL);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		
+		driver = BrowserManager.startProxyBrowser(browser, pageURL, proxy);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);		
+
 		// Create our load and click analytics objects
 		analyticsLoad = new AnalyticsLoadEvents(driver);
 		analyticsClick = new AnalyticsClickEvents(driver);
 				
-		// setupProxy(driver);
-		startProxyBrowser();
-		
-		// get a driver object here
-		BrowserManager.startProxyBrowser(browser, pageURL, proxy);
-		//analyticsLoad = new AnalyticsLoadEvents(driver);
-		//analyticsClick = new AnalyticsClickEvents(driver);
-		
-		
 		getHarObject();
 		System.out.println("Analytics setup done");
 	}
@@ -109,14 +103,11 @@ public class Analytics_Test extends BaseClass {
 	    }  
 	    
 		System.out.println("BMP proxy setup done");
-	}
-	
-	
-	
-	
+	}		
 
+	
 	/**
-	 * Configure BrowserMob Proxy for Selenium.<br>
+	 * Configure BrowserMob Proxy for Selenium.<br/>
 	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
 	 * @throws RuntimeException
 	 */
@@ -129,27 +120,11 @@ public class Analytics_Test extends BaseClass {
 	    proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
 
 	    // create a new HAR with the label "cancer.gov"
-	    proxy.newHar("cancer.gov");
-	    
-	   
+	    proxy.newHar("cancer.gov");	   
 	}	
 	
 	
-	public void doDriver(BrowserMobProxy myProxy) {
-	    // get the Selenium proxy object
-	    Proxy seleniumProxy = ClientUtil.createSeleniumProxy(myProxy);
 
-	    // configure it as a desired capability
-	    DesiredCapabilities capabilities = new DesiredCapabilities();
-	    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
-
-	    // New driver
-	    WebDriver driver = new ChromeDriver(capabilities);
-	    
-
-	    // Open proxy page
-	    driver.get("https://www.cancer.gov/");	
-	}
 	
 	
 	
