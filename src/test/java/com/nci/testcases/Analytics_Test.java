@@ -53,7 +53,7 @@ public class Analytics_Test extends BaseClass {
 		analyticsLoad = new AnalyticsLoadEvents(driver);
 		analyticsClick = new AnalyticsClickEvents(driver);
 				
-		getHarObject();
+		//getHarObject();
 		System.out.println("Analytics setup done");
 	}	
 	
@@ -78,11 +78,12 @@ public class Analytics_Test extends BaseClass {
 					result = URLDecoder.decode(result, "UTF-8");
 					if(result.contains("=event1,")) {
 						loadHar = result;
+						System.out.println(loadHar);
 					}
 				} catch (Exception e) {
 					result = "bleah";
 				} 
-				System.out.println(result);
+				//System.out.println(result);
 			}
 	    }  
 	    
@@ -124,6 +125,7 @@ public class Analytics_Test extends BaseClass {
 	/// Load event fired off
 	@Test(groups = { "Smoke" })
 	public void verifyHar() {
+		getHarObject();
 		Assert.assertTrue(loadHar.contains("event1,event47="));
 		logger.log(LogStatus.PASS, "Load events are captured.");
 	}
@@ -135,5 +137,20 @@ public class Analytics_Test extends BaseClass {
 		Assert.assertTrue(h == 1);
 		logger.log(LogStatus.PASS, "One equals one");
 	}
+	
+	@Test(groups = { "Smoke" })
+	public void clickAdvSearch() {
+		// Click on Advance Search link
+		analyticsClick.clickFeatureCard();
+		getHarObject();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		System.out.println("Element clicked successfully");
+		Assert.assertTrue(loadHar.contains("event27"));
+		driver.navigate().back();
+		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//System.out.println("Page URL after the coming back to basic search " + driver.getCurrentUrl());
+		//logger.log(LogStatus.PASS, "Pass => " + "Verify navigation to Advanced CTS on Basic CTS");
+	}
+	
 	
 }

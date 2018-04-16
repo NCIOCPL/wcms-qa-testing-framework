@@ -12,6 +12,9 @@ public class AnalyticsClickEvents extends AnalyticsBase {
 	/*************** Basic Search Page WebElements **********************/
 	@FindBy(how = How.ID_OR_NAME, using = "mega-nav")
 	WebElement megaMenu;
+	@FindBy(how = How.CSS, using = ".feature-card")
+	WebElement feature_card;
+
 	
 	// Constructor - Initializing the Page objects
 	public AnalyticsClickEvents(WebDriver driver) {
@@ -19,6 +22,11 @@ public class AnalyticsClickEvents extends AnalyticsBase {
 		PageFactory.initElements(driver, this);
 		System.out.println("PageFactory initiated");
 	}
+	
+	
+	public void clickFeatureCard() {
+		feature_card.click();
+	}	
 	
 	// Click mega menu
 	public void clickMegaMenu() {
