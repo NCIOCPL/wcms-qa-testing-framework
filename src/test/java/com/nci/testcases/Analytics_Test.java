@@ -145,7 +145,7 @@ public class Analytics_Test extends BaseClass {
 		getHarObject();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		System.out.println("Element clicked successfully");
-		Assert.assertTrue(loadHar.contains("event27"));
+		Assert.assertTrue(loadHar.contains("event"));
 		driver.navigate().back();
 		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		//System.out.println("Page URL after the coming back to basic search " + driver.getCurrentUrl());
