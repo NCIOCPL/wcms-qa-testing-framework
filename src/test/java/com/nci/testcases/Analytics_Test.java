@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -25,8 +26,8 @@ import gov.nci.WebAnalytics.AnalyticsLoadEvents;
 
 public class Analytics_Test extends BaseClass {
 
-	AnalyticsLoadEvents analyticsLoad;
-	AnalyticsClickEvents analyticsClick;
+	AnalyticsLoadEvents loadEvents;
+	AnalyticsClickEvents clickEvents;
     BrowserMobProxy proxy = new BrowserMobProxyServer();
 	
 	// A HAR (HTTP Archive) is a file format that can be used by HTTP monitoring tools to export collected data. 
@@ -53,12 +54,32 @@ public class Analytics_Test extends BaseClass {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);		
 
 		// Create our load and click analytics objects
-		analyticsLoad = new AnalyticsLoadEvents(driver);
-		analyticsClick = new AnalyticsClickEvents(driver);
-				
-		//getHarObject();
+		loadEvents = new AnalyticsLoadEvents(driver);
+		clickEvents = new AnalyticsClickEvents(driver);
+		
+		// Add entries to the HAR log
+		populateHar();
+		
 		System.out.println("Analytics setup done");
 	}	
+	
+	/**
+	 * All the proxy browser 'actions' go in here. These are not tests, but things that we do 
+	 * to fire off analytics events. These actions will populate our list of har objects, which will
+	 * then be tested.
+	 * @throws RuntimeException
+	 */
+	private void populateHar() throws RuntimeException {
+		//TODO: refactor this
+		navigateSite();
+		resizeBrowser();
+		//doSiteWideSearch();
+		//doAdvancedCTSearch();
+		//doBasicCTSearch();
+		//useDictionary();
+		//navigateError();
+		//navigateRATs();		
+	}
 	
 	/**
 	 * Configure BrowserMob Proxy for Selenium.<br>
@@ -110,8 +131,40 @@ public class Analytics_Test extends BaseClass {
 	    proxy.newHar(url);	   
 	}	
 
+
+	/*** REGION ACTIONS TO POPULATE HAR ***/
 	
-	/******** Begin testing section ********/		
+	/// Click around pages
+	public void navigateSite() {
+				
+		// Click on a feature card
+		clickEvents.clickFeatureCard();
+		driver.navigate().back();
+		
+		// Click on the MegaMenu
+		clickEvents.clickMegaMenu();		
+		driver.navigate().back();
+		
+	}
+
+	// Resize browser
+	public void resizeBrowser() {
+		Dimension small = new Dimension(300, 800);
+		Dimension med = new Dimension(700, 800);
+		Dimension large = new Dimension(1100, 800);
+		Dimension xlarge = new Dimension(1600, 800);
+				
+		driver.manage().window().setSize(small);
+		driver.manage().window().setSize(med);
+		driver.manage().window().setSize(large);		
+		driver.manage().window().setSize(xlarge);
+	}
+
+	/*** END REGION ACTIONS TO POPULATE HAR ***/
+
+	
+	/*** REGION TESTS ***/
+
 	// TODO: Set expected load values for different pages
 	// TODO: Work out what we need to fire off on click/resize/other events
 	// 		- Do we need to create a new HAR with each call? 
@@ -119,65 +172,66 @@ public class Analytics_Test extends BaseClass {
 	// TODO: add "analytics" group
 	// TODO: what are we writing to with "logger"? 
 	// TODO: make a new group (not 'Smoke')
+	
 	/// Check for NCIAnalytics in HTML
 	@Test(groups = { "Smoke" }, priority = 1)
 	public void veriFySAccount() {
-		String sAccountBlob = analyticsLoad.getSitewideSearchWAFunction();
+		String sAccountBlob = loadEvents.getSitewideSearchWAFunction();
 		Assert.assertTrue(sAccountBlob.contains(AnalyticsLoadEvents.NCI_FUNCTIONS_NAME));
 		logger.log(LogStatus.PASS, "NCIAnalytics attribute is present on search form.");
-	}
-	
+	}	
 	
 	/// Load event fired off
 	@Test(groups = { "Smoke" })
-	public void verifyHar() {
+	public void verifyHarLoad() {
+
+		// Update the har object
 		setHar();
 		Assert.assertTrue(harList.size() > 0);
 		logger.log(LogStatus.PASS, "Load events are being captured.");
-	}
-
+	}	
 	
-	/// Click around pages
-	@Test(groups = { "Smoke" })
-	public void clickAround() {
-		
-		// Click on a feature card
-		analyticsClick.clickFeatureCard();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		System.out.println("Element clicked successfully");		
-		//Assert.assertTrue(loadHar.contains("event"));		
-		
-		driver.navigate().back();
-		//System.out.println("Page URL after the coming back to basic search " + driver.getCurrentUrl());
-		//logger.log(LogStatus.PASS, "Pass => " + "Verify navigation to Advanced CTS on Basic CTS");
-		
-	}
-	
-
+	/// Check click events
 	@Test(groups = { "Smoke" })
 	public void testClickEvents() {
-		// Update the har object
-		setHar();
-		
+
 		// Debug
 		System.out.println("=== Start debug testEvents() ===");		
 		System.out.println("Total requests to tracking server : " + harList.size());
 		
 		for(String har : harList) {
 			System.out.println(har);
+			
+			Assert.assertTrue(har.contains("nci"));
+			logger.log(LogStatus.PASS, "Pass => " + "Verify 'nci' value...");
+			
+			//TODO: make our har an analyticsBeacon(?) object and compare that way...
+			if(har.contains("pev2=FeatureCardClick")) {
+				Assert.assertTrue(har.contains("events=event27"));				
+			}
+
+			if(har.contains("pev2=MegaMenuClick")) {
+				Assert.assertTrue(har.contains("events=event26"));			
+			}
+					
+			if(har.contains("pev2=ResizedToMobile")) {
+				Assert.assertTrue(har.contains("events=event7"));			
+			}
+			if(har.contains("pev2=ResizedToTablet")) {
+				Assert.assertTrue(har.contains("events=event7"));			
+			}
+			if(har.contains("pev2=ResizedToDesktop")) {
+				Assert.assertTrue(har.contains("events=event7"));			
+			}
+			if(har.contains("pev2=ResizedToExtra wide")) {
+				Assert.assertTrue(har.contains("events=event7"));			
+			}
+			
 		}
 		System.out.println("=== End debug testEvents() ===");
 		
-		Assert.assertTrue(1 > 0);		
-		//Assert.assertTrue(loadHar.contains("event"));		
-		logger.log(LogStatus.PASS, "Pass => " + "Verify event value...");
-
-		//Assert.assertTrue(loadHar.contains("nci"));
-		logger.log(LogStatus.PASS, "Pass => " + "Verify 'nci' value...");
-				
-		//Assert.assertTrue(loadHar.contains("event=27"));
-		logger.log(LogStatus.PASS, "Pass => " + "Verify 'nci' value...");		
 	}
-		
+	
+	/*** END REGION TESTS ***/
 	
 }

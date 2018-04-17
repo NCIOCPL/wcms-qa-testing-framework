@@ -10,8 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 public class AnalyticsClickEvents extends AnalyticsBase {	
 
 	/*************** Basic Search Page WebElements **********************/
-	@FindBy(how = How.ID_OR_NAME, using = "mega-nav")
-	WebElement megaMenu;
+	@FindBy(how = How.CSS, using = "#mega-nav a")
+	WebElement mega_menu_link;
 	@FindBy(how = How.CSS, using = ".feature-card")
 	WebElement feature_card;
 
@@ -21,8 +21,7 @@ public class AnalyticsClickEvents extends AnalyticsBase {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		System.out.println("PageFactory initiated");
-	}
-	
+	}	
 	
 	public void clickFeatureCard() {
 		feature_card.click();
@@ -30,7 +29,7 @@ public class AnalyticsClickEvents extends AnalyticsBase {
 	
 	// Click mega menu
 	public void clickMegaMenu() {
-		megaMenu.click();
+		mega_menu_link.click();
 	}
-
+	
 }
