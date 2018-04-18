@@ -156,10 +156,11 @@ public class Analytics_Test extends BaseClass {
 		Dimension large = new Dimension(1100, 800);
 		Dimension xlarge = new Dimension(1600, 800);
 				
-		driver.manage().window().setSize(small);
-		driver.manage().window().setSize(med);
-		driver.manage().window().setSize(large);		
 		driver.manage().window().setSize(xlarge);
+		driver.manage().window().setSize(large);		
+		driver.manage().window().setSize(med);
+		driver.manage().window().setSize(small);
+		driver.manage().window().maximize();
 	}
 
 	/*** END REGION ACTIONS TO POPULATE HAR ***/
