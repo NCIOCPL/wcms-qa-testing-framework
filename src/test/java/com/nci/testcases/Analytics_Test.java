@@ -23,6 +23,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import gov.nci.WebAnalytics.AnalyticsBase;
 import gov.nci.WebAnalytics.AnalyticsClickEvents;
 import gov.nci.WebAnalytics.AnalyticsLoadEvents;
+import gov.nci.WebAnalytics.RequestBeacon;
 
 public class Analytics_Test extends BaseClass {
 
@@ -35,7 +36,7 @@ public class Analytics_Test extends BaseClass {
     // and export performance data as a HAR file object.
 	Har har;
 	List<String> harList = new ArrayList<String>();
-
+	List<RequestBeacon> beacons = new ArrayList<RequestBeacon>();
 	
 	@BeforeClass(groups = { "Smoke" })
 	@Parameters({ "browser" })
@@ -200,13 +201,17 @@ public class Analytics_Test extends BaseClass {
 		System.out.println("=== Start debug testEvents() ===");		
 		System.out.println("Total requests to tracking server : " + harList.size());
 		
+		//TODO: build out requestBeacon(?) object and compare that way...
+		for(RequestBeacon beacon : beacons) {
+			// do something
+		}		
+		
 		for(String har : harList) {
 			System.out.println(har);
 			
 			Assert.assertTrue(har.contains("nci"));
 			logger.log(LogStatus.PASS, "Pass => " + "Verify 'nci' value...");
 			
-			//TODO: make our har an analyticsBeacon(?) object and compare that way...
 			if(har.contains("pev2=FeatureCardClick")) {
 				Assert.assertTrue(har.contains("events=event27"));				
 			}
