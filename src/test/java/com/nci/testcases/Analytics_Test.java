@@ -1,7 +1,6 @@
 package com.nci.testcases;
 
 import java.net.MalformedURLException;
-import java.net.URLDecoder;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +13,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
-import net.lightbody.bmp.core.har.Har;
-import net.lightbody.bmp.core.har.HarEntry;
 import net.lightbody.bmp.proxy.CaptureType;
 
 import com.nci.Utilities.BrowserManager;
@@ -29,12 +26,7 @@ public class Analytics_Test extends BaseClass {
 
 	AnalyticsLoadEvents loadEvents;
 	AnalyticsClickEvents clickEvents;
-    BrowserMobProxy proxy = new BrowserMobProxyServer();
-	
-	// A HAR (HTTP Archive) is a file format that can be used by HTTP monitoring tools to export collected data. 
-	// BrowserMob Proxy allows us to manipulate HTTP requests and responses, capture HTTP content, 
-    // and export performance data as a HAR file object.
-	Har har;
+    BrowserMobProxy proxy = new BrowserMobProxyServer();	
 	List<String> harList = new ArrayList<String>();
 	List<RequestBeacon> beacons = new ArrayList<RequestBeacon>();
 	
@@ -60,7 +52,8 @@ public class Analytics_Test extends BaseClass {
 		
 		// Add entries to the HAR log
 		populateHar();
-		setHar();
+		AnalyticsBase.setHar(proxy, harList);
+		//setHar();
 		
 		
 		System.out.println("Analytics setup done");
@@ -83,40 +76,6 @@ public class Analytics_Test extends BaseClass {
 		//navigateError();
 		//navigateRATs();		
 	}
-	
-	/**
-	 * Configure BrowserMob Proxy for Selenium.<br>
-	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
-	 * @throws RuntimeException
-	 */
-	// TODO: move this into base analytics class
-	private void setHar() throws RuntimeException {
-		
-	    // Get the HAR data and print to console for now
-	    // TODO: Break this out into actual tests
-	    // TODO: Start tracking click events
-	    har = proxy.getHar();
-	    List<HarEntry> entries = har.getLog().getEntries();
-    	System.out.println("Total HAR entries: " + entries.size());
-    	
-	    for (HarEntry entry : entries) {
-	    	if(entry.getRequest().getUrl().contains(AnalyticsBase.TRACKING_SERVER))
-			{
-	    		String result = entry.getRequest().getUrl();
-	    		try {
-					result = URLDecoder.decode(result, "UTF-8");
-					if(result.contains("pageName=" + AnalyticsBase.PAGE_NAME)) {
-						harList.add(result);
-					}
-				} catch (Exception e) {
-					result = "bleah";
-				} 
-				//System.out.println(result);
-			}
-	    }  
-	    
-		System.out.println("BMP proxy setup done");
-	}	
 	
 	/**
 	 * Start and configure BrowserMob Proxy for Selenium.<br/>
