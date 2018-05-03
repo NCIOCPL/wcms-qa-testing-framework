@@ -20,7 +20,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import gov.nci.WebAnalytics.AnalyticsBase;
 import gov.nci.WebAnalytics.AnalyticsClickEvents;
 import gov.nci.WebAnalytics.AnalyticsLoadEvents;
-import gov.nci.WebAnalytics.RequestBeacon;
+import gov.nci.WebAnalytics.Beacon;
 
 public class Analytics_Test extends BaseClass {
 
@@ -28,7 +28,7 @@ public class Analytics_Test extends BaseClass {
 	AnalyticsClickEvents clickEvents;
     BrowserMobProxy proxy = new BrowserMobProxyServer();	
 	List<String> harList = new ArrayList<String>();
-	List<RequestBeacon> beacons = new ArrayList<RequestBeacon>();
+	List<Beacon> beacons = new ArrayList<Beacon>();
 	
 	@BeforeClass(groups = { "Smoke" })
 	@Parameters({ "browser" })
@@ -161,7 +161,7 @@ public class Analytics_Test extends BaseClass {
 		System.out.println("Total requests to tracking server : " + harList.size());
 		
 		//TODO: build out requestBeacon(?) object and compare that way...
-		for(RequestBeacon beacon : beacons) {
+		for(Beacon beacon : beacons) {
 			// do something
 		}		
 		
@@ -211,7 +211,7 @@ public class Analytics_Test extends BaseClass {
 		List<String> localHar = harList;
 		
 		String firstHar = localHar.get(0);
-		RequestBeacon myBeacon = new RequestBeacon(firstHar);
+		Beacon myBeacon = new Beacon(firstHar);
 		
 		Assert.assertTrue(myBeacon != null);
 		

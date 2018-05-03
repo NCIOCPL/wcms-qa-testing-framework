@@ -3,7 +3,7 @@ package gov.nci.WebAnalytics;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class RequestBeacon {
+public class Beacon {
 
 	public URL url;
 	public String[] queries;
@@ -13,7 +13,7 @@ public class RequestBeacon {
 	public String[] evars; 
 	
 	// Constructor
-	public RequestBeacon() {
+	public Beacon() {
 		url = null;
 		queries = new String[0];
 		channel = "";
@@ -23,7 +23,7 @@ public class RequestBeacon {
 	}
 	
 	// Constructor
-	public RequestBeacon(String beacon) throws MalformedURLException {
+	public Beacon(String beacon) throws MalformedURLException {
 		url = new URL(beacon);
 		channel = "";
 		queries = new String[0];
