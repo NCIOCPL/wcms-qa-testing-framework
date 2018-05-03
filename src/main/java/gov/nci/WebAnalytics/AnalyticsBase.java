@@ -44,7 +44,7 @@ public class AnalyticsBase {
 			{
 	    		String result = entry.getRequest().getUrl();
 	    		try {
-					result = URLDecoder.decode(result, "UTF-8");
+					//result = URLDecoder.decode(result, "UTF-8");
 					if(result.contains("pageName=" + AnalyticsBase.PAGE_NAME)) {
 						harList.add(result);
 					}

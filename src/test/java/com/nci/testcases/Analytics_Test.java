@@ -205,6 +205,19 @@ public class Analytics_Test extends BaseClass {
 		
 	}
 	
+	/// Temporary method to test beacon object
+	@Test(groups = { "Smoke" })
+	public void testObject() throws MalformedURLException {
+		List<String> localHar = harList;
+		
+		String firstHar = localHar.get(0);
+		RequestBeacon myBeacon = new RequestBeacon(firstHar);
+		
+		Assert.assertTrue(myBeacon != null);
+		
+	}
+		
+	
 	/*** END REGION TESTS ***/
 	
 }
