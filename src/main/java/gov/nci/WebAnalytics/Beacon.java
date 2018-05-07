@@ -15,7 +15,7 @@ public class Beacon {
 	public String channel;
 	public String[] events;
 	public List<NameValuePair> props; 
-	public List<NameValuePair> evars; 
+	public List<String> evars; 
 	
 	/**
 	 * No-arg constructor
@@ -40,7 +40,7 @@ public class Beacon {
 		channel = getChannel(params);
 		events = getEvents(params);
 		props = new ArrayList<>();
-		evars = new ArrayList<>();
+		evars = getEvars(params);
 		String foo = "";
 	}
 	
@@ -110,20 +110,15 @@ public class Beacon {
 	 * @param parms
 	 * @return
 	 */
-	/*
-	public List<NameValuePair> getEvars(List<NameValuePair> parms) {
-		List<NameValuePair> rtnEvars = new ArrayList<>();
+	public List<String> getEvars(List<NameValuePair> parms) {
+		List<String> rtnEvars = new ArrayList<>();
 		for (NameValuePair param : parms) {
 			if(param.getName().matches("^[Vv][0-9]$")) {
-				NameValuePair myPair = new NameValuePair();
-				
-				rtnEvars.add(e)
-				
-				evars.add(param.getValue());
+				rtnEvars.add(param.getName() + param.getValue());
 			}
 		}
-		return evars;
+		return rtnEvars;
 	}
-	*/
+
 	
 }
