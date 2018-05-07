@@ -1,12 +1,17 @@
 package gov.nci.WebAnalytics;
 
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.net.URI;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
 
 public class Beacon {
 
-	public URL url;
-	public String[] queries;
+	public URI uri;
+	public List<NameValuePair> params;
 	public String channel;
 	public String[] events;
 	public String[] props; 
@@ -14,8 +19,8 @@ public class Beacon {
 	
 	// Constructor
 	public Beacon() {
-		url = null;
-		queries = new String[0];
+		uri = null;
+		params = new ArrayList<>();
 		channel = "";
 		events = new String[0];
 		props = new String[0];
@@ -24,20 +29,20 @@ public class Beacon {
 	
 	// Constructor
 	public Beacon(String beacon) throws MalformedURLException {
-		url = new URL(beacon);
-		channel = "";
-		queries = new String[0];
+		uri = URI.create(beacon);
+		params = BuildParamsList(uri);
+		
+		channel = "";		
 		events = new String[0];
 		props = new String[0];
 		evars = new String[0];
-		
-		String query = url.getQuery();
-		query = "debug: " + query;
 	}
 	
-	//protected String[] getQueries(String url) {
-		//return url;
-	//}
+	protected List<NameValuePair> BuildParamsList(URI uri) {
+		List<NameValuePair> retParams = URLEncodedUtils.parse(uri, "UTF-8");
+		return retParams;
+	}
 	
+
 	
 }
