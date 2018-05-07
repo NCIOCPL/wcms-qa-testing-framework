@@ -214,7 +214,16 @@ public class Analytics_Test extends BaseClass {
 		Beacon myBeacon = new Beacon(firstHar);
 		
 		Assert.assertTrue(myBeacon != null);
-		
+
+		// Check channel value
+		Assert.assertTrue(myBeacon.channel.equals("NCI Homepage"));
+
+		// Like any request could contain your mom...
+		Assert.assertFalse(myBeacon.channel.contains("ur mom"));		
+
+		// Check events
+		Assert.assertTrue(myBeacon.events[0].contains("1"));
+
 	}
 		
 	
