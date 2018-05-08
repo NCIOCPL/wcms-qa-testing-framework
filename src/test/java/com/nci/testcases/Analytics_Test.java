@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.message.BasicNameValuePair;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
@@ -208,21 +209,25 @@ public class Analytics_Test extends BaseClass {
 	/// Temporary method to test beacon object
 	@Test(groups = { "Smoke" })
 	public void testObject() throws MalformedURLException {
-		List<String> localHar = harList;
-		
-		String firstHar = localHar.get(0);
-		Beacon myBeacon = new Beacon(firstHar);
-		
-		Assert.assertTrue(myBeacon != null);
+		List<String> localHars = harList;
+		List<Beacon> myBeacons = new ArrayList<>();
 
-		// Check channel value
-		Assert.assertTrue(myBeacon.channel.equals("NCI Homepage"));
+		for(String har : harList)
+		{
+			myBeacons.add(new Beacon(har));
+		}
 
-		// Like any request could contain your mom...
-		Assert.assertFalse(myBeacon.channel.contains("ur mom"));		
+		// Check that we have more than one beacon
+		Assert.assertTrue(myBeacons.size() > 1);
+				
+		// For debugging purposes only...
+		String firstHar = localHars.get(0);
+		Beacon firstBeacon = new Beacon(firstHar);		
 
-		// Check events
-		Assert.assertTrue(myBeacon.events[0].contains("1"));
+		// for each beacon ... logic goes here
+		Assert.assertTrue(firstBeacon.channel.equals("NCI Homepage"));
+		Assert.assertFalse(firstBeacon.channel.contains("some other string"));
+		Assert.assertTrue(firstBeacon.events[0].contains("1"));
 
 	}
 		
