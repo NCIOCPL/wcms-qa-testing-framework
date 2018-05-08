@@ -210,7 +210,7 @@ public class Analytics_Test extends BaseClass {
 	public void testObject() throws MalformedURLException {
 		List<String> localHar = harList;
 		
-		String firstHar = localHar.get(0);
+		String firstHar = localHar.get(3);
 		Beacon myBeacon = new Beacon(firstHar);
 		
 		Assert.assertTrue(myBeacon != null);

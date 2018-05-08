@@ -18,6 +18,7 @@ public class Beacon {
 	public String[] events;
 	public List<NameValuePair> props; 
 	public List<NameValuePair> eVars; 
+	public List<NameValuePair> hiers; 
 	
 	/**
 	 * No-arg constructor
@@ -29,6 +30,7 @@ public class Beacon {
 		events = new String[0];
 		props = new ArrayList<>();
 		eVars = new ArrayList<>();
+		hiers = new ArrayList<>();
 	}
 	
 	/**
@@ -43,6 +45,7 @@ public class Beacon {
 		events = getEvents(params);
 		props = getProps(params);
 		eVars = getEvars(params);
+		hiers = getHiers(params);		
 	}
 	
 	/**
@@ -122,5 +125,22 @@ public class Beacon {
 		}
 		return rtnEvars;
 	}
+	
+	/**
+	 * Get array of hierarchy values ("hiers" or "h" values in beacon)
+	 * @param parms
+	 * @return
+	 */
+	public List<NameValuePair> getHiers(List<NameValuePair> parms) {
+		List<NameValuePair> rtnHiers = new ArrayList<>();		
+		for (NameValuePair param : parms) {
+			if(param.getName().matches("^[Hh][0-9]$")) {
+				String hierName = param.getName().replaceAll("[Hh]", "hier");
+				String hierValue = param.getValue();
+				rtnHiers.add(new BasicNameValuePair(hierName, hierValue));
+			}
+		}
+		return rtnHiers;
+	}	
 	
 }
