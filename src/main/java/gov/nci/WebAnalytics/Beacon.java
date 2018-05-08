@@ -41,9 +41,8 @@ public class Beacon {
 		params = BuildParamsList(uri);		
 		channel = getChannel(params);
 		events = getEvents(params);
-		props = new ArrayList<>();
+		props = getProps(params);
 		eVars = getEvars(params);
-		String foo = "";
 	}
 	
 	/**
@@ -95,17 +94,17 @@ public class Beacon {
 	 * @param parms
 	 * @return
 	 */
-	public List<String> getProps(List<NameValuePair> parms) {
-		String evts = "";
+	public List<NameValuePair> getProps(List<NameValuePair> parms) {
+		List<NameValuePair> rtnProps = new ArrayList<>();		
 		for (NameValuePair param : parms) {
-			if (param.getName().toLowerCase().equals("events")) {
-				evts = param.getValue();
-				break;
+			if(param.getName().matches("^[Cc][0-9]$")) {
+				String propName = param.getName().replaceAll("[Cc]", "prop");
+				String propValue = param.getValue();
+				rtnProps.add(new BasicNameValuePair(propName, propValue));
 			}
 		}
-		String[] ret = evts.split(",");
-		return null;
-	}	
+		return rtnProps;
+	}
 	
 	/**
 	 * Get array of eVars ('v' values in beacon)
