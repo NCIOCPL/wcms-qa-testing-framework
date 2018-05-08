@@ -13,6 +13,7 @@ import org.apache.http.NameValuePair;
 public class Beacon {
 
 	public URI uri;
+	public String[] suites;	
 	public List<NameValuePair> params;
 	public String channel;
 	public String[] events;
@@ -25,6 +26,7 @@ public class Beacon {
 	 */
 	public Beacon() {
 		uri = null;
+		suites = new String[0];		
 		params = new ArrayList<>();
 		channel = "";
 		events = new String[0];
@@ -40,7 +42,8 @@ public class Beacon {
 	 */
 	public Beacon(String beaconUrl) throws MalformedURLException {
 		uri = URI.create(beaconUrl);
-		params = BuildParamsList(uri);		
+		suites = getSuites(uri);
+		params = buildParamsList(uri);
 		channel = getChannel(params);
 		events = getEvents(params);
 		props = getProps(params);
@@ -49,12 +52,24 @@ public class Beacon {
 	}
 	
 	/**
+	 * Get the reporting suites (s_account) value
+	 * as an array of strings
+	 * @param uri
+	 * @return
+	 */
+	protected String[] getSuites(URI uri) {
+		String[] path = uri.getPath().split("/");
+		String[] rtnSuites = path[3].split(",");
+		return rtnSuites;
+	}
+	
+	/**
 	 * Split URI into list of encoded elements
 	 * @param uri
 	 * @return retParams
 	 * TODO: replace deprecated parse() method
 	 */
-	protected List<NameValuePair> BuildParamsList(URI uri) {
+	protected List<NameValuePair> buildParamsList(URI uri) {
 		List<NameValuePair> rtnParams = new ArrayList<>();
 		rtnParams = URLEncodedUtils.parse(uri, "UTF-8");
 		return rtnParams;
