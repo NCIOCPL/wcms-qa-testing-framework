@@ -20,6 +20,9 @@ public class Beacon {
 	public List<NameValuePair> props; 
 	public List<NameValuePair> eVars; 
 	public List<NameValuePair> hiers; 
+	public String linkType;
+	public String linkName;
+	public String linkUrl;	
 	
 	/**
 	 * No-arg constructor
@@ -33,6 +36,9 @@ public class Beacon {
 		props = new ArrayList<>();
 		eVars = new ArrayList<>();
 		hiers = new ArrayList<>();
+		linkType = "";
+		linkName = "";
+		linkUrl = "";
 	}
 	
 	/**
@@ -48,7 +54,10 @@ public class Beacon {
 		events = getEvents(params);
 		props = getProps(params);
 		eVars = getEvars(params);
-		hiers = getHiers(params);		
+		hiers = getHiers(params);
+		linkType = getLinkType(params);
+		linkName = getLinkName(params);
+		linkUrl = getLinkUrl(params);
 	}
 	
 	/**
@@ -87,7 +96,7 @@ public class Beacon {
 				rtnChannel = param.getValue();
 				break;
 			}
-		}		
+		}
 		return rtnChannel;
 	}
 	
@@ -159,6 +168,54 @@ public class Beacon {
 			}
 		}
 		return rtnHiers;
+	}
+	
+	/**
+	 * Get "Link Type" value (pe)(
+	 * @param parms
+	 * @return
+	 */
+	public String getLinkType(List<NameValuePair> parms) {
+		String rtn = "";		
+		for (NameValuePair param : parms) {
+			if (param.getName().toLowerCase().equals("pe")) {
+				rtn = param.getValue();
+				break;
+			}
+		}
+		return rtn;
+	}	
+
+	/**
+	 * Get "Link Name" value (pev2)(
+	 * @param parms
+	 * @return
+	 */	
+	public String getLinkName(List<NameValuePair> parms) {
+		String rtn = "";		
+		for (NameValuePair param : parms) {
+			if (param.getName().toLowerCase().equals("pev2")) {
+				rtn = param.getValue();
+				break;
+			}
+		}
+		return rtn;
+	}	
+
+	/**
+	 * Get "Link URL" value (pev1)(
+	 * @param parms
+	 * @return
+	 */		
+	public String getLinkUrl(List<NameValuePair> parms) {
+		String rtn = "";		
+		for (NameValuePair param : parms) {
+			if (param.getName().toLowerCase().equals("pev1")) {
+				rtn = param.getValue();
+				break;
+			}
+		}
+		return rtn;
 	}	
 	
 }
