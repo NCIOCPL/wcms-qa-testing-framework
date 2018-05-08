@@ -230,8 +230,13 @@ public class Analytics_Test extends BaseClass {
 		Assert.assertTrue(firstBeacon.events[0].contains("1"));
 
 	}
-		
-	
+	/// TODO: Extend or create new BaseClass so that we're not piggybacking on { "Smoke" }
+	/// TODO: Combine Beacon / AnalyticsBase
+	/// TODO: Add LinkXxx properties in AnalyticsClickEvents only
+	/// TODO: Build negative tests - also 
+	/// TODO: Build test for test	
+	/// TODO: Clean clean clean		
+
 	/*** END REGION TESTS ***/
 	
 }
