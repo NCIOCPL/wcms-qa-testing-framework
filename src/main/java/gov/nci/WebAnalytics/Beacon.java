@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.net.URI;
 
-import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.NameValuePair;
+
 
 public class Beacon {
 
@@ -15,7 +17,7 @@ public class Beacon {
 	public String channel;
 	public String[] events;
 	public List<NameValuePair> props; 
-	public List<String> evars; 
+	public List<NameValuePair> eVars; 
 	
 	/**
 	 * No-arg constructor
@@ -26,7 +28,7 @@ public class Beacon {
 		channel = "";
 		events = new String[0];
 		props = new ArrayList<>();
-		evars = new ArrayList<>();
+		eVars = new ArrayList<>();
 	}
 	
 	/**
@@ -40,7 +42,7 @@ public class Beacon {
 		channel = getChannel(params);
 		events = getEvents(params);
 		props = new ArrayList<>();
-		evars = getEvars(params);
+		eVars = getEvars(params);
 		String foo = "";
 	}
 	
@@ -62,7 +64,7 @@ public class Beacon {
 	 * @return
 	 */
 	public String getChannel(List<NameValuePair> parms) {
-		String rtnChannel = "";
+		String rtnChannel = "";		
 		for (NameValuePair param : parms) {
 			if (param.getName().toLowerCase().equals("ch")) {
 				rtnChannel = param.getValue();
@@ -78,7 +80,7 @@ public class Beacon {
 	 * @return
 	 */
 	public String[] getEvents(List<NameValuePair> parms) {
-		String rtnEvents = "";
+		String rtnEvents = "";		
 		for (NameValuePair param : parms) {
 			if (param.getName().toLowerCase().equals("events")) {
 				rtnEvents = param.getValue();
@@ -110,15 +112,16 @@ public class Beacon {
 	 * @param parms
 	 * @return
 	 */
-	public List<String> getEvars(List<NameValuePair> parms) {
-		List<String> rtnEvars = new ArrayList<>();
+	public List<NameValuePair> getEvars(List<NameValuePair> parms) {
+		List<NameValuePair> rtnEvars = new ArrayList<>();		
 		for (NameValuePair param : parms) {
 			if(param.getName().matches("^[Vv][0-9]$")) {
-				rtnEvars.add(param.getName() + param.getValue());
+				String eVarName = param.getName().replaceAll("[Vv]", "eVar");
+				String eVarValue = param.getValue();
+				rtnEvars.add(new BasicNameValuePair(eVarName, eVarValue));
 			}
 		}
 		return rtnEvars;
 	}
-
 	
 }
