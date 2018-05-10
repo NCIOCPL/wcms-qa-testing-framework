@@ -20,7 +20,7 @@ import com.nci.Utilities.BrowserManager;
 import com.relevantcodes.extentreports.LogStatus;
 import gov.nci.WebAnalytics.AnalyticsClickEvents;
 import gov.nci.WebAnalytics.AnalyticsLoadEvents;
-import gov.nci.WebAnalytics.Beacon;
+import gov.nci.WebAnalytics.AnalyticsBase;
 
 public class Analytics_Test extends AnalyticsTestBase {
 
@@ -28,7 +28,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 	AnalyticsClickEvents clickEvents;
     BrowserMobProxy proxy = new BrowserMobProxyServer();	
 	List<String> harList = new ArrayList<String>();
-	List<Beacon> beacons = new ArrayList<Beacon>();
+	List<AnalyticsBase> beacons = new ArrayList<AnalyticsBase>();
 	
 	@BeforeClass(groups = { "Analytics" })
 	@Parameters({ "browser" })
@@ -52,7 +52,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 		
 		// Add entries to the HAR log
 		populateHar();
-		Beacon.setHar(proxy, harList);
+		AnalyticsBase.setHar(proxy, harList);
 		//setHar();
 		
 		
@@ -160,7 +160,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 		System.out.println("Total requests to tracking server : " + harList.size());
 		
 		//TODO: build out requestBeacon(?) object and compare that way...
-		for(Beacon beacon : beacons) {
+		for(AnalyticsBase beacon : beacons) {
 			// do something
 		}		
 		
@@ -208,11 +208,11 @@ public class Analytics_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testObject() throws MalformedURLException {
 		List<String> localHars = harList;
-		List<Beacon> myBeacons = new ArrayList<>();
+		List<AnalyticsBase> myBeacons = new ArrayList<>();
 
 		for(String har : harList)
 		{
-			myBeacons.add(new Beacon(har));
+			myBeacons.add(new AnalyticsBase(har));
 		}
 
 		// Check that we have more than one beacon
@@ -220,7 +220,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 				
 		// For debugging purposes only...
 		String firstHar = localHars.get(0);
-		Beacon firstBeacon = new Beacon(firstHar);		
+		AnalyticsBase firstBeacon = new AnalyticsBase(firstHar);		
 
 		// for each beacon ... logic goes here
 		Assert.assertTrue(firstBeacon.channel.equals("NCI Homepage"));

@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-public class AnalyticsClickEvents extends Beacon {	
+public class AnalyticsClickEvents extends AnalyticsBase {	
 
 	/*************** Basic Search Page WebElements **********************/
 	@FindBy(how = How.CSS, using = "#mega-nav a")
