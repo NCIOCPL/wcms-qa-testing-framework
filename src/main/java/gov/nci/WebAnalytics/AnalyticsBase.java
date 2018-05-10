@@ -35,10 +35,6 @@ public class AnalyticsBase {
 	public List<NameValuePair> props; 
 	public List<NameValuePair> eVars; 
 	public List<NameValuePair> hiers;
-	public boolean isLink;
-	public String linkType;
-	public String linkName;
-	public String linkUrl;	
 	
 	/**
 	 * No-arg constructor - init all vars
@@ -52,10 +48,6 @@ public class AnalyticsBase {
 		props = new ArrayList<>();
 		eVars = new ArrayList<>();
 		hiers = new ArrayList<>();
-		linkType = "";
-		linkName = "";
-		linkUrl = "";
-		isLink = false;
 	}
 	
 	/**
@@ -72,10 +64,6 @@ public class AnalyticsBase {
 		props = getProps(params);
 		eVars = getEvars(params);
 		hiers = getHiers(params);
-		linkType = getLinkType(params);
-		linkName = getLinkName(params);
-		linkUrl = getLinkUrl(params);
-		isLink = hasParam(params, "pe");
 	}
 	
 	/**
@@ -187,54 +175,6 @@ public class AnalyticsBase {
 		}
 		return rtnHiers;
 	}
-	
-	/**
-	 * Get "Link Type" value (pe)(
-	 * @param parms
-	 * @return
-	 */
-	public String getLinkType(List<NameValuePair> parms) {
-		String rtn = "";		
-		for (NameValuePair param : parms) {
-			if (param.getName().toLowerCase().equals("pe")) {
-				rtn = param.getValue();
-				break;
-			}
-		}
-		return rtn;
-	}	
-
-	/**
-	 * Get "Link Name" value (pev2)(
-	 * @param parms
-	 * @return
-	 */	
-	public String getLinkName(List<NameValuePair> parms) {
-		String rtn = "";		
-		for (NameValuePair param : parms) {
-			if (param.getName().toLowerCase().equals("pev2")) {
-				rtn = param.getValue();
-				break;
-			}
-		}
-		return rtn;
-	}	
-
-	/**
-	 * Get "Link URL" value (pev1)(
-	 * @param parms
-	 * @return
-	 */		
-	public String getLinkUrl(List<NameValuePair> parms) {
-		String rtn = "";		
-		for (NameValuePair param : parms) {
-			if (param.getName().toLowerCase().equals("pev1")) {
-				rtn = param.getValue();
-				break;
-			}
-		}
-		return rtn;
-	}
 
 	/**
 	 * Check query params to see if this is a link tracking event
@@ -249,8 +189,7 @@ public class AnalyticsBase {
 		}
 		return false;
 	}
-	
-	
+		
 	/**
 	 * Configure BrowserMob Proxy for Selenium.<br>
 	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
