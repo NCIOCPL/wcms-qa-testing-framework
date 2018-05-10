@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-public class AnalyticsLoadEvents extends AnalyticsBase {	
+public class AnalyticsLoadEvents extends Beacon {	
 
 	/*************** Basic Search Page WebElements **********************/
 	@FindBy(how = How.ID_OR_NAME, using = "siteSearchForm")

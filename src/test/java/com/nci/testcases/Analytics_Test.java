@@ -18,7 +18,6 @@ import net.lightbody.bmp.proxy.CaptureType;
 
 import com.nci.Utilities.BrowserManager;
 import com.relevantcodes.extentreports.LogStatus;
-import gov.nci.WebAnalytics.AnalyticsBase;
 import gov.nci.WebAnalytics.AnalyticsClickEvents;
 import gov.nci.WebAnalytics.AnalyticsLoadEvents;
 import gov.nci.WebAnalytics.Beacon;
@@ -53,7 +52,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 		
 		// Add entries to the HAR log
 		populateHar();
-		AnalyticsBase.setHar(proxy, harList);
+		Beacon.setHar(proxy, harList);
 		//setHar();
 		
 		
@@ -229,7 +228,15 @@ public class Analytics_Test extends AnalyticsTestBase {
 		Assert.assertTrue(firstBeacon.events[0].contains("1"));
 
 	}
-	/// TODO: Combine Beacon / AnalyticsBase
+	
+	/// Temporary method to verify that my new changes are picked up
+	@Test(groups = { "Analytics" })
+	public void trueFlag() {
+		int j = 1;
+		Assert.assertTrue(j + 1 == 2);
+	}	
+	
+
 	/// TODO: Add LinkXxx properties in AnalyticsClickEvents only
 	/// TODO: Build negative tests - also 
 	/// TODO: Build test for test	
