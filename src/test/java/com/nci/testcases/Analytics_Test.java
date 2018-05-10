@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nci.Utilities.BrowserManager;
-import gov.nci.WebAnalytics.AnalyticsClickEvents;
-import gov.nci.WebAnalytics.AnalyticsLoadEvents;
+import gov.nci.WebAnalytics.AnalyticsClick;
+import gov.nci.WebAnalytics.AnalyticsLoad;
 import gov.nci.WebAnalytics.AnalyticsBase;
 
 import com.relevantcodes.extentreports.LogStatus;
@@ -20,12 +20,12 @@ import org.testng.annotations.Test;
 
 public class Analytics_Test extends AnalyticsTestBase {
 
-	AnalyticsLoadEvents loadEvents;
-	AnalyticsClickEvents clickEvents;
+	AnalyticsLoad loadEvents;
+	AnalyticsClick clickEvents;
 	List<String> harList = new ArrayList<String>();
 	List<AnalyticsBase> beacons = new ArrayList<AnalyticsBase>();	
-	List<AnalyticsClickEvents> clickBeacons = new ArrayList<AnalyticsClickEvents>();
-	List<AnalyticsLoadEvents> loadBeacons = new ArrayList<AnalyticsLoadEvents>();
+	List<AnalyticsClick> clickBeacons = new ArrayList<AnalyticsClick>();
+	List<AnalyticsLoad> loadBeacons = new ArrayList<AnalyticsLoad>();
 	
 		//region setup
 	@BeforeClass(groups = { "Analytics" })
@@ -44,8 +44,8 @@ public class Analytics_Test extends AnalyticsTestBase {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);		
 
 		// Create our load and click analytics objects
-		loadEvents = new AnalyticsLoadEvents(driver);
-		clickEvents = new AnalyticsClickEvents(driver);
+		loadEvents = new AnalyticsLoad(driver);
+		clickEvents = new AnalyticsClick(driver);
 		
 		// Add entries to the HAR log
 		doBrowserActions();
@@ -134,7 +134,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" }, priority = 1)
 	public void veriFySAccount() {
 		String sAccountBlob = loadEvents.getSitewideSearchWAFunction();
-		Assert.assertTrue(sAccountBlob.contains(AnalyticsLoadEvents.NCI_FUNCTIONS_NAME));
+		Assert.assertTrue(sAccountBlob.contains(AnalyticsLoad.NCI_FUNCTIONS_NAME));
 		logger.log(LogStatus.PASS, "NCIAnalytics attribute is present on search form.");
 	}	
 	

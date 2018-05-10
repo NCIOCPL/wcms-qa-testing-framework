@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-public class AnalyticsClickEvents extends AnalyticsBase {	
+public class AnalyticsClick extends AnalyticsBase {	
 
 	/*************** Basic Search Page WebElements **********************/
 	@FindBy(how = How.CSS, using = "#mega-nav a")
@@ -15,10 +15,10 @@ public class AnalyticsClickEvents extends AnalyticsBase {
 	@FindBy(how = How.CSS, using = ".feature-card")
 	WebElement feature_card;
 
-	public AnalyticsClickEvents() {}
+	public AnalyticsClick() {}
 	
 	// Constructor - Initializing the Page objects
-	public AnalyticsClickEvents(WebDriver driver) {
+	public AnalyticsClick(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		System.out.println("PageFactory initiated");
