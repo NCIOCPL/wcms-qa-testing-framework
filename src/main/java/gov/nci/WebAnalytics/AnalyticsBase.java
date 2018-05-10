@@ -75,7 +75,7 @@ public class AnalyticsBase {
 		linkType = getLinkType(params);
 		linkName = getLinkName(params);
 		linkUrl = getLinkUrl(params);
-		isLink = checkIfLink(params);
+		isLink = hasParam(params, "pe");
 	}
 	
 	/**
@@ -96,7 +96,7 @@ public class AnalyticsBase {
 	 * @return retParams
 	 * TODO: replace deprecated parse() method
 	 */
-	protected List<NameValuePair> buildParamsList(URI uri) {
+	public List<NameValuePair> buildParamsList(URI uri) {
 		List<NameValuePair> rtnParams = new ArrayList<>();
 		rtnParams = URLEncodedUtils.parse(uri, "UTF-8");
 		return rtnParams;
@@ -241,9 +241,9 @@ public class AnalyticsBase {
 	 * @param parms
 	 * @return
 	 */
-	public boolean checkIfLink(List<NameValuePair> parms) {
-		for (NameValuePair param : parms) {
-			if (param.getName().toLowerCase().equals("pe")) {
+	public boolean hasParam(List<NameValuePair> paramList, String myParam) {
+		for (NameValuePair param : paramList) {
+			if (param.getName().toLowerCase().equals(myParam)) {
 				return true;
 			}
 		}

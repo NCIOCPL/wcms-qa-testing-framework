@@ -1,6 +1,7 @@
 package com.nci.testcases;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,8 @@ import gov.nci.WebAnalytics.AnalyticsBase;
 
 import com.relevantcodes.extentreports.LogStatus;
 import net.lightbody.bmp.proxy.CaptureType;
+
+import org.apache.http.NameValuePair;
 import org.openqa.selenium.Dimension;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -203,26 +206,35 @@ public class Analytics_Test extends AnalyticsTestBase {
 	/// Temporary method to test beacon object
 	@Test(groups = { "Analytics" })
 	public void testObject() throws MalformedURLException {
+		AnalyticsBase analytics = new AnalyticsBase();
 		List<String> localHars = harList;
-		List<AnalyticsLoad> loadBeacons = new ArrayList<>();
-		List<AnalyticsClick> clickBeacons = new ArrayList<>();
 
+		// har == url for our purposes
+		// TODO: rename
 		for(String har : harList)
 		{
-			loadBeacons.add(new AnalyticsLoad(har));
+			List<NameValuePair> params = analytics.buildParamsList(URI.create(har));
+			if(!analytics.hasParam(params, "pe")) {
+				loadBeacons.add(new AnalyticsLoad(har));
+			}
+			else {
+				clickBeacons.add(new AnalyticsClick(har));
+			}
+
 		}
 
+		System.out.println("our stuff should be built now");
 		// Check that we have more than one beacon
 		Assert.assertTrue(loadBeacons.size() > 1);
 				
 		// For debugging purposes only...
 		String firstHar = localHars.get(0);
-		AnalyticsLoad firstBeacon = new AnalyticsLoad(firstHar);		
+		AnalyticsLoad firstLoadBeacon = new AnalyticsLoad(firstHar);		
 
 		// for each beacon ... logic goes here
-		Assert.assertTrue(firstBeacon.channel.equals("NCI Homepage"));
-		Assert.assertFalse(firstBeacon.channel.contains("some other string"));
-		Assert.assertTrue(firstBeacon.events[0].contains("1"));
+		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage"));
+		Assert.assertFalse(firstLoadBeacon.channel.contains("some other string"));
+		Assert.assertTrue(firstLoadBeacon.events[0].contains("1"));
 
 	}
 	
