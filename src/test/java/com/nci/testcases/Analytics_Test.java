@@ -26,10 +26,10 @@ public class Analytics_Test extends AnalyticsTestBase {
 	AnalyticsClickEvents clickEvents;
 	List<String> harList = new ArrayList<String>();
 	List<AnalyticsBase> beacons = new ArrayList<AnalyticsBase>();
-	
+		
+	//region setup
 	@BeforeClass(groups = { "Analytics" })
 	@Parameters({ "browser" })
-	// TODO: tear down selenium proxy when done	
 	public void setup(String browser) throws MalformedURLException {
 		
 		logger = report.startTest(this.getClass().getSimpleName());
@@ -57,6 +57,26 @@ public class Analytics_Test extends AnalyticsTestBase {
 	}	
 	
 	/**
+	 * Start and configure BrowserMob Proxy for Selenium.<br/>
+	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
+	 * @throws RuntimeException
+	 */
+	private void initializeProxy(String url) throws RuntimeException {
+
+		// Start the proxy
+		System.out.println("=== Starting BrowserMobProxy ===");		
+	    proxy.start();
+
+	    // Enable more detailed HAR capture, if desired (see CaptureType for the complete list)
+	    proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
+
+	    // Create a new HAR with a label matching the hostname
+	    proxy.newHar(url);	   
+	}		
+	//endregion setup
+	
+	//region browseractions
+	/**
 	 * All the proxy browser 'actions' go in here. These are not tests, but things that we do 
 	 * to fire off analytics events. These actions will populate our list of har objects, which will
 	 * then be tested.
@@ -73,25 +93,6 @@ public class Analytics_Test extends AnalyticsTestBase {
 		//navigateError();
 		//navigateRATs();		
 	}
-	
-	/**
-	 * Start and configure BrowserMob Proxy for Selenium.<br/>
-	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
-	 * @throws RuntimeException
-	 */
-	private void initializeProxy(String url) throws RuntimeException {
-	    // Start the proxy
-	    proxy.start();
-
-	    // Enable more detailed HAR capture, if desired (see CaptureType for the complete list)
-	    proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
-
-	    // Create a new HAR with a label matching the hostname
-	    proxy.newHar(url);	   
-	}	
-
-
-	/*** REGION ACTIONS TO POPULATE HAR ***/
 	
 	/// Click around pages
 	public void navigateSite() {
@@ -119,19 +120,18 @@ public class Analytics_Test extends AnalyticsTestBase {
 		driver.manage().window().setSize(small);
 		driver.manage().window().maximize();
 	}
-
-	/*** END REGION ACTIONS TO POPULATE HAR ***/
-
+	//endregion browseractions
 	
-	/*** REGION TESTS ***/
-
 	// TODO: Set expected load values for different pages
 	// TODO: Work out what we need to fire off on click/resize/other events
 	// 		- Do we need to create a new HAR with each call? 
 	//		- How do we differentiate between load and click calls?	
-	// TODO: add "analytics" group
-	// TODO: what are we writing to with "logger"? 
-	
+	// TODO: get the logger to actually work
+	// TODO: Add LinkXxx properties in AnalyticsClickEvents only
+	// TODO: Build negative tests - also 
+	// TODO: Build test for test	
+	// TODO: Clean clean clean		
+	//region tests
 	/// "NCIAnalytics" elements are present in HTML
 	@Test(groups = { "Analytics" }, priority = 1)
 	public void veriFySAccount() {
@@ -231,14 +231,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 	public void trueFlag() {
 		int j = 1;
 		Assert.assertTrue(j + 1 == 2);
-	}	
-	
-
-	/// TODO: Add LinkXxx properties in AnalyticsClickEvents only
-	/// TODO: Build negative tests - also 
-	/// TODO: Build test for test	
-	/// TODO: Clean clean clean		
-
-	/*** END REGION TESTS ***/
+	}
+	//endregion tests
 	
 }

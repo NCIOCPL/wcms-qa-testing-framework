@@ -21,7 +21,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 
-public class AnalyticsTestBase {
+public class AnalyticsTestBase extends BaseClass {
 
 	// private static Logger log=
 	// LogManager.getLogger(BaseClass.class.getName());
@@ -68,9 +68,11 @@ public class AnalyticsTestBase {
 
 	@AfterClass(groups = { "Analytics" })
 	public void afterClass() {
-		System.out.println("***********Quiting Driver*********");
+		System.out.println("=== Quitting Driver ===");
 		driver.quit();
 		report.endTest(logger);
+		System.out.println("=== Stopping BrowserMobProxy ===");
+		proxy.stop();
 	}
 
 	@AfterTest(groups = { "Analytics" })
