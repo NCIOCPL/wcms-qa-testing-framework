@@ -13,6 +13,8 @@ public class AnalyticsLoadEvents extends AnalyticsBase {
 	@FindBy(how = How.ID_OR_NAME, using = "siteSearchForm")
 	WebElement siteWideSearch;
 	
+	public AnalyticsLoadEvents() {}
+	
 	// Constructor - Initializing the Page objects
 	public AnalyticsLoadEvents(WebDriver driver) {
 		this.driver = driver;

@@ -34,7 +34,8 @@ public class AnalyticsBase {
 	public String[] events;
 	public List<NameValuePair> props; 
 	public List<NameValuePair> eVars; 
-	public List<NameValuePair> hiers; 
+	public List<NameValuePair> hiers;
+	public boolean isLink;
 	public String linkType;
 	public String linkName;
 	public String linkUrl;	
@@ -54,6 +55,7 @@ public class AnalyticsBase {
 		linkType = "";
 		linkName = "";
 		linkUrl = "";
+		isLink = false;
 	}
 	
 	/**
@@ -73,6 +75,7 @@ public class AnalyticsBase {
 		linkType = getLinkType(params);
 		linkName = getLinkName(params);
 		linkUrl = getLinkUrl(params);
+		isLink = checkIfLink(params);
 	}
 	
 	/**
@@ -231,6 +234,20 @@ public class AnalyticsBase {
 			}
 		}
 		return rtn;
+	}
+
+	/**
+	 * Check query params to see if this is a link tracking event
+	 * @param parms
+	 * @return
+	 */
+	public boolean checkIfLink(List<NameValuePair> parms) {
+		for (NameValuePair param : parms) {
+			if (param.getName().toLowerCase().equals("pe")) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	

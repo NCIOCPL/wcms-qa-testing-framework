@@ -15,6 +15,7 @@ public class AnalyticsClickEvents extends AnalyticsBase {
 	@FindBy(how = How.CSS, using = ".feature-card")
 	WebElement feature_card;
 
+	public AnalyticsClickEvents() {}
 	
 	// Constructor - Initializing the Page objects
 	public AnalyticsClickEvents(WebDriver driver) {

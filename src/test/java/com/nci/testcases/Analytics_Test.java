@@ -23,9 +23,11 @@ public class Analytics_Test extends AnalyticsTestBase {
 	AnalyticsLoadEvents loadEvents;
 	AnalyticsClickEvents clickEvents;
 	List<String> harList = new ArrayList<String>();
-	List<AnalyticsBase> beacons = new ArrayList<AnalyticsBase>();
-		
-	//region setup
+	List<AnalyticsBase> beacons = new ArrayList<AnalyticsBase>();	
+	List<AnalyticsClickEvents> clickBeacons = new ArrayList<AnalyticsClickEvents>();
+	List<AnalyticsLoadEvents> loadBeacons = new ArrayList<AnalyticsLoadEvents>();
+	
+		//region setup
 	@BeforeClass(groups = { "Analytics" })
 	@Parameters({ "browser" })
 	public void setup(String browser) throws MalformedURLException {
