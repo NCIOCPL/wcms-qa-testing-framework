@@ -23,7 +23,7 @@ import gov.nci.WebAnalytics.AnalyticsClickEvents;
 import gov.nci.WebAnalytics.AnalyticsLoadEvents;
 import gov.nci.WebAnalytics.Beacon;
 
-public class Analytics_Test extends BaseClass {
+public class Analytics_Test extends AnalyticsTestBase {
 
 	AnalyticsLoadEvents loadEvents;
 	AnalyticsClickEvents clickEvents;
@@ -31,7 +31,7 @@ public class Analytics_Test extends BaseClass {
 	List<String> harList = new ArrayList<String>();
 	List<Beacon> beacons = new ArrayList<Beacon>();
 	
-	@BeforeClass(groups = { "Smoke" })
+	@BeforeClass(groups = { "Analytics" })
 	@Parameters({ "browser" })
 	// TODO: tear down selenium proxy when done	
 	public void setup(String browser) throws MalformedURLException {
@@ -135,10 +135,9 @@ public class Analytics_Test extends BaseClass {
 	//		- How do we differentiate between load and click calls?	
 	// TODO: add "analytics" group
 	// TODO: what are we writing to with "logger"? 
-	// TODO: make a new group (not 'Smoke')
 	
 	/// "NCIAnalytics" elements are present in HTML
-	@Test(groups = { "Smoke" }, priority = 1)
+	@Test(groups = { "Analytics" }, priority = 1)
 	public void veriFySAccount() {
 		String sAccountBlob = loadEvents.getSitewideSearchWAFunction();
 		Assert.assertTrue(sAccountBlob.contains(AnalyticsLoadEvents.NCI_FUNCTIONS_NAME));
@@ -146,7 +145,7 @@ public class Analytics_Test extends BaseClass {
 	}	
 	
 	/// The HAR list is populated 
-	@Test(groups = { "Smoke" })
+	@Test(groups = { "Analytics" })
 	public void verifyHarLoad() {
 		// Update the har object
 		Assert.assertTrue(harList.size() > 0);
@@ -154,7 +153,7 @@ public class Analytics_Test extends BaseClass {
 	}	
 	
 	/// Click event numbers match with their descriptors
-	@Test(groups = { "Smoke" })
+	@Test(groups = { "Analytics" })
 	public void testClickEvents() {
 
 		// Debug
@@ -185,7 +184,7 @@ public class Analytics_Test extends BaseClass {
 	}	
 	
 	/// Resize events match with their descriptors
-	@Test(groups = { "Smoke" })
+	@Test(groups = { "Analytics" })
 	public void testResizeEvents() {
 		List<String> localHar = harList;
 		
@@ -207,7 +206,7 @@ public class Analytics_Test extends BaseClass {
 	}
 	
 	/// Temporary method to test beacon object
-	@Test(groups = { "Smoke" })
+	@Test(groups = { "Analytics" })
 	public void testObject() throws MalformedURLException {
 		List<String> localHars = harList;
 		List<Beacon> myBeacons = new ArrayList<>();
@@ -230,7 +229,6 @@ public class Analytics_Test extends BaseClass {
 		Assert.assertTrue(firstBeacon.events[0].contains("1"));
 
 	}
-	/// TODO: Extend or create new BaseClass so that we're not piggybacking on { "Smoke" }
 	/// TODO: Combine Beacon / AnalyticsBase
 	/// TODO: Add LinkXxx properties in AnalyticsClickEvents only
 	/// TODO: Build negative tests - also 
