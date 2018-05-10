@@ -40,7 +40,7 @@ public class AnalyticsBase {
 	public String linkUrl;	
 	
 	/**
-	 * No-arg constructor
+	 * No-arg constructor - init all vars
 	 */
 	public AnalyticsBase() {
 		uri = null;
@@ -243,7 +243,7 @@ public class AnalyticsBase {
 	// TODO: clean this up - also should this have a return value? 
 	// TODO: set up filters 
 	// TODO: remove duplicates
-	public static void setHar(BrowserMobProxy proxy, List<String> harList) throws RuntimeException {		
+	public static void setHar(BrowserMobProxy proxy, List<String> harList) throws RuntimeException, IllegalArgumentException {		
 
 		// A HAR (HTTP Archive) is a file format that can be used by HTTP monitoring tools to export collected data. 
 		// BrowserMob Proxy allows us to manipulate HTTP requests and responses, capture HTTP content, 

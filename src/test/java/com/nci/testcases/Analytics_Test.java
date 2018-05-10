@@ -5,20 +5,18 @@ import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.message.BasicNameValuePair;
+import com.nci.Utilities.BrowserManager;
+import gov.nci.WebAnalytics.AnalyticsClickEvents;
+import gov.nci.WebAnalytics.AnalyticsLoadEvents;
+import gov.nci.WebAnalytics.AnalyticsBase;
+
+import com.relevantcodes.extentreports.LogStatus;
+import net.lightbody.bmp.proxy.CaptureType;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import net.lightbody.bmp.proxy.CaptureType;
-
-import com.nci.Utilities.BrowserManager;
-import com.relevantcodes.extentreports.LogStatus;
-import gov.nci.WebAnalytics.AnalyticsClickEvents;
-import gov.nci.WebAnalytics.AnalyticsLoadEvents;
-import gov.nci.WebAnalytics.AnalyticsBase;
 
 public class Analytics_Test extends AnalyticsTestBase {
 
@@ -49,10 +47,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 		
 		// Add entries to the HAR log
 		doBrowserActions();
-		AnalyticsBase.setHar(proxy, harList);
-		//setHar();
-		
-		
+		AnalyticsBase.setHar(proxy, harList);		
 		System.out.println("Analytics setup done");
 	}	
 	
