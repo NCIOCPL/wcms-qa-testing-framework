@@ -18,6 +18,9 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
+import net.lightbody.bmp.BrowserMobProxy;
+import net.lightbody.bmp.BrowserMobProxyServer;
+
 public class AnalyticsTestBase {
 
 	// private static Logger log=
@@ -27,6 +30,7 @@ public class AnalyticsTestBase {
 	public static WebDriver driver;
 	public String pageURL;
 	ConfigReader config = new ConfigReader();
+    BrowserMobProxy proxy = new BrowserMobProxyServer();	
 
 	@BeforeTest(groups = { "Analytics" })
 	@Parameters	

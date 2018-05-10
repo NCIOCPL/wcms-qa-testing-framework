@@ -12,8 +12,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import net.lightbody.bmp.BrowserMobProxy;
-import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.proxy.CaptureType;
 
 import com.nci.Utilities.BrowserManager;
@@ -26,7 +24,6 @@ public class Analytics_Test extends AnalyticsTestBase {
 
 	AnalyticsLoadEvents loadEvents;
 	AnalyticsClickEvents clickEvents;
-    BrowserMobProxy proxy = new BrowserMobProxyServer();	
 	List<String> harList = new ArrayList<String>();
 	List<AnalyticsBase> beacons = new ArrayList<AnalyticsBase>();
 	
@@ -51,7 +48,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 		clickEvents = new AnalyticsClickEvents(driver);
 		
 		// Add entries to the HAR log
-		populateHar();
+		doBrowserActions();
 		AnalyticsBase.setHar(proxy, harList);
 		//setHar();
 		
@@ -65,7 +62,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 	 * then be tested.
 	 * @throws RuntimeException
 	 */
-	private void populateHar() throws RuntimeException {
+	private void doBrowserActions() throws RuntimeException {
 		//TODO: refactor this
 		navigateSite();
 		resizeBrowser();
