@@ -66,8 +66,9 @@ public class Analytics_Test extends AnalyticsTestBase {
 	    proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
 
 	    // Create a new HAR with a label matching the hostname
-	    proxy.newHar(url);	   
-	}		
+	    proxy.newHar(url);	    
+		System.out.println("=== Started BrowserMobProxy successfully ===");
+	}
 	//endregion setup
 	
 	//region browseractions
@@ -148,8 +149,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 	public void testClickEvents() {
 
 		// Debug
-		System.out.println("=== Start debug testEvents() ===");		
-		System.out.println("Total requests to tracking server : " + harList.size());
+		System.out.println("=== Start debug testEvents() ===");	
 		
 		//TODO: build out requestBeacon(?) object and compare that way...
 		for(AnalyticsBase beacon : beacons) {
