@@ -23,9 +23,8 @@ public class Analytics_Test extends AnalyticsTestBase {
 	AnalyticsLoad loadEvents;
 	AnalyticsClick clickEvents;
 	List<String> harList = new ArrayList<String>();
-	List<AnalyticsBase> beacons = new ArrayList<AnalyticsBase>();	
-	List<AnalyticsClick> clickBeacons = new ArrayList<AnalyticsClick>();
 	List<AnalyticsLoad> loadBeacons = new ArrayList<AnalyticsLoad>();
+	List<AnalyticsClick> clickBeacons = new ArrayList<AnalyticsClick>();
 	
 		//region setup
 	@BeforeClass(groups = { "Analytics" })
@@ -153,10 +152,13 @@ public class Analytics_Test extends AnalyticsTestBase {
 		// Debug
 		System.out.println("=== Start debug testEvents() ===");	
 		
-		//TODO: build out requestBeacon(?) object and compare that way...
-		for(AnalyticsBase beacon : beacons) {
-			// do something
+		for(AnalyticsLoad loadBeacon : loadBeacons) {
+			// TODO: do something with this
 		}		
+
+		for(AnalyticsClick clickBeacon : clickBeacons) {
+			// TODO: do something
+		}				
 		
 		for(String har : harList) {
 			System.out.println(har);
@@ -202,19 +204,20 @@ public class Analytics_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testObject() throws MalformedURLException {
 		List<String> localHars = harList;
-		List<AnalyticsBase> myBeacons = new ArrayList<>();
+		List<AnalyticsLoad> loadBeacons = new ArrayList<>();
+		List<AnalyticsClick> clickBeacons = new ArrayList<>();
 
 		for(String har : harList)
 		{
-			myBeacons.add(new AnalyticsBase(har));
+			loadBeacons.add(new AnalyticsLoad(har));
 		}
 
 		// Check that we have more than one beacon
-		Assert.assertTrue(myBeacons.size() > 1);
+		Assert.assertTrue(loadBeacons.size() > 1);
 				
 		// For debugging purposes only...
 		String firstHar = localHars.get(0);
-		AnalyticsBase firstBeacon = new AnalyticsBase(firstHar);		
+		AnalyticsLoad firstBeacon = new AnalyticsLoad(firstHar);		
 
 		// for each beacon ... logic goes here
 		Assert.assertTrue(firstBeacon.channel.equals("NCI Homepage"));

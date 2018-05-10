@@ -1,5 +1,8 @@
 package gov.nci.WebAnalytics;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,7 +20,12 @@ public class AnalyticsClick extends AnalyticsBase {
 
 	public AnalyticsClick() {}
 	
-	// Constructor - Initializing the Page objects
+	// Constructor to extend AnalyticsBase
+	public AnalyticsClick(String beaconUrl) throws MalformedURLException {
+		super(beaconUrl);
+	}
+	
+	// Constructor to initialize the Page objects
 	public AnalyticsClick(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);

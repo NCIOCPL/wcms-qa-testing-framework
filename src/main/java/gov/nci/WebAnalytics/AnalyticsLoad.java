@@ -1,5 +1,7 @@
 package gov.nci.WebAnalytics;
 
+import java.net.MalformedURLException;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +16,11 @@ public class AnalyticsLoad extends AnalyticsBase {
 	WebElement siteWideSearch;
 	
 	public AnalyticsLoad() {}
+	
+	// Constructor to extend AnalyticsBase
+	public AnalyticsLoad(String beaconUrl) throws MalformedURLException {
+		super(beaconUrl);
+	}	
 	
 	// Constructor - Initializing the Page objects
 	public AnalyticsLoad(WebDriver driver) {
