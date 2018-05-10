@@ -258,7 +258,13 @@ public class AnalyticsBase {
 	    	if(result.contains(TRACKING_SERVER))
 	    	{
 	    		harList.add(result);
-	    	}	    
+	    	}
+	    	/** TODO: do something with this
+	    	if(result.toLowerCase().contains("//static"))
+	    	{
+	    		harList.add(result);
+	    	}
+	    	*/
 	    }
 	    
 	    // harList cleanup logic here
