@@ -51,7 +51,10 @@ public class Analytics_Test extends AnalyticsTestBase {
 		
 		// Add entries to the HAR log
 		doBrowserActions();
-		AnalyticsBase.setHar(proxy, harList);		
+		harList = AnalyticsBase.getHarUrlList(proxy);
+		loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
+		clickBeacons = AnalyticsClick.getClickBeaons(harList);
+		
 		System.out.println("Analytics setup done");
 	}	
 	
@@ -122,7 +125,6 @@ public class Analytics_Test extends AnalyticsTestBase {
 	}
 	//endregion browseractions
 	
-	// TODO: Set expected load values for different pages
 	// TODO: Work out what we need to fire off on click/resize/other events
 	// 		- Do we need to create a new HAR with each call? 
 	//		- How do we differentiate between load and click calls?	
@@ -206,6 +208,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 	/// Temporary method to test beacon object
 	@Test(groups = { "Analytics" })
 	public void testObject() throws MalformedURLException {
+		/*
 		AnalyticsBase analytics = new AnalyticsBase();
 		List<String> localHars = harList;
 
@@ -224,15 +227,16 @@ public class Analytics_Test extends AnalyticsTestBase {
 		}
 
 		System.out.println("our stuff should be built now");
+		*/
 		// Check that we have more than one beacon
 		Assert.assertTrue(loadBeacons.size() > 1);
 				
 		// For debugging purposes only...
-		String firstHar = localHars.get(0);
-		AnalyticsLoad firstLoadBeacon = new AnalyticsLoad(firstHar);		
+		// String firstHar = localHars.get(0);
+		AnalyticsLoad firstLoadBeacon = loadBeacons.get(0);
 
 		// for each beacon ... logic goes here
-		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage"));
+		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepages"));
 		Assert.assertFalse(firstLoadBeacon.channel.contains("some other string"));
 		Assert.assertTrue(firstLoadBeacon.events[0].contains("1"));
 
@@ -244,6 +248,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 		int j = 1;
 		Assert.assertTrue(j + 1 == 2);
 	}
+	
 	//endregion tests
 	
 }
