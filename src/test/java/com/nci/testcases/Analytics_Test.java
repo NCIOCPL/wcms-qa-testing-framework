@@ -63,10 +63,9 @@ public class Analytics_Test extends AnalyticsTestBase {
 		doBrowserActions();
 		harList = AnalyticsBase.getHarUrlList(proxy);
 		loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
-		clickBeacons = AnalyticsClick.getClickBeaons(harList);
-		
+		clickBeacons = AnalyticsClick.getClickBeaons(harList);		
 		System.out.println("Analytics setup done");
-	}	
+	}
 	
 	/**
 	 * Start and configure BrowserMob Proxy for Selenium.<br/>
@@ -141,27 +140,46 @@ public class Analytics_Test extends AnalyticsTestBase {
 		String sAccountBlob = loadEvents.getSitewideSearchWAFunction();
 		Assert.assertTrue(sAccountBlob.contains(AnalyticsLoad.NCI_FUNCTIONS_NAME));
 		logger.log(LogStatus.PASS, "NCIAnalytics attribute is present on search form.");
-	}	
+	}
 	
-	/// The HAR list is populated 
-	@Test(groups = { "Analytics" })
-	public void verifyHarLoad() {
-		// Update the har object
+	/// Load and click events have been captured
+	@Test(groups = { "Analytics" }, priority = 1)
+	public void verifyHar() {
 		Assert.assertTrue(harList.size() > 0);
-		logger.log(LogStatus.PASS, "Load events are being captured.");
+		Assert.assertTrue(loadBeacons.size() > 0);
+		Assert.assertTrue(clickBeacons.size() > 0);
+		logger.log(LogStatus.PASS, "Load and click events have been captured.");
 	}	
+
+	/// Debugging statement
+	@Test(groups = { "Analytics" })
+	public void debugHar() {
+		System.out.println("=== Start debug testEvents() ===");
+
+		for(String har : harList) {
+			System.out.println(har);
+		}
+
+		System.out.println("=== End debug testEvents() ===");		
+		Assert.assertTrue(1 == 1);
+	}
+		
+	/// Click event numbers match with their descriptors
+	@Test(groups = { "Analytics" })
+	public void testLoadEvents() {
+
+		for(AnalyticsLoad beacon : loadBeacons) {
+			Assert.assertTrue(beacon == beacon);
+		}
+		
+	}
+	
 	
 	/// Click event numbers match with their descriptors
 	@Test(groups = { "Analytics" })
 	public void testClickEvents() {
 
-		// Debug
-		System.out.println("=== Start debug testEvents() ===");			
-		
-
 		for(String har : harList) {
-			System.out.println(har);
-			
 			Assert.assertTrue(har.contains("nci"));
 			logger.log(LogStatus.PASS, "Pass => " + "Verify 'nci' value...");
 			
@@ -173,7 +191,6 @@ public class Analytics_Test extends AnalyticsTestBase {
 				Assert.assertTrue(har.contains("events=event26"));			
 			}
 		}
-		System.out.println("=== End debug testEvents() ===");
 		
 	}	
 	
@@ -202,11 +219,6 @@ public class Analytics_Test extends AnalyticsTestBase {
 	/// Temporary method to test beacon object
 	@Test(groups = { "Analytics" })
 	public void testObject() throws MalformedURLException {
-
-		// Check that we have more than one beacon
-		Assert.assertTrue(loadBeacons.size() > 1);
-		Assert.assertTrue(clickBeacons.size() > 1);
-				
 		// For debugging purposes only...
 		AnalyticsLoad firstLoadBeacon = loadBeacons.get(0);
 
@@ -219,9 +231,15 @@ public class Analytics_Test extends AnalyticsTestBase {
 	
 	/// Temporary method to verify that my new changes are picked up
 	@Test(groups = { "Analytics" })
-	public void trueFlag() {
+	public void testInt() {
 		int j = 1;
 		Assert.assertTrue(j + 1 == 2);
+	}
+
+	@Test(groups = { "Analytics" })
+	public void testString() {
+		String K = "potassium";
+		Assert.assertEquals(K, "potassium");
 	}
 	
 	//endregion tests
