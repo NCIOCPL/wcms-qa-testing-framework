@@ -169,29 +169,28 @@ public class Analytics_Test extends AnalyticsTestBase {
 	public void testLoadEvents() {
 
 		for(AnalyticsLoad beacon : loadBeacons) {
-			Assert.assertTrue(beacon == beacon);
+			Assert.assertTrue(beacon.events[0].contains("event1"));
+			Assert.assertTrue(beacon.events[1].contains("event47"));
 		}
 		
+		logger.log(LogStatus.PASS, "Load event values are correct.");				
 	}
 	
 	
 	/// Click event numbers match with their descriptors
 	@Test(groups = { "Analytics" })
 	public void testClickEvents() {
-
-		for(String har : harList) {
-			Assert.assertTrue(har.contains("nci"));
-			logger.log(LogStatus.PASS, "Pass => " + "Verify 'nci' value...");
-			
-			if(har.contains("pev2=FeatureCardClick")) {
-				Assert.assertTrue(har.contains("events=event27"));				
+		
+		for(AnalyticsClick beacon : clickBeacons) {
+			if(beacon.linkName == "FeatureCardClick") {
+				Assert.assertTrue(beacon.events[0].contains("event27"));
 			}
-
-			if(har.contains("pev2=MegaMenuClick")) {
-				Assert.assertTrue(har.contains("events=event26"));			
+			if(beacon.linkName == "MegaMenuClick") {
+				Assert.assertTrue(beacon.events[0].contains("event27"));
 			}
 		}
 		
+		logger.log(LogStatus.PASS, "Click event values are correct.");		
 	}	
 	
 	/// Resize events match with their descriptors
@@ -199,21 +198,12 @@ public class Analytics_Test extends AnalyticsTestBase {
 	public void testResizeEvents() {
 		List<String> localHar = harList;
 		
-		for(String har : localHar) {
-			if(har.contains("pev2=ResizedToMobile")) {
-				Assert.assertTrue(har.contains("events=event7"));			
+		for(AnalyticsClick beacon : clickBeacons) {
+			if(beacon.linkName.toLowerCase().contains("resize")) {
+				Assert.assertTrue(beacon.events[0].contains("event6"));
 			}
-			if(har.contains("pev2=ResizedToTablet")) {
-				Assert.assertTrue(har.contains("events=event7"));			
-			}
-			if(har.contains("pev2=ResizedToDesktop")) {
-				Assert.assertTrue(har.contains("events=event7"));			
-			}
-			if(har.contains("pev2=ResizedToExtra wide")) {
-				Assert.assertTrue(har.contains("events=event7"));			
-			}			
 		}
-		
+		logger.log(LogStatus.PASS, "Resize values are correct.");
 	}
 	
 	/// Temporary method to test beacon object
@@ -236,6 +226,7 @@ public class Analytics_Test extends AnalyticsTestBase {
 		Assert.assertTrue(j + 1 == 2);
 	}
 
+	/// Temporary method to verify that my new changes are picked up
 	@Test(groups = { "Analytics" })
 	public void testString() {
 		String K = "potassium";
