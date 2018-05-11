@@ -23,13 +23,23 @@ import org.testng.annotations.Test;
 
 public class Analytics_Test extends AnalyticsTestBase {
 
+	// TODO: clean up loadEvents / clickEvents objects
+	// TODO: build a 'beacon params' object or something like that
+	// TODO: refactor doBrowserActions()
+	// TODO: Work out what we need to fire off on click/resize/other events
+	// 		- Do we need to create a new HAR with each call? 
+	//		- How do we differentiate between load and click calls?	
+	// TODO: get the logger to actually work
+	// TODO: Add LinkXxx properties in AnalyticsClickEvents only
+	// TODO: Build negative tests - also 
+	// TODO: Build test for test	
 	AnalyticsLoad loadEvents;
 	AnalyticsClick clickEvents;
 	List<String> harList = new ArrayList<String>();
 	List<AnalyticsLoad> loadBeacons = new ArrayList<AnalyticsLoad>();
 	List<AnalyticsClick> clickBeacons = new ArrayList<AnalyticsClick>();
 	
-		//region setup
+	//region setup
 	@BeforeClass(groups = { "Analytics" })
 	@Parameters({ "browser" })
 	public void setup(String browser) throws MalformedURLException {
@@ -86,7 +96,6 @@ public class Analytics_Test extends AnalyticsTestBase {
 	 * @throws RuntimeException
 	 */
 	private void doBrowserActions() throws RuntimeException {
-		//TODO: refactor this
 		navigateSite();
 		resizeBrowser();
 		//doSiteWideSearch();
@@ -125,14 +134,6 @@ public class Analytics_Test extends AnalyticsTestBase {
 	}
 	//endregion browseractions
 	
-	// TODO: Work out what we need to fire off on click/resize/other events
-	// 		- Do we need to create a new HAR with each call? 
-	//		- How do we differentiate between load and click calls?	
-	// TODO: get the logger to actually work
-	// TODO: Add LinkXxx properties in AnalyticsClickEvents only
-	// TODO: Build negative tests - also 
-	// TODO: Build test for test	
-	// TODO: Clean clean clean		
 	//region tests
 	/// "NCIAnalytics" elements are present in HTML
 	@Test(groups = { "Analytics" }, priority = 1)
@@ -155,16 +156,9 @@ public class Analytics_Test extends AnalyticsTestBase {
 	public void testClickEvents() {
 
 		// Debug
-		System.out.println("=== Start debug testEvents() ===");	
+		System.out.println("=== Start debug testEvents() ===");			
 		
-		for(AnalyticsLoad loadBeacon : loadBeacons) {
-			// TODO: do something with this
-		}		
 
-		for(AnalyticsClick clickBeacon : clickBeacons) {
-			// TODO: do something
-		}				
-		
 		for(String har : harList) {
 			System.out.println(har);
 			
