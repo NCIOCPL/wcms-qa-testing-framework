@@ -208,35 +208,16 @@ public class Analytics_Test extends AnalyticsTestBase {
 	/// Temporary method to test beacon object
 	@Test(groups = { "Analytics" })
 	public void testObject() throws MalformedURLException {
-		/*
-		AnalyticsBase analytics = new AnalyticsBase();
-		List<String> localHars = harList;
 
-		// har == url for our purposes
-		// TODO: rename
-		for(String har : harList)
-		{
-			List<NameValuePair> params = analytics.buildParamsList(URI.create(har));
-			if(!analytics.hasParam(params, "pe")) {
-				loadBeacons.add(new AnalyticsLoad(har));
-			}
-			else {
-				clickBeacons.add(new AnalyticsClick(har));
-			}
-
-		}
-
-		System.out.println("our stuff should be built now");
-		*/
 		// Check that we have more than one beacon
 		Assert.assertTrue(loadBeacons.size() > 1);
+		Assert.assertTrue(clickBeacons.size() > 1);
 				
 		// For debugging purposes only...
-		// String firstHar = localHars.get(0);
 		AnalyticsLoad firstLoadBeacon = loadBeacons.get(0);
 
 		// for each beacon ... logic goes here
-		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepages"));
+		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage"));
 		Assert.assertFalse(firstLoadBeacon.channel.contains("some other string"));
 		Assert.assertTrue(firstLoadBeacon.events[0].contains("1"));
 
