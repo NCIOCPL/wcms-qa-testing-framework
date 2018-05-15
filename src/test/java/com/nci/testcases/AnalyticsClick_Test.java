@@ -21,7 +21,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class AnalyticsLoad_Test extends AnalyticsTestBase {
+public class AnalyticsClick_Test extends AnalyticsTestBase {
 
 
 	
@@ -37,6 +37,7 @@ public class AnalyticsLoad_Test extends AnalyticsTestBase {
 	 */
 	private void doBrowserActions() throws RuntimeException {
 		navigateSite();
+		resizeBrowser();
 		//doSiteWideSearch();
 		//doAdvancedCTSearch();
 		//doBasicCTSearch();
@@ -60,6 +61,19 @@ public class AnalyticsLoad_Test extends AnalyticsTestBase {
 		
 	}
 
+	// Resize browser
+	public void resizeBrowser() {
+		Dimension small = new Dimension(300, 800);
+		Dimension med = new Dimension(700, 800);
+		Dimension large = new Dimension(1100, 800);
+		Dimension xlarge = new Dimension(1600, 800);
+				
+		driver.manage().window().setSize(xlarge);
+		driver.manage().window().setSize(large);		
+		driver.manage().window().setSize(med);
+		driver.manage().window().setSize(small);
+		driver.manage().window().maximize();
+	}
 	//endregion browseractions
 	
 	//region tests
@@ -85,38 +99,43 @@ public class AnalyticsLoad_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "Load and click events have been captured.");				
 	}	
 
+
+	
+	
 	/// Click event numbers match with their descriptors
 	@Test(groups = { "Analytics" })
-	public void testLoadEvents() {
-		doBrowserActions();
-		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
-		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
-			
-		for(AnalyticsLoad beacon : loadBeacons) {
-			Assert.assertTrue(beacon.events[0].contains("event1"));
-			Assert.assertTrue(beacon.events[1].contains("event47"));
-		}
-		
-		logger.log(LogStatus.PASS, "Load event values are correct.");				
-	}
-	
-	
-	/// Temporary method to test beacon object
-	@Test(groups = { "Analytics" })
-	public void testObject() throws MalformedURLException {
-		// For debugging purposes only...
+	public void testClickEvents() {
 		navigateSite();
 		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
-		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);		
+		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);
 		
-		AnalyticsLoad firstLoadBeacon = loadBeacons.get(0);
-
-		// for each beacon ... logic goes here
-		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage") || firstLoadBeacon.channel.contains("Research"));
-		Assert.assertFalse(firstLoadBeacon.channel.contains("some other string"));
-		Assert.assertTrue(firstLoadBeacon.events[0].contains("1"));
-
+		for(AnalyticsClick beacon : clickBeacons) {
+			if(beacon.linkName == "FeatureCardClick") {
+				Assert.assertTrue(beacon.events[0].contains("event27"));
+			}
+			if(beacon.linkName == "MegaMenuClick") {
+				Assert.assertTrue(beacon.events[0].contains("event27"));
+			}
+		}
+		
+		logger.log(LogStatus.PASS, "Click event values are correct.");		
+	}	
+	
+	/// Resize events match with their descriptors
+	@Test(groups = { "Analytics" })
+	public void testResizeEvents() {
+		resizeBrowser();
+		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
+		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);
+		
+		for(AnalyticsClick beacon : clickBeacons) {
+			if(beacon.linkName.toLowerCase().contains("resize")) {
+				Assert.assertTrue(beacon.events[0].contains("event7"));
+			}
+		}
+		logger.log(LogStatus.PASS, "Resize values are correct.");
 	}
+	
 	
 	/// Temporary method to verify that my new changes are picked up
 	@Test(groups = { "Analytics" })
