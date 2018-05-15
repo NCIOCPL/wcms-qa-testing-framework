@@ -21,7 +21,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class Analytics_Test extends AnalyticsTestBase {
+public class AnalyticsLoad_Test extends AnalyticsTestBase {
 
 
 	
