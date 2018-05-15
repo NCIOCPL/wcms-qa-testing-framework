@@ -21,7 +21,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class Analytics_Test extends AnalyticsTestBase {
+public class AnalyticsClick_Test extends AnalyticsTestBase {
 
 
 	
@@ -173,6 +173,13 @@ public class Analytics_Test extends AnalyticsTestBase {
 	/// Temporary method to verify that my new changes are picked up
 	@Test(groups = { "Analytics" })
 	public void testString() {
+		String K = "potassium";
+		Assert.assertEquals(K, "potassium");
+	}
+	
+	/// Temporary method to verify that my new changes are picked up
+	@Test(groups = { "Analytics" })
+	public void asdftestString() {
 		String K = "potassium";
 		Assert.assertEquals(K, "potassium");
 	}

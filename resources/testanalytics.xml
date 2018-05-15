@@ -10,6 +10,7 @@
 		</groups>
 		<classes>
 			<class name="com.nci.testcases.Analytics_Test" />
+			<!-- <class name="com.nci.testcases.AnalyticsClick_Test" /> -->
 		</classes>
 	</test> 
 	
