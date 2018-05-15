@@ -21,9 +21,45 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class AnalyticsLoad_Test extends AnalyticsTestBase {
+public class Analytics_Test extends AnalyticsTestBase {
 
+	// TODO: clean up loadEvents / clickEvents objects
+	// TODO: build a 'beacon params' object or something like that
+	// TODO: refactor doBrowserActions()
+	// TODO: Work out what we need to fire off on click/resize/other events
+	// 		- Do we need to create a new HAR with each call? 
+	//		- How do we differentiate between load and click calls?	
+	// TODO: get the logger to actually work
+	// TODO: Add LinkXxx properties in AnalyticsClickEvents only
+	// TODO: Build negative tests - also 
+	// TODO: Build test for test	
+	AnalyticsLoad loadEvents;
+	AnalyticsClick clickEvents;
 
+	//region setup
+	@BeforeClass(groups = { "Analytics" })
+	@Parameters({ "browser" })
+	public void setup(String browser) throws MalformedURLException {
+		
+		logger = report.startTest(this.getClass().getSimpleName());
+		pageURL = config.getPageURL("HomePage");
+		System.out.println("PageURL: " + pageURL);
+						
+		// setupProxy(driver);
+		AnalyticsTestBase.initializeProxy(pageURL);
+		
+		// Initialize driver and open browser
+		driver = BrowserManager.startProxyBrowser(browser, pageURL, proxy);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);		
+
+		// Create our load and click analytics objects
+		loadEvents = new AnalyticsLoad(driver);
+		clickEvents = new AnalyticsClick(driver);
+		
+		// Add entries to the HAR log
+		
+		System.out.println("Analytics setup done");
+	}
 	
 
 	//endregion setup
@@ -37,6 +73,7 @@ public class AnalyticsLoad_Test extends AnalyticsTestBase {
 	 */
 	private void doBrowserActions() throws RuntimeException {
 		navigateSite();
+		resizeBrowser();
 		//doSiteWideSearch();
 		//doAdvancedCTSearch();
 		//doBasicCTSearch();
@@ -60,6 +97,19 @@ public class AnalyticsLoad_Test extends AnalyticsTestBase {
 		
 	}
 
+	// Resize browser
+	public void resizeBrowser() {
+		Dimension small = new Dimension(300, 800);
+		Dimension med = new Dimension(700, 800);
+		Dimension large = new Dimension(1100, 800);
+		Dimension xlarge = new Dimension(1600, 800);
+				
+		driver.manage().window().setSize(xlarge);
+		driver.manage().window().setSize(large);		
+		driver.manage().window().setSize(med);
+		driver.manage().window().setSize(small);
+		driver.manage().window().maximize();
+	}
 	//endregion browseractions
 	
 	//region tests
@@ -100,6 +150,40 @@ public class AnalyticsLoad_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "Load event values are correct.");				
 	}
 	
+	
+	/// Click event numbers match with their descriptors
+	@Test(groups = { "Analytics" })
+	public void testClickEvents() {
+		navigateSite();
+		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
+		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);
+		
+		for(AnalyticsClick beacon : clickBeacons) {
+			if(beacon.linkName == "FeatureCardClick") {
+				Assert.assertTrue(beacon.events[0].contains("event27"));
+			}
+			if(beacon.linkName == "MegaMenuClick") {
+				Assert.assertTrue(beacon.events[0].contains("event27"));
+			}
+		}
+		
+		logger.log(LogStatus.PASS, "Click event values are correct.");		
+	}	
+	
+	/// Resize events match with their descriptors
+	@Test(groups = { "Analytics" })
+	public void testResizeEvents() {
+		resizeBrowser();
+		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
+		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);
+		
+		for(AnalyticsClick beacon : clickBeacons) {
+			if(beacon.linkName.toLowerCase().contains("resize")) {
+				Assert.assertTrue(beacon.events[0].contains("event7"));
+			}
+		}
+		logger.log(LogStatus.PASS, "Resize values are correct.");
+	}
 	
 	/// Temporary method to test beacon object
 	@Test(groups = { "Analytics" })
