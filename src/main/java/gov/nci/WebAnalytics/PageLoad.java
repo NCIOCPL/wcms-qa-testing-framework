@@ -1,22 +1,12 @@
 package gov.nci.WebAnalytics;
 
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
 import java.util.List;
-
-import com.nci.Utilities.BrowserManager;
-import com.nci.testcases.AnalyticsTest;
 import com.relevantcodes.extentreports.LogStatus;
-import net.lightbody.bmp.proxy.CaptureType;
-
-import org.apache.http.NameValuePair;
-import org.openqa.selenium.Dimension;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import com.nci.testcases.AnalyticsTest;
 
 public class PageLoad extends AnalyticsTest {
 
@@ -31,15 +21,12 @@ public class PageLoad extends AnalyticsTest {
 	 */
 	private void doBrowserActions() throws RuntimeException {
 		navigateSite();
-		resizeBrowser();
 		//doSiteWideSearch();
 		//doAdvancedCTSearch();
 		//doBasicCTSearch();
 		//useDictionary();
 		//navigateError();
-		//navigateRATs();		
-		
-		
+		//navigateRATs();
 	}
 	
 	/// Click around pages
@@ -55,19 +42,6 @@ public class PageLoad extends AnalyticsTest {
 		
 	}
 
-	// Resize browser
-	public void resizeBrowser() {
-		Dimension small = new Dimension(300, 800);
-		Dimension med = new Dimension(700, 800);
-		Dimension large = new Dimension(1100, 800);
-		Dimension xlarge = new Dimension(1600, 800);
-				
-		driver.manage().window().setSize(xlarge);
-		driver.manage().window().setSize(large);		
-		driver.manage().window().setSize(med);
-		driver.manage().window().setSize(small);
-		driver.manage().window().maximize();
-	}
 	//endregion browseractions
 	
 	//region tests
@@ -82,7 +56,7 @@ public class PageLoad extends AnalyticsTest {
 				
 		Assert.assertTrue(harList.size() > 0);
 		Assert.assertTrue(loadBeacons.size() > 0);
-		Assert.assertTrue(clickBeacons.size() > 0);
+		Assert.assertTrue(clickBeacons.size() == 0);
 		
 		System.out.println("=== Start debug testEvents() ===");
 		for(String har : harList) {

@@ -10,7 +10,8 @@
 		</groups>
 		<classes>
 			<class name="gov.nci.WebAnalytics.PageLoad" />		
-			<class name="gov.nci.WebAnalytics.MegaMenu" />		
+			<class name="gov.nci.WebAnalytics.Resize" />		
+			<class name="gov.nci.WebAnalytics.MegaMenu" />					
 		</classes>
 	</test>
 	
