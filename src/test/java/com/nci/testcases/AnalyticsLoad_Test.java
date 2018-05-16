@@ -49,11 +49,11 @@ public class AnalyticsLoad_Test extends AnalyticsTestBase {
 	public void navigateSite() {
 				
 		// Click on a feature card
-		clickEvents.clickFeatureCard();
+		driver.navigate().to("https://www.cancer.gov/research");
 		driver.navigate().back();
 		
 		// Click on the MegaMenu
-		clickEvents.clickMegaMenu();		
+		driver.navigate().to("https://www.cancer.gov/about-cancer");
 		driver.navigate().back();
 		
 	}

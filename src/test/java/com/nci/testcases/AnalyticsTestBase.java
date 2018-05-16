@@ -8,9 +8,11 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterGroups;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
@@ -72,7 +74,7 @@ public class AnalyticsTestBase extends BaseClass {
 		}
 	}
 
-	@AfterClass(groups = { "Analytics" })
+	@AfterGroups(groups = { "Analytics" })
 	public void afterClass() {
 		System.out.println("=== Quitting Driver ===");
 		driver.quit();
@@ -126,7 +128,7 @@ public class AnalyticsTestBase extends BaseClass {
 	AnalyticsClick clickEvents;
 
 	//region setup
-	@BeforeClass(groups = { "Analytics" })
+	@BeforeGroups(groups = { "Analytics" })
 	@Parameters({ "browser" })
 	public void setup(String browser) throws MalformedURLException {
 		
