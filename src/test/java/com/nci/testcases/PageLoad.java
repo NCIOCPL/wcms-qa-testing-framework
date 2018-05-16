@@ -21,7 +21,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class AnalyticsLoad_Test extends AnalyticsTestBase {
+public class PageLoad extends AnalyticsTestBase {
 
 
 	
@@ -134,7 +134,14 @@ public class AnalyticsLoad_Test extends AnalyticsTestBase {
 		int j = 1;
 		Assert.assertTrue(j + 1 == 2);
 	}
-	
+
+	/// Temporary method to verify that my new changes are picked up
+	@Test(groups = { "Analytics" })
+	public void tefstInt() {
+		int j = 1;
+		Assert.assertTrue(j + 1 == 2);
+	}
+
 	//endregion tests
 	
 }

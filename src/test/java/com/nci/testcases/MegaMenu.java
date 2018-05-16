@@ -21,7 +21,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class AnalyticsClick_Test extends AnalyticsTestBase {
+public class MegaMenu extends AnalyticsTestBase {
 
 
 	
