@@ -1,4 +1,4 @@
-package com.nci.testcases;
+package gov.nci.WebAnalytics;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nci.Utilities.BrowserManager;
-import gov.nci.WebAnalytics.AnalyticsClick;
-import gov.nci.WebAnalytics.AnalyticsLoad;
-import gov.nci.WebAnalytics.AnalyticsBase;
-
+import com.nci.testcases.AnalyticsTest;
 import com.relevantcodes.extentreports.LogStatus;
 import net.lightbody.bmp.proxy.CaptureType;
 
@@ -21,7 +18,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class MegaMenu extends AnalyticsTestBase {
+public class MegaMenu extends AnalyticsTest {
 
 
 	
@@ -35,14 +32,6 @@ public class MegaMenu extends AnalyticsTestBase {
 	private void doBrowserActions() throws RuntimeException {
 		navigateSite();
 		resizeBrowser();
-		//doSiteWideSearch();
-		//doAdvancedCTSearch();
-		//doBasicCTSearch();
-		//useDictionary();
-		//navigateError();
-		//navigateRATs();		
-		
-		
 	}
 	
 	/// Click around pages
@@ -133,11 +122,10 @@ public class MegaMenu extends AnalyticsTestBase {
 	
 	/// Temporary method to verify that my new changes are picked up
 	@Test(groups = { "Analytics" })
-	public void asdftestString() {
+	public void testString() {
 		String str = "clickEvent";
 		Assert.assertEquals("clickEvent", str);
 	}
-	
 	//endregion tests
 	
 }

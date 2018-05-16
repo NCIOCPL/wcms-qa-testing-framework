@@ -9,8 +9,8 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="com.nci.testcases.PageLoad" />		
-			<class name="com.nci.testcases.MegaMenu" />
+			<class name="gov.nci.WebAnalytics.PageLoad" />		
+			<class name="gov.nci.WebAnalytics.MegaMenu" />		
 		</classes>
 	</test>
 	

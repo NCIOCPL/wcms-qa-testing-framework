@@ -29,7 +29,7 @@ import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.proxy.CaptureType;
 
-public class AnalyticsTestBase extends BaseClass {
+public class AnalyticsTest extends BaseClass {
 
 	// private static Logger log=
 	// LogManager.getLogger(BaseClass.class.getName());
@@ -40,6 +40,20 @@ public class AnalyticsTestBase extends BaseClass {
 	ConfigReader config = new ConfigReader();
     public static BrowserMobProxy proxy = new BrowserMobProxyServer();	
 
+    // TODO: clean up loadEvents / clickEvents objects
+	// TODO: build a 'beacon params' object or something like that
+	// TODO: refactor doBrowserActions()
+	// TODO: Work out what we need to fire off on click/resize/other events
+	// 		- Do we need to create a new HAR with each call? 
+	//		- How do we differentiate between load and click calls?	
+	// TODO: get the logger to actually work
+	// TODO: Add LinkXxx properties in AnalyticsClickEvents only
+	// TODO: Build negative tests - also 
+	// TODO: Build test for test	
+	public AnalyticsLoad loadEvents;
+	public AnalyticsClick clickEvents;
+    
+    
 	@BeforeTest(groups = { "Analytics" })
 	@Parameters	
 	public void beforeTest() {
@@ -52,7 +66,70 @@ public class AnalyticsTestBase extends BaseClass {
 		System.out.println("Report Path: ");
 		report.addSystemInfo("Environment", config.getProperty("Environment"));
 	}
+	
+	@AfterTest(groups = { "Analytics" })
+	public void afterTest() {
+		report.flush();
+		// report.close();
+		// log.info("Test ends here");
+	}	
 
+	@BeforeGroups(groups = { "Analytics" })
+	@Parameters({ "browser" })
+	public void setup(String browser) throws MalformedURLException {
+		
+		logger = report.startTest(this.getClass().getSimpleName());
+		pageURL = config.getPageURL("HomePage");
+		System.out.println("PageURL: " + pageURL);
+						
+		// setupProxy(driver);
+		this.initializeProxy(pageURL);
+		
+		// Initialize driver and open browser
+		driver = BrowserManager.startProxyBrowser(browser, pageURL, proxy);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);		
+
+		// Create our load and click analytics objects
+		loadEvents = new AnalyticsLoad(driver);
+		clickEvents = new AnalyticsClick(driver);
+		
+		// Add entries to the HAR log		
+		System.out.println("Analytics setup done");
+	}	
+	
+
+	/**
+	 * Start and configure BrowserMob Proxy for Selenium.<br/>
+	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
+	 * @throws RuntimeException
+	 */
+	protected void initializeProxy(String url) throws RuntimeException {
+
+		if(proxy.isStarted()) {
+			proxy.stop();
+		}
+		
+		// Start the proxy
+		System.out.println("=== Starting BrowserMobProxy ===");		
+	    proxy.start();
+
+	    // Enable more detailed HAR capture, if desired (see CaptureType for the complete list)
+	    proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
+
+	    // Create a new HAR with a label matching the hostname
+	    proxy.newHar(url);	    
+		System.out.println("=== Started BrowserMobProxy successfully ===");
+	}
+		
+	@AfterGroups(groups = { "Analytics" })
+	public void afterClass() {
+		System.out.println("=== Quitting Driver ===");
+		driver.quit();
+		report.endTest(logger);
+		System.out.println("=== Stopping BrowserMobProxy ===");
+		proxy.stop();
+	}	
+	
 	@BeforeClass(groups = { "Analytics" })
 	public void beforeClass() {
 		logger = report.startTest(this.getClass().getSimpleName());
@@ -73,87 +150,6 @@ public class AnalyticsTestBase extends BaseClass {
 			driver.get(pageURL);
 		}
 	}
-
-	@AfterGroups(groups = { "Analytics" })
-	public void afterClass() {
-		System.out.println("=== Quitting Driver ===");
-		driver.quit();
-		report.endTest(logger);
-		System.out.println("=== Stopping BrowserMobProxy ===");
-		proxy.stop();
-	}
-
-	@AfterTest(groups = { "Analytics" })
-	public void afterTest() {
-		report.flush();
-		// report.close();
-		// log.info("Test ends here");
-	}
-
-	
-	/**
-	 * Start and configure BrowserMob Proxy for Selenium.<br/>
-	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
-	 * @throws RuntimeException
-	 */
-	protected static void initializeProxy(String url) throws RuntimeException {
-
-		if(proxy.isStarted()) {
-			proxy.stop();
-		}
-		
-		// Start the proxy
-		System.out.println("=== Starting BrowserMobProxy ===");		
-	    proxy.start();
-
-	    // Enable more detailed HAR capture, if desired (see CaptureType for the complete list)
-	    proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
-
-	    // Create a new HAR with a label matching the hostname
-	    proxy.newHar(url);	    
-		System.out.println("=== Started BrowserMobProxy successfully ===");
-	}
-	
-	// TODO: clean up loadEvents / clickEvents objects
-	// TODO: build a 'beacon params' object or something like that
-	// TODO: refactor doBrowserActions()
-	// TODO: Work out what we need to fire off on click/resize/other events
-	// 		- Do we need to create a new HAR with each call? 
-	//		- How do we differentiate between load and click calls?	
-	// TODO: get the logger to actually work
-	// TODO: Add LinkXxx properties in AnalyticsClickEvents only
-	// TODO: Build negative tests - also 
-	// TODO: Build test for test	
-	AnalyticsLoad loadEvents;
-	AnalyticsClick clickEvents;
-
-	//region setup
-	@BeforeGroups(groups = { "Analytics" })
-	@Parameters({ "browser" })
-	public void setup(String browser) throws MalformedURLException {
-		
-		logger = report.startTest(this.getClass().getSimpleName());
-		pageURL = config.getPageURL("HomePage");
-		System.out.println("PageURL: " + pageURL);
-						
-		// setupProxy(driver);
-		AnalyticsTestBase.initializeProxy(pageURL);
-		
-		// Initialize driver and open browser
-		driver = BrowserManager.startProxyBrowser(browser, pageURL, proxy);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);		
-
-		// Create our load and click analytics objects
-		loadEvents = new AnalyticsLoad(driver);
-		clickEvents = new AnalyticsClick(driver);
-		
-		// Add entries to the HAR log
-		
-		System.out.println("Analytics setup done");
-	}
 	
 
-	//endregion setup
-	
-	
 }
