@@ -3,6 +3,13 @@ package gov.nci.WebAnalytics;
 import java.net.MalformedURLException;
 import java.util.List;
 import com.relevantcodes.extentreports.LogStatus;
+
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,6 +17,19 @@ import com.nci.testcases.AnalyticsTest;
 
 public class MegaMenu extends AnalyticsTest {
 
+	public MegaMenu(){		
+	}
+	
+	/*** MegaMenu web elements ***/
+	@FindBy(how = How.CSS, using = "#mega-nav a")
+	WebElement mega_menu_link;	
+	
+	
+	/*** Browser actions ***/
+	public void clickMegaMenu() {
+		System.out.println("local clickMegaMenu hit!");
+		mega_menu_link.click();
+	}
 
 	
 	//region browseractions
