@@ -38,25 +38,22 @@ import net.lightbody.bmp.proxy.CaptureType;
 
 public class AnalyticsTest extends BaseClass {
 
-	// private static Logger log=
-	// LogManager.getLogger(BaseClass.class.getName());
 	public static ExtentReports report;
 	public static ExtentTest logger;
 	public static WebDriver driver;
 	public String pageURL;
-	ConfigReader config = new ConfigReader();
+	public ConfigReader config = new ConfigReader();
     public static BrowserMobProxy proxy = new BrowserMobProxyServer();	
 
-    // TODO: clean up loadEvents / clickEvents objects
-	// TODO: build a 'beacon params' object or something like that
-	// TODO: refactor doBrowserActions()
+    // TODO: clean up (or remove) loadEvents / clickEvents objects
+	// TODO: build a 'beacon params' object 
 	// TODO: Work out what we need to fire off on click/resize/other events
 	// 		- Do we need to create a new HAR with each call? 
 	//		- How do we differentiate between load and click calls?	
 	// TODO: get the logger to actually work
-	// TODO: Add LinkXxx properties in AnalyticsClickEvents only
-	// TODO: Build negative tests - also 
-	// TODO: Build test for test	
+	// TODO: Determine where we want the tests to live
+	// TODO: Build negative tests
+	// TODO: Build test for test
 	public AnalyticsLoad loadEvents;
 	public AnalyticsClick clickEvents;
 	
@@ -230,7 +227,7 @@ public class AnalyticsTest extends BaseClass {
 
 
 	/// Load and click events have been captured
-	@Test(groups = { "Bubba" })
+	@Test(groups = { "Analytics" })
 	public void verifyResizeHar() {
 		
 		resize = new Resize(driver);
@@ -251,7 +248,7 @@ public class AnalyticsTest extends BaseClass {
 	}		
 	
 	/// Resize events match with their descriptors
-	@Test(groups = { "Bubba" })
+	@Test(groups = { "Analytics" })
 	public void testResizeEvents() {
 		resize = new Resize(driver);
 		resize.resizeBrowser();
@@ -269,7 +266,7 @@ public class AnalyticsTest extends BaseClass {
 	
 	
 	/// Temporary method to verify that my new changes are picked up
-	@Test(groups = { "Bubba" })
+	@Test(groups = { "Analytics" })
 	public void testRsString() {
 		String str = "clickEvent";
 		Assert.assertEquals("clickEvent", str);
@@ -337,7 +334,5 @@ public class AnalyticsTest extends BaseClass {
 		int j = 1;
 		Assert.assertTrue(j + 1 == 2);
 	}
-
-	
 	
 }
