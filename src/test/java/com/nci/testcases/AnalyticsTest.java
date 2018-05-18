@@ -30,6 +30,7 @@ import gov.nci.WebAnalytics.AnalyticsBase;
 import gov.nci.WebAnalytics.AnalyticsClick;
 import gov.nci.WebAnalytics.AnalyticsLoad;
 import gov.nci.WebAnalytics.MegaMenu;
+import gov.nci.WebAnalytics.Resize;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.proxy.CaptureType;
@@ -57,7 +58,8 @@ public class AnalyticsTest extends BaseClass {
 	// TODO: Build test for test	
 	public AnalyticsLoad loadEvents;
 	public AnalyticsClick clickEvents;
-	public MegaMenu mm;
+	public MegaMenu megaMenu;
+	public Resize resize;
     
 	@BeforeTest(groups = { "Analytics" })
 	@Parameters	
@@ -158,12 +160,75 @@ public class AnalyticsTest extends BaseClass {
 	
 
 	
+	
+	
+	
+	
+	
+	
+
 
 	/// Load and click events have been captured
-	@Test(groups = { "Analytics" }, priority = 1)
+	@Test(groups = { "Analytics" })
+	public void verifyResizeHar() {
+		
+		resize = new Resize(driver);
+		resize.resizeBrowser();
+		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
+		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);		
+				
+		Assert.assertTrue(harList.size() > 0);
+		Assert.assertTrue(clickBeacons.size() > 0);
+		
+		System.out.println("=== Start debug testEvents() ===");
+		for(String har : harList) {
+			System.out.println(har);
+		}
+		System.out.println("=== End debug testEvents() ===");				
+		
+		logger.log(LogStatus.PASS, "Load and click events have been captured.");				
+	}		
+	
+	/// Resize events match with their descriptors
+	@Test(groups = { "Analytics" })
+	public void testResizeEvents() {
+		resize = new Resize(driver);
+		resize.resizeBrowser();
+
+		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
+		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);
+		
+		for(AnalyticsClick beacon : clickBeacons) {
+			if(beacon.linkName.toLowerCase().contains("resize")) {
+				Assert.assertTrue(beacon.events[0].contains("event7"));
+			}
+		}
+		logger.log(LogStatus.PASS, "Resize values are correct.");
+	}
+	
+	
+	/// Temporary method to verify that my new changes are picked up
+	@Test(groups = { "Analytics" })
+	public void testRsString() {
+		String str = "clickEvent";
+		Assert.assertEquals("clickEvent", str);
+	}
+	//endregion tests	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/// Load and click events have been captured
+	@Test(groups = { "Analytics" })
 	public void verifyHar() {
-		mm = new MegaMenu(driver);		
-		mm.doBrowserActions();
+		megaMenu = new MegaMenu(driver);		
+		megaMenu.doMegaMenuActions();
 		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
 		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
 		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);		
@@ -184,8 +249,8 @@ public class AnalyticsTest extends BaseClass {
 	/// Click event numbers match with their descriptors
 	@Test(groups = { "Analytics" })
 	public void testClickEvents() {
-		mm = new MegaMenu(driver);		
-		mm.navigateSite();
+		megaMenu = new MegaMenu(driver);		
+		megaMenu.doMegaMenuActions();
 
 		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
 		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);

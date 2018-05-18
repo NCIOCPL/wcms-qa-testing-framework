@@ -1,19 +1,10 @@
 package gov.nci.WebAnalytics;
 
-import java.net.MalformedURLException;
-import java.util.List;
-import com.relevantcodes.extentreports.LogStatus;
-
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
-import com.nci.testcases.AnalyticsTest;
 
 public class MegaMenu extends AnalyticsClick {
 
@@ -33,38 +24,19 @@ public class MegaMenu extends AnalyticsClick {
 	
 	
 	/*** Browser actions ***/
-	private void clickMegaMenu2() {
-		System.out.println("local clickMegaMenu hit!");
+	private void clickMegaMenu() {
+		System.out.println("Clicked clickMegaMenu");
 		mega_menu_link.click();
 	}
 
-	
-	//region browseractions
 	/**
 	 * All the proxy browser 'actions' go in here. These are not tests, but things that we do 
 	 * to fire off analytics events. These actions will populate our list of har objects, which will
 	 * then be tested.
 	 * @throws RuntimeException
 	 */
-	public void doBrowserActions() throws RuntimeException {
-		navigateSite();
+	public void doMegaMenuActions() throws RuntimeException {
+		clickMegaMenu();
 	}
-	
-	/// Click around pages
-	public void navigateSite() {
-				
-
-		
-		// Click on the MegaMenu
-		clickMegaMenu2();
-		driver.navigate().back();
-		
-	}
-
-	//endregion browseractions
-	
-	//region tests
-
-	//endregion tests
 	
 }
