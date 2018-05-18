@@ -1,118 +1,54 @@
 package gov.nci.WebAnalytics;
 
-import java.net.MalformedURLException;
-import java.util.List;
-import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import org.testng.annotations.Test;
 
-import com.nci.testcases.AnalyticsTest;
+public class PageLoad extends AnalyticsLoad {
 
-public class PageLoad extends AnalyticsTest {
-
-
+	public PageLoad () {		
+	}
 	
-	//region browseractions
+	public PageLoad(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+		System.out.println("pageload() PageFactory initiated.");
+	}
+	
 	/**
 	 * All the proxy browser 'actions' go in here. These are not tests, but things that we do 
 	 * to fire off analytics events. These actions will populate our list of har objects, which will
 	 * then be tested.
 	 * @throws RuntimeException
 	 */
-	private void doBrowserActions() throws RuntimeException {
-		navigateSite();
-		//doSiteWideSearch();
-		//doAdvancedCTSearch();
-		//doBasicCTSearch();
-		//useDictionary();
-		//navigateError();
-		//navigateRATs();
+	private void loadPageTypes() {
+		// Home page
+		driver.navigate().to("https://www.cancer.gov");		
+		// Landing page
+		driver.navigate().to("https://www.cancer.gov/research");		
+		// CTHP Patient
+		driver.navigate().to("https://www.cancer.gov/types/bladder");
+		// CTHP HP
+		driver.navigate().to("https://www.cancer.gov/types/breast/hp");
+		// Appmodule
+		driver.navigate().to("https://www.cancer.gov/publications/dictionaries/cancer-terms");		
+		// Blog series
+		driver.navigate().to("https://www.cancer.gov/news-events/cancer-currents-blog");		
 	}
+
+	public void goHomeAndBack() {
+		// Home page
+		driver.navigate().to("https://www.cancer.gov");
+		driver.navigate().to("https://www.cancer.gov/about-nci");
+		driver.navigate().back();
+		driver.navigate().refresh();		
+	}
+	
 	
 	/// Click around pages
-	public void navigateSite() {
-				
-		// Click on a feature card
-		driver.navigate().to("https://www.cancer.gov/research");
-		driver.navigate().back();
-		
-		// Click on the MegaMenu
-		driver.navigate().to("https://www.cancer.gov/about-cancer");
-		driver.navigate().back();
-		
+	public void doPageLoadActions() throws RuntimeException {
+		loadPageTypes();
+		goHomeAndBack();		
 	}
-
-	//endregion browseractions
-	
-	//region tests
-
-	/// Load and click events have been captured
-	@Test(groups = { "Analytics" }, priority = 1)
-	public void verifyHar() {
-		doBrowserActions();
-		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
-		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
-		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);		
-				
-		Assert.assertTrue(harList.size() > 0);
-		Assert.assertTrue(loadBeacons.size() > 0);
-		Assert.assertTrue(clickBeacons.size() == 0);
-		
-		System.out.println("=== Start debug testEvents() ===");
-		for(String har : harList) {
-			System.out.println(har);
-		}
-		System.out.println("=== End debug testEvents() ===");				
-		
-		logger.log(LogStatus.PASS, "Load and click events have been captured.");				
-	}	
-
-	/// Click event numbers match with their descriptors
-	@Test(groups = { "Analytics" })
-	public void testLoadEvents() {
-		doBrowserActions();
-		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
-		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
-			
-		for(AnalyticsLoad beacon : loadBeacons) {
-			Assert.assertTrue(beacon.events[0].contains("event1"));
-			Assert.assertTrue(beacon.events[1].contains("event47"));
-		}
-		
-		logger.log(LogStatus.PASS, "Load event values are correct.");				
-	}
-	
-	/// Temporary method to test beacon object
-	@Test(groups = { "Analytics" })
-	public void testObject() throws MalformedURLException {
-		// For debugging purposes only...
-		navigateSite();
-		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
-		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);		
-		
-		AnalyticsLoad firstLoadBeacon = loadBeacons.get(0);
-
-		// for each beacon ... logic goes here
-		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage") || firstLoadBeacon.channel.contains("Research"));
-		Assert.assertFalse(firstLoadBeacon.channel.contains("some other string"));
-		Assert.assertTrue(firstLoadBeacon.events[0].contains("1"));
-
-	}
-	
-	/// Temporary method to verify that my new changes are picked up
-	@Test(groups = { "Analytics" })
-	public void testInt() {
-		int j = 1;
-		Assert.assertTrue(j + 1 == 2);
-	}
-
-	/// Temporary method to verify that my new changes are picked up
-	@Test(groups = { "Analytics" })
-	public void tefstInt() {
-		int j = 1;
-		Assert.assertTrue(j + 1 == 2);
-	}
-
-	//endregion tests
 	
 }

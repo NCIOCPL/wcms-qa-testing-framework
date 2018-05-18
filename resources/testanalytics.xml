@@ -9,12 +9,9 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="gov.nci.WebAnalytics.PageLoad" />		
-			<class name="gov.nci.WebAnalytics.Resize" />		
-			<class name="gov.nci.WebAnalytics.MegaMenu" />					
+				<class name="com.nci.testcases.AnalyticsTest" />
 		</classes>
-	</test>
-	
+	</test>	
 	<!--<test name="NCI - Chrome Testing Headless" >
 		<parameter name="browser" value="ChromeHeadless" />
 		<groups>
@@ -22,30 +19,19 @@
 				<include name="Analytics" />
 			</run>
 		</groups>
-		<classes> 	
-			<class name="com.nci.testcases.Analytics_Test" />
+		<classes>
+				<class name="com.nci.testcases.AnalyticsTest" />
 		</classes>
 	</test>  -->
-	<!-- <test name="NCI - Firefox Testing" >
-		<parameter name="browser" value="Firefox" />
-		<groups>
-			<run>
-				<include name="Analytics" />
-			</run>
-		</groups>
-		<classes> 
-			<class name="com.nci.testcases.Analytics_Test" />
-		</classes>
-	</test>  -->
-	<!-- <test name="NCI - Firefox Testing Headless" >
-		<parameter name="browser" value="FirefoxHeadless" />
+	<!-- <test name="NCI - Geckso Testing Headless" >
+		<parameter name="browser" value="GeckoHeadless" />
 		<groups>
 			<run>
 				<include name="Analytics" />
 			</run>
 		</groups>
 		<classes>
-			<class name="com.nci.testcases.Analytics_Test" />
+				<class name="com.nci.testcases.AnalyticsTest" />
 		</classes>
 	</test>  -->
 </suite>

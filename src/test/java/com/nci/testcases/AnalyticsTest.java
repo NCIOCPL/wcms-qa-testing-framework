@@ -30,6 +30,7 @@ import gov.nci.WebAnalytics.AnalyticsBase;
 import gov.nci.WebAnalytics.AnalyticsClick;
 import gov.nci.WebAnalytics.AnalyticsLoad;
 import gov.nci.WebAnalytics.MegaMenu;
+import gov.nci.WebAnalytics.PageLoad;
 import gov.nci.WebAnalytics.Resize;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
@@ -58,8 +59,12 @@ public class AnalyticsTest extends BaseClass {
 	// TODO: Build test for test	
 	public AnalyticsLoad loadEvents;
 	public AnalyticsClick clickEvents;
+	
+	// Analytics objects
+	public PageLoad pageLoad;
 	public MegaMenu megaMenu;
 	public Resize resize;
+
     
 	@BeforeTest(groups = { "Analytics" })
 	@Parameters	
@@ -160,16 +165,72 @@ public class AnalyticsTest extends BaseClass {
 	
 
 	
+
 	
+
+	/// Load and click events have been captured
+	@Test(groups = { "Analytics" }, priority = 1)
+	public void verifyLoadHar() {
+		pageLoad = new PageLoad(driver);
+		pageLoad.doPageLoadActions();
+		
+		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
+		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
+		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);		
+				
+		Assert.assertTrue(harList.size() > 0);
+		Assert.assertTrue(loadBeacons.size() > 0);
+		Assert.assertTrue(clickBeacons.size() == 0);
+		
+		System.out.println("=== Start debug testEvents() ===");
+		for(String har : harList) {
+			System.out.println(har);
+		}
+		System.out.println("=== End debug testEvents() ===");				
+		
+		logger.log(LogStatus.PASS, "Load and click events have been captured.");				
+	}	
+
+	/// Click event numbers match with their descriptors
+	@Test(groups = { "Analytics" })
+	public void testLoadEvents() {
+		pageLoad = new PageLoad(driver);
+		pageLoad.doPageLoadActions();
+		
+		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
+		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
+			
+		for(AnalyticsLoad beacon : loadBeacons) {
+			Assert.assertTrue(beacon.events[0].contains("event1"));
+			Assert.assertTrue(beacon.events[1].contains("event47"));
+		}
+		
+		logger.log(LogStatus.PASS, "Load event values are correct.");				
+	}
 	
-	
-	
-	
+	/// Temporary method to test beacon object
+	@Test(groups = { "Analytics" })
+	public void testObject() throws MalformedURLException {
+		pageLoad = new PageLoad(driver);
+		pageLoad.goHomeAndBack();
+		
+		// For debugging purposes only...
+		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
+		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);		
+		
+		AnalyticsLoad firstLoadBeacon = loadBeacons.get(0);
+
+		// for each beacon ... logic goes here
+		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage") || firstLoadBeacon.channel.contains("Research"));
+		Assert.assertFalse(firstLoadBeacon.channel.contains("some other string"));
+		Assert.assertTrue(firstLoadBeacon.events[0].contains("1"));
+
+	}
 	
 
 
 	/// Load and click events have been captured
-	@Test(groups = { "Analytics" })
+	@Test(groups = { "Bubba" })
 	public void verifyResizeHar() {
 		
 		resize = new Resize(driver);
@@ -190,7 +251,7 @@ public class AnalyticsTest extends BaseClass {
 	}		
 	
 	/// Resize events match with their descriptors
-	@Test(groups = { "Analytics" })
+	@Test(groups = { "Bubba" })
 	public void testResizeEvents() {
 		resize = new Resize(driver);
 		resize.resizeBrowser();
@@ -208,16 +269,12 @@ public class AnalyticsTest extends BaseClass {
 	
 	
 	/// Temporary method to verify that my new changes are picked up
-	@Test(groups = { "Analytics" })
+	@Test(groups = { "Bubba" })
 	public void testRsString() {
 		String str = "clickEvent";
 		Assert.assertEquals("clickEvent", str);
 	}
 	//endregion tests	
-	
-	
-	
-	
 	
 	
 	
@@ -273,5 +330,14 @@ public class AnalyticsTest extends BaseClass {
 		String str = "clickEvent";
 		Assert.assertEquals("clickEvent", str);
 	}	
+	
+	/// Temporary method to verify that my new changes are picked up
+	@Test(groups = { "Analytics" })
+	public void testInt() {
+		int j = 1;
+		Assert.assertTrue(j + 1 == 2);
+	}
+
+	
 	
 }
