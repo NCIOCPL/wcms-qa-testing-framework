@@ -15,8 +15,8 @@ public class MegaMenu extends AnalyticsClick {
 	public MegaMenu(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		System.out.println("PageFactory initiated");
-	}	
+		System.out.println("MegaMenu PageFactory initialized");
+	}
 	
 	/*** MegaMenu web elements ***/
 	@FindBy(how = How.CSS, using = "#mega-nav a")
@@ -25,6 +25,9 @@ public class MegaMenu extends AnalyticsClick {
 	
 	/*** Browser actions ***/
 	private void clickMegaMenu() {
+		driver.navigate().to(homePage);
+		mega_menu_link.click();
+		driver.navigate().to(spanishPage);
 		mega_menu_link.click();
 	}
 
@@ -35,9 +38,9 @@ public class MegaMenu extends AnalyticsClick {
 	 * @throws RuntimeException
 	 */
 	public void doMegaMenuActions() throws RuntimeException {
-		System.out.println("Begin testing MegaMenu");		
+		System.out.println("Begin MegaMenu actions");
 		clickMegaMenu();
-		System.out.println("Done testing MegaMenu");
+		System.out.println("Done MegaMenu actions");
 	}
 	
 }

@@ -12,8 +12,7 @@ public class Resize extends AnalyticsClick {
 	public Resize(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		System.out.println("Resize pagefactory initiated");
-
+		System.out.println("Resize PageFactory initialized");
 	}	
 	
 	/**
@@ -28,12 +27,15 @@ public class Resize extends AnalyticsClick {
 		Dimension med = new Dimension(700, 800);
 		Dimension large = new Dimension(1100, 800);
 		Dimension xlarge = new Dimension(1600, 800);
-				
+
+		System.out.println("Begin Resize actions");		
+		driver.navigate().to(homePage);
 		driver.manage().window().setSize(xlarge);
 		driver.manage().window().setSize(large);		
 		driver.manage().window().setSize(med);
 		driver.manage().window().setSize(small);
 		driver.manage().window().maximize();
+		System.out.println("Done Resize actions");
 	}
 	
 }

@@ -12,7 +12,7 @@ public class PageLoad extends AnalyticsLoad {
 	public PageLoad(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		System.out.println("pageload() PageFactory initiated.");
+		System.out.println("PageLoad object PageFactory initialized");
 	}
 	
 	/**
@@ -36,13 +36,14 @@ public class PageLoad extends AnalyticsLoad {
 		driver.navigate().to(spanishPage);
 		driver.navigate().back();
 		driver.navigate().refresh();		
-	}
-	
+	}	
 	
 	/// Click around pages
 	public void doPageLoadActions() throws RuntimeException {
+		System.out.println("Begin PageLoad actions");
 		loadPageTypes();
 		goHomeAndBack();		
+		System.out.println("End PageLoad actions");
 	}
 	
 }
