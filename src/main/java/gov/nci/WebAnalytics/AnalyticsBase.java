@@ -10,6 +10,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
 import org.openqa.selenium.WebDriver;
 
+import com.nci.Utilities.ConfigReader;
+
 public class AnalyticsBase {
 	
 	// Constants
@@ -22,6 +24,20 @@ public class AnalyticsBase {
 	// Driver object
 	public WebDriver driver;	
 
+	// Get our page navigation URLs
+	public ConfigReader config = new ConfigReader();
+	public String homePage = config.getPageURL("HomePage");
+	public String blogPostPage = config.getPageURL("BlogPostPage");
+	public String blogSeriesPage = config.getPageURL("BlogSeriesPage");
+	public String cthpPatient = config.getPageURL("CTHPPatient");
+	public String cthpHP = config.getPageURL("CTHPHP");
+	public String innerPage = config.getPageURL("InnerPage");
+	public String landingPage = config.getPageURL("LandingPage");
+	public String pdqPage = config.getPageURL("PDQPage");
+	public String topicPage = config.getPageURL("TopicPage");
+	public String spanishPage = config.getPageURL("SpanishPage");
+	public String appModulePage = config.getPageURL("AppModulePage");
+	
 	// Beacon properties
 	public URI uri;
 	public String[] suites;	
