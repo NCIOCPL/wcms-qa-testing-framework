@@ -21,7 +21,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	public void verifyHar() {
 		megaMenu = new MegaMenu(driver);		
 		megaMenu.doMegaMenuActions();
-		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
+		List<String> harList = getHarUrlList(proxy);
 		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
 		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);		
 				
@@ -44,7 +44,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		megaMenu = new MegaMenu(driver);		
 		megaMenu.doMegaMenuActions();
 
-		List<String> harList = AnalyticsBase.getHarUrlList(proxy);
+		List<String> harList = getHarUrlList(proxy);
 		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);
 		
 		for(AnalyticsClick beacon : clickBeacons) {
