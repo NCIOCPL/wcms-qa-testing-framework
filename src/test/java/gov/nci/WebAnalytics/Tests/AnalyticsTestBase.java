@@ -37,7 +37,7 @@ import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.proxy.CaptureType;
 
-public class AnalyticsTest extends BaseClass {
+public class AnalyticsTestBase extends BaseClass {
 
 	public static ExtentReports report;
 	public static ExtentTest logger;

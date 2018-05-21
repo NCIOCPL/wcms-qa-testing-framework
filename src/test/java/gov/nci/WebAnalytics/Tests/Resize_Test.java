@@ -37,7 +37,7 @@ import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.proxy.CaptureType;
 
-public class Resize_Test extends AnalyticsTest {
+public class Resize_Test extends AnalyticsTestBase {
 	
 	// Analytics objects
 	public Resize resize;

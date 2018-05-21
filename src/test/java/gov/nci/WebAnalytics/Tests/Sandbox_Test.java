@@ -37,14 +37,14 @@ import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.proxy.CaptureType;
 
-public class Sandbox_Test extends AnalyticsTest {
+public class Sandbox_Test extends AnalyticsTestBase {
 
 	/// Temporary methods to verify that my new changes are picked up
 	@Test(groups = { "Analytics" })
 	public void testString() {
 		String str = "sandboxy";
 		Assert.assertNotEquals("sandbox", str);
-	}	
+	}
 	
 	@Test(groups = { "Analytics" })
 	public void testInt() {
@@ -56,13 +56,13 @@ public class Sandbox_Test extends AnalyticsTest {
 	public void testInt2() {
 		int k = 1;
 		Assert.assertNotEquals(k,  2);
-	}	
+	}
 	
 	@Test(groups = { "Analytics" })
 	public void testRsString() {
 		String str = "clickEvent";
 		Assert.assertEquals("clickEvent", str);
-	}	
+	}
 
 	@Test(groups = { "Analytics" })
 	public void testBool() {

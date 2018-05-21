@@ -37,7 +37,7 @@ import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.proxy.CaptureType;
 
-public class MegaMenu_Test extends AnalyticsTest {
+public class MegaMenu_Test extends AnalyticsTestBase {
 	
 	// Analytics objects
 	public MegaMenu megaMenu;
