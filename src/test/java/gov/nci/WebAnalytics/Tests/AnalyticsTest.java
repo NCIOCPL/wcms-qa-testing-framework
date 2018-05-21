@@ -1,4 +1,4 @@
-package com.nci.testcases;
+package gov.nci.WebAnalytics.Tests;
 
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
@@ -22,6 +22,7 @@ import org.testng.annotations.Test;
 import com.nci.Utilities.BrowserManager;
 import com.nci.Utilities.ConfigReader;
 import com.nci.Utilities.ScreenShot;
+import com.nci.testcases.BaseClass;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;

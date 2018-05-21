@@ -9,7 +9,7 @@
 			</run>
 		</groups>
 		<classes>
-				<class name="com.nci.testcases.AnalyticsTest" />
+				<class name="gov.nci.WebAnalytics.Tests.AnalyticsTest" />
 		</classes>
 	</test>	
 	<!--<test name="NCI - Chrome Testing Headless" >
