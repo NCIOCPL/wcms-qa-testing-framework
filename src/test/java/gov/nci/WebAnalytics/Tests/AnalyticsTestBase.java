@@ -3,7 +3,6 @@ package gov.nci.WebAnalytics.Tests;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -30,9 +29,6 @@ import com.relevantcodes.extentreports.LogStatus;
 import gov.nci.WebAnalytics.AnalyticsBase;
 import gov.nci.WebAnalytics.AnalyticsClick;
 import gov.nci.WebAnalytics.AnalyticsLoad;
-import gov.nci.WebAnalytics.MegaMenu;
-import gov.nci.WebAnalytics.PageLoad;
-import gov.nci.WebAnalytics.Resize;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.proxy.CaptureType;
