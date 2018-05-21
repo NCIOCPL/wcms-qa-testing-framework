@@ -19,16 +19,23 @@ public class MegaMenu extends AnalyticsClick {
 	}
 	
 	/*** MegaMenu web elements ***/
-	@FindBy(how = How.CSS, using = "#mega-nav a")
-	WebElement mega_menu_link;	
-	
+	@FindBy(how = How.CSS, using = "#mega-nav .nav-item-title a")
+	WebElement mm_bar_link;
+	@FindBy(how = How.CSS, using = "#mega-nav .sub-nav-group a")
+	WebElement mm_subnav_title_link;	
+	@FindBy(how = How.CSS, using = "#mega-nav .sub-nav-group ul li a")
+	WebElement mm_subnav_list_item;	
 	
 	/*** Browser actions ***/
 	private void clickMegaMenu() {
 		driver.navigate().to(homePage);
-		mega_menu_link.click();
+		mm_bar_link.click();
+		//mm_subnav_title_link.click();
+		//mm_subnav_list_item.click();		
 		driver.navigate().to(spanishPage);
-		mega_menu_link.click();
+		mm_bar_link.click();
+		//mm_subnav_title_link.click();
+		//mm_subnav_list_item.click();
 	}
 
 	/**

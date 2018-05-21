@@ -16,8 +16,6 @@ import org.openqa.selenium.support.PageFactory;
 public class AnalyticsClick extends AnalyticsBase {	
 
 	/*************** Basic Search Page WebElements **********************/
-	@FindBy(how = How.CSS, using = "#mega-nav a")
-	WebElement mega_menu_link;
 	@FindBy(how = How.CSS, using = ".feature-card")
 	WebElement feature_card;
 
