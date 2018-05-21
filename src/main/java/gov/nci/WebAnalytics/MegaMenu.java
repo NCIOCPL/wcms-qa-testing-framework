@@ -25,7 +25,6 @@ public class MegaMenu extends AnalyticsClick {
 	
 	/*** Browser actions ***/
 	private void clickMegaMenu() {
-		System.out.println("Clicked clickMegaMenu");
 		mega_menu_link.click();
 	}
 
@@ -36,7 +35,9 @@ public class MegaMenu extends AnalyticsClick {
 	 * @throws RuntimeException
 	 */
 	public void doMegaMenuActions() throws RuntimeException {
+		System.out.println("Begin testing MegaMenu");		
 		clickMegaMenu();
+		System.out.println("Done testing MegaMenu");
 	}
 	
 }
