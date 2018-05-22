@@ -16,9 +16,52 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	
 	/// Load and click events have been captured
 	@Test(groups = { "Analytics" })
+	public void testMMBarEn() {
+		megaMenu = new MegaMenu(driver);
+		megaMenu.clickMegaMenuEn();
+		megaMenu.clickMegaMenuEs();
+		
+		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
+				
+		Assert.assertTrue(harList.size() > 0);
+		Assert.assertTrue(clickBeacons.size() > 0);
+		
+		System.out.println("=== Start debug testEvents() ===");
+		for(String har : harList) {
+			System.out.println(har);
+		}
+		System.out.println("=== End debug testEvents() ===");				
+		
+		logger.log(LogStatus.PASS, "Load and click events have been captured.");				
+	}
+	
+	/// Click event numbers match with their descriptors
+	@Test(groups = { "Analytics" })
+	public void testMMBarEs() {
+		megaMenu = new MegaMenu(driver);		
+		megaMenu.clickMegaMenuEn();
+		megaMenu.clickMegaMenuEs();
+		
+		harList = getHarUrlList(proxy);
+		clickBeacons = AnalyticsBase.getClickBeacons(harList);
+		
+		for(AnalyticsBase beacon : clickBeacons) {
+			if(beacon.linkName == "FeatureCardClick") {
+				Assert.assertTrue(beacon.events[0].contains("event27"));
+			}
+			if(beacon.linkName == "MegaMenuClick") {
+				Assert.assertTrue(beacon.events[0].contains("event27"));
+			}
+		}
+		
+		logger.log(LogStatus.PASS, "Click event values are correct.");		
+	}
+	
+	@Test(groups = { "Analytics" })
 	public void verifyHar() {
 		megaMenu = new MegaMenu(driver);
-		megaMenu.doMegaMenuActions();
+		megaMenu.clickMegaMenuEn();
+		megaMenu.clickMegaMenuEs();
 		
 		harList = getHarUrlList(proxy);
 		loadBeacons = AnalyticsBase.getLoadBeacons(harList);
@@ -41,7 +84,8 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testClickEvents() {
 		megaMenu = new MegaMenu(driver);		
-		megaMenu.doMegaMenuActions();
+		megaMenu.clickMegaMenuEn();
+		megaMenu.clickMegaMenuEs();
 		harList = getHarUrlList(proxy);
 		clickBeacons = AnalyticsBase.getClickBeacons(harList);
 		
@@ -55,6 +99,6 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		}
 		
 		logger.log(LogStatus.PASS, "Click event values are correct.");		
-	}
+	}	
 	
 }
