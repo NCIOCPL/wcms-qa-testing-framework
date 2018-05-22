@@ -7,8 +7,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import gov.nci.WebAnalytics.AnalyticsBase;
-import gov.nci.WebAnalytics.AnalyticsClick;
-import gov.nci.WebAnalytics.AnalyticsLoad;
 import gov.nci.WebAnalytics.MegaMenu;
 
 public class MegaMenu_Test extends AnalyticsTestBase {
@@ -22,8 +20,8 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		megaMenu = new MegaMenu(driver);		
 		megaMenu.doMegaMenuActions();
 		List<String> harList = getHarUrlList(proxy);
-		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
-		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);		
+		List<AnalyticsBase> loadBeacons = AnalyticsBase.getLoadBeacons(harList);
+		List<AnalyticsBase> clickBeacons = AnalyticsBase.getClickBeacons(harList);		
 				
 		Assert.assertTrue(harList.size() > 0);
 		Assert.assertTrue(loadBeacons.size() > 0);
@@ -45,9 +43,9 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		megaMenu.doMegaMenuActions();
 
 		List<String> harList = getHarUrlList(proxy);
-		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);
+		List<AnalyticsBase> clickBeacons = AnalyticsBase.getClickBeacons(harList);
 		
-		for(AnalyticsClick beacon : clickBeacons) {
+		for(AnalyticsBase beacon : clickBeacons) {
 			if(beacon.linkName == "FeatureCardClick") {
 				Assert.assertTrue(beacon.events[0].contains("event27"));
 			}

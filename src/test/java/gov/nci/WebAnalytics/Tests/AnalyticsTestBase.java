@@ -29,8 +29,6 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 import gov.nci.WebAnalytics.AnalyticsBase;
-import gov.nci.WebAnalytics.AnalyticsClick;
-import gov.nci.WebAnalytics.AnalyticsLoad;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.core.har.Har;
@@ -54,8 +52,8 @@ public class AnalyticsTestBase extends BaseClass {
 	// TODO: get the logger to actually work
 	// TODO: Build negative tests
 	// TODO: Build test for test
-	public AnalyticsLoad loadEvents;
-	public AnalyticsClick clickEvents;
+	public AnalyticsBase loadEvents;
+	public AnalyticsBase clickEvents;
 	    
 	@BeforeTest(groups = { "Analytics" })
 	@Parameters	
@@ -66,7 +64,6 @@ public class AnalyticsTestBase extends BaseClass {
 		String extentReportPath = config.getExtentReportPath();
 		System.out.println("Logger Path:" + extentReportPath);
 		report = new ExtentReports(extentReportPath + config.getProperty("Environment") + "-" + fileName + ".html");
-		System.out.println("Report Path: ");
 		report.addSystemInfo("Environment", config.getProperty("Environment"));
 	}
 	
@@ -91,10 +88,6 @@ public class AnalyticsTestBase extends BaseClass {
 		// Initialize driver and open browser
 		driver = BrowserManager.startProxyBrowser(browser, pageURL, proxy);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);		
-
-		// Create our load and click analytics objects
-		loadEvents = new AnalyticsLoad(driver);
-		clickEvents = new AnalyticsClick(driver);
 		
 		// Add entries to the HAR log		
 		System.out.println("Analytics setup done");

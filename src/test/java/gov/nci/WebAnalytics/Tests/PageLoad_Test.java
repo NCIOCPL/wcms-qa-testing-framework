@@ -8,8 +8,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import gov.nci.WebAnalytics.AnalyticsBase;
-import gov.nci.WebAnalytics.AnalyticsClick;
-import gov.nci.WebAnalytics.AnalyticsLoad;
 import gov.nci.WebAnalytics.PageLoad;
 
 public class PageLoad_Test extends AnalyticsTestBase {
@@ -24,8 +22,8 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		pageLoad.doPageLoadActions();
 		
 		List<String> harList = getHarUrlList(proxy);
-		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
-		List<AnalyticsClick> clickBeacons = AnalyticsClick.getClickBeacons(harList);		
+		List<AnalyticsBase> loadBeacons = AnalyticsBase.getLoadBeacons(harList);
+		List<AnalyticsBase> clickBeacons = AnalyticsBase.getClickBeacons(harList);		
 				
 		Assert.assertTrue(harList.size() > 0);
 		Assert.assertTrue(loadBeacons.size() > 0);
@@ -47,9 +45,9 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		pageLoad.doPageLoadActions();
 		
 		List<String> harList = getHarUrlList(proxy);
-		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);
+		List<AnalyticsBase> loadBeacons = AnalyticsBase.getLoadBeacons(harList);
 			
-		for(AnalyticsLoad beacon : loadBeacons) {
+		for(AnalyticsBase beacon : loadBeacons) {
 			Assert.assertTrue(beacon.events[0].contains("event1"));
 			Assert.assertTrue(beacon.events[1].contains("event47"));
 		}
@@ -65,9 +63,9 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		
 		// For debugging purposes only...
 		List<String> harList = getHarUrlList(proxy);
-		List<AnalyticsLoad> loadBeacons = AnalyticsLoad.getLoadBeacons(harList);		
+		List<AnalyticsBase> loadBeacons = AnalyticsBase.getLoadBeacons(harList);		
 		
-		AnalyticsLoad firstLoadBeacon = loadBeacons.get(0);
+		AnalyticsBase firstLoadBeacon = loadBeacons.get(0);
 
 		// for each beacon ... logic goes here
 		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage") || firstLoadBeacon.channel.contains("Research"));
