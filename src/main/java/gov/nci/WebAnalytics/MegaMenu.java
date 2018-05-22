@@ -52,7 +52,7 @@ public class MegaMenu extends AnalyticsBase {
 		//mm_subnav_list_item.click();
 	}
 	
-	public void hoverMegaMenu() {	
+	public void clickMegaMenuSubnav() {
 		System.out.println("debug hover");
 		Actions action = new Actions(driver);
 		WebDriverWait wait = new WebDriverWait(driver, 5);		
@@ -60,8 +60,9 @@ public class MegaMenu extends AnalyticsBase {
 		action.perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_expanded_desktop));
 		action.moveToElement(mm_subnav_title_link);
-		action.perform();
-		
+		action.perform();		
+		mm_subnav_title_link.click();
+		driver.navigate().to(homePage);
 	}
 	
 }
