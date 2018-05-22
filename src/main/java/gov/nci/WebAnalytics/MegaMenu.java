@@ -2,12 +2,15 @@ package gov.nci.WebAnalytics;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MegaMenu extends AnalyticsBase {
 	/*** MegaMenu web elements ***/
@@ -17,6 +20,8 @@ public class MegaMenu extends AnalyticsBase {
 	WebElement mm_subnav_title_link;	
 	@FindBy(how = How.CSS, using = "#mega-nav .sub-nav-group ul li a")
 	WebElement mm_subnav_list_item;	
+	@FindBy(how = How.CSS, using = "#mega-nav .mega-menu-scroll.open")
+	WebElement mm_expanded_desktop;
 	
 	public MegaMenu(){		
 	}
@@ -47,10 +52,15 @@ public class MegaMenu extends AnalyticsBase {
 		//mm_subnav_list_item.click();
 	}
 	
-	public void hoverMegaMenu() {
-		driver.manage().timeouts().implicitlyWait(10,  TimeUnit.SECONDS);		
+	public void hoverMegaMenu() {	
+		System.out.println("debug hover");
 		Actions action = new Actions(driver);
-		action.moveToElement(mm_bar_link).build().perform();
+		WebDriverWait wait = new WebDriverWait(driver, 5);		
+		action.moveToElement(mm_bar_link);
+		action.perform();
+		wait.until(ExpectedConditions.visibilityOf(mm_expanded_desktop));
+		action.moveToElement(mm_subnav_title_link);
+		action.perform();
 		
 	}
 	
