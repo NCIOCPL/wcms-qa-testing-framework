@@ -20,8 +20,15 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		megaMenu = new MegaMenu(driver);
 		megaMenu.clickMegaMenuEn();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
-				
-		Assert.assertTrue(clickBeacons.size() > 0);
+		boolean hasLinkName = false;
+		
+		for(AnalyticsBase beacon : clickBeacons) {
+			if(beacon.linkName.toLowerCase().equals("megamenuclick")) {
+				Assert.assertTrue(beacon.events[0].contains("event26"));
+				hasLinkName = true;
+			}
+		}		
+		Assert.assertTrue(hasLinkName);
 		logger.log(LogStatus.PASS, "MegaMenu top level click passed.");
 	}
 	
@@ -31,17 +38,15 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		megaMenu = new MegaMenu(driver);
 		megaMenu.clickMegaMenuEs();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
-		Assert.assertTrue(clickBeacons.size() > 0);
-
-		int count = 0;
-		for(AnalyticsBase beacon : clickBeacons) {
-			if(beacon.linkName.toLowerCase() == "megamenuclick") {
-				Assert.assertTrue(beacon.events[0].contains("event27"));
-				count++;
-			}
-		}
+		boolean hasLinkName = false;
 		
-		Assert.assertTrue(count > 0);		
+		for(AnalyticsBase beacon : clickBeacons) {
+			if(beacon.linkName.toLowerCase().equals("megamenuclick")) {
+				Assert.assertTrue(beacon.events[0].contains("event26"));
+				hasLinkName = true;
+			}
+		}		
+		Assert.assertTrue(hasLinkName);
 		logger.log(LogStatus.PASS, "MegaMenu Spanish top level click passed.");
 	}
 	
