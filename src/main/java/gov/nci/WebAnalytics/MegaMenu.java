@@ -1,7 +1,10 @@
 package gov.nci.WebAnalytics;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
@@ -42,6 +45,13 @@ public class MegaMenu extends AnalyticsBase {
 		mm_bar_link.click();
 		//mm_subnav_title_link.click();
 		//mm_subnav_list_item.click();
+	}
+	
+	public void hoverMegaMenu() {
+		driver.manage().timeouts().implicitlyWait(10,  TimeUnit.SECONDS);		
+		Actions action = new Actions(driver);
+		action.moveToElement(mm_bar_link).build().perform();
+		
 	}
 	
 }

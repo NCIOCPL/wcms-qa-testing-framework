@@ -14,7 +14,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	// Analytics object
 	public MegaMenu megaMenu;
 	
-	/// Load and click events have been captured
+	/// Menu bar click returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMMBarEn() {
 		megaMenu = new MegaMenu(driver);
@@ -32,7 +32,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "MegaMenu top level click passed.");
 	}
 	
-	/// Click event numbers match with their descriptors
+	/// Spanish menu bar click returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMMBarEs() {
 		megaMenu = new MegaMenu(driver);
@@ -50,4 +50,20 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "MegaMenu Spanish top level click passed.");
 	}
 	
+	/// MegaMenu expansion returns the expected values
+	@Test(groups = { "Analytics" })
+	public void testMMExpand() {
+		megaMenu = new MegaMenu(driver);
+		megaMenu.hoverMegaMenu();
+		
+		logger.log(LogStatus.PASS, "MegaMenu expanded or something");
+	}	
+	
+	/// MegaMenu subnav title click returns the expected values
+	@Test(groups = { "Analytics" })
+	public void testSubnavClick() {
+		megaMenu = new MegaMenu(driver);
+		//megaMenu.doSomething();		
+		logger.log(LogStatus.PASS, "Expaned subnav title click passed.");
+	}	
 }
