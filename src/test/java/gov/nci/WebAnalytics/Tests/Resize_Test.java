@@ -21,8 +21,9 @@ public class Resize_Test extends AnalyticsTestBase {
 		
 		resize = new Resize(driver);
 		resize.resizeBrowser();
-		List<String> harList = getHarUrlList(proxy);
-		List<AnalyticsBase> clickBeacons = AnalyticsBase.getClickBeacons(harList);		
+		
+		harList = getHarUrlList(proxy);
+		clickBeacons = AnalyticsBase.getClickBeacons(harList);		
 				
 		Assert.assertTrue(harList.size() > 0);
 		Assert.assertTrue(clickBeacons.size() > 0);
@@ -42,8 +43,8 @@ public class Resize_Test extends AnalyticsTestBase {
 		resize = new Resize(driver);
 		resize.resizeBrowser();
 
-		List<String> harList = getHarUrlList(proxy);
-		List<AnalyticsBase> clickBeacons = AnalyticsBase.getClickBeacons(harList);
+		harList = getHarUrlList(proxy);
+		clickBeacons = AnalyticsBase.getClickBeacons(harList);
 		
 		for(AnalyticsBase beacon : clickBeacons) {
 			if(beacon.linkName.toLowerCase().contains("resize")) {

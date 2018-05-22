@@ -11,17 +11,18 @@ import gov.nci.WebAnalytics.MegaMenu;
 
 public class MegaMenu_Test extends AnalyticsTestBase {
 	
-	// Analytics objects
+	// Analytics object
 	public MegaMenu megaMenu;
-
+	
 	/// Load and click events have been captured
 	@Test(groups = { "Analytics" })
 	public void verifyHar() {
-		megaMenu = new MegaMenu(driver);		
+		megaMenu = new MegaMenu(driver);
 		megaMenu.doMegaMenuActions();
-		List<String> harList = getHarUrlList(proxy);
-		List<AnalyticsBase> loadBeacons = AnalyticsBase.getLoadBeacons(harList);
-		List<AnalyticsBase> clickBeacons = AnalyticsBase.getClickBeacons(harList);		
+		
+		harList = getHarUrlList(proxy);
+		loadBeacons = AnalyticsBase.getLoadBeacons(harList);
+		clickBeacons = AnalyticsBase.getClickBeacons(harList);		
 				
 		Assert.assertTrue(harList.size() > 0);
 		Assert.assertTrue(loadBeacons.size() > 0);
@@ -34,16 +35,15 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		System.out.println("=== End debug testEvents() ===");				
 		
 		logger.log(LogStatus.PASS, "Load and click events have been captured.");				
-	}	
+	}
 	
 	/// Click event numbers match with their descriptors
 	@Test(groups = { "Analytics" })
 	public void testClickEvents() {
 		megaMenu = new MegaMenu(driver);		
 		megaMenu.doMegaMenuActions();
-
-		List<String> harList = getHarUrlList(proxy);
-		List<AnalyticsBase> clickBeacons = AnalyticsBase.getClickBeacons(harList);
+		harList = getHarUrlList(proxy);
+		clickBeacons = AnalyticsBase.getClickBeacons(harList);
 		
 		for(AnalyticsBase beacon : clickBeacons) {
 			if(beacon.linkName == "FeatureCardClick") {

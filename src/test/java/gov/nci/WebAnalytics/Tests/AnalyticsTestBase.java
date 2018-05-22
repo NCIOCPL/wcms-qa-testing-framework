@@ -44,16 +44,15 @@ public class AnalyticsTestBase extends BaseClass {
 	public ConfigReader config = new ConfigReader();
 	public String pageURL;
 
-    // TODO: clean up (or remove) loadEvents / clickEvents objects
 	// TODO: build a 'beacon params' object 
 	// TODO: Work out what we need to fire off on click/resize/other events
 	// 		- Do we need to create a new HAR with each call? 
 	//		- How do we differentiate between load and click calls?	
-	// TODO: get the logger to actually work
 	// TODO: Build negative tests
 	// TODO: Build test for test
-	public AnalyticsBase loadEvents;
-	public AnalyticsBase clickEvents;
+	protected static List<String> harList;
+	protected static List<AnalyticsBase> loadBeacons;
+	protected static List<AnalyticsBase> clickBeacons;
 	    
 	@BeforeTest(groups = { "Analytics" })
 	@Parameters	
