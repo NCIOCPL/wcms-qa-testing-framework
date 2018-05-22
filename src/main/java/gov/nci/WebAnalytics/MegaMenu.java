@@ -22,6 +22,8 @@ public class MegaMenu extends AnalyticsBase {
 	WebElement mm_subnav_list_item;	
 	@FindBy(how = How.CSS, using = "#mega-nav .mega-menu-scroll.open")
 	WebElement mm_expanded_desktop;
+	@FindBy(how = How.CSS, using = ".mobile-menu-bar button.menu-btn")
+	WebElement mm_mobile_expand_button;
 	
 	public MegaMenu(){		
 	}
@@ -63,6 +65,13 @@ public class MegaMenu extends AnalyticsBase {
 		action.perform();		
 		mm_subnav_title_link.click();
 		driver.navigate().to(homePage);
+	}
+	
+	public void revealMegaMenuMobile() {
+		Resize resize = new Resize(driver);
+		resize.resizeToSmall();
+		mm_mobile_expand_button.click();
+		driver.manage().window().maximize();
 	}
 	
 }

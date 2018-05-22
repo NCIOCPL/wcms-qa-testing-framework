@@ -5,7 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 public class Resize extends AnalyticsBase {
-		
+	
+	public static Dimension small = new Dimension(300, 800);
+	public static Dimension med = new Dimension(700, 800);
+	public static Dimension large = new Dimension(1100, 800);
+	public static Dimension xlarge = new Dimension(1600, 800);	
+	
 	public Resize() {		
 	}
 	
@@ -22,18 +27,29 @@ public class Resize extends AnalyticsBase {
 	 * @throws RuntimeException
 	 */	
 	/*** Resize browser ***/
-	public void resizeBrowser() throws RuntimeException {
-		Dimension small = new Dimension(300, 800);
-		Dimension med = new Dimension(700, 800);
-		Dimension large = new Dimension(1100, 800);
-		Dimension xlarge = new Dimension(1600, 800);
+	public void resizeToSmall() throws RuntimeException {
+		driver.manage().window().setSize(small);
+	}
 
+	public void resizeToMed() throws RuntimeException {
+		driver.manage().window().setSize(med);
+	}
+
+	public void resizeToLarge() throws RuntimeException {
+		driver.manage().window().setSize(large);		
+	}
+
+	public void resizeToXlarge() throws RuntimeException {
+		driver.manage().window().setSize(xlarge);
+	}
+
+	public void resizeBrowser() throws RuntimeException {
 		System.out.println("Begin Resize actions");		
 		driver.navigate().to(homePage);
-		driver.manage().window().setSize(xlarge);
-		driver.manage().window().setSize(large);		
-		driver.manage().window().setSize(med);
-		driver.manage().window().setSize(small);
+		resizeToXlarge();
+		resizeToLarge();
+		resizeToMed();
+		resizeToSmall();
 		driver.manage().window().maximize();
 		System.out.println("Done Resize actions");
 	}

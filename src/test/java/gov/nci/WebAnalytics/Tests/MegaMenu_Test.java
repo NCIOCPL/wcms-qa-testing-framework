@@ -78,4 +78,23 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		//megaMenu.doSomething();		
 		logger.log(LogStatus.PASS, "Expaned subnav title click passed.");
 	}	
+	
+	/// MegaMenu subnav title click returns the expected values
+	@Test(groups = { "Analytics" })
+	public void testMobileMegaMenuReveal() {
+		megaMenu = new MegaMenu(driver);
+		megaMenu.revealMegaMenuMobile();
+		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));		
+		boolean hasLinkName = false;
+		
+		for(AnalyticsBase beacon : clickBeacons) {
+			System.out.print(beacon.linkName);
+			if(beacon.linkName.toLowerCase().equals("megamenumobilereveal")) {
+				Assert.assertTrue(beacon.events[0].contains("event28"));
+				hasLinkName = true;
+			}
+		}
+		Assert.assertTrue(hasLinkName);		
+		logger.log(LogStatus.PASS, "Expaned mobile mega menu passed");
+	}		
 }
