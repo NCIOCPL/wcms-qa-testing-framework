@@ -133,6 +133,7 @@ public class AnalyticsTestBase extends BaseClass {
 	    
 	    List<HarEntry> entries = har.getLog().getEntries();
     	System.out.println("Total HAR entries: " + entries.size());
+    	System.out.println("List of requests to " + AnalyticsBase.TRACKING_SERVER + ":");
     	
 	    for (HarEntry entry : entries) {
 	    	// Build a list of requests to the analytics tracking server from the HAR
@@ -140,8 +141,8 @@ public class AnalyticsTestBase extends BaseClass {
 	    	if(result.contains(AnalyticsBase.TRACKING_SERVER))
 	    	{
 	    		harList.add(result);
+	    		System.out.println(result);
 	    	}
-	    	// TODO: check for calls to 'static' or 'satellite' 
 	    }
 	    
 	    // Debug size of har list

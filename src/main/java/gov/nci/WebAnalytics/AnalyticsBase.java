@@ -125,7 +125,7 @@ public class AnalyticsBase {
 				break;
 			}
 		}
-		return rtnChannel;
+		return rtnChannel.trim();
 	}
 	
 	/**
@@ -211,7 +211,7 @@ public class AnalyticsBase {
 				break;
 			}
 		}
-		return rtn;
+		return rtn.trim();
 	}	
 
 	/**
@@ -227,8 +227,8 @@ public class AnalyticsBase {
 				break;
 			}
 		}
-		return rtn;
-	}	
+		return rtn.trim();
+	}
 
 	/**
 	 * Get "Link URL" value (pev1)(
@@ -243,7 +243,7 @@ public class AnalyticsBase {
 				break;
 			}
 		}
-		return rtn;
+		return rtn.trim();
 	}	
 	
 	/**
