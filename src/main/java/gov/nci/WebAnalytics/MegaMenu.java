@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-public class MegaMenu extends AnalyticsClick {
+public class MegaMenu extends AnalyticsBase {
 
 	public MegaMenu(){		
 	}

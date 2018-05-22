@@ -47,6 +47,10 @@ public class AnalyticsBase {
 	public List<NameValuePair> props; 
 	public List<NameValuePair> eVars; 
 	public List<NameValuePair> hiers;
+	public String linkType;
+	public String linkName;
+	public String linkUrl;	
+	
 	
 	/**
 	 * No-arg constructor - init all vars
@@ -60,6 +64,9 @@ public class AnalyticsBase {
 		props = new ArrayList<>();
 		eVars = new ArrayList<>();
 		hiers = new ArrayList<>();
+		linkType = "";
+		linkName = "";
+		linkUrl = "";
 	}
 	
 	/**
@@ -76,6 +83,9 @@ public class AnalyticsBase {
 		props = getProps(params);
 		eVars = getEvars(params);
 		hiers = getHiers(params);
+		linkType = getLinkType(params);
+		linkName = getLinkName(params);
+		linkUrl = getLinkUrl(params);
 	}
 	
 	/**
@@ -189,6 +199,54 @@ public class AnalyticsBase {
 	}
 
 	/**
+	 * Get "Link Type" value (pe)(
+	 * @param parms
+	 * @return
+	 */
+	public String getLinkType(List<NameValuePair> parms) {
+		String rtn = "";		
+		for (NameValuePair param : parms) {
+			if (param.getName().toLowerCase().equals("pe")) {
+				rtn = param.getValue();
+				break;
+			}
+		}
+		return rtn;
+	}	
+
+	/**
+	 * Get "Link Name" value (pev2)(
+	 * @param parms
+	 * @return
+	 */	
+	public String getLinkName(List<NameValuePair> parms) {
+		String rtn = "";		
+		for (NameValuePair param : parms) {
+			if (param.getName().toLowerCase().equals("pev2")) {
+				rtn = param.getValue();
+				break;
+			}
+		}
+		return rtn;
+	}	
+
+	/**
+	 * Get "Link URL" value (pev1)(
+	 * @param parms
+	 * @return
+	 */		
+	public String getLinkUrl(List<NameValuePair> parms) {
+		String rtn = "";		
+		for (NameValuePair param : parms) {
+			if (param.getName().toLowerCase().equals("pev1")) {
+				rtn = param.getValue();
+				break;
+			}
+		}
+		return rtn;
+	}	
+	
+	/**
 	 * Check query params to see if this is a link tracking event
 	 * @param parms
 	 * @return
@@ -201,5 +259,67 @@ public class AnalyticsBase {
 		}
 		return false;
 	}
+
+	/**
+	 * Check for parameters to verify that this is a link event
+	 * @param paramList
+	 * @return
+	 */
+	public boolean isLinkEvent(List<NameValuePair> paramList) {
+		for (NameValuePair param : paramList) {
+			if (param.getName().toLowerCase().equals("somevalue")) {
+				return true;
+			}
+		}
+		return false;
+	}	
+	
+	/**
+	 * Get a list of beacon URLs fired off for load events
+	 * @param urlList
+	 * @return
+	 * @throws MalformedURLException
+	 */
+	public static List<AnalyticsBase> getLoadBeacons(List<String> urlList) {
+				
+		List<AnalyticsBase> loadBeacons = new ArrayList<AnalyticsBase>();		
+		AnalyticsBase analytics = new AnalyticsBase();
+
+		for(String url : urlList)
+		{
+			// If this doesn't have the "Link Type" param ('pe'), add to list of load beacons
+			List<NameValuePair> params = analytics.buildParamsList(URI.create(url));
+			if(!analytics.hasParam(params, "pe")) {
+				loadBeacons.add(new AnalyticsBase(url));
+			}
+		}
+
+		System.out.println("Total load beacons: " + loadBeacons.size());		
+		return loadBeacons;
+	}		
+	
+	/**
+	 * Get a list of beacon URLs fired off for click events
+	 * @param urlList
+	 * @return
+	 * @throws MalformedURLException
+	 */
+	public static List<AnalyticsBase> getClickBeacons(List<String> urlList) {
+				
+		List<AnalyticsBase> clickBeacons = new ArrayList<AnalyticsBase>();		
+		AnalyticsBase analytics = new AnalyticsBase();
+
+		for(String url : urlList)
+		{
+			// If this has the "Link Type" param ('pe'), add to list of click beacons
+			List<NameValuePair> params = analytics.buildParamsList(URI.create(url));
+			if(analytics.hasParam(params, "pe")) {
+				clickBeacons.add(new AnalyticsBase(url));
+			}
+		}
+		
+		System.out.println("Total click beacons: " + clickBeacons.size());
+		return clickBeacons;
+	}	
 	
 }
