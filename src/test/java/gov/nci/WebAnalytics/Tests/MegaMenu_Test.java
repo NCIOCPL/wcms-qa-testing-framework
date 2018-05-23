@@ -20,15 +20,10 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		megaMenu = new MegaMenu(driver);
 		megaMenu.clickMegaMenuEn();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
-		boolean hasLinkName = false;
-		
-		for(AnalyticsBase beacon : clickBeacons) {
-			if(beacon.linkName.toLowerCase().equals("megamenuclick")) {
-				Assert.assertTrue(beacon.events[0].contains("event26"));
-				hasLinkName = true;
-			}
-		}		
-		Assert.assertTrue(hasLinkName);
+
+		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
+		Assert.assertTrue(isEvent(clickBeacons, "event26"));
+
 		logger.log(LogStatus.PASS, "MegaMenu top level click passed.");
 	}
 	
@@ -38,15 +33,10 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		megaMenu = new MegaMenu(driver);
 		megaMenu.clickMegaMenuEs();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
-		boolean hasLinkName = false;
 		
-		for(AnalyticsBase beacon : clickBeacons) {
-			if(beacon.linkName.toLowerCase().equals("megamenuclick")) {
-				Assert.assertTrue(beacon.events[0].contains("event26"));
-				hasLinkName = true;
-			}
-		}		
-		Assert.assertTrue(hasLinkName);
+		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
+		Assert.assertTrue(isEvent(clickBeacons, "event26"));
+		
 		logger.log(LogStatus.PASS, "MegaMenu Spanish top level click passed.");
 	}
 	
@@ -56,7 +46,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		System.out.println("=== Begin debug megamenu expand ===");
 		megaMenu = new MegaMenu(driver);
 		megaMenu.clickMegaMenuSubnav();
-		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));		
+		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
 		boolean hasLinkName = false;
 		
 		for(AnalyticsBase beacon : clickBeacons) {
@@ -84,17 +74,11 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	public void testMobileMegaMenuReveal() {
 		megaMenu = new MegaMenu(driver);
 		megaMenu.revealMegaMenuMobile();
-		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));		
-		boolean hasLinkName = false;
+		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
+				
+		Assert.assertTrue(hasLinkName(clickBeacons, "megamenumobilereveal"));
+		Assert.assertTrue(isEvent(clickBeacons, "event28"));
 		
-		for(AnalyticsBase beacon : clickBeacons) {
-			System.out.print(beacon.linkName);
-			if(beacon.linkName.toLowerCase().equals("megamenumobilereveal")) {
-				Assert.assertTrue(beacon.events[0].contains("event28"));
-				hasLinkName = true;
-			}
-		}
-		Assert.assertTrue(hasLinkName);		
 		logger.log(LogStatus.PASS, "Expaned mobile mega menu passed");
 	}		
 }

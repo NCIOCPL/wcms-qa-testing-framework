@@ -3,6 +3,7 @@ package gov.nci.WebAnalytics.Tests;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -184,4 +185,35 @@ public class AnalyticsTestBase extends BaseClass {
 		}
 	}
 	
+	/**
+	 * Utility function to check for a link name value within a click beacon.
+	 * @param clickBeacons
+	 * @param name
+	 * @return
+	 */
+	public boolean hasLinkName(List<AnalyticsBase> clickBeacons, String name) {
+		for(AnalyticsBase beacon : clickBeacons) {
+			if(beacon.linkName.equalsIgnoreCase(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Utility function to check for an event value within a click beacon.
+	 * @param clickBeacons
+	 * @param evt
+	 * @return
+	 */
+	public boolean isEvent(List<AnalyticsBase> clickBeacons, String evt) {
+		for(AnalyticsBase beacon : clickBeacons) {
+			String events = Arrays.toString(beacon.events);
+			if(events.toLowerCase().contains(evt)) {
+				return true;
+			}
+		}
+		return false;
+	}
+		
 }
