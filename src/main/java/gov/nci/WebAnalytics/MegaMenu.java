@@ -24,6 +24,8 @@ public class MegaMenu extends AnalyticsBase {
 	WebElement mm_expanded_desktop;
 	@FindBy(how = How.CSS, using = ".mobile-menu-bar button.menu-btn")
 	WebElement mm_mobile_expand_button;
+	@FindBy(how = How.LINK_TEXT , using = "Cancer Disparities")
+	WebElement mm_subnav_list_link;
 	
 	public MegaMenu(){		
 	}
@@ -66,6 +68,19 @@ public class MegaMenu extends AnalyticsBase {
 		mm_subnav_title_link.click();
 		driver.navigate().to(homePage);
 	}
+	
+	public void clickMegaMenuLink() {
+		driver.navigate().to(homePage);
+		Actions action = new Actions(driver);
+		WebDriverWait wait = new WebDriverWait(driver, 5);		
+		action.moveToElement(mm_bar_link);
+		action.perform();
+		wait.until(ExpectedConditions.visibilityOf(mm_expanded_desktop));
+		action.moveToElement(mm_subnav_title_link);
+		action.perform();
+		mm_subnav_list_link.click();
+		driver.navigate().to(homePage);
+	}	
 	
 	public void revealMegaMenuMobile() {
 		Resize resize = new Resize(driver);

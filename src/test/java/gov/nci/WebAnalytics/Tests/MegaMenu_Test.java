@@ -59,10 +59,13 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	
 	/// MegaMenu subnav title click returns the expected values
 	@Test(groups = { "Analytics" })
-	public void testSubnavClick() {
-		//megaMenu.doSomething();		
+	public void testSubnavClick() {		
+		megaMenu.clickMegaMenuLink();
+		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
+		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
+		Assert.assertTrue(isEvent(clickBeacons, "event26"));
 		logger.log(LogStatus.PASS, "Expaned subnav title click passed.");
-	}	
+	}
 	
 	/// MegaMenu subnav title click returns the expected values
 	@Test(groups = { "Analytics" })
