@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.http.NameValuePair;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -206,7 +208,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param evt
 	 * @return
 	 */
-	public boolean isEvent(List<AnalyticsBase> clickBeacons, String evt) {
+	public boolean hasEvent(List<AnalyticsBase> clickBeacons, String evt) {
 		for(AnalyticsBase beacon : clickBeacons) {
 			String events = Arrays.toString(beacon.events);
 			if(events.toLowerCase().contains(evt)) {
@@ -216,4 +218,38 @@ public class AnalyticsTestBase extends BaseClass {
 		return false;
 	}
 		
+	/**
+	 * Utility function to check for a given prop and value
+	 * @param clickBeacons
+	 * @param num
+	 * @param val
+	 * @return
+	 */
+	public boolean hasProp(List<AnalyticsBase> clickBeacons, int num, String val) {
+		for(AnalyticsBase beacon : clickBeacons) {
+			String blob = beacon.props.toString();
+			if(blob.toLowerCase().contains("prop" + Integer.toString(num) + "=" + val.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
+	}	
+
+	/**
+	 * Utility function to check for a given eVar and value
+	 * @param clickBeacons
+	 * @param num
+	 * @param val
+	 * @return
+	 */
+	public boolean haseVar(List<AnalyticsBase> clickBeacons, int num, String val) {
+		for(AnalyticsBase beacon : clickBeacons) {
+			String blob = beacon.eVars.toString();
+			if(blob.toLowerCase().contains("evar" + Integer.toString(num) + "=" + val.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
+	}	
+	
 }
