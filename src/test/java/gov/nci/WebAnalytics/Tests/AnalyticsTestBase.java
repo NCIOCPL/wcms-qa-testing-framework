@@ -135,8 +135,7 @@ public class AnalyticsTestBase extends BaseClass {
 	    List<String> harList = new ArrayList<String>();
 	    
 	    List<HarEntry> entries = har.getLog().getEntries();
-    	System.out.println("Total HAR entries: " + entries.size());
-    	System.out.println("List of requests to " + AnalyticsBase.TRACKING_SERVER + ":");
+    	System.out.println("Requests to " + AnalyticsBase.TRACKING_SERVER + ":");
     	
 	    for (HarEntry entry : entries) {
 	    	// Build a list of requests to the analytics tracking server from the HAR
@@ -149,6 +148,7 @@ public class AnalyticsTestBase extends BaseClass {
 	    }
 	    
 	    // Debug size of har list
+    	System.out.println("Total HAR entries: " + entries.size());
 		System.out.println("Total analytics entries: " + harList.size());
 
 		// harList cleanup logic here		

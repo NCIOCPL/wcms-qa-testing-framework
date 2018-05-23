@@ -294,7 +294,8 @@ public class AnalyticsBase {
 			}
 		}
 
-		System.out.println("Total load beacons: " + loadBeacons.size());		
+		System.out.println("Total load beacons: " + loadBeacons.size());
+		System.out.println("Total click beacons: " + (urlList.size() - loadBeacons.size()));
 		return loadBeacons;
 	}		
 	
@@ -319,6 +320,7 @@ public class AnalyticsBase {
 		}
 		
 		System.out.println("Total click beacons: " + clickBeacons.size());
+		System.out.println("Total load beacons: " + (urlList.size() - clickBeacons.size()));
 		return clickBeacons;
 	}	
 	
