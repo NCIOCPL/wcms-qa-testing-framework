@@ -17,6 +17,17 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		megaMenu = new MegaMenu(driver);
 	}
 	
+	@Test(groups = { "Analytics" })
+	public void testMMGeneral() {
+		megaMenu.clickMMBarEn();
+		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
+		Assert.assertTrue(hasProp(clickBeacons, 4, "d=pev1"));
+		Assert.assertTrue(hasProp(clickBeacons, 67, "D=pageName"));
+		Assert.assertTrue(haseVar(clickBeacons, 2, "English"));
+		Assert.assertFalse(haseVar(clickBeacons, 12345, ""));
+		logger.log(LogStatus.PASS, "MegaMenu gen value test passed.");
+	}	
+	
 	/// Menu bar click returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMMBarEn() {
@@ -37,9 +48,44 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "MegaMenu Spanish top level click passed.");
 	}
 	
+
+	/// MegaMenu subnav header click returns the expected values
+	@Test(groups = { "Analytics" })
+	public void testMMSubnavHeaderClick() {		
+		megaMenu.clickMMSubnavHeader();
+		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
+		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
+		Assert.assertTrue(hasEvent(clickBeacons, "event26"));
+		logger.log(LogStatus.PASS, "Subnav header click passed.");
+	}
+	
+	/// MegaMenu subnav title click returns the expected values
+	@Test(groups = { "Analytics" })
+	public void testMMSubnavLiClick() {		
+		megaMenu.clickMMSubnavLi();
+		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
+		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
+		Assert.assertTrue(hasEvent(clickBeacons, "event26"));
+		Assert.assertTrue(haseVar(clickBeacons, 53, "About Cancer"));
+		Assert.assertTrue(hasProp(clickBeacons, 53, "About Cancer"));
+		Assert.assertTrue(hasProp(clickBeacons, 54, "Understanding cancer"));
+		Assert.assertTrue(hasProp(clickBeacons, 55, "cancer disparities"));
+		logger.log(LogStatus.PASS, "Expaned subnav title click passed.");
+	}
+	
+	/// MegaMenu subnav title click returns the expected values
+	@Test(groups = { "Analytics" })
+	public void testMegaMenuMobileReveal() {
+		megaMenu.revealMegaMenuMobile();
+		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
+		Assert.assertTrue(hasLinkName(clickBeacons, "megamenumobilereveal"));
+		Assert.assertTrue(hasEvent(clickBeacons, "event28"));
+		logger.log(LogStatus.PASS, "Expaned mobile mega menu passed");
+	}
+	
 	/// MegaMenu expansion returns the expected values
 	@Test(groups = { "Analytics" })
-	public void testMMExpand() {
+	public void testMegaMenuDesktopReveal() {
 		System.out.println("=== Begin debug megamenu expand ===");
 		megaMenu.clickMMSubnavHeader();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
@@ -56,49 +102,5 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		System.out.println("=== End debug megamenu expand ===");
 		logger.log(LogStatus.PASS, "MegaMenu expansion passed.");
 	}
-	
-	/// MegaMenu subnav header click returns the expected values
-	@Test(groups = { "Analytics" })
-	public void testMMSubnavHeaderClick() {		
-		megaMenu.clickMMSubnavHeader();
-		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
-		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
-		Assert.assertTrue(hasEvent(clickBeacons, "event26"));
-		logger.log(LogStatus.PASS, "Subnav header click passed.");
-	}
-	
-	/// MegaMenu subnav title click returns the expected values
-	@Test(groups = { "Analytics" })
-	public void testSubnavClick() {		
-		megaMenu.clickMMSubnavLi();
-		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
-		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
-		Assert.assertTrue(hasEvent(clickBeacons, "event26"));
-		Assert.assertTrue(haseVar(clickBeacons, 53, "About Cancer"));
-		Assert.assertTrue(hasProp(clickBeacons, 53, "About Cancer"));
-		Assert.assertTrue(hasProp(clickBeacons, 54, "Understanding cancer"));
-		Assert.assertTrue(hasProp(clickBeacons, 55, "cancer disparities"));
-		logger.log(LogStatus.PASS, "Expaned subnav title click passed.");
-	}
-	
-	/// MegaMenu subnav title click returns the expected values
-	@Test(groups = { "Analytics" })
-	public void testMobileMegaMenuReveal() {
-		megaMenu.revealMegaMenuMobile();
-		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
-		Assert.assertTrue(hasLinkName(clickBeacons, "megamenumobilereveal"));
-		Assert.assertTrue(hasEvent(clickBeacons, "event28"));
-		logger.log(LogStatus.PASS, "Expaned mobile mega menu passed");
-	}
-	
-	@Test(groups = { "Analytics" })
-	public void mmSmoke() {
-		megaMenu.clickMMBarEn();
-		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
-		Assert.assertTrue(hasProp(clickBeacons, 4, "d=pev1"));
-		Assert.assertTrue(hasProp(clickBeacons, 67, "D=pageName"));
-		Assert.assertTrue(haseVar(clickBeacons, 2, "English"));
-		Assert.assertFalse(haseVar(clickBeacons, 237, ""));
-		logger.log(LogStatus.PASS, "MegaMenu smoke passed.");
-	}	
+		
 }
