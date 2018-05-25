@@ -17,6 +17,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		megaMenu = new MegaMenu(driver);
 	}
 	
+	/// Megamenu click returns the expected general/shared values
 	@Test(groups = { "Analytics" })
 	public void testMMGeneral() {
 		megaMenu.clickMMBarEn();
@@ -59,7 +60,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "Subnav header click passed.");
 	}
 	
-	/// MegaMenu subnav title click returns the expected values
+	/// MegaMenu subnav link click returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMMSubnavLiClick() {		
 		megaMenu.clickMMSubnavLi();
@@ -73,7 +74,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "Expaned subnav title click passed.");
 	}
 	
-	/// MegaMenu subnav title click returns the expected values
+	/// Expanding the mobile megamenu returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMegaMenuMobileReveal() {
 		megaMenu.revealMegaMenuMobile();
@@ -83,7 +84,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "Expaned mobile mega menu passed");
 	}
 	
-	/// MegaMenu expansion returns the expected values
+	/// Expanding the desktop megamenu returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMegaMenuDesktopReveal() {
 		System.out.println("=== Begin debug megamenu expand ===");
