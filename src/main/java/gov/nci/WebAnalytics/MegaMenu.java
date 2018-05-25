@@ -60,9 +60,7 @@ public class MegaMenu extends AnalyticsBase {
 		action.moveToElement(mm_bar_link);
 		action.perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_reveal_desktop));
-		action.moveToElement(mm_subnav_header);
-		action.perform();
-		mm_subnav_li_text.click();
+		mm_subnav_header.click();
 		driver.navigate().to(homePage);
 	}
 	
@@ -73,8 +71,6 @@ public class MegaMenu extends AnalyticsBase {
 		action.moveToElement(mm_bar_link);
 		action.perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_reveal_desktop));
-		action.moveToElement(mm_subnav_header);
-		action.perform();
 		mm_subnav_li_text.click();
 		driver.navigate().to(homePage);
 	}	
