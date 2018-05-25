@@ -80,11 +80,7 @@ public class MegaMenu extends AnalyticsBase {
 		WebDriverWait wait = new WebDriverWait(driver, 5);		
 		action.moveToElement(mm_bar_link);
 		action.perform();
-		wait.until(ExpectedConditions.visibilityOf(mm_reveal_desktop));
-		action.moveToElement(mm_subnav_header);
-		action.perform();
-		mm_subnav_li_text.click();
-		driver.navigate().to(homePage);
+		driver.navigate().refresh();
 	}		
 	
 	public void revealMegaMenuMobile() {

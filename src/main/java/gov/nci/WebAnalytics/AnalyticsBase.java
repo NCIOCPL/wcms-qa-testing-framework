@@ -278,7 +278,6 @@ public class AnalyticsBase {
 	 * Get a list of beacon URLs fired off for load events
 	 * @param urlList
 	 * @return
-	 * @throws MalformedURLException
 	 */
 	public static List<AnalyticsBase> getLoadBeacons(List<String> urlList) {
 				
@@ -303,7 +302,6 @@ public class AnalyticsBase {
 	 * Get a list of beacon URLs fired off for click events
 	 * @param urlList
 	 * @return
-	 * @throws MalformedURLException
 	 */
 	public static List<AnalyticsBase> getClickBeacons(List<String> urlList) {
 				
