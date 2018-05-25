@@ -79,7 +79,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	public void testMegaMenuMobileReveal() {
 		megaMenu.revealMegaMenuMobile();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
-		Assert.assertTrue(hasLinkName(clickBeacons, "megamenumobilereveal"));
+		Assert.assertTrue(hasLinkName(clickBeacons, "MegamenuMobileReveal"));
 		Assert.assertTrue(hasEvent(clickBeacons, "event28"));
 		logger.log(LogStatus.PASS, "Expaned mobile mega menu passed");
 	}
@@ -87,21 +87,12 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	/// Expanding the desktop megamenu returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMegaMenuDesktopReveal() {
-		System.out.println("=== Begin debug megamenu expand ===");
 		megaMenu.revealMegaMenuDesktop();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
-		boolean hasLinkName = false;
-		
-		for(AnalyticsBase beacon : clickBeacons) {
-			System.out.print(beacon.linkName);
-			if(beacon.linkName.toLowerCase().equals("megamenudesktopreveal")) {
-				// Assert.assertTrue(beacon.events[0].contains("event28"));
-				hasLinkName = true;
-			}
-		}
-		// Assert.assertTrue(hasLinkName);
-		System.out.println("=== End debug megamenu expand ===");
+		Assert.assertTrue(hasLinkName(clickBeacons, "MegamenuDesktopReveal"));
+		Assert.assertTrue(hasEvent(clickBeacons, "event28"));
+		Assert.assertFalse(hasEvent(clickBeacons, "event26"));
 		logger.log(LogStatus.PASS, "MegaMenu expansion passed.");
 	}
-		
+	
 }

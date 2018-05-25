@@ -51,10 +51,7 @@ public class AnalyticsBase {
 	public String linkName;
 	public String linkUrl;	
 	
-	
-	/**
-	 * No-arg constructor - init all vars
-	 */
+	/** No-arg constructor - init all variables */
 	public AnalyticsBase() {
 		uri = null;
 		suites = new String[0];		
@@ -72,7 +69,7 @@ public class AnalyticsBase {
 	/**
 	 * Constructor
 	 * @param beaconUrl
-	 * @throws MalformedURLException
+	 * TODO: Handle MalformedURLExceptions
 	 */
 	public AnalyticsBase(String beaconUrl) {
 		uri = URI.create(beaconUrl);
@@ -322,4 +319,21 @@ public class AnalyticsBase {
 		return clickBeacons;
 	}	
 	
+	/**
+	 * Temporary util method for troubleshooting
+	 * TODO: remove this once explicit wait is working 
+	 * @param sec
+	 */
+	protected static void goSleepy(int sec) {
+		long ms = new Long(sec*1000);		
+		try { 
+			Thread.sleep(ms);
+		} catch (InterruptedException ex) {
+			System.out.println("goSleepy() failed");
+		}
+	}
+	protected static void goSleepy() {
+		goSleepy(10);
+	}
+
 }

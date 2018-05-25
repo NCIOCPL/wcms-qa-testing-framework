@@ -74,14 +74,16 @@ public class MegaMenu extends AnalyticsBase {
 	}	
 
 	public void revealMegaMenuDesktop() {
-		System.out.println("debug hover");		
+		System.out.println("-- Begin debugging hover/expand megamenu actions --");
 		driver.navigate().to(homePage);
 		Actions action = new Actions(driver);
 		WebDriverWait wait = new WebDriverWait(driver, 5);		
 		action.moveToElement(mm_bar_link);
 		action.perform();
+		AnalyticsBase.goSleepy(5);
 		driver.navigate().refresh();
-	}		
+		System.out.println("-- End debugging hover/expand megamenu actions --");		
+	}
 	
 	public void revealMegaMenuMobile() {
 		Resize resize = new Resize(driver);
