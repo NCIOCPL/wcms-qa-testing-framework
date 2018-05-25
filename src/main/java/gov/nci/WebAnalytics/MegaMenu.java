@@ -87,7 +87,7 @@ public class MegaMenu extends AnalyticsBase {
 	
 	public void revealMegaMenuMobile() {
 		Resize resize = new Resize(driver);
-		resize.resizeToSmall();
+		resize.toSmall();
 		mm_reveal_mobile.click();
 		driver.manage().window().maximize();
 	}

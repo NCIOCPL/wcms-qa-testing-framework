@@ -25,7 +25,6 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		Assert.assertTrue(hasProp(clickBeacons, 4, "d=pev1"));
 		Assert.assertTrue(hasProp(clickBeacons, 67, "D=pageName"));
 		Assert.assertTrue(haseVar(clickBeacons, 2, "English"));
-		Assert.assertFalse(haseVar(clickBeacons, 12345, ""));
 		logger.log(LogStatus.PASS, "MegaMenu gen value test passed.");
 	}	
 	

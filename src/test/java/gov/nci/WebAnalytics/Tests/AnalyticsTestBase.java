@@ -48,11 +48,9 @@ public class AnalyticsTestBase extends BaseClass {
 	public String pageURL;
 
 	// TODO: build a 'beacon params' object 
-	// TODO: Work out what we need to fire off on click/resize/other events
-	// 		- Do we need to create a new HAR with each call? 
-	//		- How do we differentiate between load and click calls?	
 	// TODO: Build negative tests
 	// TODO: Build test for test
+	// TODO: Check false positives for events 	
 	protected static List<String> harList;
 	protected static List<AnalyticsBase> loadBeacons;
 	protected static List<AnalyticsBase> clickBeacons;
