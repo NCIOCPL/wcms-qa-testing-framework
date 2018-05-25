@@ -21,6 +21,7 @@ public class MegaMenu extends AnalyticsBase {
 	@FindBy(how = How.CSS, using = "#mega-nav .sub-nav-group ul li a")
 	WebElement mm_subnav_list_item;	
 	@FindBy(how = How.CSS, using = "#mega-nav .mega-menu-scroll.open")
+	//@FindBy(how = How.CSS, using = "#mega-nav a.open")
 	WebElement mm_expanded_desktop;
 	@FindBy(how = How.CSS, using = ".mobile-menu-bar button.menu-btn")
 	WebElement mm_mobile_expand_button;
