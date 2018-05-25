@@ -20,7 +20,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	/// Menu bar click returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMMBarEn() {
-		megaMenu.clickMegaMenuEn();
+		megaMenu.clickMMBarEn();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
 		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
 		Assert.assertTrue(hasEvent(clickBeacons, "event26"));
@@ -30,7 +30,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	/// Spanish menu bar click returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMMBarEs() {
-		megaMenu.clickMegaMenuEs();
+		megaMenu.clickMMBarEs();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));		
 		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
 		Assert.assertTrue(hasEvent(clickBeacons, "event26"));
@@ -41,7 +41,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testMMExpand() {
 		System.out.println("=== Begin debug megamenu expand ===");
-		megaMenu.clickMegaMenuSubnav();
+		megaMenu.clickMMSubnavHeader();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
 		boolean hasLinkName = false;
 		
@@ -57,10 +57,20 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "MegaMenu expansion passed.");
 	}
 	
+	/// MegaMenu subnav header click returns the expected values
+	@Test(groups = { "Analytics" })
+	public void testMMSubnavHeaderClick() {		
+		megaMenu.clickMMSubnavHeader();
+		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
+		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
+		Assert.assertTrue(hasEvent(clickBeacons, "event26"));
+		logger.log(LogStatus.PASS, "Subnav header click passed.");
+	}
+	
 	/// MegaMenu subnav title click returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testSubnavClick() {		
-		megaMenu.clickMegaMenuLink();
+		megaMenu.clickMMSubnavLi();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
 		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
 		Assert.assertTrue(hasEvent(clickBeacons, "event26"));
@@ -83,7 +93,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	
 	@Test(groups = { "Analytics" })
 	public void mmSmoke() {
-		megaMenu.clickMegaMenuEn();
+		megaMenu.clickMMBarEn();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
 		Assert.assertTrue(hasProp(clickBeacons, 4, "d=pev1"));
 		Assert.assertTrue(hasProp(clickBeacons, 67, "D=pageName"));
