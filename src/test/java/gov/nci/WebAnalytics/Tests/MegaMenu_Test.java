@@ -88,7 +88,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testMegaMenuDesktopReveal() {
 		System.out.println("=== Begin debug megamenu expand ===");
-		megaMenu.clickMMSubnavHeader();
+		megaMenu.revealMegaMenuDesktop();
 		clickBeacons = AnalyticsBase.getClickBeacons(getHarUrlList(proxy));
 		boolean hasLinkName = false;
 		

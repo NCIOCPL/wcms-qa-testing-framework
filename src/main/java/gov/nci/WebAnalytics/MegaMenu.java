@@ -61,7 +61,6 @@ public class MegaMenu extends AnalyticsBase {
 		action.perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_reveal_desktop));
 		mm_subnav_header.click();
-		driver.navigate().to(homePage);
 	}
 	
 	public void clickMMSubnavLi() {
@@ -72,7 +71,6 @@ public class MegaMenu extends AnalyticsBase {
 		action.perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_reveal_desktop));
 		mm_subnav_li_text.click();
-		driver.navigate().to(homePage);
 	}	
 
 	public void revealMegaMenuDesktop() {
