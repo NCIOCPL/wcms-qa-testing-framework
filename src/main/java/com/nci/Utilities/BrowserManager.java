@@ -126,7 +126,6 @@ public class BrowserManager {
 		System.out.println("=== Starting Driver ===");		
 	    Proxy seleniumProxy = ClientUtil.createSeleniumProxy(myProxy);
 	    DesiredCapabilities capabilities = new DesiredCapabilities();
-	    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
 		
 		// Chrome browser & settings (this is the only browser supported for now)
 		if(browserName.equalsIgnoreCase("Chrome")) {
@@ -134,7 +133,8 @@ public class BrowserManager {
 			String driverFullPath = getDriverPath(config, "ChromeDriver");
 			System.setProperty("webdriver.chrome.driver", driverFullPath);
 			System.out.println("Chrome Driver Path: " + driverFullPath);
-			
+
+		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);			
 			driver = new ChromeDriver(capabilities);
 			driver.manage().window().maximize();
 			driver.get(url); // open proxy page
@@ -145,7 +145,8 @@ public class BrowserManager {
 			System.setProperty("webdriver.chrome.driver", driverFullPath);
 			System.out.println("Chrome Driver Path: " + driverFullPath);
 			
-			chromeOptions.addArguments("headless");			
+		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);			
+			chromeOptions.addArguments("headless");
 			capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 			driver = new ChromeDriver(capabilities);
 			driver.manage().window().maximize();
@@ -157,6 +158,7 @@ public class BrowserManager {
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
 			System.out.println("Firefox Driver Path: " + driverFullPath);
 			
+		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);			
 			driver = new FirefoxDriver(firefoxOptions);
 			// driver.manage().window().maximize();
 			driver.get(url);
@@ -167,10 +169,9 @@ public class BrowserManager {
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
 			System.out.println("Firefox driver path: " + driverFullPath);
 			
-			FirefoxBinary firefoxBinary = new FirefoxBinary();
-			firefoxBinary.addCommandLineOptions("--headless"); 
-			firefoxOptions.setBinary(firefoxBinary);
-			driver = new FirefoxDriver(firefoxOptions);
+			//capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+			capabilities.setCapability("marionette", true);
+			driver = new FirefoxDriver(capabilities);
 			driver.get(url);
 		}
 		else {
