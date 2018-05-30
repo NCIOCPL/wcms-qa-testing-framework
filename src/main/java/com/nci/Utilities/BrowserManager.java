@@ -151,7 +151,7 @@ public class BrowserManager {
 			driver.manage().window().maximize();
 			driver.get(url); // open proxy page
 		}
-		else if(browserName.equalsIgnoreCase("Firefox")){
+		else if(browserName.equalsIgnoreCase("Firefox")) {
 			System.out.println("Firefox browser");
 			String driverFullPath = getDriverPath(config, "FirefoxDriver");
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
@@ -161,16 +161,16 @@ public class BrowserManager {
 			// driver.manage().window().maximize();
 			driver.get(url);
 		}
-		else if(browserName.equalsIgnoreCase("FirefoxHeadless")){
-			// TODO: fix this
+		else if(browserName.equalsIgnoreCase("FirefoxHeadless")) {
 			System.out.println("Firefox headless");
-			FirefoxBinary firefoxBinary = new FirefoxBinary();
-			firefoxBinary.addCommandLineOptions("--headless"); 
 			String driverFullPath = getDriverPath(config, "FirefoxDriver"); 
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
-			System.out.println("Gecko driver path: " + driverFullPath);
-			firefoxOptions.setBinary(firefoxBinary); 			
-			driver = new FirefoxDriver(firefoxOptions); 						
+			System.out.println("Firefox driver path: " + driverFullPath);
+			
+			FirefoxBinary firefoxBinary = new FirefoxBinary();
+			firefoxBinary.addCommandLineOptions("--headless"); 
+			firefoxOptions.setBinary(firefoxBinary);
+			driver = new FirefoxDriver(firefoxOptions);
 			driver.get(url);
 		}
 		else {
