@@ -150,9 +150,19 @@ public class BrowserManager {
 			driver.manage().window().maximize();
 			driver.get(url); // open proxy page
 		}
-		else if(browserName.equalsIgnoreCase("GeckoHeadless")){
+		else if(browserName.equalsIgnoreCase("Firefox")){
+			System.out.println("Firefox browser");
+			String driverFullPath = getDriverPath(config, "FirefoxDriver");
+			System.setProperty("webdriver.gecko.driver", driverFullPath);
+			System.out.println("Firefox Driver Path: " + driverFullPath);
+			
+			driver = new FirefoxDriver(firefoxOptions);
+			driver.manage().window().maximize();
+			driver.get(url);
+		}
+		else if(browserName.equalsIgnoreCase("FirefoxHeadless")){
 			// TODO: fix this
-			System.out.println("Gecko headless");
+			System.out.println("Firefox headless");
 			FirefoxBinary firefoxBinary = new FirefoxBinary();
 			firefoxBinary.addCommandLineOptions("--headless"); 
 			String driverFullPath = getDriverPath(config, "FirefoxDriver"); 
