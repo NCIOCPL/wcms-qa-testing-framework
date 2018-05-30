@@ -2,6 +2,7 @@ package com.nci.Utilities;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -157,7 +158,7 @@ public class BrowserManager {
 			System.out.println("Firefox Driver Path: " + driverFullPath);
 			
 			driver = new FirefoxDriver(firefoxOptions);
-			driver.manage().window().maximize();
+			// driver.manage().window().maximize();
 			driver.get(url);
 		}
 		else if(browserName.equalsIgnoreCase("FirefoxHeadless")){
