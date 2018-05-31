@@ -14,8 +14,9 @@
 			<class name="gov.nci.WebAnalytics.Tests.MegaMenu_Test" />
 			<class name="gov.nci.WebAnalytics.Tests.Sandbox_Test" />
 		</classes>
-	</test>	
-	<!--<test name="NCI - Chrome Testing Headless" >
+	</test>
+	<!--
+	<test name="NCI - Chrome Testing Headless" >
 		<parameter name="browser" value="ChromeHeadless" />
 		<groups>
 			<run>
@@ -23,13 +24,15 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="gov.nci.WebAnalytics.Tests.PageLoad_Test" />
+
 			<class name="gov.nci.WebAnalytics.Tests.Resize_Test" />
 			<class name="gov.nci.WebAnalytics.Tests.MegaMenu_Test" />
 			<class name="gov.nci.WebAnalytics.Tests.Sandbox_Test" />
 		</classes>
-	</test>  -->
-	<!-- <test name="NCI - Firefox Testing" >
+	</test>
+	-->
+	<!--
+	<test name="NCI - Firefox Testing" >
 		<parameter name="browser" value="Firefox" />
 		<groups>
 			<run>
@@ -42,8 +45,10 @@
 			<class name="gov.nci.WebAnalytics.Tests.MegaMenu_Test" />
 			<class name="gov.nci.WebAnalytics.Tests.Sandbox_Test" />
 		</classes>
-	</test>  -->
-	<!-- <test name="NCI - Firefox Testing Headless" >
+	</test>
+	-->
+	<!--
+	<test name="NCI - Firefox Testing Headless" >
 		<parameter name="browser" value="FirefoxHeadless" />
 		<groups>
 			<run>
@@ -53,8 +58,8 @@
 		<classes>
 			<class name="gov.nci.WebAnalytics.Tests.PageLoad_Test" />
 			<class name="gov.nci.WebAnalytics.Tests.Resize_Test" />
-			<class name="gov.nci.WebAnalytics.Tests.MegaMenu_Test" />
 			<class name="gov.nci.WebAnalytics.Tests.Sandbox_Test" />
 		</classes>
-	</test>  -->
+	</test>
+	-->
 </suite>

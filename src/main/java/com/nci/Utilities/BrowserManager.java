@@ -157,9 +157,8 @@ public class BrowserManager {
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
 			System.out.println("Firefox Driver Path: " + driverFullPath);
 			
-			capabilities = new DesiredCapabilities().firefox();
-		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);		    
-			driver = new FirefoxDriver(capabilities);
+			firefoxOptions.setCapability(CapabilityType.PROXY, seleniumProxy);
+			driver = new FirefoxDriver(firefoxOptions);
 			driver.manage().window().maximize();
 			driver.get(url);
 		}
@@ -168,10 +167,9 @@ public class BrowserManager {
 			String driverFullPath = getDriverPath(config, "FirefoxDriver");
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
 			System.out.println("Firefox Driver Path: " + driverFullPath);
-
-			capabilities = new DesiredCapabilities().firefox();
-		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);		    
-			driver = new FirefoxDriver(capabilities);
+			
+			firefoxOptions.setCapability(CapabilityType.PROXY, seleniumProxy);
+			driver = new FirefoxDriver(firefoxOptions);
 			driver.manage().window().maximize();
 			driver.get(url);
 		}
