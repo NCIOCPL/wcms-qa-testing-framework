@@ -117,41 +117,39 @@ public class BrowserManager {
 	 * TODO: create headless drivers
 	 * TODO: create Firefox/IE drivers
 	 */
-	public static WebDriver startProxyBrowser(String browserName, String url, BrowserMobProxy myProxy) {
+	public static WebDriver startProxyBrowser(String browserName, String url, BrowserMobProxy bmp) {
 		
 		ConfigReader config = new ConfigReader();
-		ChromeOptions chromeOptions = new ChromeOptions();		
-		FirefoxOptions firefoxOptions = new FirefoxOptions();
+		ChromeOptions chromeOptions = new ChromeOptions();
+		FirefoxOptions firefoxOptions = new FirefoxOptions();			
 		
 	    // Get the Selenium proxy object and configure it as a desired capability
-		System.out.println("=== Starting Driver ===");		
-	    Proxy seleniumProxy = ClientUtil.createSeleniumProxy(myProxy);
+		System.out.println("=== Starting Driver ===");
+	    Proxy seleniumProxy = ClientUtil.createSeleniumProxy(bmp);
 	    DesiredCapabilities capabilities = new DesiredCapabilities();
 		
-		// Chrome browser & settings (this is the only browser supported for now)
 		if(browserName.equalsIgnoreCase("Chrome")) {
 			System.out.println("Chrome browser");
 			String driverFullPath = getDriverPath(config, "ChromeDriver");
 			System.setProperty("webdriver.chrome.driver", driverFullPath);
 			System.out.println("Chrome Driver Path: " + driverFullPath);
 
-		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);			
-			driver = new ChromeDriver(capabilities);
+			chromeOptions.setCapability(CapabilityType.PROXY, seleniumProxy);
+			driver = new ChromeDriver(chromeOptions);
 			driver.manage().window().maximize();
 			driver.get(url); // open proxy page
 		}
 		else if(browserName.equalsIgnoreCase("ChromeHeadless")) {
-			System.out.println("chrome headless");			
+			System.out.println("chrome headless");
 			String driverFullPath = getDriverPath(config, "ChromeDriver");
 			System.setProperty("webdriver.chrome.driver", driverFullPath);
 			System.out.println("Chrome Driver Path: " + driverFullPath);
-			
-		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);			
+
+			chromeOptions.setCapability(CapabilityType.PROXY, seleniumProxy);
 			chromeOptions.addArguments("headless");
-			capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-			driver = new ChromeDriver(capabilities);
+			driver = new ChromeDriver(chromeOptions);
 			driver.manage().window().maximize();
-			driver.get(url); // open proxy page
+			driver.get(url);
 		}
 		else if(browserName.equalsIgnoreCase("Firefox")) {
 			System.out.println("Firefox browser");
@@ -170,7 +168,7 @@ public class BrowserManager {
 			String driverFullPath = getDriverPath(config, "FirefoxDriver");
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
 			System.out.println("Firefox Driver Path: " + driverFullPath);
-			
+
 			capabilities = new DesiredCapabilities().firefox();
 		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);		    
 			driver = new FirefoxDriver(capabilities);
