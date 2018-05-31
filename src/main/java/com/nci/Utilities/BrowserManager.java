@@ -148,18 +148,26 @@ public class BrowserManager {
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
 			System.out.println("Firefox Driver Path: " + driverFullPath);
 			
+			capabilities = new DesiredCapabilities().firefox();
+			
 		    // https://github.com/SeleniumHQ/selenium/issues/5004
-			seleniumProxy.setProxyType(Proxy.ProxyType.MANUAL);
-			seleniumProxy.setHttpProxy("localhost:14758");
-			seleniumProxy.setSslProxy("localhost:14758");			
+			//seleniumProxy.setProxyType(Proxy.ProxyType.MANUAL);
+			//seleniumProxy.setHttpProxy("localhost:14758");
+			//seleniumProxy.setSslProxy("localhost:14758");			
 		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
 
 		    // https://github.com/SeleniumHQ/selenium/issues/5004		    
 		    FirefoxProfile profile = new FirefoxProfile();
-		    profile.setPreference("network.proxy.no_proxies_on", "123.34.54.*, foo.bar");
+		    profile.setAcceptUntrustedCertificates(true);
+		    profile.setAssumeUntrustedCertificateIssuer(false);
+		    profile.setPreference("network.proxy.http", "localhost");
+		    profile.setPreference("network.proxy.http_port", "14758");
+		    //profile.setPreference("network.proxy.no_proxies_on", "123.34.54.*, foo.bar");
+		    // "The proxy server is refusing connections"
 		    capabilities.setCapability(FirefoxDriver.PROFILE, profile);
 		    
 		    driver = new FirefoxDriver(capabilities);
+			driver.manage().window().maximize();		    
 			driver.get(url);
 		}
 		else {
