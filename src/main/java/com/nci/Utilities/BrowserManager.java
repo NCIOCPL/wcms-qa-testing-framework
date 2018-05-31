@@ -150,13 +150,13 @@ public class BrowserManager {
 			
 		    // https://github.com/SeleniumHQ/selenium/issues/5004
 			seleniumProxy.setProxyType(Proxy.ProxyType.MANUAL);
-			seleniumProxy.setHttpProxy("webproxy:80");
-			seleniumProxy.setSslProxy("webproxy:80");			
+			seleniumProxy.setHttpProxy("localhost:14758");
+			seleniumProxy.setSslProxy("localhost:14758");			
 		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
 
 		    // https://github.com/SeleniumHQ/selenium/issues/5004		    
 		    FirefoxProfile profile = new FirefoxProfile();
-		    profile.setPreference("network.proxy.no_proxies_on", "localhost, 123.34.54.*, cancer.gov");
+		    profile.setPreference("network.proxy.no_proxies_on", "123.34.54.*, foo.bar");
 		    capabilities.setCapability(FirefoxDriver.PROFILE, profile);
 		    
 		    driver = new FirefoxDriver(capabilities);
