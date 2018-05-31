@@ -167,13 +167,14 @@ public class BrowserManager {
 		}
 		else if(browserName.equalsIgnoreCase("FirefoxHeadless")) {
 			System.out.println("Firefox headless");
-			String driverFullPath = getDriverPath(config, "FirefoxDriver"); 
+			String driverFullPath = getDriverPath(config, "FirefoxDriver");
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
-			System.out.println("Firefox driver path: " + driverFullPath);
+			System.out.println("Firefox Driver Path: " + driverFullPath);
 			
-			//capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
-			capabilities.setCapability("marionette", true);
+			capabilities = new DesiredCapabilities().firefox();
+		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);		    
 			driver = new FirefoxDriver(capabilities);
+			driver.manage().window().maximize();
 			driver.get(url);
 		}
 		else {
