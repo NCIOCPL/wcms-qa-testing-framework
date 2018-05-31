@@ -145,8 +145,8 @@ public class BrowserManager {
 			System.setProperty("webdriver.chrome.driver", driverFullPath);
 			System.out.println("Chrome Driver Path: " + driverFullPath);
 
+			chromeOptions.addArguments("headless");			
 			chromeOptions.setCapability(CapabilityType.PROXY, seleniumProxy);
-			chromeOptions.addArguments("headless");
 			driver = new ChromeDriver(chromeOptions);
 			driver.manage().window().maximize();
 			driver.get(url);
