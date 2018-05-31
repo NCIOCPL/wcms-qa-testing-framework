@@ -168,6 +168,9 @@ public class BrowserManager {
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
 			System.out.println("Firefox Driver Path: " + driverFullPath);
 			
+			FirefoxBinary firefoxBinary = new FirefoxBinary();
+			firefoxBinary.addCommandLineOptions("--headless");
+			firefoxOptions.setBinary(firefoxBinary);
 			firefoxOptions.setCapability(CapabilityType.PROXY, seleniumProxy);
 			driver = new FirefoxDriver(firefoxOptions);
 			driver.manage().window().maximize();
