@@ -49,7 +49,6 @@ public class AnalyticsTestBase extends BaseClass {
 
 	// TODO: Fix timeout logic 
 	// TODO: Verify that each assert is checking the _same_ beacon object (do the last one for now?)
-	// TODO: Clean up isClickEvent() 
 	// TODO: Build negative tests
 	// TODO: Build test for test
 	// TODO: Check false positives for events 	
@@ -74,8 +73,6 @@ public class AnalyticsTestBase extends BaseClass {
 	@AfterTest(groups = { "Analytics" })
 	public void afterTest() {
 		report.flush();
-		// report.close();
-		// log.info("Test ends here");
 	}	
 
 	@BeforeGroups(groups = { "Analytics" })
@@ -126,7 +123,6 @@ public class AnalyticsTestBase extends BaseClass {
 	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
 	 * @throws RuntimeException
 	 */
-	// TODO: remove duplicates (?)
 	// TODO: trace our data type - don't need to be shuffling between String, URL, String...
 	protected static List<String> getHarUrlList(BrowserMobProxy proxy) throws RuntimeException, IllegalArgumentException {		
 

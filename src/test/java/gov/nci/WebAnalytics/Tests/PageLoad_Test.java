@@ -23,17 +23,9 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		
 		harList = getHarUrlList(proxy);
 		loadBeacons = AnalyticsBase.getLoadBeacons(harList);
-		clickBeacons = AnalyticsBase.getClickBeacons(harList);		
 				
 		Assert.assertTrue(harList.size() > 0);
 		Assert.assertTrue(loadBeacons.size() > 0);
-		Assert.assertTrue(clickBeacons.size() == 0);
-		
-		System.out.println("=== Start debug testEvents() ===");
-		for(String har : harList) {
-			System.out.println(har);
-		}
-		System.out.println("=== End debug testEvents() ===");				
 		
 		logger.log(LogStatus.PASS, "Load and click events have been captured.");				
 	}	

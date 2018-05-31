@@ -261,11 +261,10 @@ public class AnalyticsBase {
 	 * Check for parameters to verify that this is a link event
 	 * @param paramList
 	 * @return
-	 * TODO: Use or get rid of this 
 	 */
-	public boolean isLinkEvent(List<NameValuePair> paramList) {
+	public static boolean isLinkEvent(List<NameValuePair> paramList) {
 		for (NameValuePair param : paramList) {
-			if (param.getName().toLowerCase().equals("somevalue")) {
+			if (param.getName().equalsIgnoreCase("pe")) {
 				return true;
 			}
 		}
@@ -286,7 +285,7 @@ public class AnalyticsBase {
 		{
 			// If this doesn't have the "Link Type" param ('pe'), add to list of load beacons
 			List<NameValuePair> params = analytics.buildParamsList(URI.create(url));
-			if(!analytics.hasParam(params, "pe")) {
+			if(!isLinkEvent(params)) {
 				loadBeacons.add(new AnalyticsBase(url));
 			}
 		}
@@ -310,7 +309,7 @@ public class AnalyticsBase {
 		{
 			// If this has the "Link Type" param ('pe'), add to list of click beacons
 			List<NameValuePair> params = analytics.buildParamsList(URI.create(url));
-			if(analytics.hasParam(params, "pe")) {
+			if(isLinkEvent(params)) {
 				clickBeacons.add(new AnalyticsBase(url));
 			}
 		}
