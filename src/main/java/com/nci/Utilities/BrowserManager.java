@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -158,9 +159,10 @@ public class BrowserManager {
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
 			System.out.println("Firefox Driver Path: " + driverFullPath);
 			
-		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);			
-			driver = new FirefoxDriver(firefoxOptions);
-			// driver.manage().window().maximize();
+			capabilities = new DesiredCapabilities().firefox();
+		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);		    
+			driver = new FirefoxDriver(capabilities);
+			driver.manage().window().maximize();
 			driver.get(url);
 		}
 		else if(browserName.equalsIgnoreCase("FirefoxHeadless")) {
