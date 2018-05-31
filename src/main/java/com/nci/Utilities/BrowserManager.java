@@ -1,5 +1,7 @@
 package com.nci.Utilities;
 
+
+
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
@@ -139,39 +141,15 @@ public class BrowserManager {
 			driver.manage().window().maximize();
 			driver.get(url); // open proxy page
 		}
-		else if(browserName.equalsIgnoreCase("ChromeHeadless")) {
-			System.out.println("chrome headless");			
-			String driverFullPath = getDriverPath(config, "ChromeDriver");
-			System.setProperty("webdriver.chrome.driver", driverFullPath);
-			System.out.println("Chrome Driver Path: " + driverFullPath);
-			
-		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);			
-			chromeOptions.addArguments("headless");
-			capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-			driver = new ChromeDriver(capabilities);
-			driver.manage().window().maximize();
-			driver.get(url); // open proxy page
-		}
 		else if(browserName.equalsIgnoreCase("Firefox")) {
 			System.out.println("Firefox browser");
 			String driverFullPath = getDriverPath(config, "FirefoxDriver");
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
 			System.out.println("Firefox Driver Path: " + driverFullPath);
 			
-		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);			
-			driver = new FirefoxDriver(firefoxOptions);
+		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+		    driver = new FirefoxDriver(capabilities);
 			// driver.manage().window().maximize();
-			driver.get(url);
-		}
-		else if(browserName.equalsIgnoreCase("FirefoxHeadless")) {
-			System.out.println("Firefox headless");
-			String driverFullPath = getDriverPath(config, "FirefoxDriver"); 
-			System.setProperty("webdriver.gecko.driver", driverFullPath);
-			System.out.println("Firefox driver path: " + driverFullPath);
-			
-			//capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
-			capabilities.setCapability("marionette", true);
-			driver = new FirefoxDriver(capabilities);
 			driver.get(url);
 		}
 		else {
