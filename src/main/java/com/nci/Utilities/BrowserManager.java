@@ -1,7 +1,5 @@
 package com.nci.Utilities;
 
-
-
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
@@ -12,7 +10,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -142,32 +139,39 @@ public class BrowserManager {
 			driver.manage().window().maximize();
 			driver.get(url); // open proxy page
 		}
+		else if(browserName.equalsIgnoreCase("ChromeHeadless")) {
+			System.out.println("chrome headless");			
+			String driverFullPath = getDriverPath(config, "ChromeDriver");
+			System.setProperty("webdriver.chrome.driver", driverFullPath);
+			System.out.println("Chrome Driver Path: " + driverFullPath);
+			
+		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);			
+			chromeOptions.addArguments("headless");
+			capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+			driver = new ChromeDriver(capabilities);
+			driver.manage().window().maximize();
+			driver.get(url); // open proxy page
+		}
 		else if(browserName.equalsIgnoreCase("Firefox")) {
 			System.out.println("Firefox browser");
 			String driverFullPath = getDriverPath(config, "FirefoxDriver");
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
 			System.out.println("Firefox Driver Path: " + driverFullPath);
 			
-			capabilities = new DesiredCapabilities().firefox();
+		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);			
+			driver = new FirefoxDriver(firefoxOptions);
+			// driver.manage().window().maximize();
+			driver.get(url);
+		}
+		else if(browserName.equalsIgnoreCase("FirefoxHeadless")) {
+			System.out.println("Firefox headless");
+			String driverFullPath = getDriverPath(config, "FirefoxDriver"); 
+			System.setProperty("webdriver.gecko.driver", driverFullPath);
+			System.out.println("Firefox driver path: " + driverFullPath);
 			
-		    // https://github.com/SeleniumHQ/selenium/issues/5004
-			//seleniumProxy.setProxyType(Proxy.ProxyType.MANUAL);
-			//seleniumProxy.setHttpProxy("localhost:14758");
-			//seleniumProxy.setSslProxy("localhost:14758");			
-		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
-
-		    // https://github.com/SeleniumHQ/selenium/issues/5004		    
-		    FirefoxProfile profile = new FirefoxProfile();
-		    profile.setAcceptUntrustedCertificates(true);
-		    profile.setAssumeUntrustedCertificateIssuer(false);
-		    profile.setPreference("network.proxy.http", "localhost");
-		    profile.setPreference("network.proxy.http_port", "14758");
-		    //profile.setPreference("network.proxy.no_proxies_on", "123.34.54.*, foo.bar");
-		    // "The proxy server is refusing connections"
-		    capabilities.setCapability(FirefoxDriver.PROFILE, profile);
-		    
-		    driver = new FirefoxDriver(capabilities);
-			driver.manage().window().maximize();		    
+			//capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+			capabilities.setCapability("marionette", true);
+			driver = new FirefoxDriver(capabilities);
 			driver.get(url);
 		}
 		else {
