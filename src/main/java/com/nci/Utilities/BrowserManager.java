@@ -12,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -147,9 +148,18 @@ public class BrowserManager {
 			System.setProperty("webdriver.gecko.driver", driverFullPath);
 			System.out.println("Firefox Driver Path: " + driverFullPath);
 			
+		    // https://github.com/SeleniumHQ/selenium/issues/5004
+			seleniumProxy.setProxyType(Proxy.ProxyType.MANUAL);
+			seleniumProxy.setHttpProxy("webproxy:80");
+			seleniumProxy.setSslProxy("webproxy:80");			
 		    capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+
+		    // https://github.com/SeleniumHQ/selenium/issues/5004		    
+		    FirefoxProfile profile = new FirefoxProfile();
+		    profile.setPreference("network.proxy.no_proxies_on", "localhost, 123.34.54.*, cancer.gov");
+		    capabilities.setCapability(FirefoxDriver.PROFILE, profile);
+		    
 		    driver = new FirefoxDriver(capabilities);
-			// driver.manage().window().maximize();
 			driver.get(url);
 		}
 		else {
