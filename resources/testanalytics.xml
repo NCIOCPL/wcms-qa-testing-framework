@@ -12,7 +12,8 @@
 			<class name="gov.nci.WebAnalytics.Tests.MegaMenu_Test" />
 		</classes>
 	</test>
-	<!-- <test name="NCI - Firefox Testing Headless" >
+	<!--
+	<test name="NCI - Firefox Testing Headless" >
 		<parameter name="browser" value="FirefoxHeadless" />
 		<groups>
 			<run>
@@ -22,5 +23,17 @@
 		<classes>
 			<class name="gov.nci.WebAnalytics.Tests.MegaMenu_Test" />
 		</classes>
-	</test>  -->
+	</test>
+	<test name="NCI - Chrome Testing" >
+		<parameter name="browser" value="Chrome" />
+		<groups>
+			<run>
+				<include name="Analytics" />
+			</run>
+		</groups>
+		<classes>
+			<class name="gov.nci.WebAnalytics.Tests.MegaMenu_Test" />
+		</classes>
+	</test>
+  	-->
 </suite>
