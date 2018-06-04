@@ -60,7 +60,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	
 	/// MegaMenu subnav link click returns the expected values
 	@Test(groups = { "Analytics" })
-	public void testMMSubnavLiClick() {		
+	public void testMMSubnavLiClick() {
 		megaMenu.clickMMSubnavLi();
 		clickBeacons = MegaMenu.getClickBeacons(getHarUrlList(proxy));
 		Assert.assertTrue(hasLinkName(clickBeacons, "MegaMenuClick"));
@@ -68,7 +68,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 		Assert.assertTrue(haseVar(clickBeacons, 53, "About Cancer"));
 		Assert.assertTrue(hasProp(clickBeacons, 53, "About Cancer"));
 		Assert.assertTrue(hasProp(clickBeacons, 54, "Understanding cancer"));
-		Assert.assertTrue(hasProp(clickBeacons, 55, "cancer disparities"));
+		Assert.assertTrue(hasProp(clickBeacons, 55, "What is Cancer"));
 		logger.log(LogStatus.PASS, "Expaned subnav title click passed.");
 	}
 	

@@ -14,18 +14,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MegaMenu extends AnalyticsBase {
 	/*** MegaMenu web elements ***/
+	// TODO: Figure out why FindBy(linkText) is so finnicky in Firefox
 	@FindBy(css = "#mega-nav .nav-item-title a")
 	WebElement mm_bar_link;
 	@FindBy(css = "#mega-nav .sub-nav-group a")
 	WebElement mm_subnav_header;	
 	@FindBy(css = "#mega-nav .sub-nav-group ul li a")
 	WebElement mm_subnav_li;
-	@FindBy(linkText = "Cancer Disparities")
-//	@FindBy(how = How.XPATH, using = "//a[contains(text(), 'disparities')]")
+	@FindBy(linkText = "What Is Cancer")
 	WebElement mm_subnav_li_text;
 	@FindBy(css = ".mobile-menu-bar button.menu-btn")
 	WebElement mm_reveal_mobile;
-//	@FindBy(css = "#mega-nav a.open")
 	@FindBy(css = "#mega-nav .mega-menu-scroll.open")
 	WebElement mm_reveal_desktop;
 	
@@ -40,7 +39,7 @@ public class MegaMenu extends AnalyticsBase {
 		action = new Actions(driver);
 		wait = new WebDriverWait(driver, 5);		
 		PageFactory.initElements(driver, this);
-		System.out.println("MegaMenu PageFactory initialized");
+		System.out.print("MegaMenu PageFactory initialized: ");
 	}
 	
 	/** Browser actions
@@ -49,16 +48,19 @@ public class MegaMenu extends AnalyticsBase {
 	* then be tested.
 	*/
 	public void clickMMBarEn() {
+		System.out.println("Click megamenu bar (English)");		
 		driver.navigate().to(homePage);
 		mm_bar_link.click();
 	}
 
 	public void clickMMBarEs() {
+		System.out.println("Click megamenu bar (Spanish)");
 		driver.navigate().to(spanishPage);
 		mm_bar_link.click();
 	}
 	
 	public void clickMMSubnavHeader() {
+		System.out.println("Click megamenu subnav header");
 		driver.navigate().to(homePage);
 		action.moveToElement(mm_bar_link);
 		action.perform();
@@ -67,27 +69,25 @@ public class MegaMenu extends AnalyticsBase {
 	}
 	
 	public void clickMMSubnavLi() {
+		System.out.println("Click megamenu subnav list item");		
 		driver.navigate().to(homePage);
 		action.moveToElement(mm_bar_link);
-		action.perform();		
-		System.out.println("-- Begin debugging mmSubnavLi --");
-		System.out.println(mm_subnav_li_text.getText());
-		System.out.println("-- End debugging mmSubnavLi --");
+		action.perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_subnav_li_text));
 		mm_subnav_li_text.click();
 	}
 
 	public void revealMegaMenuDesktop() {
-		System.out.println("-- Begin debugging hover/expand megamenu actions --");
+		System.out.println("Expand megamenu on desktop");		
 		driver.navigate().to(homePage);
 		action.moveToElement(mm_bar_link);
 		action.perform();
 		AnalyticsBase.nap(5);
 		driver.navigate().refresh();
-		System.out.println("-- End debugging hover/expand megamenu actions --");		
 	}
 	
 	public void revealMegaMenuMobile() {
+		System.out.println("Expand megamenu on mobile");
 		Resize resize = new Resize(driver);
 		resize.toSmall();
 		mm_reveal_mobile.click();
