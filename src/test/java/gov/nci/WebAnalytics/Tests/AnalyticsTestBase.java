@@ -229,6 +229,16 @@ public class AnalyticsTestBase extends BaseClass {
 	// TODO: split events && add logic for loadtime
 	public boolean hasEvent(List<AnalyticsBase> clickBeacons, String evt) {
 		AnalyticsBase beacon = getLast(clickBeacons);
+		for(String event : beacon.events) {
+			if(evt.equalsIgnoreCase("event47")) {
+				if(event.matches("^event47=\\d+")) {
+					return true;
+				}
+			} 
+			else if(event.equalsIgnoreCase(evt)) {
+				return true;
+			}
+		}
 		String events = Arrays.toString(beacon.events);
 		if(events.toLowerCase().contains(evt)) {
 			return true;
