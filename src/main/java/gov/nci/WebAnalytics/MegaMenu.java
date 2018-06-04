@@ -80,7 +80,7 @@ public class MegaMenu extends AnalyticsBase {
 		WebDriverWait wait = new WebDriverWait(driver, 5);		
 		action.moveToElement(mm_bar_link);
 		action.perform();
-		AnalyticsBase.goSleepy(5);
+		AnalyticsBase.nap(5);
 		driver.navigate().refresh();
 		System.out.println("-- End debugging hover/expand megamenu actions --");		
 	}

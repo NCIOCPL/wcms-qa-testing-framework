@@ -1,7 +1,6 @@
 package gov.nci.WebAnalytics.Tests;
 
 import java.net.MalformedURLException;
-import java.util.List;
 
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
@@ -22,7 +21,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		pageLoad.doPageLoadActions();
 		
 		harList = getHarUrlList(proxy);
-		loadBeacons = AnalyticsBase.getLoadBeacons(harList);
+		loadBeacons = PageLoad.getLoadBeacons(harList);
 				
 		Assert.assertTrue(harList.size() > 0);
 		Assert.assertTrue(loadBeacons.size() > 0);
@@ -37,7 +36,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		pageLoad.doPageLoadActions();
 		
 		harList = getHarUrlList(proxy);
-		loadBeacons = AnalyticsBase.getLoadBeacons(harList);
+		loadBeacons = PageLoad.getLoadBeacons(harList);
 			
 		for(AnalyticsBase beacon : loadBeacons) {
 			Assert.assertTrue(beacon.events[0].contains("event1"));
@@ -55,7 +54,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		
 		// For debugging purposes only...
 		harList = getHarUrlList(proxy);
-		loadBeacons = AnalyticsBase.getLoadBeacons(harList);		
+		loadBeacons = PageLoad.getLoadBeacons(harList);		
 		
 		AnalyticsBase firstLoadBeacon = loadBeacons.get(0);
 

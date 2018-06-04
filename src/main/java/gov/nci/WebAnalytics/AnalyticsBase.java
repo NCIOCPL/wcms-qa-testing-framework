@@ -324,7 +324,7 @@ public class AnalyticsBase {
 	 * TODO: remove this once explicit wait is working 
 	 * @param sec
 	 */
-	protected static void goSleepy(int sec) {
+	protected static void nap(int sec) {
 		long ms = new Long(sec*1000);		
 		try { 
 			Thread.sleep(ms);
@@ -332,8 +332,8 @@ public class AnalyticsBase {
 			System.out.println("goSleepy() failed");
 		}
 	}
-	protected static void goSleepy() {
-		goSleepy(10);
+	protected static void nap() {
+		nap(10);
 	}
 
 }
