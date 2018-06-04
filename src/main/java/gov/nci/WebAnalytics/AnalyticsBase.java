@@ -21,9 +21,6 @@ public class AnalyticsBase {
 	public static final String PAGE_NAME = "www.cancer.gov";
 	public static final String TRACKING_SERVER = "nci.122.2o7.net";
 
-	// Driver object
-	public WebDriver driver;	
-
 	// Get our page navigation URLs
 	public ConfigReader config = new ConfigReader();
 	public String homePage = config.getPageURL("HomePage");

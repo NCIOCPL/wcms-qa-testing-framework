@@ -12,10 +12,10 @@ public class Resize extends AnalyticsBase {
 	public static Dimension large = new Dimension(1100, 800);
 	public static Dimension xlarge = new Dimension(1600, 800);	
 	
-	public Resize() {		
-	}
+	// Driver object
+	public WebDriver driver;
 	
-	// Constructor to initialize the Page objects	
+	// Constructor to initialize the page object
 	public Resize(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -53,7 +53,7 @@ public class Resize extends AnalyticsBase {
 		toLarge();
 		toMed();
 		toSmall();
-		driver.manage().window().maximize();
+		maximize();
 	}
 	
 }

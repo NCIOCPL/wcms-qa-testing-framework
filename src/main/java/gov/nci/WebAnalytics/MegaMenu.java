@@ -28,12 +28,16 @@ public class MegaMenu extends AnalyticsBase {
 	@FindBy(css = "#mega-nav .mega-menu-scroll.open")
 	WebElement mm_reveal_desktop;
 	
-	public MegaMenu(){
-	}
+	// Driver object and actions
+	public WebDriver driver;	
+	public Actions action;
+	public WebDriverWait wait;
 	
-	// Constructor to initialize the Page objects
+	// Constructor to initialize the page object
 	public MegaMenu(WebDriver driver) {
 		this.driver = driver;
+		action = new Actions(driver);
+		wait = new WebDriverWait(driver, 5);		
 		PageFactory.initElements(driver, this);
 		System.out.println("MegaMenu PageFactory initialized");
 	}
@@ -55,8 +59,6 @@ public class MegaMenu extends AnalyticsBase {
 	
 	public void clickMMSubnavHeader() {
 		driver.navigate().to(homePage);
-		Actions action = new Actions(driver);
-		WebDriverWait wait = new WebDriverWait(driver, 5);		
 		action.moveToElement(mm_bar_link);
 		action.perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_reveal_desktop));
@@ -65,8 +67,6 @@ public class MegaMenu extends AnalyticsBase {
 	
 	public void clickMMSubnavLi() {
 		driver.navigate().to(homePage);
-		Actions action = new Actions(driver);
-		WebDriverWait wait = new WebDriverWait(driver, 5);
 		action.moveToElement(mm_bar_link);
 		action.perform();		
 		System.out.println("-- Begin debugging mmSubnavLi --");
@@ -79,8 +79,6 @@ public class MegaMenu extends AnalyticsBase {
 	public void revealMegaMenuDesktop() {
 		System.out.println("-- Begin debugging hover/expand megamenu actions --");
 		driver.navigate().to(homePage);
-		Actions action = new Actions(driver);
-		WebDriverWait wait = new WebDriverWait(driver, 5);		
 		action.moveToElement(mm_bar_link);
 		action.perform();
 		AnalyticsBase.nap(5);
