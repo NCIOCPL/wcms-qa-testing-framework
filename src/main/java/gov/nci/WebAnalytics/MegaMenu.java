@@ -14,21 +14,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MegaMenu extends AnalyticsBase {
 	/*** MegaMenu web elements ***/
-	@FindBy(how = How.CSS, using = "#mega-nav .nav-item-title a")
+	@FindBy(css = "#mega-nav .nav-item-title a")
 	WebElement mm_bar_link;
-	@FindBy(how = How.CSS, using = "#mega-nav .sub-nav-group a")
+	@FindBy(css = "#mega-nav .sub-nav-group a")
 	WebElement mm_subnav_header;	
-	@FindBy(how = How.CSS, using = "#mega-nav .sub-nav-group ul li a")
-	WebElement mm_subnav_li;	
-	@FindBy(how = How.LINK_TEXT , using = "Cancer Disparities")
+	@FindBy(css = "#mega-nav .sub-nav-group ul li a")
+	WebElement mm_subnav_li;
+	@FindBy(linkText = "Cancer Disparities")
 	WebElement mm_subnav_li_text;
-	@FindBy(how = How.CSS, using = ".mobile-menu-bar button.menu-btn")
+	@FindBy(css = ".mobile-menu-bar button.menu-btn")
 	WebElement mm_reveal_mobile;
-  //@FindBy(how = How.CSS, using = "#mega-nav a.open")
-	@FindBy(how = How.CSS, using = "#mega-nav .mega-menu-scroll.open")
+  //@FindBy(css = "#mega-nav a.open")
+	@FindBy(css = "#mega-nav .mega-menu-scroll.open")
 	WebElement mm_reveal_desktop;
 	
-	public MegaMenu(){		
+	public MegaMenu(){
 	}
 	
 	// Constructor to initialize the Page objects
@@ -66,12 +66,15 @@ public class MegaMenu extends AnalyticsBase {
 	public void clickMMSubnavLi() {
 		driver.navigate().to(homePage);
 		Actions action = new Actions(driver);
-		WebDriverWait wait = new WebDriverWait(driver, 5);		
+		WebDriverWait wait = new WebDriverWait(driver, 5);
 		action.moveToElement(mm_bar_link);
-		action.perform();
-		wait.until(ExpectedConditions.visibilityOf(mm_reveal_desktop));
+		action.perform();		
+		System.out.println("-- Begin debugging mmSubnavLi --");
+		System.out.println(mm_subnav_li_text.getText());
+		System.out.println("-- End debugging mmSubnavLi --");
+		wait.until(ExpectedConditions.visibilityOf(mm_subnav_li_text));
 		mm_subnav_li_text.click();
-	}	
+	}
 
 	public void revealMegaMenuDesktop() {
 		System.out.println("-- Begin debugging hover/expand megamenu actions --");
