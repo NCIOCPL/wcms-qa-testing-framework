@@ -21,10 +21,11 @@ public class MegaMenu extends AnalyticsBase {
 	@FindBy(css = "#mega-nav .sub-nav-group ul li a")
 	WebElement mm_subnav_li;
 	@FindBy(linkText = "Cancer Disparities")
+//	@FindBy(how = How.XPATH, using = "//a[contains(text(), 'disparities')]")
 	WebElement mm_subnav_li_text;
 	@FindBy(css = ".mobile-menu-bar button.menu-btn")
 	WebElement mm_reveal_mobile;
-  //@FindBy(css = "#mega-nav a.open")
+//	@FindBy(css = "#mega-nav a.open")
 	@FindBy(css = "#mega-nav .mega-menu-scroll.open")
 	WebElement mm_reveal_desktop;
 	
