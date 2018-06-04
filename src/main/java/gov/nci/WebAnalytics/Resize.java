@@ -5,14 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 public class Resize extends AnalyticsBase {
-
-	/*** Browser view breakpoints ***/
-	public static Dimension small = new Dimension(300, 800);
-	public static Dimension med = new Dimension(700, 800);
-	public static Dimension large = new Dimension(1100, 800);
-	public static Dimension xlarge = new Dimension(1600, 800);	
 	
-	// Driver object
+	// Local driver object
 	public WebDriver driver;
 	
 	// Constructor to initialize the page object
@@ -21,6 +15,14 @@ public class Resize extends AnalyticsBase {
 		PageFactory.initElements(driver, this);
 		System.out.println("Resize PageFactory initialized");
 	}
+	
+	/**
+	* Browser view breakpoints
+	*/
+	public static Dimension small = new Dimension(300, 800);
+	public static Dimension med = new Dimension(700, 800);
+	public static Dimension large = new Dimension(1100, 800);
+	public static Dimension xlarge = new Dimension(1600, 800);	
 	
 	/**
 	 * All the proxy browser 'actions' go in here. These are not tests, but things that we do 

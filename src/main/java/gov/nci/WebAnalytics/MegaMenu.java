@@ -13,7 +13,24 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MegaMenu extends AnalyticsBase {
-	/*** MegaMenu web elements ***/
+	
+	// Local driver object and actions
+	private WebDriver driver;	
+	private Actions action;
+	private WebDriverWait wait;
+	
+	// Constructor to initialize the page object
+	public MegaMenu(WebDriver driver) {
+		this.driver = driver;
+		action = new Actions(driver);
+		wait = new WebDriverWait(driver, 5);		
+		PageFactory.initElements(driver, this);
+		System.out.print("MegaMenu PageFactory initialized: ");
+	}
+
+	/** Web elements
+	* These are the elements that make up our page object
+	*/
 	// TODO: Figure out why FindBy(linkText) is so finnicky in Firefox
 	@FindBy(css = "#mega-nav .nav-item-title a")
 	WebElement mm_bar_link;
@@ -26,21 +43,7 @@ public class MegaMenu extends AnalyticsBase {
 	@FindBy(css = ".mobile-menu-bar button.menu-btn")
 	WebElement mm_reveal_mobile;
 	@FindBy(css = "#mega-nav .mega-menu-scroll.open")
-	WebElement mm_reveal_desktop;
-	
-	// Driver object and actions
-	public WebDriver driver;	
-	public Actions action;
-	public WebDriverWait wait;
-	
-	// Constructor to initialize the page object
-	public MegaMenu(WebDriver driver) {
-		this.driver = driver;
-		action = new Actions(driver);
-		wait = new WebDriverWait(driver, 5);		
-		PageFactory.initElements(driver, this);
-		System.out.print("MegaMenu PageFactory initialized: ");
-	}
+	WebElement mm_reveal_desktop;	
 	
 	/** Browser actions
 	* All the proxy browser 'actions' go in here. These are not tests, but things that we do 
