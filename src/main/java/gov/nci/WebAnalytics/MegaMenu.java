@@ -51,7 +51,7 @@ public class MegaMenu extends AnalyticsBase {
 	* then be tested.
 	*/
 	public void clickMMBarEn() {
-		System.out.println("Click megamenu bar (English)");		
+		System.out.println("Click megamenu bar (English)");
 		driver.navigate().to(homePage);
 		mm_bar_link.click();
 	}
