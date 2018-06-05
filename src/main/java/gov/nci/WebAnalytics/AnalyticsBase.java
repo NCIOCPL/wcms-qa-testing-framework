@@ -2,6 +2,7 @@ package gov.nci.WebAnalytics;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class AnalyticsBase {
 	// Beacon properties
 	public URI uri;
 	public String[] suites;	
-	public List<NameValuePair> params;
+	public BeaconParams params; 
 	public String channel;
 	public String[] events;
 	public List<NameValuePair> props; 
@@ -54,8 +55,7 @@ public class AnalyticsBase {
 	public AnalyticsBase() {
 		uri = null;
 		suites = new String[0];		
-		params = new ArrayList<>();
-		channel = "";
+		params = null;
 	}
 	
 	/**
@@ -64,16 +64,16 @@ public class AnalyticsBase {
 	 */
 	public AnalyticsBase(String beaconUrl) {
 		uri = createURI(beaconUrl);
+		params = new BeaconParams(uri);
 		suites = getSuites(uri);
-		params = buildParamsList(uri);
-		channel = getChannel(params);
-		events = getEvents(params);
-		props = getProps(params);
-		eVars = getEvars(params);
-		hiers = getHiers(params);
-		linkType = getLinkType(params);
-		linkName = getLinkName(params);
-		linkUrl = getLinkUrl(params);
+		channel = getChannel(params.all);
+		events = getEvents(params.all);
+		props = getProps(params.all);
+		eVars = getEvars(params.all);
+		hiers = getHiers(params.all);
+		linkType = getLinkType(params.all);
+		linkName = getLinkName(params.all);
+		linkUrl = getLinkUrl(params.all);
 	}
 	
 	/**
@@ -98,21 +98,15 @@ public class AnalyticsBase {
 	 * @return
 	 */
 	protected String[] getSuites(URI uri) {
-		String[] path = uri.getPath().split("/");
-		String[] rtnSuites = path[3].split(",");
-		return rtnSuites;
-	}
-	
-	/**
-	 * Split URI into list of encoded elements
-	 * @param uri
-	 * @return retParams
-	 * TODO: replace deprecated parse() method
-	 */
-	public List<NameValuePair> buildParamsList(URI uri) {
-		List<NameValuePair> rtnParams = new ArrayList<>();
-		rtnParams = URLEncodedUtils.parse(uri, "UTF-8");
-		return rtnParams;
+		try {
+			String[] path = uri.getPath().split("/");
+			String[] rtnSuites = path[3].split(",");
+			return rtnSuites;
+		} 
+		catch(ArrayIndexOutOfBoundsException ex) {
+			System.out.println("Invalid URI path: \"" + uri.getPath() + "\\\" at AnalyticsBase:getSuitesI()");			
+			return null;
+		}
 	}
 	
 	/**
@@ -219,14 +213,14 @@ public class AnalyticsBase {
 	 * @param paramList
 	 * @return
 	 */
-	public boolean isLinkEvent(List<NameValuePair> paramList) {
+	public boolean isClickEvent(List<NameValuePair> paramList) {
 		for (NameValuePair param : paramList) {
 			if (param.getName().equalsIgnoreCase(BeaconParams.LINKTYPE)) {
 				return true;
 			}
 		}
 		return false;
-	}	
+	}
 	
 	/**
 	 * Get a list of beacon URLs fired off for load events
@@ -235,14 +229,12 @@ public class AnalyticsBase {
 	 */
 	public List<AnalyticsBase> getLoadBeacons(List<String> urlList) {
 				
-		List<AnalyticsBase> loadBeacons = new ArrayList<AnalyticsBase>();		
-		AnalyticsBase analytics = new AnalyticsBase();
-
+		List<AnalyticsBase> loadBeacons = new ArrayList<AnalyticsBase>();
 		for(String url : urlList)
 		{
 			// If this doesn't have the "Link Type" param ('pe'), add to list of load beacons
-			List<NameValuePair> params = analytics.buildParamsList(URI.create(url));
-			if(! isLinkEvent(params)) {
+			List<NameValuePair> params = new BeaconParams(createURI(url)).all;
+			if(!isClickEvent(params)) {
 				loadBeacons.add(new AnalyticsBase(url));
 			}
 		}
@@ -250,7 +242,7 @@ public class AnalyticsBase {
 		System.out.println("Total load beacons: " + loadBeacons.size());
 		System.out.println("Total click beacons: " + (urlList.size() - loadBeacons.size()));
 		return loadBeacons;
-	}		
+	}
 	
 	/**
 	 * Get a list of beacon URLs fired off for click events
@@ -259,14 +251,12 @@ public class AnalyticsBase {
 	 */
 	public List<AnalyticsBase> getClickBeacons(List<String> urlList) {
 				
-		List<AnalyticsBase> clickBeacons = new ArrayList<AnalyticsBase>();		
-		AnalyticsBase analytics = new AnalyticsBase();
-
+		List<AnalyticsBase> clickBeacons = new ArrayList<AnalyticsBase>();
 		for(String url : urlList)
 		{
 			// If this has the "Link Type" param ('pe'), add to list of click beacons
-			List<NameValuePair> params = analytics.buildParamsList(URI.create(url));
-			if(isLinkEvent(params)) {
+			List<NameValuePair> params = new BeaconParams(createURI(url)).all;
+			if(isClickEvent(params)) {
 				clickBeacons.add(new AnalyticsBase(url));
 			}
 		}
@@ -286,7 +276,7 @@ public class AnalyticsBase {
 		try { 
 			Thread.sleep(ms);
 		} catch (InterruptedException ex) {
-			System.out.println("goSleepy() failed");
+			System.out.println("AnalyticsBase:nap() failed");
 		}
 	}
 	protected static void nap() {
