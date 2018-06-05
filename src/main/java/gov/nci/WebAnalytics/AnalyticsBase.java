@@ -1,42 +1,17 @@
 package gov.nci.WebAnalytics;
 
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
-import org.openqa.selenium.WebDriver;
-
-import com.nci.Utilities.ConfigReader;
 
 public class AnalyticsBase {
 	
 	// Constants
-	public static final String S_CODE_NAME = "s_code.js";
-	public static final String S_ACCOUNT = "s_account";
-	public static final String NCI_FUNCTIONS_NAME = "NCIAnalytics";
-	public static final String PAGE_NAME = "www.cancer.gov";
+	public static final String STATIC_SERVER = "static.cancer.gov";
 	public static final String TRACKING_SERVER = "nci.122.2o7.net";
-
-	// Get our page navigation URLs
-	public ConfigReader config = new ConfigReader();
-	public String homePage = config.getPageURL("HomePage");
-	public String blogPostPage = config.getPageURL("BlogPostPage");
-	public String blogSeriesPage = config.getPageURL("BlogSeriesPage");
-	public String cthpPatient = config.getPageURL("CTHPPatient");
-	public String cthpHP = config.getPageURL("CTHPHP");
-	public String innerPage = config.getPageURL("InnerPage");
-	public String landingPage = config.getPageURL("LandingPage");
-	public String pdqPage = config.getPageURL("PDQPage");
-	public String topicPage = config.getPageURL("TopicPage");
-	public String spanishPage = config.getPageURL("SpanishPage");
-	public String appModulePage = config.getPageURL("AppModulePage");
 	
-	// Beacon properties
+	// Analytics base fields
 	public URI uri;
 	public String[] suites;	
 	public WaParams params; 

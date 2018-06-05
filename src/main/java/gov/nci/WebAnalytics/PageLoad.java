@@ -23,20 +23,20 @@ public class PageLoad extends AnalyticsBase {
 	 * @throws RuntimeException
 	 */
 	private void loadPageTypes() {
-		driver.navigate().to(homePage);		
-		driver.navigate().to(landingPage);
-		driver.navigate().to(cthpPatient);
-		driver.navigate().to(cthpHP);
-		driver.navigate().to(appModulePage);
-		driver.navigate().to(blogSeriesPage);
+		driver.navigate().to(WaNav.homePage);		
+		driver.navigate().to(WaNav.landingPage);
+		driver.navigate().to(WaNav.cthpPatient);
+		driver.navigate().to(WaNav.cthpHP);
+		driver.navigate().to(WaNav.appModulePage);
+		driver.navigate().to(WaNav.blogSeriesPage);
 	}
 
 	public void goHomeAndBack() {
 		// Home page
-		driver.navigate().to(homePage);
-		driver.navigate().to(spanishPage);
+		driver.navigate().to(WaNav.homePage);
+		driver.navigate().to(WaNav.spanishPage);
 		driver.navigate().back();
-		driver.navigate().refresh();		
+		driver.navigate().refresh();
 	}	
 	
 	/// Click around pages
