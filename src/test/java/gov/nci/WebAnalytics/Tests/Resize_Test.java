@@ -1,7 +1,5 @@
 package gov.nci.WebAnalytics.Tests;
 
-import java.util.List;
-
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -75,7 +73,6 @@ public class Resize_Test extends AnalyticsTestBase {
 	/// Correct event on maximize
 	@Test(groups = { "Analytics" }, priority = 6)
 	public void testMaximize() {
-		resize.toSmall();
 		resize.maximize();
 		clickBeacons = resize.getClickBeacons(getHarUrlList(proxy));
 		Assert.assertTrue(hasEvent(clickBeacons, "event7"));
