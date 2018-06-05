@@ -121,14 +121,12 @@ public class AnalyticsBase {
 	 * @return
 	 */
 	public String getChannel(List<NameValuePair> parms) {
-		String rtnChannel = "";		
 		for (NameValuePair param : parms) {
-			if (param.getName().toLowerCase().equals("ch")) {
-				rtnChannel = param.getValue();
-				break;
+			if (param.getName().equalsIgnoreCase(BeaconParams.CHANNEL)) {
+				return param.getValue().trim();
 			}
 		}
-		return rtnChannel.trim();
+		return "";
 	}
 	
 	/**
@@ -137,9 +135,9 @@ public class AnalyticsBase {
 	 * @return
 	 */
 	public String[] getEvents(List<NameValuePair> parms) {
-		String rtnEvents = "";		
+		String rtnEvents = "";
 		for (NameValuePair param : parms) {
-			if (param.getName().toLowerCase().equals("events")) {
+			if (param.getName().equalsIgnoreCase(BeaconParams.EVENTS)) {
 				rtnEvents = param.getValue();
 				break;
 			}
@@ -153,7 +151,7 @@ public class AnalyticsBase {
 	 * @return
 	 */
 	public List<NameValuePair> getProps(List<NameValuePair> parms) {
-		List<NameValuePair> rtnProps = new ArrayList<>();		
+		List<NameValuePair> rtnProps = new ArrayList<>();
 		for (NameValuePair param : parms) {
 			// Regex: "c" followed by 1 or more digits, starting with 1-9 only
 			if(param.getName().matches("^[Cc][1-9]\\d*$")) {
@@ -207,15 +205,13 @@ public class AnalyticsBase {
 	 * @return
 	 */
 	public String getLinkType(List<NameValuePair> parms) {
-		String rtn = "";		
 		for (NameValuePair param : parms) {
-			if (param.getName().toLowerCase().equals("pe")) {
-				rtn = param.getValue();
-				break;
+			if (param.getName().equalsIgnoreCase(BeaconParams.LINKTYPE)) {
+				return param.getValue().trim();
 			}
 		}
-		return rtn.trim();
-	}	
+		return "";
+	}
 
 	/**
 	 * Get "Link Name" value (pev2)(
@@ -223,14 +219,12 @@ public class AnalyticsBase {
 	 * @return
 	 */	
 	public String getLinkName(List<NameValuePair> parms) {
-		String rtn = "";		
 		for (NameValuePair param : parms) {
-			if (param.getName().toLowerCase().equals("pev2")) {
-				rtn = param.getValue();
-				break;
+			if (param.getName().equalsIgnoreCase(BeaconParams.LINKNAME)) {
+				return param.getValue().trim();
 			}
 		}
-		return rtn.trim();
+		return "";
 	}
 
 	/**
@@ -239,15 +233,13 @@ public class AnalyticsBase {
 	 * @return
 	 */		
 	public String getLinkUrl(List<NameValuePair> parms) {
-		String rtn = "";		
 		for (NameValuePair param : parms) {
-			if (param.getName().toLowerCase().equals("pev1")) {
-				rtn = param.getValue();
-				break;
+			if (param.getName().equalsIgnoreCase(BeaconParams.LINKURL)) {
+				return param.getValue().trim();
 			}
 		}
-		return rtn.trim();
-	}	
+		return "";
+	}
 	
 	/**
 	 * Check query params to see if this is a link tracking event
@@ -256,7 +248,7 @@ public class AnalyticsBase {
 	 */
 	public boolean hasParam(List<NameValuePair> paramList, String myParam) {
 		for (NameValuePair param : paramList) {
-			if (param.getName().toLowerCase().equals(myParam)) {
+			if (param.getName().equalsIgnoreCase(myParam)) {
 				return true;
 			}
 		}
@@ -270,7 +262,7 @@ public class AnalyticsBase {
 	 */
 	public static boolean isLinkEvent(List<NameValuePair> paramList) {
 		for (NameValuePair param : paramList) {
-			if (param.getName().equalsIgnoreCase("pe")) {
+			if (param.getName().equalsIgnoreCase(BeaconParams.LINKTYPE)) {
 				return true;
 			}
 		}
