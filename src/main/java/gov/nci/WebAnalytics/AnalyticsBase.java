@@ -14,7 +14,7 @@ public class AnalyticsBase {
 	// Analytics base fields
 	public URI uri;
 	public String[] suites;	
-	public WaParams params; 
+	public WAParams params; 
 	public String channel;
 	public String[] events;
 	public List<NameValuePair> props; 
@@ -39,7 +39,7 @@ public class AnalyticsBase {
 	 */
 	public AnalyticsBase(String beaconUrl) {
 		uri = createURI(beaconUrl);
-		params = new WaParams(uri);
+		params = new WAParams(uri);
 		suites = getSuites(uri);
 		channel = getChannel(params.all);
 		events = getEvents(params.all);
@@ -91,7 +91,7 @@ public class AnalyticsBase {
 	 */
 	public String getChannel(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(WaParams.CHANNEL)) {
+			if (param.getName().equalsIgnoreCase(WAParams.CHANNEL)) {
 				return param.getValue().trim();
 			}
 		}
@@ -106,7 +106,7 @@ public class AnalyticsBase {
 	public String[] getEvents(List<NameValuePair> parms) {
 		String rtnEvents = "";
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(WaParams.EVENTS)) {
+			if (param.getName().equalsIgnoreCase(WAParams.EVENTS)) {
 				rtnEvents = param.getValue();
 				break;
 			}
@@ -120,7 +120,7 @@ public class AnalyticsBase {
 	 * @return
 	 */
 	public List<NameValuePair> getProps(List<NameValuePair> parms) {
-		return WaParams.getNumberedParams(parms, WaParams.PROP_PARTIAL, "prop");
+		return WAParams.getNumberedParams(parms, WAParams.PROP_PARTIAL, "prop");
 	}
 	
 	/**
@@ -129,7 +129,7 @@ public class AnalyticsBase {
 	 * @return
 	 */
 	public List<NameValuePair> getEvars(List<NameValuePair> parms) {
-		return WaParams.getNumberedParams(parms, WaParams.EVAR_PARTIAL, "eVar");
+		return WAParams.getNumberedParams(parms, WAParams.EVAR_PARTIAL, "eVar");
 	}
 	
 	/**
@@ -138,7 +138,7 @@ public class AnalyticsBase {
 	 * @return
 	 */
 	public List<NameValuePair> getHiers(List<NameValuePair> parms) {
-		return WaParams.getNumberedParams(parms, WaParams.HIER_PARTIAL, "hier");
+		return WAParams.getNumberedParams(parms, WAParams.HIER_PARTIAL, "hier");
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class AnalyticsBase {
 	 */
 	public String getLinkType(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(WaParams.LINKTYPE)) {
+			if (param.getName().equalsIgnoreCase(WAParams.LINKTYPE)) {
 				return param.getValue().trim();
 			}
 		}
@@ -162,7 +162,7 @@ public class AnalyticsBase {
 	 */	
 	public String getLinkName(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(WaParams.LINKNAME)) {
+			if (param.getName().equalsIgnoreCase(WAParams.LINKNAME)) {
 				return param.getValue().trim();
 			}
 		}
@@ -176,7 +176,7 @@ public class AnalyticsBase {
 	 */		
 	public String getLinkUrl(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(WaParams.LINKURL)) {
+			if (param.getName().equalsIgnoreCase(WAParams.LINKURL)) {
 				return param.getValue().trim();
 			}
 		}
@@ -190,7 +190,7 @@ public class AnalyticsBase {
 	 */
 	public boolean isClickEvent(List<NameValuePair> paramList) {
 		for (NameValuePair param : paramList) {
-			if (param.getName().equalsIgnoreCase(WaParams.LINKTYPE)) {
+			if (param.getName().equalsIgnoreCase(WAParams.LINKTYPE)) {
 				return true;
 			}
 		}
@@ -208,7 +208,7 @@ public class AnalyticsBase {
 		for(String url : urlList)
 		{
 			// If this doesn't have the "Link Type" param ('pe'), add to list of load beacons
-			List<NameValuePair> params = new WaParams(createURI(url)).all;
+			List<NameValuePair> params = new WAParams(createURI(url)).all;
 			if(!isClickEvent(params)) {
 				loadBeacons.add(new AnalyticsBase(url));
 			}
@@ -230,7 +230,7 @@ public class AnalyticsBase {
 		for(String url : urlList)
 		{
 			// If this has the "Link Type" param ('pe'), add to list of click beacons
-			List<NameValuePair> params = new WaParams(createURI(url)).all;
+			List<NameValuePair> params = new WAParams(createURI(url)).all;
 			if(isClickEvent(params)) {
 				clickBeacons.add(new AnalyticsBase(url));
 			}

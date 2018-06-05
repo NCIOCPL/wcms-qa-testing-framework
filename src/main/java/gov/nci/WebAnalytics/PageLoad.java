@@ -23,18 +23,18 @@ public class PageLoad extends AnalyticsBase {
 	 * @throws RuntimeException
 	 */
 	private void loadPageTypes() {
-		driver.navigate().to(WaNav.homePage);		
-		driver.navigate().to(WaNav.landingPage);
-		driver.navigate().to(WaNav.cthpPatient);
-		driver.navigate().to(WaNav.cthpHP);
-		driver.navigate().to(WaNav.appModulePage);
-		driver.navigate().to(WaNav.blogSeriesPage);
+		driver.navigate().to(WANav.homePage);		
+		driver.navigate().to(WANav.landingPage);
+		driver.navigate().to(WANav.cthpPatient);
+		driver.navigate().to(WANav.cthpHP);
+		driver.navigate().to(WANav.appModulePage);
+		driver.navigate().to(WANav.blogSeriesPage);
 	}
 
 	public void goHomeAndBack() {
 		// Home page
-		driver.navigate().to(WaNav.homePage);
-		driver.navigate().to(WaNav.spanishPage);
+		driver.navigate().to(WANav.homePage);
+		driver.navigate().to(WANav.spanishPage);
 		driver.navigate().back();
 		driver.navigate().refresh();
 	}	

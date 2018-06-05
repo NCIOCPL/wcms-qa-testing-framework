@@ -2,7 +2,7 @@ package gov.nci.WebAnalytics;
 
 import com.nci.Utilities.ConfigReader;
 
-public class WaNav {
+public class WANav {
 
 	// New ConfigReader
 	private static ConfigReader config = new ConfigReader();
