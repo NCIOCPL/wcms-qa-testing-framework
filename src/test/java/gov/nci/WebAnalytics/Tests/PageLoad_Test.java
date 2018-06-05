@@ -21,7 +21,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		pageLoad.doPageLoadActions();
 		
 		harList = getHarUrlList(proxy);
-		loadBeacons = PageLoad.getLoadBeacons(harList);
+		loadBeacons = pageLoad.getLoadBeacons(harList);
 				
 		Assert.assertTrue(harList.size() > 0);
 		Assert.assertTrue(loadBeacons.size() > 0);
@@ -36,7 +36,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		pageLoad.doPageLoadActions();
 		
 		harList = getHarUrlList(proxy);
-		loadBeacons = PageLoad.getLoadBeacons(harList);
+		loadBeacons = pageLoad.getLoadBeacons(harList);
 		
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		
@@ -56,7 +56,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		
 		// For debugging purposes only...
 		harList = getHarUrlList(proxy);
-		loadBeacons = PageLoad.getLoadBeacons(harList);		
+		loadBeacons = pageLoad.getLoadBeacons(harList);		
 		
 		AnalyticsBase firstLoadBeacon = loadBeacons.get(0);
 

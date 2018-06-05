@@ -146,7 +146,7 @@ public class AnalyticsBase {
 	}
 	
 	/**
-	 * Get array of props ('c' values in beacon)
+	 * Get list of props ('c' values in beacon)
 	 * @param parms
 	 * @return
 	 */
@@ -155,7 +155,7 @@ public class AnalyticsBase {
 	}
 	
 	/**
-	 * Get array of eVars ('v' values in beacon)
+	 * Get list of eVars ('v' values in beacon)
 	 * @param parms
 	 * @return
 	 */
@@ -164,7 +164,7 @@ public class AnalyticsBase {
 	}
 	
 	/**
-	 * Get array of hierarchy values ("hiers" or "h" values in beacon)
+	 * Get list of hierarchy values ("h" values in beacon)
 	 * @param parms
 	 * @return
 	 */
@@ -215,25 +215,11 @@ public class AnalyticsBase {
 	}
 	
 	/**
-	 * Check query params to see if this is a link tracking event
-	 * @param parms
-	 * @return
-	 */
-	public boolean hasParam(List<NameValuePair> paramList, String myParam) {
-		for (NameValuePair param : paramList) {
-			if (param.getName().equalsIgnoreCase(myParam)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * Check for parameters to verify that this is a link event
 	 * @param paramList
 	 * @return
 	 */
-	public static boolean isLinkEvent(List<NameValuePair> paramList) {
+	public boolean isLinkEvent(List<NameValuePair> paramList) {
 		for (NameValuePair param : paramList) {
 			if (param.getName().equalsIgnoreCase(BeaconParams.LINKTYPE)) {
 				return true;
@@ -247,7 +233,7 @@ public class AnalyticsBase {
 	 * @param urlList
 	 * @return
 	 */
-	public static List<AnalyticsBase> getLoadBeacons(List<String> urlList) {
+	public List<AnalyticsBase> getLoadBeacons(List<String> urlList) {
 				
 		List<AnalyticsBase> loadBeacons = new ArrayList<AnalyticsBase>();		
 		AnalyticsBase analytics = new AnalyticsBase();
@@ -256,7 +242,7 @@ public class AnalyticsBase {
 		{
 			// If this doesn't have the "Link Type" param ('pe'), add to list of load beacons
 			List<NameValuePair> params = analytics.buildParamsList(URI.create(url));
-			if(!isLinkEvent(params)) {
+			if(! isLinkEvent(params)) {
 				loadBeacons.add(new AnalyticsBase(url));
 			}
 		}
@@ -271,7 +257,7 @@ public class AnalyticsBase {
 	 * @param urlList
 	 * @return
 	 */
-	public static List<AnalyticsBase> getClickBeacons(List<String> urlList) {
+	public List<AnalyticsBase> getClickBeacons(List<String> urlList) {
 				
 		List<AnalyticsBase> clickBeacons = new ArrayList<AnalyticsBase>();		
 		AnalyticsBase analytics = new AnalyticsBase();
