@@ -8,7 +8,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
-public class BeaconParams {
+public class WaParams {
 	
 	// Parameter values from URL
 	static final String CHANNEL = "ch";
@@ -27,7 +27,7 @@ public class BeaconParams {
 	// Beacon properties
 	public List<NameValuePair> all;
 
-	public BeaconParams() 
+	public WaParams() 
 	{
 		// No arg constructor
 	}
@@ -36,7 +36,7 @@ public class BeaconParams {
 	 * Constructor
 	 * @param beaconUrl
 	 */
-	public BeaconParams(URI uri) {
+	public WaParams(URI uri) {
 		all = buildParamsList(uri);
 	}	
 	
