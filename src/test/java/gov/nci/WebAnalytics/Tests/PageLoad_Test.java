@@ -29,6 +29,20 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "Load and click events have been captured.");				
 	}	
 
+	/// Load and click events have been captured
+	@Test(groups = { "Analytics" }, priority = 2)
+	public void verifyRandomPages() {
+		pageLoad = new PageLoad(driver);
+		pageLoad.loadPageTypes();
+		
+		harList = getHarUrlList(proxy);
+		loadBeacons = pageLoad.getLoadBeacons(harList);
+				
+		Assert.assertTrue(loadBeacons.size() > 0);
+		
+		logger.log(LogStatus.PASS, "Load events have been captured.");				
+	}
+	
 	/// Click event numbers match with their descriptors
 	@Test(groups = { "Analytics" })
 	public void testLoadEvents() {

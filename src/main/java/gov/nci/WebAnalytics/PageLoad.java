@@ -13,7 +13,7 @@ public class PageLoad extends AnalyticsBase {
 	public PageLoad(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		System.out.println("PageLoad object PageFactory initialized");
+		System.out.print("PageFactory initialized for load events: ");
 	}
 	
 	/**
@@ -22,8 +22,9 @@ public class PageLoad extends AnalyticsBase {
 	 * then be tested.
 	 * @throws RuntimeException
 	 */
-	private void loadPageTypes() {
-		driver.navigate().to(WANav.homePage);		
+	public void loadPageTypes() {
+		System.out.print("Navigate to several page types");		
+		driver.navigate().to(WANav.homePage);
 		driver.navigate().to(WANav.landingPage);
 		driver.navigate().to(WANav.cthpPatient);
 		driver.navigate().to(WANav.cthpHP);
@@ -31,6 +32,62 @@ public class PageLoad extends AnalyticsBase {
 		driver.navigate().to(WANav.blogSeriesPage);
 	}
 
+	public void loadHomePage() {
+		driver.navigate().to(WANav.homePage	);
+	}
+	
+	public void loadBlogPostPage() {
+		driver.navigate().to(WANav.blogPostPage);
+	}
+	
+	public void loadBlogSeriesPage() {
+		driver.navigate().to(WANav.blogSeriesPage);
+	}
+	
+	public void loadCTHPPatient() {
+		driver.navigate().to(WANav.cthpPatient);
+	}
+	
+	public void loadCTHPHP() {
+		driver.navigate().to(WANav.cthpHP);	
+	}
+	
+	public void loadInnerPage() {
+		driver.navigate().to(WANav.innerPage);
+	}
+	
+	public void loadLandingPage() {
+		driver.navigate().to(WANav.landingPage);
+	}
+	
+	public void loadPDQPage() {
+		driver.navigate().to(WANav.pdqPage);
+	}
+	
+	public void loadTopicPage() {
+		driver.navigate().to(WANav.topicPage);
+	}
+	
+	public void loadSpanishPage() {
+		driver.navigate().to(WANav.spanishPage);
+	}
+	
+	public void loadAppModulePage() {
+		driver.navigate().to(WANav.appModulePage);
+	}
+	
+	public void loadBasicSearchPage() {
+		driver.navigate().to(WANav.basicSearchPage);
+	}
+	
+	public void loadAdvSearchPage() {
+		driver.navigate().to(WANav.advSearchPage);
+	}
+	
+	public void loadResultsPage() {	
+		driver.navigate().to(WANav.resultsPage);
+	}
+	
 	public void goHomeAndBack() {
 		// Home page
 		driver.navigate().to(WANav.homePage);
