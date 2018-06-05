@@ -9,39 +9,36 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 public class BeaconParams {
-
-	public BeaconParams() {}
-
+	
+	// Parameter values from URL
 	static final String CHANNEL = "ch";
 	static final String EVENTS = "events";	
 	static final String LINKTYPE = "pe";
 	static final String LINKNAME = "pev2";
 	static final String LINKURL = "pev1";
+	
+	// Partial parameter values. Each prop, eVar, and hier is its own query parameter. 
+	// The getNumberedParams() method handles the logic of appending the number values
+	// to each of these query parameter
 	static final String PROP_PARTIAL = "c";
 	static final String EVAR_PARTIAL = "v";
 	static final String HIER_PARTIAL = "h";
 	
 	// Beacon properties
-	public URI uri;
-	public String[] suites;	
-	public List<NameValuePair> params;
-	public String channel;
-	public String[] events;
-	public List<NameValuePair> props; 
-	public List<NameValuePair> eVars; 
-	public List<NameValuePair> hiers;
-	public String linkType;
-	public String linkName;
-	public String linkUrl;	
+	public List<NameValuePair> all;
+
+	public BeaconParams() 
+	{
+		// No arg constructor
+	}
 	
 	/**
 	 * Constructor
 	 * @param beaconUrl
 	 */
-	public BeaconParams(String beaconUrl) {
-		params = buildParamsList(uri);
-	}
-	
+	public BeaconParams(URI uri) {
+		all = buildParamsList(uri);
+	}	
 	
 	/**
 	 * Split URI into list of encoded elements
@@ -54,15 +51,13 @@ public class BeaconParams {
 		rtnParams = URLEncodedUtils.parse(uri, "UTF-8");
 		return rtnParams;
 	}
-
-
 	
 	/**
 	 * Check query params to see if this is a link tracking event
 	 * @param parms
 	 * @return
 	 */
-	public boolean hasParam(List<NameValuePair> paramList, String myParam) {
+	public static boolean hasParam(List<NameValuePair> paramList, String myParam) {
 		for (NameValuePair param : paramList) {
 			if (param.getName().toLowerCase().equals(myParam)) {
 				return true;
