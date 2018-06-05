@@ -48,12 +48,10 @@ public class AnalyticsTestBase extends BaseClass {
 	public ConfigReader config = new ConfigReader();
 	public String pageURL;
 
-	// TODO: Fix timeout logic 
 	// TODO: Build negative tests
 	// TODO: Build test for test
 	// TODO: Check false positives for events 	
 	// TODO: Create reusable utility methods
-	// TODO: build a 'beacon params' object 
 	protected static List<String> harList;
 	protected static List<AnalyticsBase> loadBeacons;
 	protected static List<AnalyticsBase> clickBeacons;
@@ -226,7 +224,6 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param evt
 	 * @return
 	 */
-	// TODO: split events && add logic for loadtime
 	public boolean hasEvent(List<AnalyticsBase> clickBeacons, String evt) {
 		AnalyticsBase beacon = getLast(clickBeacons);
 		for(String event : beacon.events) {

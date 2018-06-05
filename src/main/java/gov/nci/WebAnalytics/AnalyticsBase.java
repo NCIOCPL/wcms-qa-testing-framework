@@ -151,16 +151,7 @@ public class AnalyticsBase {
 	 * @return
 	 */
 	public List<NameValuePair> getProps(List<NameValuePair> parms) {
-		List<NameValuePair> rtnProps = new ArrayList<>();
-		for (NameValuePair param : parms) {
-			// Regex: "c" followed by 1 or more digits, starting with 1-9 only
-			if(param.getName().matches("^[Cc][1-9]\\d*$")) {
-				String propName = param.getName().replaceAll("[Cc]", "prop");
-				String propValue = param.getValue();
-				rtnProps.add(new BasicNameValuePair(propName, propValue));
-			}
-		}
-		return rtnProps;
+		return BeaconParams.getNumberedParams(parms, BeaconParams.PROP_PARTIAL, "prop");
 	}
 	
 	/**
@@ -169,16 +160,7 @@ public class AnalyticsBase {
 	 * @return
 	 */
 	public List<NameValuePair> getEvars(List<NameValuePair> parms) {
-		List<NameValuePair> rtnEvars = new ArrayList<>();		
-		for (NameValuePair param : parms) {
-			// Regex: "v" followed by 1 or more digits, starting with 1-9 only			
-			if(param.getName().matches("^[Vv][1-9]\\d*$")) {
-				String eVarName = param.getName().replaceAll("[Vv]", "eVar");
-				String eVarValue = param.getValue();
-				rtnEvars.add(new BasicNameValuePair(eVarName, eVarValue));
-			}
-		}
-		return rtnEvars;
+		return BeaconParams.getNumberedParams(parms, BeaconParams.EVAR_PARTIAL, "eVar");
 	}
 	
 	/**
@@ -187,16 +169,7 @@ public class AnalyticsBase {
 	 * @return
 	 */
 	public List<NameValuePair> getHiers(List<NameValuePair> parms) {
-		List<NameValuePair> rtnHiers = new ArrayList<>();		
-		for (NameValuePair param : parms) {
-			// Regex: "h" followed by 1 or more digits, starting with 1-9 only			
-			if(param.getName().matches("^[Hh][1-9]\\d*$")) {
-				String hierName = param.getName().replaceAll("[Hh]", "hier");
-				String hierValue = param.getValue();
-				rtnHiers.add(new BasicNameValuePair(hierName, hierValue));
-			}
-		}
-		return rtnHiers;
+		return BeaconParams.getNumberedParams(parms, BeaconParams.HIER_PARTIAL, "hier");
 	}
 
 	/**

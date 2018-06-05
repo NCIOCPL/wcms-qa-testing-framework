@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
 
 public class BeaconParams {
 
@@ -16,6 +17,9 @@ public class BeaconParams {
 	static final String LINKTYPE = "pe";
 	static final String LINKNAME = "pev2";
 	static final String LINKURL = "pev1";
+	static final String PROP_PARTIAL = "c";
+	static final String EVAR_PARTIAL = "v";
+	static final String HIER_PARTIAL = "h";
 	
 	// Beacon properties
 	public URI uri;
@@ -67,5 +71,34 @@ public class BeaconParams {
 		return false;
 	}
 	
+	/**
+	 * Get a list of numbered parameters and their values (e.g. [prop1="www.cancer.gov", prop2="/home", prop3="NCI"])
+	 * @param paramList
+	 * @param parm
+	 * @param replacement
+	 * @return
+	 */
+	public static List<NameValuePair> getNumberedParams(List<NameValuePair> paramList, String parm, String replacement) {
+		List<NameValuePair> rtnList = new ArrayList<>();
+		for (NameValuePair param : paramList) {
+			// Regex: parameter name followed by 1 or more digits, starting with 1-9 only
+			if(param.getName().matches("^" + parm + "[1-9]\\d*$")) {
+				String rtnName = param.getName().replace(parm, replacement);
+				String rtnValue = param.getValue();
+				rtnList.add(new BasicNameValuePair(rtnName, rtnValue));
+			}
+		}
+		return rtnList;
+	}
+	
+	/**
+	 * Overload for getNumberedParams
+	 * @param paramList
+	 * @param parm
+	 * @return
+	 */
+	public static List<NameValuePair> getNumberedParams(List<NameValuePair> paramList, String parm) {
+		return getNumberedParams(paramList, parm, parm);
+	}	
 	
 }
