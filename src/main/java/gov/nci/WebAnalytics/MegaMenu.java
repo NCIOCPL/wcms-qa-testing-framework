@@ -67,7 +67,7 @@ public class MegaMenu extends AnalyticsBase {
 		driver.navigate().to(homePage);
 		action.moveToElement(mm_bar_link);
 		action.perform();
-		wait.until(ExpectedConditions.visibilityOf(mm_reveal_desktop));
+		wait.until(ExpectedConditions.visibilityOf(mm_subnav_header));
 		mm_subnav_header.click();
 	}
 	
@@ -90,9 +90,8 @@ public class MegaMenu extends AnalyticsBase {
 	}
 	
 	public void revealMegaMenuMobile() {
-		System.out.println("Expand megamenu on mobile");
-		Resize resize = new Resize(driver);
-		resize.toSmall();
+		System.out.println("Expand megamenu on mobile");		
+		driver.manage().window().setSize(Resize.small);
 		mm_reveal_mobile.click();
 	}
 	

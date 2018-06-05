@@ -76,6 +76,11 @@ public class AnalyticsBase {
 		linkUrl = getLinkUrl(params);
 	}
 	
+	/**
+	 * Create URI object from a given URL string
+	 * @param url
+	 * @return
+	 */
 	private URI createURI(String url) {
 		try {
 			URI rtnUri = URI.create(url);
