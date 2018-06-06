@@ -2,7 +2,6 @@ package gov.nci.WebAnalytics;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 
 public class PageLoad extends AnalyticsBase {
 
@@ -22,7 +21,7 @@ public class PageLoad extends AnalyticsBase {
 	 * then be tested.
 	 * @throws RuntimeException
 	 */
-	public void loadPageTypes() {
+	public void gotoPageTypes() {
 		System.out.print("Navigate to several page types");		
 		driver.navigate().to(WANav.homePage);
 		driver.navigate().to(WANav.landingPage);
@@ -32,59 +31,59 @@ public class PageLoad extends AnalyticsBase {
 		driver.navigate().to(WANav.blogSeriesPage);
 	}
 
-	public void loadHomePage() {
+	public void gotoHomePage() {
 		driver.navigate().to(WANav.homePage	);
 	}
 	
-	public void loadBlogPostPage() {
+	public void gotoBlogPostPage() {
 		driver.navigate().to(WANav.blogPostPage);
 	}
 	
-	public void loadBlogSeriesPage() {
+	public void gotoBlogSeriesPage() {
 		driver.navigate().to(WANav.blogSeriesPage);
 	}
 	
-	public void loadCTHPPatient() {
+	public void gotoCTHPPatient() {
 		driver.navigate().to(WANav.cthpPatient);
 	}
 	
-	public void loadCTHPHP() {
+	public void gotoCTHPHP() {
 		driver.navigate().to(WANav.cthpHP);	
 	}
 	
-	public void loadInnerPage() {
+	public void gotoInnerPage() {
 		driver.navigate().to(WANav.innerPage);
 	}
 	
-	public void loadLandingPage() {
+	public void gotoLandingPage() {
 		driver.navigate().to(WANav.landingPage);
 	}
 	
-	public void loadPDQPage() {
+	public void gotoPDQPage() {
 		driver.navigate().to(WANav.pdqPage);
 	}
 	
-	public void loadTopicPage() {
+	public void gotoTopicPage() {
 		driver.navigate().to(WANav.topicPage);
 	}
 	
-	public void loadSpanishPage() {
+	public void gotoSpanishPage() {
 		driver.navigate().to(WANav.spanishPage);
 	}
 	
-	public void loadAppModulePage() {
+	public void gotoAppModulePage() {
 		driver.navigate().to(WANav.appModulePage);
 	}
 	
-	public void loadBasicSearchPage() {
+	public void gotoBasicSearchPage() {
 		driver.navigate().to(WANav.basicSearchPage);
 	}
 	
-	public void loadAdvSearchPage() {
+	public void gotoAdvSearchPage() {
 		driver.navigate().to(WANav.advSearchPage);
 	}
 	
-	public void loadResultsPage() {	
+	public void gotoResultsPage() {	
 		driver.navigate().to(WANav.resultsPage);
 	}
 	
@@ -99,7 +98,7 @@ public class PageLoad extends AnalyticsBase {
 	/// Click around pages
 	public void doPageLoadActions() throws RuntimeException {
 		System.out.println("Begin PageLoad actions");
-		loadPageTypes();
+		gotoPageTypes();
 		goHomeAndBack();		
 		System.out.println("End PageLoad actions");
 	}
