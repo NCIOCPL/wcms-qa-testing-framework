@@ -21,6 +21,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 
 	// TODO: refactor has..() methods
 	// TODO: fix hasEvent() arg
+	// TODO: create generic param test
 	/// Load and click events have been captured
 	@Test(groups = { "Analytics" }, priority = 1)
 	public void testHarAndBeacons() {
@@ -45,7 +46,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "Load event values are correct.");				
 	}
 	
-	/// Home-and-back navigation returns expected values
+	/// Home-and-back pageload returns expected values
 	@Test(groups = { "Analytics" }, priority = 3)
 	public void testHomeAndBack() throws MalformedURLException {
 		// For debugging purposes only..
@@ -59,7 +60,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		logger.log(LogStatus.PASS, "Home-and-back nav values are correct.");		
 	}
 	
-	/// Home navigation returns expected values
+	/// Home pageload returns expected values
 	@Test(groups = { "Analytics" })
 	public void testHomeLoad() {
 		pageLoad.gotoHomePage();
@@ -72,9 +73,35 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		Assert.assertTrue(haseVar(loadBeacons, 1, "www.cancer.gov/"));
 		Assert.assertTrue(haseVar(loadBeacons, 44, "NCI Homepage"));		
 		logger.log(LogStatus.PASS, "Home page nav values are correct.");
+	}	
+	
+	/// Blog post pageload returns expected values
+	@Test(groups = { "Analytics" })
+	public void testBlogPostLoad() {
+		pageLoad.gotoBlogPostPage();
+		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
+		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
+		Assert.assertTrue(hasEvent(loadBeacons, "event53"));
+		Assert.assertTrue(hasProp(loadBeacons, 6, "Addressing Cancer Drug Costs and Value"));
+		Assert.assertTrue(hasProp(loadBeacons, 44, "CancerCurrents"));
+		Assert.assertTrue(haseVar(loadBeacons, 1, "www.cancer.gov/news-events/cancer-currents-blog/2018/presidents-cancer-panel-drug-prices"));
+		// hasHier()		
 	}
 	
-	/// CTHP navigation returns expected values
+	/// Blog series pageload returns expected values
+	@Test(groups = { "Analytics" })
+	public void testBlogSeriesLoad() {
+		pageLoad.gotoBlogSeriesPage();
+		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
+		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
+		Assert.assertTrue(hasProp(loadBeacons, 44, "CancerCurrents"));
+		Assert.assertTrue(haseVar(loadBeacons, 1, "www.cancer.gov/news-events/cancer-currents-blog"));
+		Assert.assertTrue(haseVar(loadBeacons, 44, "CancerCurrents"));
+	}
+	
+	/// CTHP patient pageload returns expected values
 	@Test(groups = { "Analytics" })
 	public void testCTHPPatientLoad() {
 		pageLoad.gotoCTHPPatient();
@@ -87,8 +114,97 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		Assert.assertTrue(hasProp(loadBeacons, 44, "Cancer Types Landing Page"));
 		Assert.assertTrue(haseVar(loadBeacons, 1, "www.cancer.gov/types/bladder"));
 		Assert.assertTrue(haseVar(loadBeacons, 44, "Cancer Types Landing Page"));
-
+	}
+	
+	/// CTHP HP pageload returns expected values
+	@Test(groups = { "Analytics" })
+	public void testCTHPHPLoad() {
+		pageLoad.gotoCTHPHP();
+		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
+		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
+		/** more **/
+	}		
+	
+	/// Innerpage load returns expected values
+	@Test(groups = { "Analytics" })
+	public void testInnerPageLoad() {
+		pageLoad.gotoInnerPage();
+		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
+		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
+	}
+	
+	/// CTHP HP pageload returns expected values
+	@Test(groups = { "Analytics" })
+	public void testLandingPageLoad() {
+		Assert.assertTrue((2 + 2) == 4);
+		/** more **/
+	}
+	
+//	HomePage=https://www.cancer.gov
+//		BlogPostPage=https://www.cancer.gov/news-events/cancer-currents-blog/2018/presidents-cancer-panel-drug-prices
+//		BlogSeriesPage=https://www.cancer.gov/news-events/cancer-currents-blog
+//		CTHPPatient=https://www.cancer.gov/types/bladder
+//		CTHPHP=https://www.cancer.gov/types/breast/hp
+//		InnerPage=https://www.cancer.gov/about-nci/visit
+//		LandingPage=https://www.cancer.gov/research
+//		PDQPage=https://www.cancer.gov/types/breast/patient/breast-prevention-pdq
+//		TopicPage=https://www.cancer.gov/grants-training/apply-grant
+//		SpanishPage=https://www.cancer.gov/espanol
+//		AppModulePage=https://www.cancer.gov/publications/dictionaries/cancer-terms
+	
+	
+	/// CTHP HP pageload returns expected values
+	@Test(groups = { "Analytics" })
+	public void testPDQPageLoad() {
+		Assert.assertTrue((2 + 2) == 4);
+		/** more **/
+	}
+	
+	/// CTHP HP pageload returns expected values
+	@Test(groups = { "Analytics" })
+	public void testTopicPageLoad() {
+		Assert.assertTrue((2 + 2) == 4);
+		/** more **/
 	}	
 	
+	/// CTHP HP pageload returns expected values
+	@Test(groups = { "Analytics" })
+	public void testSpanishPageLoad() {
+		Assert.assertTrue((2 + 2) == 4);
+		/** more **/
+	}		
+
+	/// CTHP HP pageload returns expected values
+	@Test(groups = { "Analytics" })
+	public void testAppModulePageLoad() {
+		Assert.assertTrue((2 + 2) == 4);
+		/** more **/
+	}		
 	
+	/// CTHP HP pageload returns expected values
+	@Test(groups = { "Analytics" })
+	public void testAdvSearchPageLoad() {
+		Assert.assertTrue((2 + 2) == 4);
+		/** more **/
+	}
+	
+	@Test(groups = { "Analytics" })
+	public void testBasicSearchPageLoad() {
+		Assert.assertTrue((2 + 2) == 4);
+		/** more **/
+	}		
+	
+	@Test(groups = { "Analytics" })
+	public void testCTResultsPageLoad() {
+		Assert.assertTrue((2 + 2) == 4);
+		/** more **/
+	}			
+
+	@Test(groups = { "Analytics" })
+	public void testCTViewPageLoad() {
+		Assert.assertTrue((2 + 2) == 4);
+		/** more **/
+	}
 }
