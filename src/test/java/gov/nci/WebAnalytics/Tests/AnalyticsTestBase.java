@@ -255,6 +255,17 @@ public class AnalyticsTestBase extends BaseClass {
 	}
 		
 	/**
+	 * Overload for hasEvent() with int value.
+	 * @param beacons
+	 * @param evt
+	 * @return
+	 */
+	public boolean hasEvent(List<AnalyticsBase> beacons, int evtNumber) {
+		String evt = "event" + Integer.toString(evtNumber);
+		return hasEvent(beacons, evt);
+	}
+	
+	/**
 	 * Utility function to check for a given prop and value
 	 * @param beacons
 	 * @param num
