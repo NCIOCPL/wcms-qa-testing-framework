@@ -27,7 +27,7 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
-import gov.nci.WebAnalytics.AnalyticsBase;
+import gov.nci.WebAnalytics.AnalyticsRequest;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.core.har.Har;
@@ -48,8 +48,8 @@ public class AnalyticsTestBase extends BaseClass {
 	// TODO: Check false positives for events 	
 	// TODO: Clean up
 	protected static List<String> harList;
-	protected static List<AnalyticsBase> loadBeacons;
-	protected static List<AnalyticsBase> clickBeacons;
+	protected static List<AnalyticsRequest> loadBeacons;
+	protected static List<AnalyticsRequest> clickBeacons;
 	
 	/**
 	* Configuration information for a TestNG class (http://testng.org/doc/documentation-main.html): 
@@ -141,12 +141,12 @@ public class AnalyticsTestBase extends BaseClass {
 	    List<String> harList = new ArrayList<String>();
 	    
 	    List<HarEntry> entries = har.getLog().getEntries();
-    	System.out.println("Requests to " + AnalyticsBase.TRACKING_SERVER + ":");
+    	System.out.println("Requests to " + AnalyticsRequest.TRACKING_SERVER + ":");
     	
 	    for (HarEntry entry : entries) {
 	    	// Build a list of requests to the analytics tracking server from the HAR
 	    	String result = entry.getRequest().getUrl();
-	    	if(result.contains(AnalyticsBase.TRACKING_SERVER))
+	    	if(result.contains(AnalyticsRequest.TRACKING_SERVER))
 	    	{
 	    		harList.add(result);
 	    		System.out.println(result);
@@ -204,7 +204,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param clickBeacons
 	 * @return
 	 */
-	public boolean hasSuite(List<AnalyticsBase> beacons) {
+	public boolean hasSuite(List<AnalyticsRequest> beacons) {
 		// TODO: fill this out
 		return false;
 	}
@@ -214,7 +214,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param clickBeacons
 	 * @return
 	 */
-	public boolean hasChannel(List<AnalyticsBase> beacons) {
+	public boolean hasChannel(List<AnalyticsRequest> beacons) {
 		// TODO: fill this out
 		return false;
 	}
@@ -225,8 +225,8 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param name
 	 * @return
 	 */
-	public boolean hasLinkName(List<AnalyticsBase> clickBeacons, String name) {
-		AnalyticsBase beacon = getLast(clickBeacons);
+	public boolean hasLinkName(List<AnalyticsRequest> clickBeacons, String name) {
+		AnalyticsRequest beacon = getLast(clickBeacons);
 		if(beacon.linkName.equalsIgnoreCase(name)) {
 			return true;
 		}
@@ -239,8 +239,8 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param evt
 	 * @return
 	 */
-	public boolean hasEvent(List<AnalyticsBase> beacons, String evt) {
-		AnalyticsBase beacon = getLast(beacons);
+	public boolean hasEvent(List<AnalyticsRequest> beacons, String evt) {
+		AnalyticsRequest beacon = getLast(beacons);
 		for(String event : beacon.events) {
 			if(evt.equalsIgnoreCase("event47")) {
 				if(event.matches("^event47=\\d+")) {
@@ -260,7 +260,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param evt
 	 * @return
 	 */
-	public boolean hasEvent(List<AnalyticsBase> beacons, int evtNumber) {
+	public boolean hasEvent(List<AnalyticsRequest> beacons, int evtNumber) {
 		String evt = "event" + Integer.toString(evtNumber);
 		return hasEvent(beacons, evt);
 	}
@@ -272,8 +272,8 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param val
 	 * @return
 	 */
-	public boolean hasProp(List<AnalyticsBase> beacons, int num, String val) {
-		AnalyticsBase beacon = getLast(beacons);
+	public boolean hasProp(List<AnalyticsRequest> beacons, int num, String val) {
+		AnalyticsRequest beacon = getLast(beacons);
 		String blob = beacon.props.toString();
 		if(blob.toLowerCase().contains("prop" + Integer.toString(num) + "=" + val.toLowerCase())) {
 			return true;
@@ -288,8 +288,8 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param val
 	 * @return
 	 */
-	public boolean haseVar(List<AnalyticsBase> beacons, int num, String val) {
-		AnalyticsBase beacon = getLast(beacons);
+	public boolean haseVar(List<AnalyticsRequest> beacons, int num, String val) {
+		AnalyticsRequest beacon = getLast(beacons);
 		String blob = beacon.eVars.toString();
 		if(blob.toLowerCase().contains("evar" + Integer.toString(num) + "=" + val.toLowerCase())) {
 			return true;
@@ -304,7 +304,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param val
 	 * @return
 	 */
-	public boolean hasHier(List<AnalyticsBase> beacons, int num, String val) {
+	public boolean hasHier(List<AnalyticsRequest> beacons, int num, String val) {
 		// TODO: fill this out
 		return false;
 	}
@@ -314,8 +314,8 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param beacons
 	 * @return
 	 */
-	private AnalyticsBase getLast(List<AnalyticsBase> beacons) {
-		AnalyticsBase beacon = beacons.get(beacons.size() - 1);
+	private AnalyticsRequest getLast(List<AnalyticsRequest> beacons) {
+		AnalyticsRequest beacon = beacons.get(beacons.size() - 1);
 		return beacon;
 	}
 	

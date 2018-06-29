@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CTSBasicSearch extends AnalyticsBase {
+public class CTSBasicSearch extends AnalyticsRequest {
 	
 	// Local driver object and actions
 	private WebDriver driver;	

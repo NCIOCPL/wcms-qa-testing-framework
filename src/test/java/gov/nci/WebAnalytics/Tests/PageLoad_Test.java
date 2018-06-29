@@ -7,7 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import gov.nci.WebAnalytics.AnalyticsBase;
+import gov.nci.WebAnalytics.AnalyticsRequest;
 import gov.nci.WebAnalytics.PageLoad;
 
 public class PageLoad_Test extends AnalyticsTestBase {
@@ -39,7 +39,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		pageLoad.gotoMultiplePages();
 		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));		
-		for(AnalyticsBase beacon : loadBeacons) {
+		for(AnalyticsRequest beacon : loadBeacons) {
 			Assert.assertTrue(beacon.events[0].contains("event1"));
 			Assert.assertTrue(beacon.events[1].contains("event47"));
 		}		
@@ -52,7 +52,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		// For debugging purposes only..
 		pageLoad.goHomeAndBack();
 		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));		
-		AnalyticsBase firstLoadBeacon = loadBeacons.get(0);
+		AnalyticsRequest firstLoadBeacon = loadBeacons.get(0);
 		// Temporary / debugging tests
 		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage") || firstLoadBeacon.channel.contains("Research"));
 		Assert.assertFalse(firstLoadBeacon.channel.contains("some other string"));

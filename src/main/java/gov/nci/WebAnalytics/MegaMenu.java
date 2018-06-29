@@ -10,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class MegaMenu extends AnalyticsBase {
+public class MegaMenu extends AnalyticsRequest {
 	
 	// Local driver object and actions
 	private WebDriver driver;	
@@ -83,7 +83,7 @@ public class MegaMenu extends AnalyticsBase {
 		driver.navigate().to(WANav.homePage);
 		action.moveToElement(mm_bar_link);
 		action.perform();
-		AnalyticsBase.nap(5);
+		AnalyticsRequest.nap(5);
 		driver.navigate().refresh();
 	}
 	

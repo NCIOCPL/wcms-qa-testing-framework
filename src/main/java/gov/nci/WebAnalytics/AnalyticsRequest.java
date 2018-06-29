@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.NameValuePair;
 
-public class AnalyticsBase {
+public class AnalyticsRequest {
 	
 	// Constants
 	public static final String STATIC_SERVER = "static.cancer.gov";
@@ -27,7 +27,7 @@ public class AnalyticsBase {
 	/**
 	 * No arg constructor
 	 */
-	public AnalyticsBase() {
+	public AnalyticsRequest() {
 		uri = null;
 		suites = new String[0];		
 		params = null;
@@ -37,7 +37,7 @@ public class AnalyticsBase {
 	 * Constructor
 	 * @param beaconUrl
 	 */
-	public AnalyticsBase(String beaconUrl) {
+	public AnalyticsRequest(String beaconUrl) {
 		uri = createURI(beaconUrl);
 		params = new WAParams(uri);
 		suites = getSuites(uri);
@@ -202,15 +202,15 @@ public class AnalyticsBase {
 	 * @param urlList
 	 * @return
 	 */
-	public List<AnalyticsBase> getLoadBeacons(List<String> urlList) {
+	public List<AnalyticsRequest> getLoadBeacons(List<String> urlList) {
 				
-		List<AnalyticsBase> loadBeacons = new ArrayList<AnalyticsBase>();
+		List<AnalyticsRequest> loadBeacons = new ArrayList<AnalyticsRequest>();
 		for(String url : urlList)
 		{
 			// If this doesn't have the "Link Type" param ('pe'), add to list of load beacons
 			List<NameValuePair> params = new WAParams(createURI(url)).all;
 			if(!isClickEvent(params)) {
-				loadBeacons.add(new AnalyticsBase(url));
+				loadBeacons.add(new AnalyticsRequest(url));
 			}
 		}
 
@@ -224,15 +224,15 @@ public class AnalyticsBase {
 	 * @param urlList
 	 * @return
 	 */
-	public List<AnalyticsBase> getClickBeacons(List<String> urlList) {
+	public List<AnalyticsRequest> getClickBeacons(List<String> urlList) {
 				
-		List<AnalyticsBase> clickBeacons = new ArrayList<AnalyticsBase>();
+		List<AnalyticsRequest> clickBeacons = new ArrayList<AnalyticsRequest>();
 		for(String url : urlList)
 		{
 			// If this has the "Link Type" param ('pe'), add to list of click beacons
 			List<NameValuePair> params = new WAParams(createURI(url)).all;
 			if(isClickEvent(params)) {
-				clickBeacons.add(new AnalyticsBase(url));
+				clickBeacons.add(new AnalyticsRequest(url));
 			}
 		}
 		
