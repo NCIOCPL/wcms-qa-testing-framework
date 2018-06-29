@@ -20,7 +20,8 @@ public class CTSBasicSearch extends AnalyticsBase {
 	public CTSBasicSearch(WebDriver driver) {
 		this.driver = driver;
 		action = new Actions(driver);
-		wait = new WebDriverWait(driver, 5);		
+		wait = new WebDriverWait(driver, 5);	
+		driver.navigate().to(WANav.basicSearchPage);		
 		PageFactory.initElements(driver, this);
 		System.out.print("CTSBasicSearch PageFactory initialized: ");
 	}
@@ -86,12 +87,16 @@ public class CTSBasicSearch extends AnalyticsBase {
 	* All the proxy browser 'actions' go in here. These are not tests, but things that we do 
 	* to fire off analytics events. These actions will populate our list of har objects, which will
 	* then be tested.
-	*/
-	/*
-	public void clickMMBarEn() {
-		System.out.println("Click megamenu bar (English)");
-		driver.navigate().to(WANav.homePage);
-		mm_bar_link.click();
+	*/	
+	public void beginBasicForm() {
+		System.out.println("Begin Basic CTS form");
+		txt_CancerType.sendKeys("stomach");
 	}
-	 */
+
+	public void abandonBasicForm() {
+		System.out.println("Abandon Basic CTS form");
+		txt_CancerType.sendKeys("asdf");
+		driver.navigate().refresh();
+	}
+	
 }	
