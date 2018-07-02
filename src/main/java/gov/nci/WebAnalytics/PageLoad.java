@@ -36,7 +36,7 @@ public class PageLoad extends AnalyticsRequest {
 
 	public void gotoHomePage() {
 		System.out.println("Load home page.");		
-		driver.navigate().to(Nav.homePage	);
+		driver.navigate().to(Nav.homePage);
 	}
 	
 	public void gotoBlogPostPage() {

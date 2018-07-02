@@ -37,7 +37,7 @@ public class CTSBasicSearch_Test extends AnalyticsTestBase{
 		basicSearch.enterCancerType("stomatitis");		
 		
 		/* Get our beacon object **/ 
-		clickBeacons = req.getClickBeacons(getHarUrlList(proxy));
+		setClickBeacons();
 		
 		/* Do assertions and log result */ 
 		Assert.assertTrue(hasEvent(clickBeacons, "event38"));
@@ -53,9 +53,8 @@ public class CTSBasicSearch_Test extends AnalyticsTestBase{
 		basicSearch.enterCancerType("liver");
 		driver.navigate().to(Nav.homePage);
 
-		// basicSearch.abandonBasicForm();
-		clickBeacons = req.getClickBeacons(getHarUrlList(proxy));
-		
+		setClickBeacons();		
+
 		Assert.assertTrue(hasEvent(clickBeacons, 40));
 		Assert.assertTrue(hasProp(clickBeacons, 74, "clinicaltrials_basic|abandon|q"));
 		Assert.assertTrue(haseVar(clickBeacons, 47, "clinicaltrials_basic"));

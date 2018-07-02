@@ -319,4 +319,24 @@ public class AnalyticsTestBase extends BaseClass {
 		return beacon;
 	}
 	
+	
+	/**
+	 * Utility function to get the last element in a list of = beacons
+	 * @param beacons
+	 * @return
+	 */
+	public static void setClickBeacons() {
+		AnalyticsRequest req = new AnalyticsRequest();
+		clickBeacons = req.getClickBeacons(getHarUrlList(proxy));		
+	}
+	
+	/**
+	 * Utility function to get the last element in a list of = beacons
+	 * @param beacons
+	 * @return
+	 */
+	public static void setLoadBeacons() {
+		AnalyticsRequest req = new AnalyticsRequest();
+		loadBeacons = req.getLoadBeacons(getHarUrlList(proxy));
+	}	
 }

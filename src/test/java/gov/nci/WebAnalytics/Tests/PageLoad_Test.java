@@ -64,7 +64,10 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testHomeLoad() {
 		pageLoad.gotoHomePage();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		
+		//loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
+		
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasProp(loadBeacons, 3, "/"));
