@@ -50,6 +50,7 @@ public class AnalyticsTestBase extends BaseClass {
 	// TODO: Check false positives for events 	
 	// TODO: Clean up
 	protected static List<String> harList;
+	protected static AnalyticsRequest beacon;
 	protected static List<AnalyticsRequest> loadBeacons;
 	protected static List<AnalyticsRequest> clickBeacons;
 	
@@ -228,7 +229,6 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @return
 	 */
 	public boolean hasLinkName(List<AnalyticsRequest> clickBeacons, String name) {
-		AnalyticsRequest beacon = getLast(clickBeacons);
 		if(beacon.linkName.equalsIgnoreCase(name)) {
 			return true;
 		}
@@ -242,7 +242,6 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @return
 	 */
 	public boolean hasEvent(List<AnalyticsRequest> beacons, String evt) {
-		AnalyticsRequest beacon = getLast(beacons);
 		for(String event : beacon.events) {
 			if(evt.equalsIgnoreCase("event47")) {
 				if(event.matches("^event47=\\d+")) {
@@ -275,7 +274,6 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @return
 	 */
 	public boolean hasProp(List<AnalyticsRequest> beacons, int num, String val) {
-		AnalyticsRequest beacon = getLast(beacons);
 		String blob = beacon.props.toString();
 		if(blob.toLowerCase().contains("prop" + Integer.toString(num) + "=" + val.toLowerCase())) {
 			return true;
@@ -291,7 +289,6 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @return
 	 */
 	public boolean haseVar(List<AnalyticsRequest> beacons, int num, String val) {
-		AnalyticsRequest beacon = getLast(beacons);
 		String blob = beacon.eVars.toString();
 		if(blob.toLowerCase().contains("evar" + Integer.toString(num) + "=" + val.toLowerCase())) {
 			return true;
@@ -312,33 +309,30 @@ public class AnalyticsTestBase extends BaseClass {
 	}
 		
 	/**
-	 * Utility function to get the last element in a list of = beacons
-	 * @param beacons
-	 * @return
+	 * Utility function to get the last element in a list of AnalyticsRequest objects
+	 * @param requests
+	 * @return the last AnalyticsRequest object
 	 */
-	private AnalyticsRequest getLast(List<AnalyticsRequest> beacons) {
-		AnalyticsRequest beacon = beacons.get(beacons.size() - 1);
-		return beacon;
+	private static AnalyticsRequest getLast(List<AnalyticsRequest> requests) {
+		AnalyticsRequest request = requests.get(requests.size() - 1);
+		return request;
 	}
 	
-	
 	/**
-	 * Utility function to get the last element in a list of = beacons
-	 * @param beacons
-	 * @return
+	 * Set the global loadBeacons and beacon variables
 	 */
-	public static void setClickBeacons() {
+	protected static void setClickBeacon() {
 		clickBeacons = getBeacons(getHarUrlList(proxy), true);
+		beacon = getLast(clickBeacons);
 	}
 	
 	/**
-	 * Utility function to get the last element in a list of = beacons
-	 * @param beacons
-	 * @return
+	 * Set the global clickBeacons and beacon variables
 	 */
-	public static void setLoadBeacons() {
+	protected static void setLoadBeacon() {
 		loadBeacons = getBeacons(getHarUrlList(proxy), false);
-	}	
+		beacon = getLast(loadBeacons);
+	}
 	
 	/**
 	 * Get a list of beacon URLs fired off for load events
@@ -346,7 +340,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param isClick
 	 * @return list of AnalyticsRequest objects
 	 */
-	public static List<AnalyticsRequest> getBeacons(List<String> urlList, boolean isClick) {
+	protected static List<AnalyticsRequest> getBeacons(List<String> urlList, boolean isClick) {
 				
 		List<AnalyticsRequest> beacons = new ArrayList<AnalyticsRequest>();
 		AnalyticsRequest req = new AnalyticsRequest();
@@ -376,7 +370,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param urlList
 	 * @return list of AnalyticsRequest objects
 	 */
-	public static List<AnalyticsRequest> getBeacons(List<String> urlList) {
+	protected static List<AnalyticsRequest> getBeacons(List<String> urlList) {
 		return getBeacons(urlList, true);
 	}
 	

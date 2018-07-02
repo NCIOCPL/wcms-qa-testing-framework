@@ -31,7 +31,7 @@ public class CTSBasicSearch_Test extends AnalyticsTestBase{
 		basicSearch.enterCancerType("stomatitis");		
 		
 		/* Get our beacon object **/ 
-		setClickBeacons();
+		setClickBeacon();
 		
 		/* Do assertions and log result */ 
 		Assert.assertTrue(hasEvent(clickBeacons, "event38"));
@@ -49,7 +49,7 @@ public class CTSBasicSearch_Test extends AnalyticsTestBase{
 		driver.navigate().to(Nav.homePage);
 
 		/* Get our beacon object **/ 
-		setClickBeacons();		
+		setClickBeacon();		
 
 		/* Do assertions and log result */ 
 		Assert.assertTrue(hasEvent(clickBeacons, 40));
