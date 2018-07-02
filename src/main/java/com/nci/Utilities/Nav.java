@@ -1,6 +1,4 @@
-package gov.nci.WebAnalytics;
-
-import com.nci.Utilities.ConfigReader;
+package com.nci.Utilities;
 
 public class Nav {
 

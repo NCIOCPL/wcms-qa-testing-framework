@@ -3,6 +3,8 @@ package gov.nci.WebAnalytics;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import com.nci.Utilities.Nav;
+
 public class PageLoad extends AnalyticsRequest {
 
 	// Local driver object
