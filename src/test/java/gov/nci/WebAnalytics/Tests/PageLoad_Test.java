@@ -37,7 +37,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" }, priority = 2)
 	public void testLoadGeneral() {
 		pageLoad.gotoMultiplePages();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));		
 		for(AnalyticsRequest beacon : loadBeacons) {
 			Assert.assertTrue(beacon.events[0].contains("event1"));
@@ -51,7 +51,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	public void testHomeAndBack() throws MalformedURLException {
 		// For debugging purposes only..
 		pageLoad.goHomeAndBack();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));		
+		setLoadBeacons();		
 		AnalyticsRequest firstLoadBeacon = loadBeacons.get(0);
 		// Temporary / debugging tests
 		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage") || firstLoadBeacon.channel.contains("Research"));
@@ -64,10 +64,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testHomeLoad() {
 		pageLoad.gotoHomePage();
-		
-		//loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
-		setLoadBeacons();
-		
+		setLoadBeacons();		
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasProp(loadBeacons, 3, "/"));
@@ -82,7 +79,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testBlogPostLoad() {
 		pageLoad.gotoBlogPostPage();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event53"));
@@ -97,7 +94,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testBlogSeriesLoad() {
 		pageLoad.gotoBlogSeriesPage();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasProp(loadBeacons, 44, "CancerCurrents"));
@@ -110,7 +107,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testCTHPPatientLoad() {
 		pageLoad.gotoCTHPPatient();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasProp(loadBeacons, 8, "english"));
@@ -126,7 +123,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testCTHPHPLoad() {
 		pageLoad.gotoCTHPHP();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasProp(loadBeacons, 6, "Breast cancer"));
@@ -140,7 +137,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testInnerPageLoad() {
 		pageLoad.gotoInnerPage();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasProp(loadBeacons, 6, "Visitor information"));
@@ -156,7 +153,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testLandingPageLoad() {
 		pageLoad.gotoLandingPage();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasProp(loadBeacons, 3, "/research"));
@@ -173,7 +170,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testPDQPageLoad() {
 		pageLoad.gotoPDQPage();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasProp(loadBeacons, 3, "/types/breast"));
@@ -191,7 +188,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testTopicPageLoad() {
 		pageLoad.gotoTopicPage();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasProp(loadBeacons, 44, "NCI Grants Process"));
@@ -204,7 +201,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testSpanishPageLoad() {
 		pageLoad.gotoSpanishPage();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasProp(loadBeacons, 3, "/espanol"));
@@ -221,7 +218,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	//@Test(groups = { "Analytics" })
 	public void testAppModulePageLoad1() {
 		pageLoad.gotoAppModulePage();
-		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+		setLoadBeacons();
 		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 		Assert.assertTrue(hasProp(loadBeacons, 3, "/publications/dictionaries/cancer-terms"));
@@ -237,14 +234,14 @@ public class PageLoad_Test extends AnalyticsTestBase {
 //	@Test(groups = { "Analytics" })
 //	public void testAppModulePageLoad2() {
 //		pageLoad.gotoAppModulePage();
-//		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+//		setLoadBeacons();
 //	}		
 //		
 //	/// CTHP HP pageload returns expected values
 //	@Test(groups = { "Analytics" })
 //	public void testAdvSearchPageLoad() {
 //		pageLoad.gotoAdvSearchPage();
-//		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+//		setLoadBeacons();
 //		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 //		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 //		/** more **/
@@ -253,7 +250,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 //	@Test(groups = { "Analytics" })
 //	public void testBasicSearchPageLoad() {
 //		pageLoad.gotoBasicSearchPage();
-//		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+//		setLoadBeacons();
 //		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 //		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 //		/** more **/
@@ -262,7 +259,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 //	@Test(groups = { "Analytics" })
 //	public void testCTResultsPageLoad() {
 //		pageLoad.gotoResultsPage();
-//		loadBeacons = pageLoad.getLoadBeacons(getHarUrlList(proxy));
+//		setLoadBeacons();
 //		Assert.assertTrue(hasEvent(loadBeacons, "event1"));
 //		Assert.assertTrue(hasEvent(loadBeacons, "event47"));
 //		/** more **/

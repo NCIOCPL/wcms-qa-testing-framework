@@ -1,9 +1,6 @@
 package gov.nci.WebAnalytics.Tests;
 
 import com.relevantcodes.extentreports.LogStatus;
-
-import gov.nci.WebAnalytics.AnalyticsRequest;
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,12 +11,10 @@ import com.nci.clinicalTrial.pages.BasicSearch;
 public class CTSBasicSearch_Test extends AnalyticsTestBase{
 	
 	private BasicSearch basicSearch;
-	private AnalyticsRequest req;
 
 	@BeforeMethod(groups = { "Analytics" }) 
 	public void beforeMethod() {
 		basicSearch = new BasicSearch(driver);
-		req = new AnalyticsRequest();
 	}
 
 	/// ??? returns the expected general/shared values
@@ -31,7 +26,6 @@ public class CTSBasicSearch_Test extends AnalyticsTestBase{
 	
 	@Test(groups = { "Analytics" })
 	public void testBasicBegin() {
-
 		/* Do browser actions  **/ 
 		driver.navigate().to(Nav.basicSearchPage);
 		basicSearch.enterCancerType("stomatitis");		
@@ -49,12 +43,15 @@ public class CTSBasicSearch_Test extends AnalyticsTestBase{
 	
 	@Test(groups = { "Analytics" })
 	public void testBasicAbandon() {
+		/* Do browser actions  **/ 
 		driver.navigate().to(Nav.basicSearchPage);
 		basicSearch.enterCancerType("liver");
 		driver.navigate().to(Nav.homePage);
 
+		/* Get our beacon object **/ 
 		setClickBeacons();		
 
+		/* Do assertions and log result */ 
 		Assert.assertTrue(hasEvent(clickBeacons, 40));
 		Assert.assertTrue(hasProp(clickBeacons, 74, "clinicaltrials_basic|abandon|q"));
 		Assert.assertTrue(haseVar(clickBeacons, 47, "clinicaltrials_basic"));
