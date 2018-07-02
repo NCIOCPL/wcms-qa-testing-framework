@@ -27,7 +27,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	public void testHarAndBeacons() {
 		pageLoad.gotoMultiplePages();
 		harList = getHarUrlList(proxy);
-		loadBeacons = getLoadBeacons(harList);
+		loadBeacons = getBeacons(harList);
 		Assert.assertTrue(harList.size() > 0);
 		Assert.assertTrue(loadBeacons.size() > 0);
 		logger.log(LogStatus.PASS, "Load events have been captured.");

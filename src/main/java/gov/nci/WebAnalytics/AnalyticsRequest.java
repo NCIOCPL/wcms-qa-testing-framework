@@ -1,7 +1,6 @@
 package gov.nci.WebAnalytics;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.NameValuePair;
 
@@ -188,7 +187,7 @@ public class AnalyticsRequest {
 	 * @param paramList
 	 * @return
 	 */
-	public boolean isClickEvent(List<NameValuePair> paramList) {
+	public boolean hasLinkType(List<NameValuePair> paramList) {
 		for (NameValuePair param : paramList) {
 			if (param.getName().equalsIgnoreCase(WAParams.LINKTYPE)) {
 				return true;

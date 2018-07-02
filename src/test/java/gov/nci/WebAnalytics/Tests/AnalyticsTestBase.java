@@ -328,7 +328,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @return
 	 */
 	public static void setClickBeacons() {
-		clickBeacons = getClickBeacons(getHarUrlList(proxy));		
+		clickBeacons = getBeacons(getHarUrlList(proxy), true);
 	}
 	
 	/**
@@ -337,54 +337,47 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @return
 	 */
 	public static void setLoadBeacons() {
-		loadBeacons = getLoadBeacons(getHarUrlList(proxy));
+		loadBeacons = getBeacons(getHarUrlList(proxy), false);
 	}	
 	
 	/**
 	 * Get a list of beacon URLs fired off for load events
 	 * @param urlList
-	 * @return
+	 * @param isClick
+	 * @return list of AnalyticsRequest objects
 	 */
-	public static List<AnalyticsRequest> getLoadBeacons(List<String> urlList) {
+	public static List<AnalyticsRequest> getBeacons(List<String> urlList, boolean isClick) {
 				
-		List<AnalyticsRequest> loadBeacons = new ArrayList<AnalyticsRequest>();
+		List<AnalyticsRequest> beacons = new ArrayList<AnalyticsRequest>();
 		AnalyticsRequest req = new AnalyticsRequest();
 
 		for(String url : urlList)
 		{
 			// If this doesn't have the "Link Type" param ('pe'), add to list of load beacons
 			List<NameValuePair> params = new WAParams(req.createURI(url)).all;
-			if(!req.isClickEvent(params)) {
-				loadBeacons.add(new AnalyticsRequest(url));
+			
+			if(isClick) {
+				if(req.hasLinkType(params)) {
+					beacons.add(new AnalyticsRequest(url));
+				}
+			}
+			else {
+				beacons.add(new AnalyticsRequest(url));
 			}
 		}
 
-		System.out.println("Total load beacons: " + loadBeacons.size());
-		System.out.println("Total click beacons: " + (urlList.size() - loadBeacons.size()));
-		return loadBeacons;
+		System.out.println("Total load beacons: " + beacons.size());
+		System.out.println("Total click beacons: " + (urlList.size() - beacons.size()));
+		return beacons;
 	}
 	
 	/**
-	 * Get a list of beacon URLs fired off for click events
+	 * Override for getBeacons
 	 * @param urlList
-	 * @return
+	 * @return list of AnalyticsRequest objects
 	 */
-	public static List<AnalyticsRequest> getClickBeacons(List<String> urlList) {
-				
-		List<AnalyticsRequest> clickBeacons = new ArrayList<AnalyticsRequest>();
-		AnalyticsRequest req = new AnalyticsRequest();		
-		
-		for(String url : urlList)
-		{
-			// If this has the "Link Type" param ('pe'), add to list of click beacons
-			List<NameValuePair> params = new WAParams(req.createURI(url)).all;
-			if(req.isClickEvent(params)) {
-				clickBeacons.add(new AnalyticsRequest(url));
-			}
-		}
-		
-		System.out.println("Total click beacons: " + clickBeacons.size());
-		System.out.println("Total load beacons: " + (urlList.size() - clickBeacons.size()));
-		return clickBeacons;
-	}		
+	public static List<AnalyticsRequest> getBeacons(List<String> urlList) {
+		return getBeacons(urlList, true);
+	}
+	
 }
