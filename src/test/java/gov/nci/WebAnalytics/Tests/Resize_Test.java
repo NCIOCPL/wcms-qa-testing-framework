@@ -23,10 +23,10 @@ public class Resize_Test extends AnalyticsTestBase {
 		resize.doAllResizes();
 		setClickBeacon();
 		Assert.assertTrue(clickBeacons.size() > 1);
-		Assert.assertTrue(hasProp(clickBeacons, 4, "d=pev1"));
-		Assert.assertTrue(hasProp(clickBeacons, 67, "D=pageName"));
-		Assert.assertTrue(haseVar(clickBeacons, 2, "English"));
-		Assert.assertFalse(hasEvent(clickBeacons, "event1"));
+		Assert.assertTrue(hasProp(4, "d=pev1"));
+		Assert.assertTrue(hasProp(67, "D=pageName"));
+		Assert.assertTrue(haseVar(2, "English"));
+		Assert.assertFalse(hasEvent(1));
 		logger.log(LogStatus.PASS, "Resize gen value test passed.");		
 	}
 	
@@ -35,8 +35,8 @@ public class Resize_Test extends AnalyticsTestBase {
 	public void testResizeToMobile() {
 		resize.toSmall();
 		setClickBeacon();
-		Assert.assertTrue(hasEvent(clickBeacons, "event7"));
-		Assert.assertTrue(hasLinkName(clickBeacons, "ResizedToMobile"));
+		Assert.assertTrue(hasEvent(7));
+		Assert.assertTrue(hasLinkName("ResizedToMobile"));
 		logger.log(LogStatus.PASS, "'Resize to mobile' values are correct.");
 	}
 
@@ -45,8 +45,8 @@ public class Resize_Test extends AnalyticsTestBase {
 	public void testResizeToTablet() {
 		resize.toMed();
 		setClickBeacon();
-		Assert.assertTrue(hasEvent(clickBeacons, "event7"));
-		Assert.assertTrue(hasLinkName(clickBeacons, "ResizedToTablet"));
+		Assert.assertTrue(hasEvent(7));
+		Assert.assertTrue(hasLinkName("ResizedToTablet"));
 		logger.log(LogStatus.PASS, "'Resize to tablet' values are correct.");
 	}
 
@@ -55,8 +55,8 @@ public class Resize_Test extends AnalyticsTestBase {
 	public void testResizeToDesktop() {
 		resize.toLarge();
 		setClickBeacon();
-		Assert.assertTrue(hasEvent(clickBeacons, "event7"));
-		Assert.assertTrue(hasLinkName(clickBeacons, "ResizedToDesktop"));
+		Assert.assertTrue(hasEvent(7));
+		Assert.assertTrue(hasLinkName("ResizedToDesktop"));
 		logger.log(LogStatus.PASS, "'Resize to desktop' values are correct.");
 	}
 
@@ -65,8 +65,8 @@ public class Resize_Test extends AnalyticsTestBase {
 	public void testResizeToExtraWide() {
 		resize.toXlarge();
 		setClickBeacon();
-		Assert.assertTrue(hasEvent(clickBeacons, "event7"));
-		Assert.assertTrue(hasLinkName(clickBeacons, "ResizedToExtra wide"));
+		Assert.assertTrue(hasEvent(7));
+		Assert.assertTrue(hasLinkName("ResizedToExtra wide"));
 		logger.log(LogStatus.PASS, "'Resize to extra wide' values are correct.");
 	}
 
@@ -75,7 +75,7 @@ public class Resize_Test extends AnalyticsTestBase {
 	public void testMaximize() {
 		resize.maximize();
 		setClickBeacon();
-		Assert.assertTrue(hasEvent(clickBeacons, "event7"));
+		Assert.assertTrue(hasEvent(7));
 		logger.log(LogStatus.PASS, "Maximize values are correct.");
 	}	
 	

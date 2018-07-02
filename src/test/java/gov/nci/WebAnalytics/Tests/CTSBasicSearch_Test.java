@@ -22,7 +22,7 @@ public class CTSBasicSearch_Test extends AnalyticsTestBase{
 	public void testBasicGeneral() {
 		Assert.assertTrue(1 == 1);
 		logger.log(LogStatus.PASS, "CTS Basic gen value test passed.");
-	}		
+	}
 	
 	@Test(groups = { "Analytics" })
 	public void testBasicBegin() {
@@ -34,10 +34,10 @@ public class CTSBasicSearch_Test extends AnalyticsTestBase{
 		setClickBeacon();
 		
 		/* Do assertions and log result */ 
-		Assert.assertTrue(hasEvent(clickBeacons, "event38"));
-		Assert.assertFalse(hasEvent(clickBeacons, "event40"));
-		Assert.assertTrue(hasProp(clickBeacons, 74, "clinicaltrials_basic|start"));
-		Assert.assertTrue(haseVar(clickBeacons, 47, "clinicaltrials_basic"));
+		Assert.assertTrue(hasEvent(38));
+		Assert.assertFalse(hasEvent(40));
+		Assert.assertTrue(hasProp(74, "clinicaltrials_basic|start"));
+		Assert.assertTrue(haseVar(47, "clinicaltrials_basic"));
 		logger.log(LogStatus.PASS, "CTS Basic 'start' value test passed.");
 	}
 	
@@ -52,9 +52,9 @@ public class CTSBasicSearch_Test extends AnalyticsTestBase{
 		setClickBeacon();		
 
 		/* Do assertions and log result */ 
-		Assert.assertTrue(hasEvent(clickBeacons, 40));
-		Assert.assertTrue(hasProp(clickBeacons, 74, "clinicaltrials_basic|abandon|q"));
-		Assert.assertTrue(haseVar(clickBeacons, 47, "clinicaltrials_basic"));
+		Assert.assertTrue(hasEvent(40));
+		Assert.assertTrue(hasProp(74, "clinicaltrials_basic|abandon|q"));
+		Assert.assertTrue(haseVar(47, "clinicaltrials_basic"));
 		logger.log(LogStatus.PASS, "CTS Basic 'abandon' value test passed.");
 	}
 }

@@ -204,31 +204,28 @@ public class AnalyticsTestBase extends BaseClass {
 	
 	/**
 	 * Utility function to check for a given suite name
-	 * @param clickBeacons
 	 * @return
 	 */
-	public boolean hasSuite(List<AnalyticsRequest> beacons) {
+	public boolean hasSuite() {
 		// TODO: fill this out
 		return false;
 	}
 
 	/**
 	 * Utility function to check for a given channel name
-	 * @param clickBeacons
 	 * @return
 	 */
-	public boolean hasChannel(List<AnalyticsRequest> beacons) {
+	public boolean hasChannel() {
 		// TODO: fill this out
 		return false;
 	}
 	
 	/**
 	 * Utility function to check for a link name value within a click beacon.
-	 * @param clickBeacons
 	 * @param name
 	 * @return
 	 */
-	public boolean hasLinkName(List<AnalyticsRequest> clickBeacons, String name) {
+	public boolean hasLinkName(String name) {
 		if(beacon.linkName.equalsIgnoreCase(name)) {
 			return true;
 		}
@@ -237,11 +234,11 @@ public class AnalyticsTestBase extends BaseClass {
 	
 	/**
 	 * Utility function to check for an event value within a click beacon.
-	 * @param beacons
 	 * @param evt
-	 * @return
+	 * TODO: fix hardcoded values
 	 */
-	public boolean hasEvent(List<AnalyticsRequest> beacons, String evt) {
+	public boolean hasEvent(int eventNumber) {
+		String evt = "event" + Integer.toString(eventNumber);
 		for(String event : beacon.events) {
 			if(evt.equalsIgnoreCase("event47")) {
 				if(event.matches("^event47=\\d+")) {
@@ -254,26 +251,14 @@ public class AnalyticsTestBase extends BaseClass {
 		}
 		return false;
 	}
-		
-	/**
-	 * Overload for hasEvent() with int value.
-	 * @param beacons
-	 * @param evt
-	 * @return
-	 */
-	public boolean hasEvent(List<AnalyticsRequest> beacons, int evtNumber) {
-		String evt = "event" + Integer.toString(evtNumber);
-		return hasEvent(beacons, evt);
-	}
 	
 	/**
 	 * Utility function to check for a given prop and value
-	 * @param beacons
 	 * @param num
 	 * @param val
 	 * @return
 	 */
-	public boolean hasProp(List<AnalyticsRequest> beacons, int num, String val) {
+	public boolean hasProp(int num, String val) {
 		String blob = beacon.props.toString();
 		if(blob.toLowerCase().contains("prop" + Integer.toString(num) + "=" + val.toLowerCase())) {
 			return true;
@@ -283,12 +268,11 @@ public class AnalyticsTestBase extends BaseClass {
 	
 	/**
 	 * Utility function to check for a given eVar and value
-	 * @param beacons
 	 * @param num
 	 * @param val
 	 * @return
 	 */
-	public boolean haseVar(List<AnalyticsRequest> beacons, int num, String val) {
+	public boolean haseVar(int num, String val) {
 		String blob = beacon.eVars.toString();
 		if(blob.toLowerCase().contains("evar" + Integer.toString(num) + "=" + val.toLowerCase())) {
 			return true;
@@ -298,12 +282,11 @@ public class AnalyticsTestBase extends BaseClass {
 
 	/**
 	 * Utility function to check for a given heirarchy and value
-	 * @param beacons
 	 * @param num
 	 * @param val
 	 * @return
 	 */
-	public boolean hasHier(List<AnalyticsRequest> beacons, int num, String val) {
+	public boolean hasHier(int num, String val) {
 		// TODO: fill this out
 		return false;
 	}
