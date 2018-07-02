@@ -56,7 +56,7 @@ public class AnalyticsRequest {
 	 * @param url
 	 * @return
 	 */
-	private URI createURI(String url) {
+	public URI createURI(String url) {
 		try {
 			URI rtnUri = URI.create(url);
 			return rtnUri;
@@ -196,51 +196,7 @@ public class AnalyticsRequest {
 		}
 		return false;
 	}
-	
-	/**
-	 * Get a list of beacon URLs fired off for load events
-	 * @param urlList
-	 * @return
-	 */
-	public List<AnalyticsRequest> getLoadBeacons(List<String> urlList) {
-				
-		List<AnalyticsRequest> loadBeacons = new ArrayList<AnalyticsRequest>();
-		for(String url : urlList)
-		{
-			// If this doesn't have the "Link Type" param ('pe'), add to list of load beacons
-			List<NameValuePair> params = new WAParams(createURI(url)).all;
-			if(!isClickEvent(params)) {
-				loadBeacons.add(new AnalyticsRequest(url));
-			}
-		}
-
-		System.out.println("Total load beacons: " + loadBeacons.size());
-		System.out.println("Total click beacons: " + (urlList.size() - loadBeacons.size()));
-		return loadBeacons;
-	}
-	
-	/**
-	 * Get a list of beacon URLs fired off for click events
-	 * @param urlList
-	 * @return
-	 */
-	public List<AnalyticsRequest> getClickBeacons(List<String> urlList) {
-				
-		List<AnalyticsRequest> clickBeacons = new ArrayList<AnalyticsRequest>();
-		for(String url : urlList)
-		{
-			// If this has the "Link Type" param ('pe'), add to list of click beacons
-			List<NameValuePair> params = new WAParams(createURI(url)).all;
-			if(isClickEvent(params)) {
-				clickBeacons.add(new AnalyticsRequest(url));
-			}
-		}
 		
-		System.out.println("Total click beacons: " + clickBeacons.size());
-		System.out.println("Total load beacons: " + (urlList.size() - clickBeacons.size()));
-		return clickBeacons;
-	}	
-	
 	/**
 	 * Temporary util method for troubleshooting
 	 * TODO: remove this once explicit wait is working 
