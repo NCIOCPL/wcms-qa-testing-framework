@@ -50,19 +50,19 @@ public class MegaMenu extends AnalyticsRequest {
 	*/
 	public void clickMMBarEn() {
 		System.out.println("Click megamenu bar (English)");
-		driver.navigate().to(WANav.homePage);
+		driver.navigate().to(Nav.homePage);
 		mm_bar_link.click();
 	}
 
 	public void clickMMBarEs() {
 		System.out.println("Click megamenu bar (Spanish)");
-		driver.navigate().to(WANav.spanishPage);
+		driver.navigate().to(Nav.spanishPage);
 		mm_bar_link.click();
 	}
 	
 	public void clickMMSubnavHeader() {
 		System.out.println("Click megamenu subnav header");
-		driver.navigate().to(WANav.homePage);
+		driver.navigate().to(Nav.homePage);
 		action.moveToElement(mm_bar_link);
 		action.perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_subnav_header));
@@ -71,7 +71,7 @@ public class MegaMenu extends AnalyticsRequest {
 	
 	public void clickMMSubnavLi() {
 		System.out.println("Click megamenu subnav list item");		
-		driver.navigate().to(WANav.homePage);
+		driver.navigate().to(Nav.homePage);
 		action.moveToElement(mm_bar_link);
 		action.perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_subnav_li_text));
@@ -80,7 +80,7 @@ public class MegaMenu extends AnalyticsRequest {
 
 	public void revealMegaMenuDesktop() {
 		System.out.println("Expand megamenu on desktop");		
-		driver.navigate().to(WANav.homePage);
+		driver.navigate().to(Nav.homePage);
 		action.moveToElement(mm_bar_link);
 		action.perform();
 		AnalyticsRequest.nap(5);
