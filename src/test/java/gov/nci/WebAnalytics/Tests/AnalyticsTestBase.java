@@ -226,7 +226,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @return
 	 */
 	public boolean hasLinkName(String name) {
-		if(beacon.getLinkName().equalsIgnoreCase(name)) {
+		if(beacon.linkName.equalsIgnoreCase(name)) {
 			return true;
 		}
 		return false;
@@ -239,7 +239,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 */
 	public boolean hasEvent(int eventNumber) {
 		String evt = "event" + Integer.toString(eventNumber);
-		for(String event : beacon.getEvents()) {
+		for(String event : beacon.events) {
 			if(evt.equalsIgnoreCase("event47")) {
 				if(event.matches("^event47=\\d+")) {
 					return true;
@@ -259,7 +259,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @return
 	 */
 	public boolean hasProp(int num, String val) {
-		String blob = beacon.getProps().toString();
+		String blob = beacon.props.toString();
 		if(blob.toLowerCase().contains("prop" + Integer.toString(num) + "=" + val.toLowerCase())) {
 			return true;
 		}
@@ -273,7 +273,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @return
 	 */
 	public boolean haseVar(int num, String val) {
-		String blob = beacon.geteVars().toString();
+		String blob = beacon.eVars.toString();
 		if(blob.toLowerCase().contains("evar" + Integer.toString(num) + "=" + val.toLowerCase())) {
 			return true;
 		}

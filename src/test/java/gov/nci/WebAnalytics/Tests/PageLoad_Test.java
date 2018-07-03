@@ -40,10 +40,9 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		setLoadBeacon();
 		Assert.assertTrue(hasEvent(47));		
 		for(AnalyticsRequest beacon : loadBeacons) {
-			String[] evts = beacon.getEvents();
-			Assert.assertTrue(evts[0].contains("event1"));
-			Assert.assertTrue(evts[1].contains("event47"));
-		}
+			Assert.assertTrue(beacon.events[0].contains("event1"));
+			Assert.assertTrue(beacon.events[1].contains("event47"));
+		}		
 		logger.log(LogStatus.PASS, "Load event values are correct.");				
 	}
 	
@@ -55,9 +54,9 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		setLoadBeacon();		
 		AnalyticsRequest firstLoadBeacon = loadBeacons.get(0);
 		// Temporary / debugging tests
-		Assert.assertTrue(firstLoadBeacon.getChannel().equals("NCI Homepav") || firstLoadBeacon.getChannel().contains("Research"));
+		Assert.assertTrue(firstLoadBeacon.getChannel().equals("NCI Homepage") || firstLoadBeacon.getChannel().contains("Research"));
 		Assert.assertFalse(firstLoadBeacon.getChannel().contains("some other string"));
-		Assert.assertTrue(firstLoadBeacon.getEvents()[0].contains("1"));
+		Assert.assertTrue(firstLoadBeacon.events[0].contains("1"));
 		logger.log(LogStatus.PASS, "Home-and-back nav values are correct.");	
 	}
 	
