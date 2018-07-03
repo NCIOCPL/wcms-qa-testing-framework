@@ -8,8 +8,19 @@ public class AnalyticsRequest {
 
 	// Constants
 	public static final String STATIC_SERVER = "static.cancer.gov";
-	public static final String TRACKING_SERVER = "nci.122.2o7.net";
+	public static final String TRACKING_SERVER = "nci.122.2o7.net";	
 	
+	/**
+	 * Setters and getters for request object
+	 */	
+	// Analytics params object
+	private AnalyticsParams params; 
+	public AnalyticsParams getParams() {
+		return params;
+	}
+	public void setParams(AnalyticsParams params) {
+		this.params = params;
+	}
 	
 	// URI for tracking beacon
 	private URI uri;	
@@ -18,6 +29,24 @@ public class AnalyticsRequest {
 	}	
 	public void setUri(URI uri) {
 		this.uri = uri;
+	}	
+
+	// Suites
+	private String[] suites;
+	public String[] getSuites() {
+		return suites;
+	}
+	public void setSuites(String[] suites) {
+		this.suites = suites;
+	}	
+
+	// Events
+	private String[] events;
+	public String[] getEvents() {
+		return events;
+	}
+	public void setEvents(String[] events) {
+		this.events = events;
 	}	
 	
 	// Channel
@@ -29,16 +58,63 @@ public class AnalyticsRequest {
 		this.channel = channel;
 	}
 	
-	public String[] suites;	
-	public AnalyticsParams params; 
-	public String[] events;
-	public List<NameValuePair> props; 
-	public List<NameValuePair> eVars; 
-	public List<NameValuePair> hiers;
-	public String linkType;
-	public String linkName;
-	public String linkUrl;	
+	// Link type
+	private String linkType;
+	public String getLlnkType() {
+		return linkType;
+	}
+	public void setLinkType(String linkType) {
+		this.linkType = linkType;
+	}
 	
+	// Link name
+	private String linkName;
+	public String getLinkName() {
+		return linkName;
+	}
+	public void setLinkName(String linkName) {
+		this.linkName = linkName;
+	}
+
+	// Link URL
+	private String linkUrl;
+	public String getLinkUrl() {
+		return linkUrl;
+	}
+	public void setlinkUrl(String linkUrl) {
+		this.linkUrl = linkUrl;
+	}
+
+	// Props
+	private List<NameValuePair> props; 
+	public List<NameValuePair> getProps() {
+		return props;
+	}
+	public void setProps(List<NameValuePair> props) {
+		this.props = props;
+	}
+
+	// eVars
+	private List<NameValuePair> eVars; 
+	public List<NameValuePair> geteVars() {
+		return eVars;
+	}
+	public void seteVars(List<NameValuePair> eVars) {
+		this.eVars = eVars;
+	}
+	
+	// Hiers
+	private List<NameValuePair> hiers;
+	public List<NameValuePair> getHiers() {
+		return hiers;
+	}
+	public void setHiers(List<NameValuePair> hiers) {
+		this.hiers = hiers;
+	}
+
+	/**
+	 * No arg constructor
+	 */
 	public AnalyticsRequest() {}
 	
 	/**
@@ -47,17 +123,16 @@ public class AnalyticsRequest {
 	 */
 	public AnalyticsRequest(String beaconUrl) {
 		setUri(createURI(beaconUrl));
-		params = new AnalyticsParams(uri);
-		suites = getSuites(uri);
+		setParams(new AnalyticsParams(getUri()));
+		setSuites(getSuites(getUri()));
 		setChannel(getChannel(params.getAll()));
-		channel = getChannel(params.getAll());
-		events = getEvents(params.getAll());
-		props = getProps(params.getAll());
-		eVars = getEvars(params.getAll());
-		hiers = getHiers(params.getAll());
-		linkType = getLinkType(params.getAll());
-		linkName = getLinkName(params.getAll());
-		linkUrl = getLinkUrl(params.getAll());
+		setEvents(getEvents(params.getAll()));
+		setProps(getProps(params.getAll()));
+		seteVars(getEvars(params.getAll()));
+		setHiers(getHiers(params.getAll()));
+		setLinkType(getLinkType(params.getAll()));
+		setLinkName(getLinkName(params.getAll()));
+		setlinkUrl(getLinkUrl(params.getAll()));
 	}
 	
 	/**
