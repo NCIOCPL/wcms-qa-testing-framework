@@ -1,11 +1,12 @@
 package gov.nci.WebAnalytics;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 public class WAParams {
@@ -44,12 +45,44 @@ public class WAParams {
 	 * Split URI into list of encoded elements
 	 * @param uri
 	 * @return retParams
-	 * TODO: replace deprecated parse() method
 	 */
-	public List<NameValuePair> buildParamsList(URI uri) {
-		List<NameValuePair> rtnParams = new ArrayList<>();
-		rtnParams = URLEncodedUtils.parse(uri, "UTF-8");
+	public List<NameValuePair> buildParamsList(URI uri) {		
+		List<NameValuePair> rtnParams = new ArrayList<NameValuePair>();
+		
+		try {
+			String queries = getRawQueryString(uri);
+			for(String parm : queries.split("&")) {
+				String[] pair = parm.split("=");
+				String key = URLDecoder.decode(pair[0], "UTF-8");
+				String value = "";
+				if(pair.length > 1) {
+					value = URLDecoder.decode(pair[1], "UTF-8"); 
+				}
+				rtnParams.add(new BasicNameValuePair(key, value));				
+			}
+		} 
+		catch (UnsupportedEncodingException ex) {
+			System.out.println("Error decoding URI in WaParams:buildParamsList()");
+		}		
 		return rtnParams;
+	}
+	
+	/**
+	 * Get an encoded query string from a given URI.
+	 * @param uri
+	 * @return
+	 */	
+	public static String getRawQueryString(URI uri) {
+		return uri.getRawQuery();
+	}
+	
+	/**
+	 * Get the clean query string from a given URI.
+	 * @param uri
+	 * @return
+	 */
+	public static String getQueryString(URI uri) {
+		return uri.getQuery();
 	}
 	
 	/**
