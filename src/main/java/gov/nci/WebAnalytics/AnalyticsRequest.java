@@ -5,15 +5,26 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 
 public class AnalyticsRequest {
-	
+
 	// Constants
 	public static final String STATIC_SERVER = "static.cancer.gov";
 	public static final String TRACKING_SERVER = "nci.122.2o7.net";
 	
+	
 	// Analytics base fields
-	public URI uri;
+	private URI uri;
+	
+	public URI getUri() {
+		return uri;				
+	}
+	
+	public void setUri(URI uri) {
+		this.uri = uri;
+	}
+	
+	
 	public String[] suites;	
-	public WAParams params; 
+	public AnalyticsParams params; 
 	public String channel;
 	public String[] events;
 	public List<NameValuePair> props; 
@@ -23,31 +34,24 @@ public class AnalyticsRequest {
 	public String linkName;
 	public String linkUrl;	
 	
-	/**
-	 * No arg constructor
-	 */
-	public AnalyticsRequest() {
-		uri = null;
-		suites = new String[0];		
-		params = null;
-	}
+	public AnalyticsRequest() {}
 	
 	/**
 	 * Constructor
 	 * @param beaconUrl
 	 */
 	public AnalyticsRequest(String beaconUrl) {
-		uri = createURI(beaconUrl);
-		params = new WAParams(uri);
+		setUri(createURI(beaconUrl));
+		params = new AnalyticsParams(uri);
 		suites = getSuites(uri);
-		channel = getChannel(params.all);
-		events = getEvents(params.all);
-		props = getProps(params.all);
-		eVars = getEvars(params.all);
-		hiers = getHiers(params.all);
-		linkType = getLinkType(params.all);
-		linkName = getLinkName(params.all);
-		linkUrl = getLinkUrl(params.all);
+		channel = getChannel(params.getAll());
+		events = getEvents(params.getAll());
+		props = getProps(params.getAll());
+		eVars = getEvars(params.getAll());
+		hiers = getHiers(params.getAll());
+		linkType = getLinkType(params.getAll());
+		linkName = getLinkName(params.getAll());
+		linkUrl = getLinkUrl(params.getAll());
 	}
 	
 	/**
@@ -90,7 +94,7 @@ public class AnalyticsRequest {
 	 */
 	public String getChannel(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(WAParams.CHANNEL)) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.CHANNEL)) {
 				return param.getValue().trim();
 			}
 		}
@@ -105,7 +109,7 @@ public class AnalyticsRequest {
 	public String[] getEvents(List<NameValuePair> parms) {
 		String rtnEvents = "";
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(WAParams.EVENTS)) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.EVENTS)) {
 				rtnEvents = param.getValue();
 				break;
 			}
@@ -119,7 +123,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getProps(List<NameValuePair> parms) {
-		return WAParams.getNumberedParams(parms, WAParams.PROP_PARTIAL, "prop");
+		return AnalyticsParams.getNumberedParams(parms, AnalyticsParams.PROP_PARTIAL, "prop");
 	}
 	
 	/**
@@ -128,7 +132,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getEvars(List<NameValuePair> parms) {
-		return WAParams.getNumberedParams(parms, WAParams.EVAR_PARTIAL, "eVar");
+		return AnalyticsParams.getNumberedParams(parms, AnalyticsParams.EVAR_PARTIAL, "eVar");
 	}
 	
 	/**
@@ -137,7 +141,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getHiers(List<NameValuePair> parms) {
-		return WAParams.getNumberedParams(parms, WAParams.HIER_PARTIAL, "hier");
+		return AnalyticsParams.getNumberedParams(parms, AnalyticsParams.HIER_PARTIAL, "hier");
 	}
 
 	/**
@@ -147,7 +151,7 @@ public class AnalyticsRequest {
 	 */
 	public String getLinkType(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(WAParams.LINKTYPE)) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE)) {
 				return param.getValue().trim();
 			}
 		}
@@ -161,7 +165,7 @@ public class AnalyticsRequest {
 	 */	
 	public String getLinkName(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(WAParams.LINKNAME)) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKNAME)) {
 				return param.getValue().trim();
 			}
 		}
@@ -175,7 +179,7 @@ public class AnalyticsRequest {
 	 */		
 	public String getLinkUrl(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(WAParams.LINKURL)) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKURL)) {
 				return param.getValue().trim();
 			}
 		}
@@ -189,7 +193,7 @@ public class AnalyticsRequest {
 	 */
 	public boolean hasLinkType(List<NameValuePair> paramList) {
 		for (NameValuePair param : paramList) {
-			if (param.getName().equalsIgnoreCase(WAParams.LINKTYPE)) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE)) {
 				return true;
 			}
 		}

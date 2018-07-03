@@ -9,7 +9,7 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-public class WAParams {
+public class AnalyticsParams {
 	
 	// Parameter values from URL
 	static final String CHANNEL = "ch";
@@ -26,9 +26,16 @@ public class WAParams {
 	static final String HIER_PARTIAL = "h";
 	
 	// Beacon properties
-	public List<NameValuePair> all;
+	private List<NameValuePair> all;
+	
+	public List<NameValuePair> getAll() {
+		return all;
+	}
+	public void setAll(List<NameValuePair> all) {
+		this.all = all;
+	}
 
-	public WAParams() 
+	public AnalyticsParams() 
 	{
 		// No arg constructor
 	}
@@ -37,9 +44,9 @@ public class WAParams {
 	 * Constructor
 	 * @param beaconUrl
 	 */
-	public WAParams(URI uri) {
-		all = buildParamsList(uri);
-	}	
+	public AnalyticsParams(URI uri) {
+		setAll(buildParamsList(uri));
+	}
 	
 	/**
 	 * Split URI into list of encoded elements
