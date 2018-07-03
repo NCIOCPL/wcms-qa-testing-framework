@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.nci.Utilities.Nav;
 
-public class MegaMenu extends AnalyticsRequest {
+public class MegaMenu {
 	
 	// Local driver object and actions
 	private WebDriver driver;	

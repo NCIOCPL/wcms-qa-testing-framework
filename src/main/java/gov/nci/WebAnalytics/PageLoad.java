@@ -5,7 +5,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.nci.Utilities.Nav;
 
-public class PageLoad extends AnalyticsRequest {
+public class PageLoad {
 
 	// Local driver object
 	public WebDriver driver;
