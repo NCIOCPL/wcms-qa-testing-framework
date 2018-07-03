@@ -47,6 +47,9 @@ public class AnalyticsRequest {
 	 */
 	public AnalyticsRequest(String beaconUrl) {
 		setUri(createURI(beaconUrl));
+		
+		/// TODO: get rid of everything but URL - access methods from outside of the constructor
+		
 		params = new AnalyticsParams(uri);
 		suites = getSuites(uri);
 		setChannel(getChannel(params.getAll()));
