@@ -29,7 +29,7 @@ import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 import gov.nci.WebAnalytics.AnalyticsRequest;
-import gov.nci.WebAnalytics.WAParams;
+import gov.nci.WebAnalytics.AnalyticsParams;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.core.har.Har;
@@ -331,7 +331,7 @@ public class AnalyticsTestBase extends BaseClass {
 		for(String url : urlList)
 		{
 			// If this doesn't have the "Link Type" param ('pe'), add to list of load beacons
-			List<NameValuePair> params = new WAParams(req.createURI(url)).all;
+			List<NameValuePair> params = new AnalyticsParams(req.createURI(url)).getAll();
 			
 			if(isClick) {
 				if(req.hasLinkType(params)) {

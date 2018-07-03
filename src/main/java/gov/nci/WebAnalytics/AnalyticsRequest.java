@@ -11,21 +11,26 @@ public class AnalyticsRequest {
 	public static final String TRACKING_SERVER = "nci.122.2o7.net";
 	
 	
-	// Analytics base fields
-	private URI uri;
-	
+	// URI for tracking beacon
+	private URI uri;	
 	public URI getUri() {
 		return uri;				
-	}
-	
+	}	
 	public void setUri(URI uri) {
 		this.uri = uri;
-	}
+	}	
 	
+	// Channel
+	private String channel;
+	public String getChannel() {
+		return channel;
+	}
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
 	
 	public String[] suites;	
 	public AnalyticsParams params; 
-	public String channel;
 	public String[] events;
 	public List<NameValuePair> props; 
 	public List<NameValuePair> eVars; 
@@ -44,6 +49,7 @@ public class AnalyticsRequest {
 		setUri(createURI(beaconUrl));
 		params = new AnalyticsParams(uri);
 		suites = getSuites(uri);
+		setChannel(getChannel(params.getAll()));
 		channel = getChannel(params.getAll());
 		events = getEvents(params.getAll());
 		props = getProps(params.getAll());
