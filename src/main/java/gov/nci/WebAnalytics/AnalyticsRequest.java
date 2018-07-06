@@ -13,7 +13,10 @@ public class AnalyticsRequest {
 	// Constants
 	public static final String STATIC_SERVER = "static.cancer.gov";
 	public static final String TRACKING_SERVER = "nci.122.2o7.net";
-	
+
+	// Temporary Params object
+	AnalyticsParams waParams;
+
 	
 	// URI for tracking beacon
 	private URI uri;	
@@ -34,7 +37,7 @@ public class AnalyticsRequest {
 	}
 	
 	public String[] suites;	
-	public AnalyticsParams params; 
+	//public AnalyticsParams params; 
 	public String[] events;
 	public List<NameValuePair> props; 
 	public List<NameValuePair> eVars; 
@@ -54,7 +57,8 @@ public class AnalyticsRequest {
 		
 		/// TODO: get rid of everything but URL - access methods from outside of the constructor
 		
-		params = new AnalyticsParams(uri);
+
+		//params = new AnalyticsParams(uri);
 		suites = getSuites(uri);
 		// setChannel(getChannel(params.getAll()));
 		channel = getChannel(buildParamsList(uri));
@@ -107,7 +111,7 @@ public class AnalyticsRequest {
 	 */
 	public String getChannel(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(AnalyticsParams.CHANNEL)) {
+			if (param.getName().equalsIgnoreCase(waParams.CHANNEL.toString())) {
 				return param.getValue().trim();
 			}
 		}
@@ -122,7 +126,7 @@ public class AnalyticsRequest {
 	public String[] getEvents(List<NameValuePair> parms) {
 		String rtnEvents = "";
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(AnalyticsParams.EVENTS)) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.EVENTS.getParam())) {
 				rtnEvents = param.getValue();
 				break;
 			}
@@ -136,7 +140,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getProps(List<NameValuePair> parms) {
-		return getNumberedParams(parms, AnalyticsParams.PROP_PARTIAL, "prop");
+		return getNumberedParams(parms, AnalyticsParams.PROP_PARTIAL.getParam(), "prop");
 	}
 	
 	/**
@@ -145,7 +149,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getEvars(List<NameValuePair> parms) {
-		return getNumberedParams(parms, AnalyticsParams.EVAR_PARTIAL, "eVar");
+		return getNumberedParams(parms, AnalyticsParams.EVAR_PARTIAL.getParam(), "eVar");
 	}
 	
 	/**
@@ -154,7 +158,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getHiers(List<NameValuePair> parms) {
-		return getNumberedParams(parms, AnalyticsParams.HIER_PARTIAL, "hier");
+		return getNumberedParams(parms, AnalyticsParams.HIER_PARTIAL.getParam(), "hier");
 	}
 
 	/**
@@ -164,7 +168,7 @@ public class AnalyticsRequest {
 	 */
 	public String getLinkType(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE)) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE.getParam())) {
 				return param.getValue().trim();
 			}
 		}
@@ -178,7 +182,7 @@ public class AnalyticsRequest {
 	 */	
 	public String getLinkName(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKNAME)) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKNAME.getParam())) {
 				return param.getValue().trim();
 			}
 		}
@@ -192,7 +196,7 @@ public class AnalyticsRequest {
 	 */		
 	public String getLinkUrl(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKURL)) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKURL.getParam())) {
 				return param.getValue().trim();
 			}
 		}
@@ -206,7 +210,7 @@ public class AnalyticsRequest {
 	 */
 	public boolean hasLinkType(List<NameValuePair> paramList) {
 		for (NameValuePair param : paramList) {
-			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE)) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE.getParam())) {
 				return true;
 			}
 		}
