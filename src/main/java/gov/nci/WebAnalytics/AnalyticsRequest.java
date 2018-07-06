@@ -16,47 +16,33 @@ public class AnalyticsRequest {
 
 	// Temporary Params object
 	AnalyticsParams waParams;
-	List<NameValuePair> paramsList;
+
 	
-	public URI uri;	
+	private static URI uri;	
+	public URI getUri() {
+		return uri;
+	}
+	public void setUrl(URI uri) {
+		this.uri = uri;
+	}
+	
+	private List<NameValuePair> paramsList;
+	public List<NameValuePair> getParamsList() {
+		return paramsList;
+	}
+	public void setParamsList(List<NameValuePair> paramsList) {
+		this.paramsList = paramsList;
+	}
+		
 	public String channel;
-	/*
-	public String[] suites;	
-	//public AnalyticsParams params; 
-	public String[] events;
-	public List<NameValuePair> props; 
-	public List<NameValuePair> eVars; 
-	public List<NameValuePair> hiers;
-	public String linkType;
-	public String linkName;
-	public String linkUrl;	
-	*/
 	
 	public AnalyticsRequest() {}
-	
-	/**
-	 * Constructor
-	 * @param beaconUrl
-	 */
-	public AnalyticsRequest(String beaconUrl) {
 		
-		/// TODO: get rid of everything but URL - access methods from outside of the constructor		
-
-		//params = new AnalyticsParams(uri);
-		uri = createURI(beaconUrl);
-		paramsList = buildParamsList(uri);
-		
-		/*
-		suites = getSuites(uri);
-		channel = getChannel(paramsList);
-		events = getEvents(paramsList);
-		props = getProps(paramsList);
-		eVars = getEvars(paramsList);
-		hiers = getHiers(paramsList);
-		linkType = getLinkType(paramsList);
-		linkName = getLinkName(paramsList);
-		linkUrl = getLinkUrl(paramsList);
-		*/
+	public static AnalyticsRequest getBeacon(String beaconUrl) {
+		AnalyticsRequest rtnBeacon = new AnalyticsRequest();
+		rtnBeacon.setUrl(createURI(beaconUrl));
+		rtnBeacon.setParamsList(buildParamsList(uri));
+		return rtnBeacon;
 	}
 	
 	/**
@@ -64,7 +50,7 @@ public class AnalyticsRequest {
 	 * @param url
 	 * @return
 	 */
-	public URI createURI(String url) {
+	public static URI createURI(String url) {
 		try {
 			URI rtnUri = URI.create(url);
 			return rtnUri;
@@ -233,7 +219,7 @@ public class AnalyticsRequest {
 	 * @param uri
 	 * @return retParams
 	 */
-	public List<NameValuePair> buildParamsList(URI uri) {		
+	public static List<NameValuePair> buildParamsList(URI uri) {		
 		List<NameValuePair> rtnParams = new ArrayList<NameValuePair>();
 		
 		try {
