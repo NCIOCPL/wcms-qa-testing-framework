@@ -296,7 +296,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param requests
 	 * @return the last AnalyticsRequest object
 	 */
-	private static AnalyticsRequest getLast(List<AnalyticsRequest> requests) {
+	private static AnalyticsRequest getLastBeacon(List<AnalyticsRequest> requests) {
 		AnalyticsRequest request = requests.get(requests.size() - 1);
 		return request;
 	}
@@ -306,7 +306,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 */
 	protected static void setClickBeacon() {
 		clickBeacons = getBeacons(getHarUrlList(proxy), true);
-		beacon = getLast(clickBeacons);
+		beacon = getLastBeacon(clickBeacons);
 	}
 	
 	/**
@@ -314,7 +314,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 */
 	protected static void setLoadBeacon() {
 		loadBeacons = getBeacons(getHarUrlList(proxy), false);
-		beacon = getLast(loadBeacons);
+		beacon = getLastBeacon(loadBeacons);
 	}
 	
 	/**

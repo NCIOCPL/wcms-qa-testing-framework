@@ -54,8 +54,8 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		setLoadBeacon();		
 		AnalyticsRequest firstLoadBeacon = loadBeacons.get(0);
 		// Temporary / debugging tests
-		Assert.assertTrue(firstLoadBeacon.getChannel().equals("NCI Homepage") || firstLoadBeacon.getChannel().contains("Research"));
-		Assert.assertFalse(firstLoadBeacon.getChannel().contains("some other string"));
+		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage") || firstLoadBeacon.channel.contains("Research"));
+		Assert.assertFalse(firstLoadBeacon.channel.contains("some other string"));
 		Assert.assertTrue(firstLoadBeacon.events[0].contains("1"));
 		logger.log(LogStatus.PASS, "Home-and-back nav values are correct.");	
 	}

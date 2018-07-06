@@ -18,24 +18,8 @@ public class AnalyticsRequest {
 	AnalyticsParams waParams;
 
 	
-	// URI for tracking beacon
-	private URI uri;	
-	public URI getUri() {
-		return uri;				
-	}	
-	public void setUri(URI uri) {
-		this.uri = uri;
-	}	
-	
-	// Channel
-	private String channel;
-	public String getChannel() {
-		return channel;
-	}
-	public void setChannel(String channel) {
-		this.channel = channel;
-	}
-	
+	public URI uri;	
+	public String channel;
 	public String[] suites;	
 	//public AnalyticsParams params; 
 	public String[] events;
@@ -53,14 +37,12 @@ public class AnalyticsRequest {
 	 * @param beaconUrl
 	 */
 	public AnalyticsRequest(String beaconUrl) {
-		setUri(createURI(beaconUrl));
 		
-		/// TODO: get rid of everything but URL - access methods from outside of the constructor
-		
+		/// TODO: get rid of everything but URL - access methods from outside of the constructor		
 
 		//params = new AnalyticsParams(uri);
+		uri = createURI(beaconUrl);
 		suites = getSuites(uri);
-		// setChannel(getChannel(params.getAll()));
 		channel = getChannel(buildParamsList(uri));
 		events = getEvents(buildParamsList(uri));
 		props = getProps(buildParamsList(uri));
