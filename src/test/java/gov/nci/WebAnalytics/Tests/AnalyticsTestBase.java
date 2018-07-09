@@ -1,6 +1,7 @@
 package gov.nci.WebAnalytics.Tests;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -326,21 +327,20 @@ public class AnalyticsTestBase extends BaseClass {
 	protected static List<AnalyticsRequest> getBeacons(List<String> urlList, boolean isClick) {
 				
 		List<AnalyticsRequest> beacons = new ArrayList<AnalyticsRequest>();
-		AnalyticsRequest req = new AnalyticsRequest();
 
 		for(String url : urlList)
 		{  
-			// If this doesn't have the "Link Type" param ('pe'), add to list of load beacons
-			//List<NameValuePair> params = new AnalyticsParams(req.createURI(url)).getAll();
-			List<NameValuePair> params = AnalyticsParams.getParamList(req.createURI(url));						
+			AnalyticsRequest request = AnalyticsRequest.getBeacon(url);
+			URI uri = AnalyticsRequest.createURI(url);
+			List<NameValuePair> params = AnalyticsParams.getParamList(uri);
 			
 			if(isClick) {
-				if(req.hasLinkType(params)) {
-					beacons.add(req.getBeacon(url));
+				if(request.hasLinkType(params)) {
+					beacons.add(request);
 				}
 			}
 			else {
-				beacons.add(req.getBeacon(url));
+				beacons.add(request);
 			}
 		}
 

@@ -212,7 +212,7 @@ public class AnalyticsRequest {
 	
 	
 	
-	/***** URL Param methods *****/
+
 	/**
 	 * Get a list of numbered parameters and their values (e.g. [prop1="www.cancer.gov", prop2="/home", prop3="NCI"])
 	 * @param paramList
@@ -235,6 +235,7 @@ public class AnalyticsRequest {
 	
 	/**
 	 * Overload for getNumberedParams
+	 * Can be used for cases where the parameter name and analytics variable name match 
 	 * @param paramList
 	 * @param parm
 	 * @return
