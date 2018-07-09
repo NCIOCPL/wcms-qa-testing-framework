@@ -41,7 +41,7 @@ public class AnalyticsRequest {
 	public static AnalyticsRequest getBeacon(String beaconUrl) {
 		AnalyticsRequest rtnBeacon = new AnalyticsRequest();
 		rtnBeacon.setUrl(createURI(beaconUrl));
-		rtnBeacon.setParamsList(buildParamsList(uri));
+		rtnBeacon.setParamsList(AnalyticsParams.buildParamsList(uri));
 		return rtnBeacon;
 	}
 	
@@ -100,7 +100,7 @@ public class AnalyticsRequest {
 	public String[] getEvents() {
 		String rtnEvents = "";
 		for (NameValuePair param : paramsList) {
-			if (param.getName().equalsIgnoreCase(AnalyticsParams.EVENTS.getParam())) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.EVENTS)) {
 				rtnEvents = param.getValue();
 				break;
 			}
@@ -114,7 +114,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getProps() {
-		return getNumberedParams(paramsList, AnalyticsParams.PROP_PARTIAL.getParam(), "prop");
+		return AnalyticsParams.getNumberedParams(paramsList, AnalyticsParams.PROP_PARTIAL, "prop");
 	}
 	
 	/**
@@ -123,7 +123,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getEvars() {
-		return getNumberedParams(paramsList, AnalyticsParams.EVAR_PARTIAL.getParam(), "eVar");
+		return AnalyticsParams.getNumberedParams(paramsList, AnalyticsParams.EVAR_PARTIAL, "eVar");
 	}
 	
 	/**
@@ -132,7 +132,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getHiers(List<NameValuePair> parms) {
-		return getNumberedParams(parms, AnalyticsParams.HIER_PARTIAL.getParam(), "hier");
+		return AnalyticsParams.getNumberedParams(parms, AnalyticsParams.HIER_PARTIAL, "hier");
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class AnalyticsRequest {
 	 */
 	public String getLinkType(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE.getParam())) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE)) {
 				return param.getValue().trim();
 			}
 		}
@@ -156,7 +156,7 @@ public class AnalyticsRequest {
 	 */	
 	public String getLinkName() {
 		for (NameValuePair param : paramsList) {
-			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKNAME.getParam())) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKNAME)) {
 				return param.getValue().trim();
 			}
 		}
@@ -170,7 +170,7 @@ public class AnalyticsRequest {
 	 */		
 	public String getLinkUrl(List<NameValuePair> parms) {
 		for (NameValuePair param : parms) {
-			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKURL.getParam())) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKURL)) {
 				return param.getValue().trim();
 			}
 		}
@@ -184,7 +184,7 @@ public class AnalyticsRequest {
 	 */
 	public boolean hasLinkType(List<NameValuePair> paramList) {
 		for (NameValuePair param : paramList) {
-			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE.getParam())) {
+			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE)) {
 				return true;
 			}
 		}
@@ -213,96 +213,6 @@ public class AnalyticsRequest {
 	
 	
 	/***** URL Param methods *****/
-
-	/**
-	 * Split URI into list of encoded elements
-	 * @param uri
-	 * @return retParams
-	 */
-	public static List<NameValuePair> buildParamsList(URI uri) {		
-		List<NameValuePair> rtnParams = new ArrayList<NameValuePair>();
-		
-		try {
-			String queries = getRawQueryString(uri);
-			for(String parm : queries.split("&")) {
-				String[] pair = parm.split("=");
-				String key = URLDecoder.decode(pair[0], "UTF-8");
-				String value = "";
-				if(pair.length > 1) {
-					value = URLDecoder.decode(pair[1], "UTF-8"); 
-				}
-				rtnParams.add(new BasicNameValuePair(key, value));				
-			}
-		} 
-		catch (UnsupportedEncodingException ex) {
-			System.out.println("Error decoding URI in WaParams:buildParamsList()");
-		}		
-		return rtnParams;
-	}
-	
-	/**
-	 * Get an encoded query string from a given URI.
-	 * @param uri
-	 * @return
-	 */	
-	public static String getRawQueryString(URI uri) {
-		return uri.getRawQuery();
-	}
-	
-	/**
-	 * Get the clean query string from a given URI.
-	 * @param uri
-	 * @return
-	 */
-	public static String getQueryString(URI uri) {
-		return uri.getQuery();
-	}
-	
-	/**
-	 * Check query params to see if this is a link tracking event
-	 * @param parms
-	 * @return
-	 */
-	public static boolean hasParam(List<NameValuePair> paramList, String myParam) {
-		for (NameValuePair param : paramList) {
-			if (param.getName().toLowerCase().equals(myParam)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * Get a list of numbered parameters and their values (e.g. [prop1="www.cancer.gov", prop2="/home", prop3="NCI"])
-	 * @param paramList
-	 * @param parm
-	 * @param replacement
-	 * @return
-	 */
-	public static List<NameValuePair> getNumberedParams(List<NameValuePair> paramList, String parm, String replacement) {
-		List<NameValuePair> rtnList = new ArrayList<>();
-		for (NameValuePair param : paramList) {
-			// Regex: parameter name followed by 1 or more digits, starting with 1-9 only
-			if(param.getName().matches("^" + parm + "[1-9]\\d*$")) {
-				String rtnName = param.getName().replace(parm, replacement);
-				String rtnValue = param.getValue();
-				rtnList.add(new BasicNameValuePair(rtnName, rtnValue));
-			}
-		}
-		return rtnList;
-	}
-	
-	/**
-	 * Overload for getNumberedParams
-	 * @param paramList
-	 * @param parm
-	 * @return
-	 */
-	public static List<NameValuePair> getNumberedParams(List<NameValuePair> paramList, String parm) {
-		return getNumberedParams(paramList, parm, parm);
-	}	
-	
-	
 	
 
 }
