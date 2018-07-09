@@ -332,7 +332,7 @@ public class AnalyticsTestBase extends BaseClass {
 		{  
 			// If this doesn't have the "Link Type" param ('pe'), add to list of load beacons
 			//List<NameValuePair> params = new AnalyticsParams(req.createURI(url)).getAll();
-			List<NameValuePair> params = AnalyticsParams.buildParamsList(req.createURI(url));						
+			List<NameValuePair> params = AnalyticsParams.getParamList(req.createURI(url));						
 			
 			if(isClick) {
 				if(req.hasLinkType(params)) {

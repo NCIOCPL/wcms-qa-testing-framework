@@ -41,7 +41,7 @@ public class AnalyticsRequest {
 	public static AnalyticsRequest getBeacon(String beaconUrl) {
 		AnalyticsRequest rtnBeacon = new AnalyticsRequest();
 		rtnBeacon.setUrl(createURI(beaconUrl));
-		rtnBeacon.setParamsList(AnalyticsParams.buildParamsList(uri));
+		rtnBeacon.setParamsList(AnalyticsParams.getParamList(uri));
 		return rtnBeacon;
 	}
 	
@@ -114,7 +114,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getProps() {
-		return AnalyticsParams.getNumberedParams(paramsList, AnalyticsParams.PROP_PARTIAL, "prop");
+		return getNumberedParams(paramsList, AnalyticsParams.PROP_PARTIAL, "prop");
 	}
 	
 	/**
@@ -123,7 +123,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getEvars() {
-		return AnalyticsParams.getNumberedParams(paramsList, AnalyticsParams.EVAR_PARTIAL, "eVar");
+		return getNumberedParams(paramsList, AnalyticsParams.EVAR_PARTIAL, "eVar");
 	}
 	
 	/**
@@ -132,7 +132,7 @@ public class AnalyticsRequest {
 	 * @return
 	 */
 	public List<NameValuePair> getHiers(List<NameValuePair> parms) {
-		return AnalyticsParams.getNumberedParams(parms, AnalyticsParams.HIER_PARTIAL, "hier");
+		return getNumberedParams(parms, AnalyticsParams.HIER_PARTIAL, "hier");
 	}
 
 	/**
@@ -213,6 +213,34 @@ public class AnalyticsRequest {
 	
 	
 	/***** URL Param methods *****/
+	/**
+	 * Get a list of numbered parameters and their values (e.g. [prop1="www.cancer.gov", prop2="/home", prop3="NCI"])
+	 * @param paramList
+	 * @param parm
+	 * @param replacement
+	 * @return
+	 */
+	private static List<NameValuePair> getNumberedParams(List<NameValuePair> paramList, String parm, String replacement) {
+		List<NameValuePair> rtnList = new ArrayList<>();
+		for (NameValuePair param : paramList) {
+			// Regex: parameter name followed by 1 or more digits, starting with 1-9 only
+			if(param.getName().matches("^" + parm + "[1-9]\\d*$")) {
+				String rtnName = param.getName().replace(parm, replacement);
+				String rtnValue = param.getValue();
+				rtnList.add(new BasicNameValuePair(rtnName, rtnValue));
+			}
+		}
+		return rtnList;
+	}
 	
+	/**
+	 * Overload for getNumberedParams
+	 * @param paramList
+	 * @param parm
+	 * @return
+	 */
+	private static List<NameValuePair> getNumberedParams(List<NameValuePair> paramList, String parm) {
+		return getNumberedParams(paramList, parm, parm);
+	}	
 
 }
