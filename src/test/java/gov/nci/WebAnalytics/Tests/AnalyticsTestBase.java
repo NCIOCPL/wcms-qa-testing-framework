@@ -4,14 +4,17 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
+import net.lightbody.bmp.BrowserMobProxy;
+import net.lightbody.bmp.BrowserMobProxyServer;
+import net.lightbody.bmp.core.har.Har;
+import net.lightbody.bmp.core.har.HarEntry;
+import net.lightbody.bmp.proxy.CaptureType;
 import org.apache.http.NameValuePair;
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterGroups;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -20,22 +23,17 @@ import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
+import org.testng.ITestResult;
 
+import com.nci.testcases.BaseClass;
 import com.nci.Utilities.BrowserManager;
 import com.nci.Utilities.ConfigReader;
 import com.nci.Utilities.ScreenShot;
-import com.nci.testcases.BaseClass;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-
-import gov.nci.WebAnalytics.AnalyticsRequest;
 import gov.nci.WebAnalytics.AnalyticsParams;
-import net.lightbody.bmp.BrowserMobProxy;
-import net.lightbody.bmp.BrowserMobProxyServer;
-import net.lightbody.bmp.core.har.Har;
-import net.lightbody.bmp.core.har.HarEntry;
-import net.lightbody.bmp.proxy.CaptureType;
+import gov.nci.WebAnalytics.AnalyticsRequest;
 
 public class AnalyticsTestBase extends BaseClass {
 
@@ -54,6 +52,10 @@ public class AnalyticsTestBase extends BaseClass {
 	protected static AnalyticsRequest beacon;
 	protected static List<AnalyticsRequest> loadBeacons;
 	protected static List<AnalyticsRequest> clickBeacons;
+	
+	/**************************************
+	 * Section: TextNG Befores & Afters *
+	 **************************************/
 	
 	/**
 	* Configuration information for a TestNG class (http://testng.org/doc/documentation-main.html): 
@@ -105,8 +107,47 @@ public class AnalyticsTestBase extends BaseClass {
 		// Add entries to the HAR log		
 		System.out.println("Analytics setup done");
 	}	
+			
+	@AfterGroups(groups = { "Analytics" })
+	public void afterClass() {
+		System.out.println("=== Quitting Driver ===");
+		driver.quit();
+		report.endTest(logger);
+		System.out.println("=== Stopping BrowserMobProxy ===");
+		proxy.stop();
+	}	
 	
+	@BeforeClass(groups = { "Analytics" })
+	public void beforeClass() {
+		logger = report.startTest(this.getClass().getSimpleName());
+	}
 
+	@BeforeMethod(groups = { "Analytics" })
+	public void preMaximize() throws RuntimeException {
+		// Reset our browser to full screen before each method
+		driver.manage().window().maximize();
+	}
+	
+	@AfterMethod(groups = { "Analytics" })
+	public void tearDown(ITestResult result) {
+		if (result.getStatus() == ITestResult.FAILURE) {
+			String screenshotPath = ScreenShot.captureScreenshot(driver, result.getName());
+			String image = logger.addScreenCapture(screenshotPath);
+			// logger.addScreenCapture("./test-output/ExtentReport/");
+			logger.log(LogStatus.FAIL, image + "Fail => " + result.getName());
+			driver.get(pageURL);
+		}
+
+		if (result.getStatus() == ITestResult.SKIP) {
+			logger.log(LogStatus.SKIP, "Skipped => " + result.getName());
+			driver.get(pageURL);
+		}
+	}
+	
+	/******************************************************
+	 * Section: Initialize BMP and request beacon objects *
+	 ******************************************************/
+	
 	/**
 	 * Start and configure BrowserMob Proxy for Selenium.<br/>
 	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
@@ -165,43 +206,77 @@ public class AnalyticsTestBase extends BaseClass {
 		har.getLog().getEntries().clear();
 		
 		return harList;
-	}	
-		
-	@AfterGroups(groups = { "Analytics" })
-	public void afterClass() {
-		System.out.println("=== Quitting Driver ===");
-		driver.quit();
-		report.endTest(logger);
-		System.out.println("=== Stopping BrowserMobProxy ===");
-		proxy.stop();
-	}	
-	
-	@BeforeClass(groups = { "Analytics" })
-	public void beforeClass() {
-		logger = report.startTest(this.getClass().getSimpleName());
-	}
-
-	@BeforeMethod(groups = { "Analytics" })
-	public void preMaximize() throws RuntimeException {
-		// Reset our browser to full screen before each method
-		driver.manage().window().maximize();
 	}
 	
-	@AfterMethod(groups = { "Analytics" })
-	public void tearDown(ITestResult result) {
-		if (result.getStatus() == ITestResult.FAILURE) {
-			String screenshotPath = ScreenShot.captureScreenshot(driver, result.getName());
-			String image = logger.addScreenCapture(screenshotPath);
-			// logger.addScreenCapture("./test-output/ExtentReport/");
-			logger.log(LogStatus.FAIL, image + "Fail => " + result.getName());
-			driver.get(pageURL);
+	/**
+	 * Utility function to get the last element in a list of AnalyticsRequest objects
+	 * @param requests
+	 * @return the last AnalyticsRequest object
+	 */
+	private static AnalyticsRequest getLastBeacon(List<AnalyticsRequest> requests) {
+		AnalyticsRequest request = requests.get(requests.size() - 1);
+		return request;
+	}
+	
+	/**
+	 * Set the global loadBeacons and beacon variables
+	 */
+	protected static void setClickBeacon() {
+		clickBeacons = getBeacons(getHarUrlList(proxy), true);
+		beacon = getLastBeacon(clickBeacons);
+	}
+	
+	/**
+	 * Set the global clickBeacons and beacon variables
+	 */
+	protected static void setLoadBeacon() {
+		loadBeacons = getBeacons(getHarUrlList(proxy), false);
+		beacon = getLastBeacon(loadBeacons);
+	}
+	
+	/**
+	 * Get a list of beacon URLs fired off for load events
+	 * @param urlList
+	 * @param isClick
+	 * @return list of AnalyticsRequest objects
+	 */
+	protected static List<AnalyticsRequest> getBeacons(List<String> urlList, boolean isClick) {
+				
+		List<AnalyticsRequest> beacons = new ArrayList<AnalyticsRequest>();
+
+		for(String url : urlList)
+		{  
+			AnalyticsRequest request = AnalyticsRequest.getBeacon(url);
+			URI uri = AnalyticsRequest.createURI(url);
+			List<NameValuePair> params = AnalyticsParams.getParamList(uri);
+			
+			if(isClick) {
+				if(request.hasLinkType(params)) {
+					beacons.add(request);
+				}
+			}
+			else {
+				beacons.add(request);
+			}
 		}
 
-		if (result.getStatus() == ITestResult.SKIP) {
-			logger.log(LogStatus.SKIP, "Skipped => " + result.getName());
-			driver.get(pageURL);
-		}
+		System.out.println("Total load beacons: " + beacons.size());
+		System.out.println("Total click beacons: " + (urlList.size() - beacons.size()));
+		return beacons;
 	}
+	
+	/**
+	 * Override for getBeacons
+	 * @param urlList
+	 * @return list of AnalyticsRequest objects
+	 */
+	protected static List<AnalyticsRequest> getBeacons(List<String> urlList) {
+		return getBeacons(urlList, true);
+	}
+	
+	/*********************************
+	 * Section - Common test methods *
+	 *********************************/
 	
 	/**
 	 * Utility function to check for a given suite name
@@ -292,70 +367,6 @@ public class AnalyticsTestBase extends BaseClass {
 		return false;
 	}
 		
-	/**
-	 * Utility function to get the last element in a list of AnalyticsRequest objects
-	 * @param requests
-	 * @return the last AnalyticsRequest object
-	 */
-	private static AnalyticsRequest getLastBeacon(List<AnalyticsRequest> requests) {
-		AnalyticsRequest request = requests.get(requests.size() - 1);
-		return request;
-	}
-	
-	/**
-	 * Set the global loadBeacons and beacon variables
-	 */
-	protected static void setClickBeacon() {
-		clickBeacons = getBeacons(getHarUrlList(proxy), true);
-		beacon = getLastBeacon(clickBeacons);
-	}
-	
-	/**
-	 * Set the global clickBeacons and beacon variables
-	 */
-	protected static void setLoadBeacon() {
-		loadBeacons = getBeacons(getHarUrlList(proxy), false);
-		beacon = getLastBeacon(loadBeacons);
-	}
-	
-	/**
-	 * Get a list of beacon URLs fired off for load events
-	 * @param urlList
-	 * @param isClick
-	 * @return list of AnalyticsRequest objects
-	 */
-	protected static List<AnalyticsRequest> getBeacons(List<String> urlList, boolean isClick) {
-				
-		List<AnalyticsRequest> beacons = new ArrayList<AnalyticsRequest>();
 
-		for(String url : urlList)
-		{  
-			AnalyticsRequest request = AnalyticsRequest.getBeacon(url);
-			URI uri = AnalyticsRequest.createURI(url);
-			List<NameValuePair> params = AnalyticsParams.getParamList(uri);
-			
-			if(isClick) {
-				if(request.hasLinkType(params)) {
-					beacons.add(request);
-				}
-			}
-			else {
-				beacons.add(request);
-			}
-		}
-
-		System.out.println("Total load beacons: " + beacons.size());
-		System.out.println("Total click beacons: " + (urlList.size() - beacons.size()));
-		return beacons;
-	}
-	
-	/**
-	 * Override for getBeacons
-	 * @param urlList
-	 * @return list of AnalyticsRequest objects
-	 */
-	protected static List<AnalyticsRequest> getBeacons(List<String> urlList) {
-		return getBeacons(urlList, true);
-	}
 	
 }
