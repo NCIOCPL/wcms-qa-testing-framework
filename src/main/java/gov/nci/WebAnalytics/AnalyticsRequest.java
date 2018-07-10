@@ -58,11 +58,11 @@ public class AnalyticsRequest {
 	}
 	
 	/**
-	 * 
+	 * Build the 
+	 * @throws NullPointerException
 	 */
 	public void buildParamsList() throws NullPointerException {
-		URI uri = createUri(url);
-		setUri(uri);
+		setUri(createUri(url));
 		setParamsList(AnalyticsParams.getList(uri));		
 	}
 	
