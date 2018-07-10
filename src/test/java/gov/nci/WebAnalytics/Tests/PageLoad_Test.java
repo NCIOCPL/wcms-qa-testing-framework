@@ -27,8 +27,8 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	public void testHarAndBeacons() {
 		pageLoad.gotoMultiplePages();
 		setLoadBeacon();
-		Assert.assertTrue(harList.size() > 0);
-		Assert.assertTrue(loadBeacons.size() > 0);
+		Assert.assertTrue(getHarList().size() > 0);
+		Assert.assertTrue(getLoadBeacons().size() > 0);
 		logger.log(LogStatus.PASS, "Load events have been captured.");
 	}
 	
@@ -38,7 +38,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		pageLoad.gotoMultiplePages();
 		setLoadBeacon();
 		Assert.assertTrue(hasEvent(47));		
-		for(AnalyticsRequest beacon : loadBeacons) {
+		for(AnalyticsRequest beacon : getLoadBeacons()) {
 			String[] evts = beacon.getEvents();			
 			Assert.assertTrue(evts[0].contains("event1"));
 			Assert.assertTrue(evts[1].contains("event47"));
@@ -52,7 +52,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		// For debugging purposes only..
 		pageLoad.goHomeAndBack();
 		setLoadBeacon();		
-		AnalyticsRequest firstLoadBeacon = loadBeacons.get(0);
+		AnalyticsRequest firstLoadBeacon = getLoadBeacons().get(0);
 		String[] evts = firstLoadBeacon.getEvents();
 		// Temporary / debugging tests
 		Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage") || firstLoadBeacon.channel.contains("Research"));

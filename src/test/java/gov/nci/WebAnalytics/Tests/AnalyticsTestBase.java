@@ -37,6 +37,10 @@ import gov.nci.WebAnalytics.AnalyticsRequest;
 
 public class AnalyticsTestBase extends BaseClass {
 
+	// TODO: Create 'catch-all' Contains() method
+	// TODO: Build test for test
+	// TODO: Check false positives for events 	
+	// TODO: Clean up
 	public static ExtentReports report;
 	public static ExtentTest logger;
 	public static WebDriver driver;
@@ -44,14 +48,27 @@ public class AnalyticsTestBase extends BaseClass {
 	public ConfigReader config = new ConfigReader();
 	public String pageURL;
 
-	// TODO: Create 'catch-all' Contains() method
-	// TODO: Build test for test
-	// TODO: Check false positives for events 	
-	// TODO: Clean up
-	protected static List<String> harList;
-	protected static AnalyticsRequest beacon;
-	protected static List<AnalyticsRequest> loadBeacons;
-	protected static List<AnalyticsRequest> clickBeacons;
+	
+	private List<String> harList;
+	public List<String> getHarList() {
+		return harList;
+	}
+		
+	private List<AnalyticsRequest> loadBeacons;
+	public List<AnalyticsRequest> getLoadBeacons() {
+		return loadBeacons;
+	}
+
+	
+	private List<AnalyticsRequest> clickBeacons;
+	public List<AnalyticsRequest> getClickBeacons() {
+		return clickBeacons;
+	}
+	
+	private AnalyticsRequest beacon;
+	public AnalyticsRequest getBeacon() {
+		return beacon;
+	}
 	
 	/**************************************
 	 * Section: TextNG Befores & Afters *
@@ -221,7 +238,7 @@ public class AnalyticsTestBase extends BaseClass {
 	/**
 	 * Set the global loadBeacons and beacon variables
 	 */
-	protected static void setClickBeacon() {
+	protected void setClickBeacon() {
 		setBeacons(getHarUrlList(proxy), true);
 		beacon = getLastBeacon(clickBeacons);
 	}
@@ -229,7 +246,7 @@ public class AnalyticsTestBase extends BaseClass {
 	/**
 	 * Set the global clickBeacons and beacon variables
 	 */
-	protected static void setLoadBeacon() {
+	protected void setLoadBeacon() {
 		setBeacons(getHarUrlList(proxy), false);
 		beacon = getLastBeacon(loadBeacons);
 	}
@@ -239,7 +256,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param urlList
 	 * @param isClick
 	 */
-	protected static void setBeacons(List<String> urlList, boolean isClick) {
+	protected void setBeacons(List<String> urlList, boolean isClick) {
 		
 		// Reset beacon lists
 		loadBeacons = new ArrayList<AnalyticsRequest>();
@@ -268,7 +285,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param urlList
 	 * @return list of AnalyticsRequest objects
 	 */
-	protected static void getBeacons(List<String> urlList) {
+	protected void getBeacons(List<String> urlList) {
 		setBeacons(urlList, true);
 	}
 	
