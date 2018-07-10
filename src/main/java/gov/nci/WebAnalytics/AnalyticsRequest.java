@@ -21,7 +21,7 @@ public class AnalyticsRequest {
 	public URI getUri() {
 		return uri;
 	}
-	public void setUrl(URI uri) {
+	public void setUri(URI uri) {
 		this.uri = uri;
 	}
 	
@@ -42,7 +42,7 @@ public class AnalyticsRequest {
 	 */
 	public static AnalyticsRequest getBeacon(String beaconUrl) {
 		AnalyticsRequest rtnBeacon = new AnalyticsRequest();
-		rtnBeacon.setUrl(createURI(beaconUrl));
+		rtnBeacon.setUri(createURI(beaconUrl));
 		rtnBeacon.setParamsList(params.getParamList(uri));
 		return rtnBeacon;
 	}

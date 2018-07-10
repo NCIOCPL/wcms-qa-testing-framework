@@ -248,9 +248,10 @@ public class AnalyticsTestBase extends BaseClass {
 		for(String url : urlList)
 		{  
 			AnalyticsRequest request = AnalyticsRequest.getBeacon(url);
-			URI uri = AnalyticsRequest.createURI(url);
+			URI uri = request.getUri();
 			List<NameValuePair> params = AnalyticsParams.getParamList(uri);
 			
+			// TODO: rename this
 			if(request.hasLinkType(params)) {
 				clickBeacons.add(request);
 			}
