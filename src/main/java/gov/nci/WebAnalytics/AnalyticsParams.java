@@ -10,6 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
 
 public class AnalyticsParams {
+	// TODO: turn this into a real class
 	
 	// Parameter values from URL
 	static final String CHANNEL = "ch";
@@ -30,7 +31,7 @@ public class AnalyticsParams {
 	 * @param uri
 	 * @return retParams
 	 */
-	public static List<NameValuePair> getParamList(URI uri) {
+	public static List<NameValuePair> getList(URI uri) {
 		List<NameValuePair> rtnParams = new ArrayList<NameValuePair>();
 		
 		try {

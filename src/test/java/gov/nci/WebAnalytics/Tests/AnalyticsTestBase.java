@@ -1,7 +1,6 @@
 package gov.nci.WebAnalytics.Tests;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -32,7 +31,6 @@ import com.nci.Utilities.ScreenShot;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-import gov.nci.WebAnalytics.AnalyticsParams;
 import gov.nci.WebAnalytics.AnalyticsRequest;
 
 public class AnalyticsTestBase extends BaseClass {
@@ -245,11 +243,13 @@ public class AnalyticsTestBase extends BaseClass {
 		loadBeacons = new ArrayList<AnalyticsRequest>();
 		clickBeacons = new ArrayList<AnalyticsRequest>();		
 		
+		// For each server URL, check if it is an analytics click
+		// or load event, then add it to the correct list
 		for(String url : urlList)
 		{  
-			AnalyticsRequest request = AnalyticsRequest.getBeacon(url);
-			URI uri = request.getUri();
-			List<NameValuePair> params = AnalyticsParams.getParamList(uri);
+			AnalyticsRequest request = new AnalyticsRequest(url);
+			request.buildParamsList();
+			List<NameValuePair> params = request.getParamsList();
 			
 			// TODO: rename this
 			if(request.hasLinkType(params)) {
