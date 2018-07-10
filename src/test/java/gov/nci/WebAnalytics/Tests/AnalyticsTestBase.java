@@ -198,11 +198,11 @@ public class AnalyticsTestBase extends BaseClass {
 	    	}
 	    }
 	    
-	    // Debug size of har list
+	    // Debug size of HAR list
     	System.out.println("Total HAR entries: " + entries.size());
-		System.out.println("Total analytics entries: " + harList.size());
+		System.out.println("Total analytics requests: " + harList.size());
 
-		// harList cleanup logic here		
+		// The HAR list has been created; clear the log for next pass
 		har.getLog().getEntries().clear();
 		
 		return harList;
@@ -222,7 +222,7 @@ public class AnalyticsTestBase extends BaseClass {
 	 * Set the global loadBeacons and beacon variables
 	 */
 	protected static void setClickBeacon() {
-		clickBeacons = getBeacons(getHarUrlList(proxy), true);
+		setBeacons(getHarUrlList(proxy), true);
 		beacon = getLastBeacon(clickBeacons);
 	}
 	
@@ -230,39 +230,37 @@ public class AnalyticsTestBase extends BaseClass {
 	 * Set the global clickBeacons and beacon variables
 	 */
 	protected static void setLoadBeacon() {
-		loadBeacons = getBeacons(getHarUrlList(proxy), false);
+		setBeacons(getHarUrlList(proxy), false);
 		beacon = getLastBeacon(loadBeacons);
 	}
 	
 	/**
-	 * Get a list of beacon URLs fired off for load events
+	 * Set create lists of AnalyticsRequest objects for load and click events
 	 * @param urlList
 	 * @param isClick
-	 * @return list of AnalyticsRequest objects
 	 */
-	protected static List<AnalyticsRequest> getBeacons(List<String> urlList, boolean isClick) {
-				
-		List<AnalyticsRequest> beacons = new ArrayList<AnalyticsRequest>();
-
+	protected static void setBeacons(List<String> urlList, boolean isClick) {
+		
+		// Reset beacon lists
+		loadBeacons = new ArrayList<AnalyticsRequest>();
+		clickBeacons = new ArrayList<AnalyticsRequest>();		
+		
 		for(String url : urlList)
 		{  
 			AnalyticsRequest request = AnalyticsRequest.getBeacon(url);
 			URI uri = AnalyticsRequest.createURI(url);
 			List<NameValuePair> params = AnalyticsParams.getParamList(uri);
 			
-			if(isClick) {
-				if(request.hasLinkType(params)) {
-					beacons.add(request);
-				}
+			if(request.hasLinkType(params)) {
+				clickBeacons.add(request);
 			}
 			else {
-				beacons.add(request);
+				loadBeacons.add(request);
 			}
 		}
-
-		System.out.println("Total load beacons: " + beacons.size());
-		System.out.println("Total click beacons: " + (urlList.size() - beacons.size()));
-		return beacons;
+		
+		System.out.println("Total load beacons: " + loadBeacons.size());
+		System.out.println("Total click beacons: " + clickBeacons.size());
 	}
 	
 	/**
@@ -270,8 +268,8 @@ public class AnalyticsTestBase extends BaseClass {
 	 * @param urlList
 	 * @return list of AnalyticsRequest objects
 	 */
-	protected static List<AnalyticsRequest> getBeacons(List<String> urlList) {
-		return getBeacons(urlList, true);
+	protected static void getBeacons(List<String> urlList) {
+		setBeacons(urlList, true);
 	}
 	
 	/*********************************
@@ -367,6 +365,5 @@ public class AnalyticsTestBase extends BaseClass {
 		return false;
 	}
 		
-
 	
 }
