@@ -249,10 +249,9 @@ public class AnalyticsTestBase extends BaseClass {
 		{  
 			AnalyticsRequest request = new AnalyticsRequest(url);
 			request.buildParamsList();
-			List<NameValuePair> params = request.getParamsList();
 			
-			// TODO: rename this
-			if(request.hasLinkType(params)) {
+			// Populate the beacon lists
+			if(request.isClickTypeEvent()) {
 				clickBeacons.add(request);
 			}
 			else {
