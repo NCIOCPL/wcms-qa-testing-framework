@@ -7,8 +7,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
 
 public class AnalyticsRequest {
-	// TODO: make request / beacon names consistent
-	// TODO: move servers into config	
+	// TODO: move server strings into config	
+	// TODO: remove unused methods
 
 	// Constants
 	public static final String STATIC_SERVER = "static.cancer.gov";
@@ -65,19 +65,6 @@ public class AnalyticsRequest {
 	}
 	
 	/**
-	 * Create a new request / beacon object
-	 * @param beaconUrl
-	 * @return
-	 */
-	public static AnalyticsRequest getBeacon(String beaconUrl) {
-		
-		AnalyticsRequest rtnBeacon = new AnalyticsRequest(beaconUrl);
-		rtnBeacon.setUri(createUri(beaconUrl));
-		//rtnBeacon.setParamsList(AnalyticsParams.getList(uri));
-		return rtnBeacon;
-	}
-	
-	/**
 	 * Create URI object from a given URL string
 	 * @param url
 	 * @return
@@ -87,7 +74,8 @@ public class AnalyticsRequest {
 			URI rtnUri = URI.create(url);
 			return rtnUri;
 		} catch (IllegalArgumentException ex) {
-			System.out.println("Invalid beacon URL \"" + url + "\\\" at AnalyticsBase:createURI()");
+			System.out.println("Invalid request URL \"" + url + 
+					"\\\" at AnalyticsRequest:createURI()");
 			return null;
 		}
 	}
@@ -141,7 +129,7 @@ public class AnalyticsRequest {
 	}
 	
 	/**
-	 * Get list of props ('c' values in beacon)
+	 * Get list of props ('c' values in request)
 	 * @param parms
 	 * @return
 	 */
@@ -150,7 +138,7 @@ public class AnalyticsRequest {
 	}
 	
 	/**
-	 * Get list of eVars ('v' values in beacon)
+	 * Get list of eVars ('v' values in request)
 	 * @param parms
 	 * @return
 	 */
@@ -159,7 +147,7 @@ public class AnalyticsRequest {
 	}
 	
 	/**
-	 * Get list of hierarchy values ("h" values in beacon)
+	 * Get list of hierarchy values ("h" values in request)
 	 * @param parms
 	 * @return
 	 */

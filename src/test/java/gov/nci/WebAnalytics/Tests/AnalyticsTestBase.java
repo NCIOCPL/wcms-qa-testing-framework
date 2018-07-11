@@ -12,7 +12,6 @@ import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.core.har.Har;
 import net.lightbody.bmp.core.har.HarEntry;
 import net.lightbody.bmp.proxy.CaptureType;
-import org.apache.http.NameValuePair;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterGroups;
 import org.testng.annotations.AfterMethod;
@@ -201,8 +200,8 @@ public class AnalyticsTestBase extends BaseClass {
 	 * Configure BrowserMob Proxy for Selenium.<br>
 	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
 	 * @throws RuntimeException
+	 * @throws IllegalArgumentException
 	 */
-	// TODO: trace our data type - don't need to be shuffling between String, URL, String...
 	protected void setHarUrlList(BrowserMobProxy proxy) throws RuntimeException, IllegalArgumentException {		
 
 		// A HAR (HTTP Archive) is a file format that can be used by HTTP monitoring tools to export collected data. 
