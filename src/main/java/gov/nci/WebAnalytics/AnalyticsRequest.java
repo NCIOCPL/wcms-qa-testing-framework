@@ -14,12 +14,8 @@ public class AnalyticsRequest {
 	public static final String STATIC_SERVER = "static.cancer.gov";
 	public static final String TRACKING_SERVER = "nci.122.2o7.net";
 
-	
-
-	
-
-	public String channel;
-	
+	// TODO: do something with this
+	public String channel;	
 	
 	// A request URL
 	private String url;
@@ -55,6 +51,8 @@ public class AnalyticsRequest {
 	 */
 	public AnalyticsRequest(String url) {
 		setUrl(url);
+		setUri(null);
+		setParamsList(new ArrayList<NameValuePair>());
 	}
 	
 	/**
@@ -171,11 +169,10 @@ public class AnalyticsRequest {
 
 	/**
 	 * Get "Link Type" value (pe)(
-	 * @param parms
 	 * @return
 	 */
-	public String getLinkType(List<NameValuePair> parms) {
-		for (NameValuePair param : parms) {
+	public String getLinkType() {
+		for (NameValuePair param : paramsList) {
 			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE)) {
 				return param.getValue().trim();
 			}
@@ -185,7 +182,6 @@ public class AnalyticsRequest {
 
 	/**
 	 * Get "Link Name" value (pev2)(
-	 * @param parms
 	 * @return
 	 */	
 	public String getLinkName() {
@@ -199,11 +195,10 @@ public class AnalyticsRequest {
 
 	/**
 	 * Get "Link URL" value (pev1)(
-	 * @param parms
 	 * @return
 	 */		
-	public String getLinkUrl(List<NameValuePair> parms) {
-		for (NameValuePair param : parms) {
+	public String getLinkUrl() {
+		for (NameValuePair param : paramsList) {
 			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKURL)) {
 				return param.getValue().trim();
 			}
@@ -216,15 +211,28 @@ public class AnalyticsRequest {
 	 * @param paramList
 	 * @return
 	 */
-	public boolean hasLinkType(List<NameValuePair> paramList) {
-		for (NameValuePair param : paramList) {
+	public boolean hasLinkType() {
+		for (NameValuePair param : paramsList) {
 			if (param.getName().equalsIgnoreCase(AnalyticsParams.LINKTYPE)) {
 				return true;
 			}
 		}
 		return false;
 	}
-		
+
+	/**
+	 * Check for parameters to verify that this is a click-type/link event
+	 * @param paramList
+	 * @return
+	 */
+	public boolean isClickTypeEvent() {
+		if(getLinkType().isEmpty() && getLinkName().isEmpty() && getLinkUrl().isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	/**
 	 * Temporary util method for troubleshooting
 	 * TODO: remove this once explicit wait is working 
