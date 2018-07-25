@@ -9,6 +9,7 @@ import org.apache.http.NameValuePair;
 public class AnalyticsRequest {
 	// TODO: move server strings into config	
 	// TODO: remove unused methods
+	// TODO: refactor param object
 
 	// Constants
 	public static final String STATIC_SERVER = "static.cancer.gov";
