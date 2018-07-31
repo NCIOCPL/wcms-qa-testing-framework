@@ -27,29 +27,10 @@ public class AnalyticsTestBase extends BaseClass {
 	// TODO: Clean up setters / getters
 	// TODO: General clean up & refactor 
 	public static WebDriver driver;
-
-	// BrowserMobProxy object - needed to create HAR
-    public static BrowserMobProxy proxy = new BrowserMobProxyServer();
-	
-	// List of HAR (HTTP archive) request URLs 
-	private List<String> harUrlList;
-	public List<String> getHarUrlList() {
-		return harUrlList;
-	}
-	
-	// List of analytics request URLs fired off by 
-	// an analytics load event, ie s.t() 
-	private List<AnalyticsRequest> loadBeacons;
-	public List<AnalyticsRequest> getLoadBeacons() {
-		return loadBeacons;
-	}
-
-	// List of analytics request URLs fired off by an 
-	// analytics load event, ie s.tl() 
-	private List<AnalyticsRequest> clickBeacons;
-	public List<AnalyticsRequest> getClickBeacons() {
-		return clickBeacons;
-	}
+    public static BrowserMobProxy proxy;
+	protected List<String> harUrlList;	
+	protected List<AnalyticsRequest> loadBeacons;
+	protected List<AnalyticsRequest> clickBeacons;
 	
 	// A single analytics request URL
 	private AnalyticsRequest beacon;
@@ -124,10 +105,8 @@ public class AnalyticsTestBase extends BaseClass {
 	 */
 	protected void initializeProxy(String url) throws RuntimeException {
 
-		// We should never run into this, but if so, "stop" the proxy by creating a BMP instance
-		if(proxy.isStarted()) {
-		    proxy = new BrowserMobProxyServer();
-		}
+		// New BrowserMobProxy instance - this is needed to create the HAR (HTTP archive) object
+		proxy = new BrowserMobProxyServer();
 		
 		// Start the proxy
 		System.out.println("=== Starting BrowserMobProxy ===");
@@ -142,7 +121,8 @@ public class AnalyticsTestBase extends BaseClass {
 	}
 	
 	/**
-	 * Configure BrowserMob Proxy for Selenium.<br>
+	 * Build the list of HAR (HTTP archive) request URLs 
+	 * TODO: refactor
 	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
 	 * @throws RuntimeException
 	 * @throws IllegalArgumentException
@@ -179,6 +159,8 @@ public class AnalyticsTestBase extends BaseClass {
 	
 	/**
 	 * Set create lists of AnalyticsRequest objects for load and click events
+	 * loadBeacons -> a list of analytics request URLs fired off by an analytics load event, ie s.tl() 
+	 * clickBeacons -> a list of analytics request URLs fired off by an analytics load event, ie s.t() 			 * 
 	 * @param urlList
 	 */
 	protected void setBeaconLists(List<String> urlList) {
