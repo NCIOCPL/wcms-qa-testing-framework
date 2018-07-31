@@ -6,17 +6,25 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 
 import gov.nci.clinicalTrial.pages.BasicSearch;
+import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
 import gov.nci.WebAnalytics.Nav;
 
 public class WaBasicSearch_Test extends AnalyticsTestBase {
 	
+	// TODO: figure out nav issues
 	private BasicSearch basicSearch;
 
 	@BeforeMethod(groups = { "Analytics" }) 
-	public void beforeMethod() {
+	public void setupWaBasicSearchTest() {
 		// TODO: verify 'form start' event
-		//basicSearch = new BasicSearch();
-		//basicSearch = new BasicSearch(driver);
+		try {
+			// Create search page with chat prompt suppressed.
+			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
+			basicSearch = new BasicSearch(driver, chatPrompt);
+		} catch (Exception e) {
+			basicSearch = null;
+			logger.log(LogStatus.ERROR, "Error creating Basic Search page.");
+		}
 	}
 
 	/// ??? returns the expected general/shared values

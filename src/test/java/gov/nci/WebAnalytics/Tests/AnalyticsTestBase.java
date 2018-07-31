@@ -21,8 +21,11 @@ import gov.nci.WebAnalytics.AnalyticsRequest;
 
 public class AnalyticsTestBase extends BaseClass {
 
+	// TODO: Set default URLs at test level, not base
+	//// URL may need to be used as a param
 	// TODO: Create 'catch-all' Contains() method
-	// TODO: Clean up & refactor 
+	// TODO: Clean up setters / getters
+	// TODO: General clean up & refactor 
 	public static WebDriver driver;
 
 	// BrowserMobProxy object - needed to create HAR
@@ -82,9 +85,9 @@ public class AnalyticsTestBase extends BaseClass {
 	public void setup(String browser) throws MalformedURLException {
 		
 		logger = report.startTest(this.getClass().getSimpleName());
-		pageURL = config.getPageURL("HomePage");
+		pageURL = config.getPageURL("BasicClinicalTrialSearchURL");
 		System.out.println("PageURL: " + pageURL);
-						
+
 		// setupProxy(driver);
 		this.initializeProxy(pageURL);
 		
