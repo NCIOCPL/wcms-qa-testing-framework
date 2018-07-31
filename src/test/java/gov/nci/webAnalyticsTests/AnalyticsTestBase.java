@@ -42,7 +42,6 @@ public class AnalyticsTestBase {
     public static BrowserMobProxy proxy;
 	protected static ExtentReports report;
 	protected static ExtentTest logger;
-	protected String pageURL;
 	protected ConfigReader config = new ConfigReader();	
 	
 	protected List<String> harUrlList;	
@@ -94,18 +93,18 @@ public class AnalyticsTestBase {
 	@Parameters({ "browser" })
 	public void beforeGroups(String browser) throws MalformedURLException {		
 		logger = report.startTest(this.getClass().getSimpleName());
-		pageURL = config.getPageURL("BasicClinicalTrialSearchURL");
-		System.out.println("PageURL: " + pageURL);
+		String initUrl = config.getPageURL("HomePage");
 
-		// setupProxy(driver);
-		this.initializeProxy(pageURL);
+		// Start the BrowserMob proxy on the site homepage
+		this.initializeProxy(initUrl);
 		
 		// Initialize driver and open browser
-		driver = BrowserManager.startProxyBrowser(browser, pageURL, proxy);
+		driver = BrowserManager.startProxyBrowser(browser, initUrl, proxy);
 		
-		// Add entries to the HAR log		
-		System.out.println("Analytics setup done");
-	}	
+		// Add entries to the HAR log
+		System.out.println("Analytics group setup done.\r\nStarting from " + initUrl);
+		
+	}
 	
 	@BeforeClass(groups = { "Analytics" })
 	public void beforeClass() {
@@ -166,12 +165,11 @@ public class AnalyticsTestBase {
 	protected void initializeProxy(String url) throws RuntimeException {
 
 		// New BrowserMobProxy instance - this is needed to create the HAR (HTTP archive) object
-		proxy = new BrowserMobProxyServer();
-		
-		// Start the proxy
 		System.out.println("=== Starting BrowserMobProxy ===");
-	    proxy.start();
-	    
+		proxy = new BrowserMobProxyServer();
+	    proxy.start(0);
+
+	    // Selenium proxy object, capabilities, and WebDriver instantiation are handled in BrowserManager:startProxyBrowser()
 	    // Enable more detailed HAR capture, if desired (see CaptureType for the complete list)
 	    proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
 
@@ -182,7 +180,7 @@ public class AnalyticsTestBase {
 	
 	/**
 	 * Build the list of HAR (HTTP archive) request URLs 
-	 * TODO: refactor
+	 * TODO: refactor into har Url list and tracking server list
 	 * Modified from https://github.com/lightbody/browsermob-proxy#using-with-selenium
 	 * @throws RuntimeException
 	 * @throws IllegalArgumentException
@@ -215,6 +213,7 @@ public class AnalyticsTestBase {
 		
 		// The HAR list has been created; clear the log for next pass
 		har.getLog().getEntries().clear();		
+		// For further reading, see https://en.wiktionary.org/wiki/hardy_har_har
 	}
 	
 	/**
