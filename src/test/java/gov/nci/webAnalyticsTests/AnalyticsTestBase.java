@@ -89,15 +89,10 @@ public class AnalyticsTestBase {
 		System.out.println("Report Path: " + report);
 		report.addSystemInfo("Environment", config.getProperty("Environment"));
 	}
-	
-	@BeforeClass(groups = { "Analytics", "current" })
-	public void beforeClass() {
-		logger = report.startTest(this.getClass().getSimpleName());
-	}	
 
 	@BeforeGroups(groups = { "Analytics" })
 	@Parameters({ "browser" })
-	public void setup(String browser) throws MalformedURLException {		
+	public void beforeGroups(String browser) throws MalformedURLException {		
 		logger = report.startTest(this.getClass().getSimpleName());
 		pageURL = config.getPageURL("BasicClinicalTrialSearchURL");
 		System.out.println("PageURL: " + pageURL);
@@ -111,14 +106,10 @@ public class AnalyticsTestBase {
 		// Add entries to the HAR log		
 		System.out.println("Analytics setup done");
 	}	
-			
-	@AfterGroups(groups = { "Analytics" })
-	public void afterGroups() {
-		System.out.println("=== Quitting Driver ===");
-		driver.quit();
-		report.endTest(logger);
-		System.out.println("=== Stopping BrowserMobProxy ===");
-		proxy.stop();
+	
+	@BeforeClass(groups = { "Analytics" })
+	public void beforeClass() {
+		logger = report.startTest(this.getClass().getSimpleName());
 	}
 
 	@BeforeMethod(groups = { "Analytics" })
@@ -148,6 +139,15 @@ public class AnalyticsTestBase {
 		report.endTest(logger);
 	}
 
+	@AfterGroups(groups = { "Analytics" })
+	public void afterGroups() {
+		System.out.println("=== Quitting Driver ===");
+		driver.quit();
+		report.endTest(logger);
+		System.out.println("=== Stopping BrowserMobProxy ===");
+		proxy.stop();
+	}	
+	
 	@AfterTest(groups = { "Analytics"})
 	public void afterTest() {
 		report.flush();

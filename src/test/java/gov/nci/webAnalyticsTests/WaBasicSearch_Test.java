@@ -14,10 +14,11 @@ public class WaBasicSearch_Test extends AnalyticsTestBase {
 	private BasicSearch basicSearch;
 
 	@BeforeMethod(groups = { "Analytics" }) 
-	public void setupWaBasicSearchTest() {
+	// Run before each test method in this class
+	public void setup() {
+		driver.get(config.getPageURL("BasicClinicalTrialSearchURL"));
 		try {
 			// Create search page with chat prompt suppressed.					
-			driver.get(config.getPageURL("BasicClinicalTrialSearchURL"));
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			basicSearch = new BasicSearch(driver, chatPrompt);
 		} catch (Exception e) {

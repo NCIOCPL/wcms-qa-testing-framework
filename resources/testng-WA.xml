@@ -12,6 +12,7 @@
 		<classes>
 			<class name="gov.nci.webAnalyticsTests.PageLoad_Test" />
 			<class name="gov.nci.webAnalyticsTests.WaBasicSearch_Test" />
+			<class name="gov.nci.webAnalyticsTests.WaSitewideSearch_Test" />
 			<class name="gov.nci.webAnalyticsTests.Resize_Test" />
 			<class name="gov.nci.webAnalyticsTests.MegaMenu_Test" />
 			<class name="gov.nci.webAnalyticsTests.Sandbox_Test" />
@@ -29,6 +30,7 @@
 		<classes>
 			<class name="gov.nci.webAnalyticsTests.PageLoad_Test" />
 			<class name="gov.nci.webAnalyticsTests.WaBasicSearch_Test" />
+			<class name="gov.nci.webAnalyticsTests.WaSitewideSearch_Test" />
 			<class name="gov.nci.webAnalyticsTests.Resize_Test" />
 			<class name="gov.nci.webAnalyticsTests.MegaMenu_Test" />
 			<class name="gov.nci.webAnalyticsTests.Sandbox_Test" />
@@ -45,6 +47,7 @@
 		<classes>
 			<class name="gov.nci.webAnalyticsTests.PageLoad_Test" />
 			<class name="gov.nci.webAnalyticsTests.WaBasicSearch_Test" />
+			<class name="gov.nci.webAnalyticsTests.WaSitewideSearch_Test" />
 			<class name="gov.nci.webAnalyticsTests.Resize_Test" />
 			<class name="gov.nci.webAnalyticsTests.MegaMenu_Test" />
 			<class name="gov.nci.webAnalyticsTests.Sandbox_Test" />
