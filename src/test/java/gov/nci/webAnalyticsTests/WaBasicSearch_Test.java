@@ -1,4 +1,4 @@
-package gov.nci.WebAnalytics.Tests;
+package gov.nci.webAnalyticsTests;
 
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeMethod;
