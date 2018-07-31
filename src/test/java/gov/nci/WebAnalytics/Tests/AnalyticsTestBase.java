@@ -1,27 +1,38 @@
 package gov.nci.WebAnalytics.Tests;
 
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.core.har.Har;
 import net.lightbody.bmp.core.har.HarEntry;
 import net.lightbody.bmp.proxy.CaptureType;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterGroups;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
 import gov.nci.Utilities.BrowserManager;
-import gov.nci.clinicaltrials.BaseClass;
+import gov.nci.Utilities.ConfigReader;
+import gov.nci.Utilities.ScreenShot;
 import gov.nci.WebAnalytics.AnalyticsRequest;
 
-public class AnalyticsTestBase extends BaseClass {
+public class AnalyticsTestBase {
 
-	// TODO: Override BaseClass befores and afters
 	// TODO: Set default URLs at test level, not base
 	//// URL may need to be used as a param
 	// TODO: Create 'catch-all' Contains() method
@@ -29,6 +40,11 @@ public class AnalyticsTestBase extends BaseClass {
 	// TODO: General clean up & refactor 
 	public static WebDriver driver;
     public static BrowserMobProxy proxy;
+	protected static ExtentReports report;
+	protected static ExtentTest logger;
+	protected String pageURL;
+	protected ConfigReader config = new ConfigReader();	
+	
 	protected List<String> harUrlList;	
 	protected List<AnalyticsRequest> loadBeacons;
 	protected List<AnalyticsRequest> clickBeacons;
@@ -61,11 +77,27 @@ public class AnalyticsTestBase extends BaseClass {
 	* @BeforeMethod: The annotated method will be run before each test method. 
 	* @AfterMethod: The annotated method will be run after each test method.
 	**/
+	
+	@BeforeTest(groups = { "Analytics" })
+	@Parameters
+	public void beforeTest() {
+		System.out.println(this.getClass().getSimpleName());
+		String fileName = new SimpleDateFormat("yyyy-MM-dd HH-mm-SS").format(new Date());
+		String extentReportPath = config.getExtentReportPath();
+		System.out.println("Logger Path:" + extentReportPath);
+		report = new ExtentReports(extentReportPath + config.getProperty("Environment") + "-" + fileName + ".html");
+		System.out.println("Report Path: " + report);
+		report.addSystemInfo("Environment", config.getProperty("Environment"));
+	}
+	
+	@BeforeClass(groups = { "Analytics", "current" })
+	public void beforeClass() {
+		logger = report.startTest(this.getClass().getSimpleName());
+	}	
 
 	@BeforeGroups(groups = { "Analytics" })
 	@Parameters({ "browser" })
-	public void setup(String browser) throws MalformedURLException {
-		
+	public void setup(String browser) throws MalformedURLException {		
 		logger = report.startTest(this.getClass().getSimpleName());
 		pageURL = config.getPageURL("BasicClinicalTrialSearchURL");
 		System.out.println("PageURL: " + pageURL);
@@ -90,10 +122,37 @@ public class AnalyticsTestBase extends BaseClass {
 	}
 
 	@BeforeMethod(groups = { "Analytics" })
-	public void beforeMethodMaximize() throws RuntimeException {
+	public void beforeMethod() throws RuntimeException {
 		// Reset our browser to full screen before each method
 		driver.manage().window().maximize();
 	}
+
+	@AfterMethod(groups = { "Analytics" })
+	public void afterMethod(ITestResult result) {
+		if (result.getStatus() == ITestResult.FAILURE) {
+			String screenshotPath = "";
+			if(driver != null) {
+				screenshotPath = ScreenShot.captureScreenshot(driver, result.getName());
+			}
+			logger.log(LogStatus.FAIL, screenshotPath + " Fail => " + result.getName());
+		} else if (result.getStatus() == ITestResult.SKIP) {
+			logger.log(LogStatus.SKIP, "Skipped => " + result.getName());
+		}
+		else {
+			logger.log(LogStatus.PASS, "Pass => "+ result.getName());
+		}
+	}
+
+	@AfterClass(groups = { "Analytics" })
+	public void afterClass() {
+		report.endTest(logger);
+	}
+
+	@AfterTest(groups = { "Analytics"})
+	public void afterTest() {
+		report.flush();
+	}
+	
 	
 	/******************************************************
 	 * Section: Initialize BMP and request beacon objects *
