@@ -50,7 +50,6 @@ public class AnalyticsTestBase {
 	protected List<String> harUrlList;	
 	protected List<AnalyticsRequest> loadBeacons;
 	protected List<AnalyticsRequest> clickBeacons;
-	protected AnalyticsRequest oldBeacon;
 	
 	/**************************************
 	 * Section: TextNG Befores & Afters *
