@@ -231,6 +231,7 @@ public class AnalyticsTestBase {
 	/**
 	 * Set the global loadBeacons and beacon variables
 	 */
+	@Deprecated
 	protected void setClickBeacon() {
 		setHarUrlList(proxy);
 		setBeaconLists(harUrlList);
@@ -242,6 +243,7 @@ public class AnalyticsTestBase {
 	/**
 	 * Set the global clickBeacons and beacon variables
 	 */
+	@Deprecated	
 	protected void setLoadBeacon() {
 		setHarUrlList(proxy);
 		setBeaconLists(harUrlList);
@@ -253,6 +255,7 @@ public class AnalyticsTestBase {
 	/**
 	 * Get the 'click' beacon to test
 	 * @return AnalyticsRequest
+	 */
 	protected AnalyticsRequest getClickBeacon() {
 		setHarUrlList(proxy);
 		setBeaconLists(harUrlList);
@@ -264,6 +267,7 @@ public class AnalyticsTestBase {
 	/**
 	 * Get the 'load' beacon to test
 	 * @return AnalyticsRequest
+	 */
 	protected AnalyticsRequest getLoadBeacon() {
 		setHarUrlList(proxy);
 		setBeaconLists(harUrlList);
@@ -271,7 +275,6 @@ public class AnalyticsTestBase {
 		System.out.println(oldBeacon.getUrl() + "\n");
 		return getLastReq(loadBeacons);
 	}	
-	 */
 	
 	/**
 	 * Utility function to get the last element in a list of AnalyticsRequest objects
