@@ -259,8 +259,9 @@ public class AnalyticsTestBase {
 	protected AnalyticsRequest getClickBeacon() {
 		setHarUrlList(proxy);
 		setBeaconLists(harUrlList);
+		AnalyticsRequest rtn = getLastReq(clickBeacons);		
 		System.out.println("Click beacon to test: ");
-		System.out.println(oldBeacon.getUrl() + "\n");
+		System.out.println(rtn.getUrl() + "\n");
 		return getLastReq(clickBeacons);
 	}
 	
@@ -271,8 +272,9 @@ public class AnalyticsTestBase {
 	protected AnalyticsRequest getLoadBeacon() {
 		setHarUrlList(proxy);
 		setBeaconLists(harUrlList);
+		AnalyticsRequest rtn = getLastReq(loadBeacons);		
 		System.out.println("Load beacon to test: ");
-		System.out.println(oldBeacon.getUrl() + "\n");
+		System.out.println(rtn.getUrl() + "\n");
 		return getLastReq(loadBeacons);
 	}	
 	
@@ -286,102 +288,5 @@ public class AnalyticsTestBase {
 		AnalyticsRequest request = (index >= 0) ? requests.get(index) : null;
 		return request;
 	}
-	
-	
-	/*********************************
-	 * Section - Common methods used by tests *
-	 *********************************/
-	/***
-	 * TODO: move these into request class
-	 * TODO: replace "contains' with "matches" where possible
-	 * TODO: add shared click / load tests here
-	 */
-	
-	/**
-	 * Utility function to check for a given suite name
-	 * @return
-	 */
-	public boolean hasSuite() {
-		// TODO: fill this out
-		return false;
-	}
 
-	/**
-	 * Utility function to check for a given channel name
-	 * @return
-	 */
-	public boolean hasChannel() {
-		// TODO: fill this out
-		return false;
-	}
-	
-	/**
-	 * Utility function to check for a link name value within a click beacon.
-	 * @param name
-	 * @return
-	 */
-	public boolean hasLinkName(String name) {
-		if(oldBeacon.getLinkName().equalsIgnoreCase(name)) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Utility function to check for an event value within a click beacon.
-	 * @param evt
-	 * TODO: fix hardcoded values
-	 */
-	public boolean hasEvent(int eventNumber) {
-		String evt = "event" + Integer.toString(eventNumber);
-		for(String event : oldBeacon.getEvents()) {
-			if(evt.equalsIgnoreCase("event47")) {
-				if(event.matches("^event47=\\d+")) {
-					return true;
-				}
-			} 
-			else if(event.equalsIgnoreCase(evt)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * Utility function to check for a given prop and value
-	 * @param num
-	 * @param val
-	 * @return
-	 */
-	public boolean hasProp(int num, String val) {
-		String blob = oldBeacon.getProps().toString();
-		if(blob.toLowerCase().contains("prop" + Integer.toString(num) + "=" + val.toLowerCase())) {
-			return true;
-		}
-		return false;
-	}	
-	
-	/**
-	 * Utility function to check for a given eVar and value
-	 * @param num
-	 * @param val
-	 * @return
-	 */
-	public boolean haseVar(int num, String val) {
-		String blob = oldBeacon.getEvars().toString();
-		if(blob.toLowerCase().contains("evar" + Integer.toString(num) + "=" + val.toLowerCase())) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Utility function overload to check for a given eVar 
-	 * @param num
-	 * @return
-	 */
-	public boolean haseVar(int num) {
-		return haseVar(num, "");
-	}
-	
 }

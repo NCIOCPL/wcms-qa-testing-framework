@@ -36,13 +36,13 @@ public class WaBasicSearch_Test extends AnalyticsTestBase {
 		basicSearch.setSearchKeyword("stomatitis");
 		
 		/* Get our beacon object **/ 
-		setClickBeacon();
+		beacon = getClickBeacon();
 		
 		/* Do assertions and log result */ 
-		Assert.assertTrue(hasEvent(38));
-		Assert.assertFalse(hasEvent(40));
-		Assert.assertTrue(hasProp(74, "clinicaltrials_basic|start"));
-		Assert.assertTrue(haseVar(47, "clinicaltrials_basic"));
+		Assert.assertTrue(beacon.hasEvent(38));
+		Assert.assertFalse(beacon.hasEvent(40));
+		Assert.assertTrue(beacon.hasProp(74, "clinicaltrials_basic|start"));
+		Assert.assertTrue(beacon.haseVar(47, "clinicaltrials_basic"));
 		logger.log(LogStatus.PASS, "CTS Basic 'start' value test passed.");
 	}
 	
@@ -51,12 +51,12 @@ public class WaBasicSearch_Test extends AnalyticsTestBase {
 		/* Enter a keyword field, then abandon the form by navigating away  **/ 
 		basicSearch.setSearchKeyword("liver");
 		driver.navigate().to(config.getPageURL("HomePage"));
-		setClickBeacon();
+		beacon = getClickBeacon();
 
 		/* Verify that the expected values are tracked */
-		Assert.assertTrue(hasEvent(40));
-		Assert.assertTrue(hasProp(74, "clinicaltrials_basic|abandon|q"));
-		Assert.assertTrue(haseVar(47, "clinicaltrials_basic"));
+		Assert.assertTrue(beacon.hasEvent(40));
+		Assert.assertTrue(beacon.hasProp(74, "clinicaltrials_basic|abandon|q"));
+		Assert.assertTrue(beacon.haseVar(47, "clinicaltrials_basic"));
 		logger.log(LogStatus.PASS, "CTS Basic 'abandon' value test passed.");
 	}
 	
@@ -65,12 +65,12 @@ public class WaBasicSearch_Test extends AnalyticsTestBase {
 		/* Enter an age field, then abandon the form by navigating away  **/ 
 		basicSearch.setSearchAge("55");
 		driver.navigate().to(config.getPageURL("HomePage"));
-		setClickBeacon();
+		beacon = getClickBeacon();
 
 		/* Verify that the expected values are tracked */
-		Assert.assertTrue(hasEvent(40));
-		Assert.assertTrue(hasProp(74, "clinicaltrials_basic|abandon|a"));
-		Assert.assertTrue(haseVar(47, "clinicaltrials_basic"));
+		Assert.assertTrue(beacon.hasEvent(40));
+		Assert.assertTrue(beacon.hasProp(74, "clinicaltrials_basic|abandon|a"));
+		Assert.assertTrue(beacon.haseVar(47, "clinicaltrials_basic"));
 		logger.log(LogStatus.PASS, "CTS Basic 'abandon' value test passed.");
 	}
 }
