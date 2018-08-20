@@ -50,7 +50,7 @@ public class AnalyticsTestBase {
 	protected List<String> harUrlList;	
 	protected List<AnalyticsRequest> loadBeacons;
 	protected List<AnalyticsRequest> clickBeacons;
-	protected AnalyticsRequest beacon;
+	protected AnalyticsRequest oldBeacon;
 	
 	/**************************************
 	 * Section: TextNG Befores & Afters *
@@ -234,9 +234,9 @@ public class AnalyticsTestBase {
 	protected void setClickBeacon() {
 		setHarUrlList(proxy);
 		setBeaconLists(harUrlList);
-		beacon = getLastReq(clickBeacons);
+		oldBeacon = getLastReq(clickBeacons);
 		System.out.println("Click beacon to test: ");
-		System.out.println(beacon.getUrl() + "\n");
+		System.out.println(oldBeacon.getUrl() + "\n");
 	}
 	
 	/**
@@ -245,9 +245,9 @@ public class AnalyticsTestBase {
 	protected void setLoadBeacon() {
 		setHarUrlList(proxy);
 		setBeaconLists(harUrlList);
-		beacon = getLastReq(loadBeacons);
+		oldBeacon = getLastReq(loadBeacons);
 		System.out.println("Load beacon to test: ");
-		System.out.println(beacon.getUrl() + "\n");
+		System.out.println(oldBeacon.getUrl() + "\n");
 	}
 	
 	/**
@@ -295,7 +295,7 @@ public class AnalyticsTestBase {
 	 * @return
 	 */
 	public boolean hasLinkName(String name) {
-		if(beacon.getLinkName().equalsIgnoreCase(name)) {
+		if(oldBeacon.getLinkName().equalsIgnoreCase(name)) {
 			return true;
 		}
 		return false;
@@ -308,7 +308,7 @@ public class AnalyticsTestBase {
 	 */
 	public boolean hasEvent(int eventNumber) {
 		String evt = "event" + Integer.toString(eventNumber);
-		for(String event : beacon.getEvents()) {
+		for(String event : oldBeacon.getEvents()) {
 			if(evt.equalsIgnoreCase("event47")) {
 				if(event.matches("^event47=\\d+")) {
 					return true;
@@ -328,7 +328,7 @@ public class AnalyticsTestBase {
 	 * @return
 	 */
 	public boolean hasProp(int num, String val) {
-		String blob = beacon.getProps().toString();
+		String blob = oldBeacon.getProps().toString();
 		if(blob.toLowerCase().contains("prop" + Integer.toString(num) + "=" + val.toLowerCase())) {
 			return true;
 		}
@@ -342,7 +342,7 @@ public class AnalyticsTestBase {
 	 * @return
 	 */
 	public boolean haseVar(int num, String val) {
-		String blob = beacon.getEvars().toString();
+		String blob = oldBeacon.getEvars().toString();
 		if(blob.toLowerCase().contains("evar" + Integer.toString(num) + "=" + val.toLowerCase())) {
 			return true;
 		}
