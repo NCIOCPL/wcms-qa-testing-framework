@@ -7,14 +7,16 @@ import org.testng.Assert;
 
 import gov.nci.clinicalTrial.pages.BasicSearch;
 import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
+import gov.nci.WebAnalytics.AnalyticsRequest;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class WaBasicSearch_Test extends AnalyticsTestBase {
 
-	// TODO: add wait() to capture begin / abandon events
 	private BasicSearch basicSearch;
-
+	private AnalyticsRequest beacon;
+	
 	@BeforeMethod(groups = { "Analytics" }) 
+	// TODO: add wait() to capture begin / abandon events
 	// Run before each test method in this class
 	public void setup() {
 		driver.get(config.getPageURL("BasicClinicalTrialSearchURL"));

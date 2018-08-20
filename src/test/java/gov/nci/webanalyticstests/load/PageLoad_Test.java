@@ -15,6 +15,7 @@ import gov.nci.webanalyticstests.AnalyticsTestBase;
 public class PageLoad_Test extends AnalyticsTestBase {
 
 	private PageLoad pageLoad;
+	private AnalyticsRequest beacon;
 	
 	@BeforeMethod(groups = { "Analytics" }) 
 	public void setupPageLoad() throws MalformedURLException, UnsupportedEncodingException {

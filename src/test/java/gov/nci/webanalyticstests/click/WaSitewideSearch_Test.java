@@ -12,17 +12,19 @@ import org.testng.Assert;
 import gov.nci.commonobjects.SitewideSearchForm;
 import gov.nci.sitewidesearch.pages.SitewideSearchResults;
 import gov.nci.Utilities.ExcelManager;
+import gov.nci.WebAnalytics.AnalyticsRequest;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class WaSitewideSearch_Test extends AnalyticsTestBase {
-	
-	// TODO: Remove "wa" from class names
-	// TODO: Refactor common asserts after redoing setBeacon() logic
-	
-	private final String TESTDATA_SHEET_NAME = "SitewideSearch";	
-	private final String TESTDATA_SHEET_NAME_ES = "SitewideSearchEs";	
+
 	private SitewideSearchForm swSearchForm;
 	private SitewideSearchResults swSearchResults;
+	private AnalyticsRequest beacon;
+	
+	// TODO: Remove "wa" from class names
+	// TODO: Refactor common asserts after redoing setBeacon() logic	
+	private final String TESTDATA_SHEET_NAME = "SitewideSearch";	
+	private final String TESTDATA_SHEET_NAME_ES = "SitewideSearchEs";	
 	private String testDataFilePath;
 	
 	@BeforeClass(groups = { "Analytics" }) 
