@@ -10,27 +10,14 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
 
 public class AnalyticsParams {
-	// TODO: turn this into a real class
-	
-	// Parameter values from URL
-	static final String CHANNEL = "ch";
-	static final String EVENTS = "events";	
-	static final String LINKTYPE = "pe";
-	static final String LINKNAME = "pev2";
-	static final String LINKURL = "pev1";
-	
-	// Partial parameter values. Each prop, eVar, and hier is its own query parameter. 
-	// The getNumberedParams() method handles the logic of appending the number values
-	// to each of these query parameter
-	static final String PROP_PARTIAL = "c";
-	static final String EVAR_PARTIAL = "v";
-	static final String HIER_PARTIAL = "h";	
+
 	
 	/**
 	 * Split URI into list of encoded elements
 	 * @param uri
 	 * @return retParams
 	 */
+	@Deprecated
 	public static List<NameValuePair> getList(URI uri) {
 		List<NameValuePair> rtnParams = new ArrayList<NameValuePair>();
 		
@@ -52,34 +39,6 @@ public class AnalyticsParams {
 		return rtnParams;
 	}
 
-	/**
-	 * Check that a given query parameter (name) exists within a list of params
-	 * @param paramList
-	 * @param name
-	 * @return bool
-	 */
-	public static boolean containsName(List<NameValuePair> paramList, String name) {
-		for (NameValuePair param : paramList) {
-			if (param.getName().equalsIgnoreCase(name)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * Check that a given parameter value exists within a list of params
-	 * @param paramList
-	 * @param value
-	 * @return bool
-	 */
-	public static boolean containsValue(List<NameValuePair> paramList, String value) {
-		for (NameValuePair param : paramList) {
-			if (param.getValue().equalsIgnoreCase(value)) {
-				return true;
-			}
-		}
-		return false;
-	}
+
 	
 }
