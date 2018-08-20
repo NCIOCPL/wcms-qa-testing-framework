@@ -229,30 +229,6 @@ public class AnalyticsTestBase {
 	}
 	
 	/**
-	 * Set the global loadBeacons and beacon variables
-	 */
-	@Deprecated
-	protected void setClickBeacon() {
-		setHarUrlList(proxy);
-		setBeaconLists(harUrlList);
-		oldBeacon = getLastReq(clickBeacons);
-		System.out.println("Click beacon to test: ");
-		System.out.println(oldBeacon.getUrl() + "\n");
-	}
-	
-	/**
-	 * Set the global clickBeacons and beacon variables
-	 */
-	@Deprecated	
-	protected void setLoadBeacon() {
-		setHarUrlList(proxy);
-		setBeaconLists(harUrlList);
-		oldBeacon = getLastReq(loadBeacons);
-		System.out.println("Load beacon to test: ");
-		System.out.println(oldBeacon.getUrl() + "\n");
-	}
-	
-	/**
 	 * Get the 'click' beacon to test
 	 * @return AnalyticsRequest
 	 */

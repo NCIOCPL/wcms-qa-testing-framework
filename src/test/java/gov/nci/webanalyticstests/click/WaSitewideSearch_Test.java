@@ -22,7 +22,8 @@ public class WaSitewideSearch_Test extends AnalyticsTestBase {
 	private AnalyticsRequest beacon;
 	
 	// TODO: Remove "wa" from class names
-	// TODO: Refactor common asserts after redoing setBeacon() logic	
+	// TODO: Refactor common asserts after redoing setBeacon() logic
+	// TODO: Add search from error page
 	private final String TESTDATA_SHEET_NAME = "SitewideSearch";	
 	private final String TESTDATA_SHEET_NAME_ES = "SitewideSearchEs";	
 	private String testDataFilePath;

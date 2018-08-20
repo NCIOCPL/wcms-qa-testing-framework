@@ -29,9 +29,10 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" }, priority = 1)
 	public void testHarAndBeacons() {
 		pageLoad.gotoMultiplePages();
-		setLoadBeacon();
+		beacon = getLoadBeacon();
 		Assert.assertTrue(harUrlList.size() > 0);
 		Assert.assertTrue(loadBeacons.size() > 0);
+		Assert.assertTrue(beacon != null);
 		logger.log(LogStatus.PASS, "Load events have been captured.");
 	}
 	
@@ -54,7 +55,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	public void testHomeAndBack() throws MalformedURLException {
 		// For debugging purposes only..
 		pageLoad.goHomeAndBack();
-		setLoadBeacon();
+		beacon = getLoadBeacon();
 		AnalyticsRequest firstLoadBeacon = loadBeacons.get(0);
 		String[] evts = firstLoadBeacon.getEvents();
 		// Temporary / debugging tests
