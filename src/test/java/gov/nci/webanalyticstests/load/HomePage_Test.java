@@ -8,24 +8,26 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import gov.nci.WebAnalytics.AnalyticsPageLoad;
 import gov.nci.WebAnalytics.AnalyticsRequest;
-import gov.nci.WebAnalytics.PageLoad;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class HomePage_Test extends AnalyticsTestBase {
 
-	private PageLoad pageLoad;
+	private AnalyticsPageLoad analyticsPageLoad;
 	private AnalyticsRequest beacon;
+	
+	// TODO: Add Spanish, microsite home pages
 	
 	@BeforeMethod(groups = { "Analytics" }) 
 	public void setupPageLoad() throws MalformedURLException, UnsupportedEncodingException {
-		pageLoad = new PageLoad(driver);
+		analyticsPageLoad = new AnalyticsPageLoad(driver);
 	}	
 
 	/// Home pageload returns expected values
 	@Test(groups = { "Analytics" })
 	public void testHomeLoad() {
-		pageLoad.gotoHomePage();
+		analyticsPageLoad.gotoHomePage();
 		beacon = getLoadBeacon();
 		Assert.assertTrue(beacon.hasEvent(1));
 		Assert.assertTrue(beacon.hasEvent(47));
@@ -41,7 +43,7 @@ public class HomePage_Test extends AnalyticsTestBase {
 	@Test(groups = { "Analytics" })
 	public void testHomeAndBack() throws MalformedURLException {
 		// For debugging purposes only..
-		pageLoad.goHomeAndBack();
+		analyticsPageLoad.goHomeAndBack();
 		beacon = getLoadBeacon();
 		AnalyticsRequest firstLoadBeacon = loadBeacons.get(0);
 		String[] evts = firstLoadBeacon.getEvents();
