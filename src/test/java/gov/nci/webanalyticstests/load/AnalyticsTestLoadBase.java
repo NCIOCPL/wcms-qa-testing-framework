@@ -12,7 +12,7 @@ import gov.nci.WebAnalytics.AnalyticsPageLoad;
 import gov.nci.WebAnalytics.AnalyticsRequest;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
-public class PageLoad_Test extends AnalyticsTestBase {
+public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 
 	private AnalyticsPageLoad analyticsPageLoad;
 	private AnalyticsRequest beacon;
