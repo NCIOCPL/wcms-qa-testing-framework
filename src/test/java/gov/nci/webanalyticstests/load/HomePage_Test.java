@@ -14,6 +14,10 @@ public class HomePage_Test extends AnalyticsTestBase {
 	private AnalyticsRequest beacon;
 
 	/// Home pageload returns expected values
+	// TODO: add other values, heir, channel, suite
+	// TODO: verify has() logic in AnalyticsRequest
+	// TODO: tests for engagement & event47
+	// TODO: regexes for dynamic values
 	@Test(groups = { "Analytics" })
 	public void testSiteHomeLoad() {
 		try {
@@ -64,11 +68,15 @@ public class HomePage_Test extends AnalyticsTestBase {
 			driver.get(config.getPageURL("SpanishPage"));
 			beacon = getLoadBeacon();
 			AssertCommon();
-			Assert.assertTrue(beacon.hasProp(3, "/"));
-			Assert.assertTrue(beacon.hasProp(6, "Comprehensive Cancer Information"));
-			Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
-			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
-			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
+			Assert.assertTrue(beacon.hasProp(1, "https://www.cancer.gov/espanol"));
+			Assert.assertTrue(beacon.hasProp(3, "/espanol"));
+			Assert.assertTrue(beacon.hasProp(6, "Cáncer en español"));
+			Assert.assertTrue(beacon.hasProp(8, "spanish"));
+			Assert.assertTrue(beacon.hasProp(44, "NCI Home - Spanish"));
+			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/espanol"));
+			Assert.assertTrue(beacon.haseVar(2, "spanish"));
+			Assert.assertTrue(beacon.haseVar(5));
+			Assert.assertTrue(beacon.haseVar(44, "NCI Home - Spanish"));
 			logger.log(LogStatus.PASS, "Spanish home page nav values are correct.");
 		}
 		catch (Exception e) {
@@ -84,10 +92,13 @@ public class HomePage_Test extends AnalyticsTestBase {
 			driver.get(config.getPageURL("MicroSite"));
 			beacon = getLoadBeacon();
 			AssertCommon();
-			Assert.assertTrue(beacon.hasProp(3, "/"));
-			Assert.assertTrue(beacon.hasProp(6, "Comprehensive Cancer Information"));
+			Assert.assertTrue(beacon.hasProp(3, "/sites/nano"));
+			Assert.assertTrue(beacon.hasProp(6, "Nanodelivery Systems and Devices Branch"));
+			Assert.assertTrue(beacon.hasProp(8, "english"));
 			Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
-			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
+			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/sites/nano"));
+			Assert.assertTrue(beacon.haseVar(2, "english"));
+			Assert.assertTrue(beacon.haseVar(5));
 			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
 			logger.log(LogStatus.PASS, "Microsite home nav values are correct.");
 		}
