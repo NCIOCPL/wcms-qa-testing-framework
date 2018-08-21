@@ -26,7 +26,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	// TODO: fix hasEvent() arg
 	// TODO: create generic param test
 	/// Load events have been captured
-	@Test(groups = { "Analytics" }, priority = 1)
+	@Test(groups = { "Analytics" })
 	public void testHarAndBeacons() {
 		pageLoad.gotoMultiplePages();
 		beacon = getLoadBeacon();
@@ -37,7 +37,7 @@ public class PageLoad_Test extends AnalyticsTestBase {
 	}
 	
 	/// Event numbers match with their descriptors
-	@Test(groups = { "Analytics" }, priority = 2)
+	@Test(groups = { "Analytics" })
 	public void testLoadGeneral() {
 		pageLoad.gotoMultiplePages();
 		beacon = getLoadBeacon();
@@ -49,36 +49,6 @@ public class PageLoad_Test extends AnalyticsTestBase {
 		}		
 		logger.log(LogStatus.PASS, "Load event values are correct.");				
 	}
-	
-	/// Home-and-back pageload returns expected values
-	@Test(groups = { "Analytics" }, priority = 3)
-	public void testHomeAndBack() throws MalformedURLException {
-		// For debugging purposes only..
-		pageLoad.goHomeAndBack();
-		beacon = getLoadBeacon();
-		AnalyticsRequest firstLoadBeacon = loadBeacons.get(0);
-		String[] evts = firstLoadBeacon.getEvents();
-		// Temporary / debugging tests
-		//Assert.assertTrue(firstLoadBeacon.channel.equals("NCI Homepage") || firstLoadBeacon.channel.contains("Research"));
-		//Assert.assertFalse(firstLoadBeacon.channel.contains("some other string"));
-		Assert.assertTrue(evts[0].contains("1"));
-		logger.log(LogStatus.PASS, "Home-and-back nav values are correct.");	
-	}
-	
-	/// Home pageload returns expected values
-	@Test(groups = { "Analytics" })
-	public void testHomeLoad() {
-		pageLoad.gotoHomePage();
-		beacon = getLoadBeacon();
-		Assert.assertTrue(beacon.hasEvent(1));
-		Assert.assertTrue(beacon.hasEvent(47));
-		Assert.assertTrue(beacon.hasProp(3, "/"));
-		Assert.assertTrue(beacon.hasProp(6, "Comprehensive Cancer Information"));
-		Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
-		Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
-		Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));		
-		logger.log(LogStatus.PASS, "Home page nav values are correct.");
-	}	
 	
 	/// Blog post pageload returns expected values
 	@Test(groups = { "Analytics" })
