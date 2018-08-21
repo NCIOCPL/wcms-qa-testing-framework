@@ -49,7 +49,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	public void testMMBarEs() {
 		driver.get(config.getPageURL("SpanishPage"));		
 		megaMenu.clickMMBarEs();
-		beacon = getClickBeacon();		
+		beacon = getClickBeacon();
 		Assert.assertTrue(beacon.hasLinkName("MegaMenuClick"));
 		Assert.assertTrue(beacon.hasEvent(26));
 		logger.log(LogStatus.PASS, "MegaMenu Spanish top level click passed.");
@@ -91,7 +91,7 @@ public class MegaMenu_Test extends AnalyticsTestBase {
 	}
 	
 	/// Expanding the desktop megamenu returns the expected values
-	@Test(groups = { "Analytics" })
+	/// @Test(groups = { "Analytics" })
 	public void testMegaMenuDesktopReveal() {
 		megaMenu.revealMegaMenuDesktop();
 		beacon = getClickBeacon();

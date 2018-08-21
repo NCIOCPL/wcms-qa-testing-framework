@@ -81,7 +81,8 @@ public class MegaMenu extends PageObjectBase{
 
 	public void revealMegaMenuDesktop() {
 		System.out.println("Expand megamenu on desktop");
-		action.moveToElement(mm_bar_link).pause(2000).perform();
+		action.moveToElement(mm_bar_link).perform();
+		action.pause(2000).perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_subnav_li_text));
 	}
 	
