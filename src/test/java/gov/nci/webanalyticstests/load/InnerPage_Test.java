@@ -11,6 +11,7 @@ public class InnerPage_Test extends AnalyticsTestBase {
 
 	// TODO: more test cases
 	// TODO: create URLs
+	// TODO: try this one using data provider
 	private AnalyticsRequest beacon;	
 	
 	/**
@@ -24,7 +25,7 @@ public class InnerPage_Test extends AnalyticsTestBase {
 	public void testArticleLoad() {
 		try {
 			System.out.println("Article load event:");
-			driver.get(config.getPageURL("InnerPage"));
+			driver.get(config.getPageURL("Article"));
 			beacon = getLoadBeacon();
 			AssertCommon();
 			Assert.assertTrue(beacon.hasProp(3, "/"));
@@ -45,7 +46,7 @@ public class InnerPage_Test extends AnalyticsTestBase {
 	public void testArticleEsLoad() {
 		try {
 			System.out.println("Article load event:");
-			driver.get(config.getPageURL("InnerPage"));
+			driver.get(config.getPageURL("Article"));
 			beacon = getLoadBeacon();
 			AssertCommon();
 			Assert.assertTrue(beacon.hasProp(3, "/"));
@@ -66,7 +67,7 @@ public class InnerPage_Test extends AnalyticsTestBase {
 	public void testGeneralLoad() {
 		try {
 			System.out.println("General page load event:");
-			driver.get(config.getPageURL("InnerPage"));
+			driver.get(config.getPageURL("General"));
 			beacon = getLoadBeacon();
 			AssertCommon();
 			Assert.assertTrue(beacon.hasProp(3, "/sites/nano"));
@@ -90,7 +91,7 @@ public class InnerPage_Test extends AnalyticsTestBase {
 	public void testGeneralEsLoad() {
 		try {
 			System.out.println("General load event:");
-			driver.get(config.getPageURL("InnerPage"));
+			driver.get(config.getPageURL("General"));
 			beacon = getLoadBeacon();
 			AssertCommon();
 			Assert.assertTrue(beacon.hasProp(3, "/sites/nano"));
@@ -115,8 +116,9 @@ public class InnerPage_Test extends AnalyticsTestBase {
 		try {
 			System.out.println("Inner page refresh event:");
 			// wait / move around 15 seconds
-			driver.get(config.goHome());			
+			driver.get(config.getPageURL("Article"));
 			beacon = getLoadBeacon();
+			AssertCommon();			
 			// test for engagement values
 			Assert.assertEquals(1,  1);
 			logger.log(LogStatus.PASS, "Article load values are correct.");
