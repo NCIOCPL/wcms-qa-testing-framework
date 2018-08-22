@@ -69,7 +69,9 @@ public class HomePage_Test extends AnalyticsTestBase {
 			beacon = getLoadBeacon();
 			AssertCommon();
 			Assert.assertTrue(beacon.hasProp(3, "/espanol"));
-			Assert.assertTrue(beacon.hasProp(6, "Cáncer en español"));
+			// "\u00e1" is lower-case 'a' with acute accent.
+			// "\u00f1" is lower-case 'n' with tilde.
+			Assert.assertTrue(beacon.hasProp(6, "C\u00e1ncer en espa\u00f1ol"));
 			Assert.assertTrue(beacon.hasProp(8, "spanish"));
 			Assert.assertTrue(beacon.hasProp(44, "NCI Home - Spanish"));
 			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/espanol"));
