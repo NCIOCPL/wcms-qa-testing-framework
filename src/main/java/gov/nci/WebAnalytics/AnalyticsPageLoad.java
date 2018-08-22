@@ -2,8 +2,12 @@ package gov.nci.WebAnalytics;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import gov.nci.framework.PageObjectBase;
 import gov.nci.Utilities.ConfigReader;
@@ -11,14 +15,57 @@ import gov.nci.Utilities.ConfigReader;
 public class AnalyticsPageLoad extends PageObjectBase {
 
 	public WebDriver driver;
-	protected ConfigReader config = new ConfigReader();	
+	protected ConfigReader config = new ConfigReader();		
+
+	/**************** Sitewide Search Results Page Elements *****************************/
+	@FindBy(how = How.XPATH, using = "//meta[@property='og:title']")
+	WebElement meta_title;
+	@FindBy(how = How.XPATH, using = "//meta[@name='content-language']")
+	WebElement meta_language;
+	@FindBy(how = How.XPATH, using = "//meta[@name='dcterms.coverage']")
+	WebElement meta_coverage;
+	@FindBy(how = How.XPATH, using = "//meta[@name='dcterms.subject']")
+	WebElement meta_subject;
+	@FindBy(how = How.XPATH, using = "//meta[@name='dcterms.isPartOf']")
+	WebElement meta_is_part_of;
+	@FindBy(how = How.XPATH, using = "//meta[@name='dcterms.issued']")
+	WebElement meta_issued;
+	
+	public String getMetaTitle() {
+		return meta_title.getAttribute("content");
+	}
+
+	public String getMetaLanguage() {
+		String lang = "english";
+		if (meta_language.getAttribute("content") == "es") {
+			lang = "spanish";
+		}
+		return lang;
+	}
+	
+	public String getMetaCoverage() {
+		return meta_coverage.getAttribute("content");
+	}
+
+	public String getMetaSubject() {
+		return meta_subject.getAttribute("content");
+	}
+
+	public String getMetaPartOf() {
+		return meta_is_part_of.getAttribute("content");
+	}
+
+	public String getMetaIssued() {
+		return meta_issued.getAttribute("content");
+	}
+
+	
 	
 	// Constructor to initialize the page object	
 	public AnalyticsPageLoad(WebDriver driver) throws MalformedURLException, UnsupportedEncodingException {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		System.out.print("PageFactory initialized for load events: ");
 	}
 	
 	/**
@@ -59,12 +106,7 @@ public class AnalyticsPageLoad extends PageObjectBase {
 		System.out.println("Load CTHP HP page.");
 		driver.navigate().to(config.getPageURL("CTHPHP"));
 	}
-	
-	public void gotoInnerPage() {
-		System.out.println("Load home page.");
-		driver.navigate().to(config.getPageURL("InnerPage"));
-	}
-	
+		
 	public void gotoLandingPage() {
 		System.out.println("Load Landing page.");
 		driver.navigate().to(config.getPageURL("LandingPage"));
