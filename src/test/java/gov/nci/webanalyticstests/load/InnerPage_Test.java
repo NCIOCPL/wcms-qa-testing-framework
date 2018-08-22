@@ -34,20 +34,23 @@ public class InnerPage_Test extends AnalyticsTestBase {
 		
 	/// Inner page loads return expected values
 	@Test(dataProvider = "InnerPageLoad", groups = { "Analytics" })
-	public void testInnerPageLoad(String path, String title, String contentType, String language ) {
+	public void testInnerPageLoad(String path, String contentType) {
 		try {
+			String language = "bad language";
+			String title = "bad title";
 			System.out.println(contentType + " page load (" + language + "):");
+
 			driver.get(config.goHome() + path);
 			beacon = getLoadBeacon();
 			Assert.assertTrue(beacon.hasEvent(1));
-			Assert.assertTrue(beacon.hasEvent(47));			
+			Assert.assertTrue(beacon.hasEvent(47));
 			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));			
 			Assert.assertTrue(beacon.hasProp(3, path)); // arg
-			Assert.assertTrue(beacon.hasProp(6, title)); // title - get from og:title
-			Assert.assertTrue(beacon.hasProp(8, language)); 
+			// Assert.assertTrue(beacon.hasProp(6, title)); // title - get from og:title
+			// Assert.assertTrue(beacon.hasProp(8, language)); 
 			//Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
 			//Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
-			Assert.assertTrue(beacon.haseVar(2, language)); 
+			// Assert.assertTrue(beacon.haseVar(2, language)); 
 			//Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
 			/***
 			 * Other values needed:
@@ -84,10 +87,8 @@ public class InnerPage_Test extends AnalyticsTestBase {
 
 		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
 			String path = excelReader.getCellData(TESTDATA_SHEET_NAME, "Path", rowNum);
-			String title = excelReader.getCellData(TESTDATA_SHEET_NAME, "Title", rowNum);
 			String contentType = excelReader.getCellData(TESTDATA_SHEET_NAME, "ContentType", rowNum);
-			String language = excelReader.getCellData(TESTDATA_SHEET_NAME, "Language", rowNum);
-			Object ob[] = { path, title, contentType, language };
+			Object ob[] = { path, contentType };
 			myObjects.add(ob);
 		}		
 		return myObjects.iterator();
