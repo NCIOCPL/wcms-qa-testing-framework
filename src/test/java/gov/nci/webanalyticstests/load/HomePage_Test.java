@@ -68,7 +68,6 @@ public class HomePage_Test extends AnalyticsTestBase {
 			driver.get(config.getPageURL("SpanishPage"));
 			beacon = getLoadBeacon();
 			AssertCommon();
-			Assert.assertTrue(beacon.hasProp(1, "https://www.cancer.gov/espanol"));
 			Assert.assertTrue(beacon.hasProp(3, "/espanol"));
 			Assert.assertTrue(beacon.hasProp(6, "Cáncer en español"));
 			Assert.assertTrue(beacon.hasProp(8, "spanish"));
@@ -112,6 +111,7 @@ public class HomePage_Test extends AnalyticsTestBase {
 	private void AssertCommon() {
 		Assert.assertTrue(beacon.hasEvent(1));
 		Assert.assertTrue(beacon.hasEvent(47));
+		Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
 	}
 	
 }
