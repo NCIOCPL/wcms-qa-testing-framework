@@ -1,59 +1,74 @@
 package gov.nci.webanalyticstests.load;
 
-import com.relevantcodes.extentreports.LogStatus;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import java.util.ArrayList;
+import java.util.Iterator;
 
+import com.relevantcodes.extentreports.LogStatus;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+import org.testng.Assert;
+
+import gov.nci.Utilities.ExcelManager;
 import gov.nci.WebAnalytics.AnalyticsRequest;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class InnerPage_Test extends AnalyticsTestBase {
 
-	// TODO: more test cases
-	// TODO: create URLs
-	// TODO: try this one using data provider
-	private AnalyticsRequest beacon;	
-	
 	/**
 	 * The following page / content types are covered by this test class:
 	 * - Article (English and Spanish)
 	 * - General (English and Spanish)
-	 */	
+	 */		
 	
-	/// Article page load returns expected values
-	@Test(groups = { "Analytics" })
-	public void testArticleLoad() {
-		try {
-			System.out.println("Article load event:");
-			driver.get(config.getPageURL("Article"));
-			beacon = getLoadBeacon();
-			AssertCommon();
-			Assert.assertTrue(beacon.hasProp(3, "/"));
-			Assert.assertTrue(beacon.hasProp(6, "Comprehensive Cancer Information"));
-			Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
-			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
-			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));		
-			logger.log(LogStatus.PASS, "Article load values are correct.");
-		}
-		catch (Exception e) {
-			Assert.fail("Error loading Article.");
-			e.printStackTrace();
-		}
+	// TODO: more test cases
+	// TODO: create URLs
+	private AnalyticsRequest beacon;
+	private String testDataFilePath;
+	private final String TESTDATA_SHEET_NAME = "InnerPage";
+	
+	@BeforeClass(groups = { "Analytics" }) 
+	public void setup() {
+		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
 		
-	/// Spanish Article page load returns expected values
-	@Test(groups = { "Analytics" })
-	public void testArticleEsLoad() {
+	/// Inner page loads return expected values
+	@Test(dataProvider = "InnerPageLoad", groups = { "Analytics" })
+	public void testInnerPageLoad(String path, String title, String contentType, String language ) {
 		try {
-			System.out.println("Article load event:");
-			driver.get(config.getPageURL("Article"));
+			System.out.println(contentType + " page load (" + language + "):");
+			driver.get(config.goHome() + path);
 			beacon = getLoadBeacon();
-			AssertCommon();
-			Assert.assertTrue(beacon.hasProp(3, "/"));
-			Assert.assertTrue(beacon.hasProp(6, "Comprehensive Cancer Information"));
-			Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
-			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
-			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
+			Assert.assertTrue(beacon.hasEvent(1));
+			Assert.assertTrue(beacon.hasEvent(47));			
+			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));			
+			Assert.assertTrue(beacon.hasProp(3, path)); // arg
+			Assert.assertTrue(beacon.hasProp(6, title)); // title - get from og:title
+			Assert.assertTrue(beacon.hasProp(8, language)); 
+			//Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
+			//Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
+			Assert.assertTrue(beacon.haseVar(2, language)); 
+			//Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
+			/***
+			 * Other values needed:
+			 *  Example from General=https://www-qa.cancer.gov/about-nci/visit:
+				channel: about NCI
+				suites: ncidevelopment, ncienterprise-dev
+				prop10: Visitor Information - National Cancer Institute
+				prop25: 01/01/1980
+				prop26: 2018|8|22|15
+				prop29: 3:02 PM|Wednesday
+				prop42: Normal
+				prop44: Visitor Information
+				prop48: 12pct|12pct|3796px|/
+				prop61: www.cancer.gov/
+				prop64: 12|0
+				prop65: 3
+				eVar1: www.cancer.gov/about-nci/visit
+				eVar5: Extra wide
+				eVar44: Visitor Information
+				Hierarchy: 1 www-qa.cancer.gov|about-nci|visit
+			 */
 			logger.log(LogStatus.PASS, "Article load values are correct.");
 		}
 		catch (Exception e) {
@@ -61,79 +76,21 @@ public class InnerPage_Test extends AnalyticsTestBase {
 			e.printStackTrace();
 		}
 	}
-	
-	/// General page load returns expected values		
-	@Test(groups = { "Analytics" })
-	public void testGeneralLoad() {
-		try {
-			System.out.println("General page load event:");
-			driver.get(config.getPageURL("General"));
-			beacon = getLoadBeacon();
-			AssertCommon();
-			Assert.assertTrue(beacon.hasProp(3, "/sites/nano"));
-			Assert.assertTrue(beacon.hasProp(6, "Nanodelivery Systems and Devices Branch"));
-			Assert.assertTrue(beacon.hasProp(8, "english"));
-			Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
-			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/sites/nano"));
-			Assert.assertTrue(beacon.haseVar(2, "english"));
-			Assert.assertTrue(beacon.haseVar(5));
-			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
-			logger.log(LogStatus.PASS, "General page load values are correct.");
-		}
-		catch (Exception e) {
-			Assert.fail("Error loading General page.");
-			e.printStackTrace();
-		}
-	}
-	
-	/// Spanish General page load returns expected values		
-	@Test(groups = { "Analytics" })
-	public void testGeneralEsLoad() {
-		try {
-			System.out.println("General load event:");
-			driver.get(config.getPageURL("General"));
-			beacon = getLoadBeacon();
-			AssertCommon();
-			Assert.assertTrue(beacon.hasProp(3, "/sites/nano"));
-			Assert.assertTrue(beacon.hasProp(6, "Nanodelivery Systems and Devices Branch"));
-			Assert.assertTrue(beacon.hasProp(8, "english"));
-			Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
-			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/sites/nano"));
-			Assert.assertTrue(beacon.haseVar(2, "english"));
-			Assert.assertTrue(beacon.haseVar(5));
-			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
-			logger.log(LogStatus.PASS, "General page load values are correct.");
-		}
-		catch (Exception e) {
-			Assert.fail("Error loading General page.");
-			e.printStackTrace();
-		}
-	}
-	
-	/// Refreshing an inner page returns expected values
-	@Test(groups = { "Analytics" })	
-	public void testInnerPageRefresh() {
-		try {
-			System.out.println("Inner page refresh event:");
-			// wait / move around 15 seconds
-			driver.get(config.getPageURL("Article"));
-			beacon = getLoadBeacon();
-			AssertCommon();			
-			// test for engagement values
-			Assert.assertEquals(1,  1);
-			logger.log(LogStatus.PASS, "Article load values are correct.");
-		}
-		catch (Exception e) {
-			Assert.fail("Error loading Article.");
-			e.printStackTrace();
-		}
-	}
-	
-	// Common assertions
-	private void AssertCommon() {
-		Assert.assertTrue(beacon.hasEvent(1));
-		Assert.assertTrue(beacon.hasEvent(47));
-		Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
-	}
+
+	@DataProvider(name = "InnerPageLoad")
+	public Iterator<Object[]> getInnerPageLoadData() {
+		ExcelManager excelReader = new ExcelManager(testDataFilePath);
+		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
+
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
+			String path = excelReader.getCellData(TESTDATA_SHEET_NAME, "Path", rowNum);
+			String title = excelReader.getCellData(TESTDATA_SHEET_NAME, "Title", rowNum);
+			String contentType = excelReader.getCellData(TESTDATA_SHEET_NAME, "ContentType", rowNum);
+			String language = excelReader.getCellData(TESTDATA_SHEET_NAME, "Language", rowNum);
+			Object ob[] = { path, title, contentType, language };
+			myObjects.add(ob);
+		}		
+		return myObjects.iterator();
+	}	
 	
 }
