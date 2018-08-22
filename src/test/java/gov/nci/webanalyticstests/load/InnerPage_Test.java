@@ -1,7 +1,5 @@
 package gov.nci.webanalyticstests.load;
 
-import java.net.MalformedURLException;
-
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,17 +10,22 @@ import gov.nci.webanalyticstests.AnalyticsTestBase;
 public class InnerPage_Test extends AnalyticsTestBase {
 
 	private AnalyticsRequest beacon;
+	
+	/**
+	 * Page / content types covered:
+	 * - Article
+	 * - General
+	 */
 
-	/// Home pageload returns expected values
-	// TODO: add other values, heir, channel, suite
-	// TODO: verify has() logic in AnalyticsRequest
-	// TODO: tests for engagement & event47
-	// TODO: regexes for dynamic values
+	// TODO: more test cases
+	// TODO: create URLs
+	
+	/// Article page load returns expected values
 	@Test(groups = { "Analytics" })
-	public void testSiteHomeLoad() {
+	public void testArticleLoad() {
 		try {
-			System.out.println("Home page load event:");
-			driver.get(config.goHome());
+			System.out.println("Article load event:");
+			driver.get(config.getPageURL("InnerPage"));
 			beacon = getLoadBeacon();
 			AssertCommon();
 			Assert.assertTrue(beacon.hasProp(3, "/"));
@@ -30,22 +33,20 @@ public class InnerPage_Test extends AnalyticsTestBase {
 			Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
 			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
 			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));		
-			logger.log(LogStatus.PASS, "Home page nav values are correct.");
+			logger.log(LogStatus.PASS, "Article load values are correct.");
 		}
 		catch (Exception e) {
-			Assert.fail("Error loading Home page.");
+			Assert.fail("Error loading Article.");
 			e.printStackTrace();
 		}
 	}
 		
-	/// Home-and-back pageload returns expected values
+	/// Spanish Article page load returns expected values
 	@Test(groups = { "Analytics" })
-	public void testHomeAndBack() throws MalformedURLException {
+	public void testArticleEsLoad() {
 		try {
-			System.out.println("Home page and back load event:");
-			driver.get(config.goHome());
-			driver.get(config.getPageURL("SpanishPage"));
-			driver.get(config.goHome());
+			System.out.println("Article load event:");
+			driver.get(config.getPageURL("InnerPage"));
 			beacon = getLoadBeacon();
 			AssertCommon();
 			Assert.assertTrue(beacon.hasProp(3, "/"));
@@ -53,42 +54,20 @@ public class InnerPage_Test extends AnalyticsTestBase {
 			Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
 			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
 			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
-			logger.log(LogStatus.PASS, "Home-and-back nav values are correct.");
+			logger.log(LogStatus.PASS, "Article load values are correct.");
 		}
 		catch (Exception e) {
-			Assert.fail("Error loading Home-page-and-back.");
+			Assert.fail("Error loading Article.");
 			e.printStackTrace();
 		}
 	}
 	
+	/// General page load returns expected values		
 	@Test(groups = { "Analytics" })
-	public void testSpanishHomeLoad() {
+	public void testGeneralLoad() {
 		try {
-			System.out.println("Spanish home page load event:");
-			driver.get(config.getPageURL("SpanishPage"));
-			beacon = getLoadBeacon();
-			AssertCommon();
-			Assert.assertTrue(beacon.hasProp(3, "/espanol"));
-			Assert.assertTrue(beacon.hasProp(6, "Cáncer en español"));
-			Assert.assertTrue(beacon.hasProp(8, "spanish"));
-			Assert.assertTrue(beacon.hasProp(44, "NCI Home - Spanish"));
-			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/espanol"));
-			Assert.assertTrue(beacon.haseVar(2, "spanish"));
-			Assert.assertTrue(beacon.haseVar(5));
-			Assert.assertTrue(beacon.haseVar(44, "NCI Home - Spanish"));
-			logger.log(LogStatus.PASS, "Spanish home page nav values are correct.");
-		}
-		catch (Exception e) {
-			Assert.fail("Error loading Spanish home page.");
-			e.printStackTrace();
-		}
-	}	
-	
-	@Test(groups = { "Analytics" })
-	public void testMicrositeHomeLoad() {
-		try {
-			System.out.println("Microsite home load event:");
-			driver.get(config.getPageURL("MicroSite"));
+			System.out.println("General page load event:");
+			driver.get(config.getPageURL("InnerPage"));
 			beacon = getLoadBeacon();
 			AssertCommon();
 			Assert.assertTrue(beacon.hasProp(3, "/sites/nano"));
@@ -99,13 +78,55 @@ public class InnerPage_Test extends AnalyticsTestBase {
 			Assert.assertTrue(beacon.haseVar(2, "english"));
 			Assert.assertTrue(beacon.haseVar(5));
 			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
-			logger.log(LogStatus.PASS, "Microsite home nav values are correct.");
+			logger.log(LogStatus.PASS, "General page load values are correct.");
 		}
 		catch (Exception e) {
-			Assert.fail("Error loading microsite home page.");
+			Assert.fail("Error loading General page.");
 			e.printStackTrace();
 		}
 	}
+	
+	/// Spanish General page load returns expected values		
+	@Test(groups = { "Analytics" })
+	public void testGeneralEsLoad() {
+		try {
+			System.out.println("General load event:");
+			driver.get(config.getPageURL("InnerPage"));
+			beacon = getLoadBeacon();
+			AssertCommon();
+			Assert.assertTrue(beacon.hasProp(3, "/sites/nano"));
+			Assert.assertTrue(beacon.hasProp(6, "Nanodelivery Systems and Devices Branch"));
+			Assert.assertTrue(beacon.hasProp(8, "english"));
+			Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
+			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/sites/nano"));
+			Assert.assertTrue(beacon.haseVar(2, "english"));
+			Assert.assertTrue(beacon.haseVar(5));
+			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
+			logger.log(LogStatus.PASS, "General page load values are correct.");
+		}
+		catch (Exception e) {
+			Assert.fail("Error loading General page.");
+			e.printStackTrace();
+		}
+	}
+	
+	/// Refreshing an inner page returns expected values
+	@Test(groups = { "Analytics" })	
+	public void testInnerPageRefresh() {
+		try {
+			System.out.println("Inner page refresh event:");
+			// wait / move around 15 seconds
+			driver.get(config.goHome());			
+			beacon = getLoadBeacon();
+			// test for engagement values
+			Assert.assertEquals(1,  1);
+			logger.log(LogStatus.PASS, "Article load values are correct.");
+		}
+		catch (Exception e) {
+			Assert.fail("Error loading Article.");
+			e.printStackTrace();
+		}
+	}	
 	
 	// Common assertions
 	private void AssertCommon() {
