@@ -9,16 +9,15 @@ import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class InnerPage_Test extends AnalyticsTestBase {
 
-	private AnalyticsRequest beacon;
-	
-	/**
-	 * Page / content types covered:
-	 * - Article
-	 * - General
-	 */
-
 	// TODO: more test cases
 	// TODO: create URLs
+	private AnalyticsRequest beacon;	
+	
+	/**
+	 * The following page / content types are covered by this test class:
+	 * - Article (English and Spanish)
+	 * - General (English and Spanish)
+	 */	
 	
 	/// Article page load returns expected values
 	@Test(groups = { "Analytics" })
@@ -126,7 +125,7 @@ public class InnerPage_Test extends AnalyticsTestBase {
 			Assert.fail("Error loading Article.");
 			e.printStackTrace();
 		}
-	}	
+	}
 	
 	// Common assertions
 	private void AssertCommon() {

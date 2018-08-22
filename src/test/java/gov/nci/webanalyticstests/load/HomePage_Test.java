@@ -11,13 +11,20 @@ import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class HomePage_Test extends AnalyticsTestBase {
 
-	private AnalyticsRequest beacon;
-
-	/// Home pageload returns expected values
 	// TODO: add other values, heir, channel, suite
 	// TODO: verify has() logic in AnalyticsRequest
 	// TODO: tests for engagement & event47
 	// TODO: regexes for dynamic values
+	private AnalyticsRequest beacon;
+	
+	/**
+	 * The following page / content types are covered by this test class:
+	 * - Site homepage
+	 * - Spanish homepage
+	 * - Microsite homepage
+	 */
+
+	/// Home pageload returns expected values
 	@Test(groups = { "Analytics" })
 	public void testSiteHomeLoad() {
 		try {
