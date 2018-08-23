@@ -15,7 +15,7 @@ import gov.nci.Utilities.ConfigReader;
 public class AnalyticsPageLoad extends PageObjectBase {
 
 	public WebDriver driver;
-	protected ConfigReader config = new ConfigReader();		
+	protected ConfigReader config = new ConfigReader();	
 
 	/**************** Sitewide Search Results Page Elements *****************************/
 	@FindBy(how = How.XPATH, using = "//meta[@property='og:title']")
@@ -47,7 +47,7 @@ public class AnalyticsPageLoad extends PageObjectBase {
 		return meta_subject.getAttribute("content");
 	}
 
-	public String getMetaPartOf() {
+	public String getMetaIsPartOf() {
 		return meta_is_part_of.getAttribute("content");
 	}
 

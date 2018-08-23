@@ -45,9 +45,10 @@ public class InnerPage_Test extends AnalyticsTestBase {
 			// Go to our load URL
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
-
-			System.out.println(contentType + " page load (" + analyticsPageLoad.getLanguageName() + "):");
 			beacon = getLoadBeacon();
+			System.out.println(contentType + " page load (" + analyticsPageLoad.getLanguageName() + "):");
+			
+			// Do assertions			
 			Assert.assertTrue(beacon.hasEvent(1));
 			Assert.assertTrue(beacon.hasEvent(47));
 			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
@@ -56,9 +57,8 @@ public class InnerPage_Test extends AnalyticsTestBase {
 			Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getLanguageName()));
 			Assert.assertTrue(beacon.hasProp(10, analyticsPageLoad.getPageTitle()));
 			Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
-			//Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
-			//Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
-			//Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
+			Assert.assertTrue(beacon.hasProp(44, analyticsPageLoad.getMetaIsPartOf()));
+			Assert.assertTrue(beacon.haseVar(44, analyticsPageLoad.getMetaIsPartOf()));
 			/***
 			 * Other values needed:
 			 *  Example from General=https://www-qa.cancer.gov/about-nci/visit:
@@ -68,14 +68,12 @@ public class InnerPage_Test extends AnalyticsTestBase {
 				prop26: 2018|8|22|15
 				prop29: 3:02 PM|Wednesday
 				prop42: Normal
-				prop44: Visitor Information
 				prop48: 12pct|12pct|3796px|/
 				prop61: www.cancer.gov/
 				prop64: 12|0
 				prop65: 3
 				eVar1: www.cancer.gov/about-nci/visit
 				eVar5: Extra wide
-				eVar44: Visitor Information
 				Hierarchy: 1 www-qa.cancer.gov|about-nci|visit
 			 */
 			logger.log(LogStatus.PASS, "Article load values are correct.");
