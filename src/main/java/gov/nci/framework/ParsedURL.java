@@ -72,4 +72,12 @@ public class ParsedURL {
         else
             return  null;
     }
+    
+    /**
+     * Public getter for the queryPairs<> object.
+     * @return Collection of key-value pairs <String, String>
+     */
+    public Map<String, String> getQueryPairs() {
+    	return queryPairs;
+    }
 }

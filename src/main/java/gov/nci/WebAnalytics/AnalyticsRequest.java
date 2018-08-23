@@ -1,25 +1,39 @@
 package gov.nci.WebAnalytics;
 
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.NameValuePair;
+
+import gov.nci.framework.ParsedURL;
 
 public class AnalyticsRequest {
 	
 	// TODO: Remove buildParamsList/getList when possible	
 	public URI uri;
 	public String url;
-	public List<NameValuePair> paramsList;		
+	public List<NameValuePair> paramsList;
+	public ParsedURL purl;
+    private Map<String, String> myMap = new LinkedHashMap<String, String>();
 	
 	public AnalyticsRequest(String url) {
-		this.url = url;
-		this.uri = null;
-		this.paramsList = new ArrayList<NameValuePair>();
+		try {
+			this.url = url;
+			this.uri = null;
+			this.paramsList = new ArrayList<NameValuePair>();	
+
+			System.out.println("Debug constructor     : " + myMap);
+		} catch (Exception e) {
+			System.out.println("Error initializing AnalyticsRequest. Check the value of the URL being passed in.");
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -28,7 +42,11 @@ public class AnalyticsRequest {
 	 */
 	public void buildParamsList() throws NullPointerException {
 		this.uri = createUri(url);
+		
+//		this.paramsList = myMap.toSomething();
+		this.purl = new ParsedURL(url);		
 		this.paramsList = this.getList(uri);
+		System.out.println("Debug buildParamsList : " + myMap);	
 	}
 	
 	/**
