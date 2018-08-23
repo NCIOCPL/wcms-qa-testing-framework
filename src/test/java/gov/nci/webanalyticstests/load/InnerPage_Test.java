@@ -5,12 +5,15 @@ import java.util.Iterator;
 
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
 import gov.nci.Utilities.ExcelManager;
+import gov.nci.WebAnalytics.AnalyticsPageLoad;
 import gov.nci.WebAnalytics.AnalyticsRequest;
+import gov.nci.commonobjects.SitewideSearchForm;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class InnerPage_Test extends AnalyticsTestBase {
@@ -23,7 +26,10 @@ public class InnerPage_Test extends AnalyticsTestBase {
 	
 	// TODO: more test cases
 	// TODO: create URLs
+	private AnalyticsPageLoad analyticsPageLoad;
 	private AnalyticsRequest beacon;
+	
+	
 	private String testDataFilePath;
 	private final String TESTDATA_SHEET_NAME = "InnerPage";
 	
@@ -31,45 +37,43 @@ public class InnerPage_Test extends AnalyticsTestBase {
 	public void setup() {
 		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
-		
+	
 	/// Inner page loads return expected values
 	@Test(dataProvider = "InnerPageLoad", groups = { "Analytics" })
 	public void testInnerPageLoad(String path, String contentType) {
 		try {
-			String language = "bad language";
-			String title = "bad title";
-			System.out.println(contentType + " page load (" + language + "):");
-
+			// Go to our load URL
 			driver.get(config.goHome() + path);
+			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			beacon = getLoadBeacon();
+			System.out.println(contentType + " page load (" + analyticsPageLoad.getLanguageName() + "):");
+			
+			// Do assertions			
 			Assert.assertTrue(beacon.hasEvent(1));
 			Assert.assertTrue(beacon.hasEvent(47));
-			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));			
-			Assert.assertTrue(beacon.hasProp(3, path)); // arg
-			// Assert.assertTrue(beacon.hasProp(6, title)); // title - get from og:title
-			// Assert.assertTrue(beacon.hasProp(8, language)); 
-			//Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
-			//Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
-			// Assert.assertTrue(beacon.haseVar(2, language)); 
-			//Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
+			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
+			Assert.assertTrue(beacon.hasProp(3, path));
+			Assert.assertTrue(beacon.hasProp(6, analyticsPageLoad.getMetaTitle()));
+			Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getLanguageName()));
+			Assert.assertTrue(beacon.hasProp(10, analyticsPageLoad.getPageTitle()));
+			Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
+			Assert.assertTrue(beacon.hasProp(44, analyticsPageLoad.getMetaIsPartOf()));
+			Assert.assertTrue(beacon.haseVar(44, analyticsPageLoad.getMetaIsPartOf()));
 			/***
 			 * Other values needed:
 			 *  Example from General=https://www-qa.cancer.gov/about-nci/visit:
 				channel: about NCI
 				suites: ncidevelopment, ncienterprise-dev
-				prop10: Visitor Information - National Cancer Institute
 				prop25: 01/01/1980
 				prop26: 2018|8|22|15
 				prop29: 3:02 PM|Wednesday
 				prop42: Normal
-				prop44: Visitor Information
 				prop48: 12pct|12pct|3796px|/
 				prop61: www.cancer.gov/
 				prop64: 12|0
 				prop65: 3
 				eVar1: www.cancer.gov/about-nci/visit
 				eVar5: Extra wide
-				eVar44: Visitor Information
 				Hierarchy: 1 www-qa.cancer.gov|about-nci|visit
 			 */
 			logger.log(LogStatus.PASS, "Article load values are correct.");
