@@ -236,7 +236,7 @@ public class AnalyticsTestBase {
 		setBeaconLists(harUrlList);
 		Beacon rtn = getLastReq(clickBeacons);		
 		System.out.println("Click beacon to test: ");
-		System.out.println(rtn.getUrl() + "\n");
+		System.out.println(rtn.url  + "\n");
 		return getLastReq(clickBeacons);
 	}
 	
@@ -249,7 +249,7 @@ public class AnalyticsTestBase {
 		setBeaconLists(harUrlList);
 		Beacon rtn = getLastReq(loadBeacons);		
 		System.out.println("Load beacon to test: ");
-		System.out.println(rtn.getUrl() + "\n");
+		System.out.println(rtn.url  + "\n");
 		return getLastReq(loadBeacons);
 	}	
 	

@@ -32,32 +32,9 @@ public class Beacon extends AnalyticsRequest {
 	static final String EVAR_PARTIAL = "v";
 	static final String HIER_PARTIAL = "h";		
 	
-	// A request URL
-	private String url;
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	// A request URI
-	private URI uri;	
-	public URI getUri() {
-		return uri;
-	}
-	public void setUri(URI uri) {
-		this.uri = uri;
-	}
-	
-	// A list of query parameters
-	private List<NameValuePair> paramsList;
-	public List<NameValuePair> getParamsList() {
-		return paramsList;
-	}
-	public void setParamsList(List<NameValuePair> paramsList) {
-		this.paramsList = paramsList;
-	}
+	public URI uri;
+	public String url;
+	public List<NameValuePair> paramsList;
 		
 	/**
 	 * Constructor with 'url' arg
@@ -65,9 +42,9 @@ public class Beacon extends AnalyticsRequest {
 	 */
 	public Beacon(String url) {
 		super(url);
-		setUrl(url);
-		setUri(null);
-		setParamsList(new ArrayList<NameValuePair>());
+		this.url = url;
+		this.uri = null;
+		this.paramsList = new ArrayList<NameValuePair>();
 	}
 	
 	/**
@@ -75,8 +52,8 @@ public class Beacon extends AnalyticsRequest {
 	 * @throws NullPointerException
 	 */
 	public void buildParamsList() throws NullPointerException {
-		setUri(createUri(url));
-		setParamsList(this.getList(uri));		
+		this.uri = createUri(url);
+		this.paramsList = this.getList(uri);
 	}
 	
 	/**
