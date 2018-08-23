@@ -208,15 +208,14 @@ public class AnalyticsTestBase {
 		// or load event, then add it to the correct list
 		for(String url : urlList)
 		{  
-			Beacon request = new Beacon(url);
-			request.buildParamsList();
+			Beacon beacon = new Beacon(url);
 			
 			// Populate the beacon lists
-			if(request.isClickTypeEvent()) {
-				clickBeacons.add(request);
+			if(beacon.isClickTypeEvent()) {
+				clickBeacons.add(beacon);
 			}
 			else {
-				loadBeacons.add(request);
+				loadBeacons.add(beacon);
 			}
 		}
 

@@ -26,23 +26,10 @@ public class AnalyticsRequest {
 	public AnalyticsRequest(String url) {
 		try {
 			this.url = url;
-			this.uri = null;
-			this.paramsList = new ArrayList<NameValuePair>();
+			this.uri = createUri(url);
+			this.paramsList = getList(this.uri);
 		} catch (Exception e) {
 			System.out.println("Error initializing AnalyticsRequest. Check the value of the URL being passed in.");
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Build a collection of parameters
-	 */
-	public void buildParamsList() {
-		try {
-			this.uri = createUri(url);
-			this.paramsList = this.getList(uri);
-		} catch (Exception e) {
-			System.out.println("Error building paramsList object.");
 			e.printStackTrace();
 		}
 	}

@@ -34,8 +34,7 @@ public class Beacon extends AnalyticsRequest {
 	// Constructor
 	public Beacon(String url) {
 		super(url);
-	}
-	
+	}	
 	
 	/**
 	 * Get the reporting suites (s_account) value
