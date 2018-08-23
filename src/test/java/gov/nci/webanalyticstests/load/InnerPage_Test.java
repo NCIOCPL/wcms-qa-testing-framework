@@ -46,16 +46,16 @@ public class InnerPage_Test extends AnalyticsTestBase {
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 
-			System.out.println(contentType + " page load (" + analyticsPageLoad.getMetaLanguage() + "):");
+			System.out.println(contentType + " page load (" + analyticsPageLoad.getLanguageName() + "):");
 			beacon = getLoadBeacon();
 			Assert.assertTrue(beacon.hasEvent(1));
 			Assert.assertTrue(beacon.hasEvent(47));
 			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
 			Assert.assertTrue(beacon.hasProp(3, path));
 			Assert.assertTrue(beacon.hasProp(6, analyticsPageLoad.getMetaTitle()));
-			//Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getMetaLanguage()));
+			Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getLanguageName()));
 			Assert.assertTrue(beacon.hasProp(10, analyticsPageLoad.getPageTitle()));
-			//Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getMetaLanguage()));
+			Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
 			//Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
 			//Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
 			//Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));

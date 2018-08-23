@@ -36,11 +36,7 @@ public class AnalyticsPageLoad extends PageObjectBase {
 	}
 
 	public String getMetaLanguage() {
-		String lang = "english";
-		if (meta_language.getAttribute("content") == "es") {
-			lang = "spanish";
-		}
-		return lang;
+		return meta_language.getAttribute("content");
 	}
 	
 	public String getMetaCoverage() {
@@ -66,6 +62,19 @@ public class AnalyticsPageLoad extends PageObjectBase {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+	}
+	
+	/**
+	 * Get full name for content language.
+	 * @return language (String)
+	 */
+	public String getLanguageName() {
+		String lang = this.getMetaLanguage();
+		switch(lang) {
+			case "en" : return "English";
+			case "es" : return "Spanish";
+			default: return "English";				
+		}
 	}
 	
 	/**
