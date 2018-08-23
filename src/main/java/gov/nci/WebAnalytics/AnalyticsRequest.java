@@ -27,9 +27,7 @@ public class AnalyticsRequest {
 		try {
 			this.url = url;
 			this.uri = null;
-			this.paramsList = new ArrayList<NameValuePair>();	
-
-			System.out.println("Debug constructor     : " + myMap);
+			this.paramsList = new ArrayList<NameValuePair>();
 		} catch (Exception e) {
 			System.out.println("Error initializing AnalyticsRequest. Check the value of the URL being passed in.");
 			e.printStackTrace();
@@ -38,15 +36,15 @@ public class AnalyticsRequest {
 	
 	/**
 	 * Build a collection of parameters
-	 * @throws NullPointerException
 	 */
-	public void buildParamsList() throws NullPointerException {
-		this.uri = createUri(url);
-		
-//		this.paramsList = myMap.toSomething();
-		this.purl = new ParsedURL(url);		
-		this.paramsList = this.getList(uri);
-		System.out.println("Debug buildParamsList : " + myMap);	
+	public void buildParamsList() {
+		try {
+			this.uri = createUri(url);
+			this.paramsList = this.getList(uri);
+		} catch (Exception e) {
+			System.out.println("Error building paramsList object.");
+			e.printStackTrace();
+		}
 	}
 	
 	/**
