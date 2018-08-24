@@ -12,7 +12,7 @@ import gov.nci.WebAnalytics.Beacon;
 import gov.nci.commonobjects.MegaMenu;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
-public class MegaMenu_Test extends AnalyticsTestBase {
+public class MegaMenu_Test extends AnalyticsTestClickBase {
 	
 	private MegaMenu megaMenu;
 	private Beacon beacon;

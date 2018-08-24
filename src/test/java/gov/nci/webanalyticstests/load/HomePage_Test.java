@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import gov.nci.WebAnalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
-public class HomePage_Test extends AnalyticsTestBase {
+public class HomePage_Test extends AnalyticsTestLoadBase {
 
 	// TODO: add other values, heir, channel, suite
 	// TODO: verify has() logic in AnalyticsRequest

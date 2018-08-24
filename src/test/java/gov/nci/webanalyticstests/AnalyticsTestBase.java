@@ -227,37 +227,11 @@ public class AnalyticsTestBase {
 	}
 	
 	/**
-	 * Get the 'click' beacon to test
-	 * @return AnalyticsRequest
-	 */
-	protected Beacon getClickBeacon() {
-		setHarUrlList(proxy);
-		setBeaconLists(harUrlList);
-		Beacon rtn = getLastReq(clickBeacons);		
-		System.out.println("Click beacon to test: ");
-		System.out.println(rtn.url  + "\n");
-		return getLastReq(clickBeacons);
-	}
-	
-	/**
-	 * Get the 'load' beacon to test
-	 * @return AnalyticsRequest
-	 */
-	protected Beacon getLoadBeacon() {
-		setHarUrlList(proxy);
-		setBeaconLists(harUrlList);
-		Beacon rtn = getLastReq(loadBeacons);		
-		System.out.println("Load beacon to test: ");
-		System.out.println(rtn.url  + "\n");
-		return getLastReq(loadBeacons);
-	}	
-	
-	/**
 	 * Utility function to get the last element in a list of AnalyticsRequest objects
 	 * @param requests
 	 * @return the last AnalyticsRequest object
 	 */
-	private static Beacon getLastReq(List<Beacon> requests) {
+	protected static Beacon getLastReq(List<Beacon> requests) {
 		int index = requests.size() - 1;
 		Beacon request = (index >= 0) ? requests.get(index) : null;
 		return request;

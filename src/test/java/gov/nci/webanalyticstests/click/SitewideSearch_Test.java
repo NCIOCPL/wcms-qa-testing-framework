@@ -16,7 +16,7 @@ import gov.nci.Utilities.ExcelManager;
 import gov.nci.WebAnalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
-public class SitewideSearch_Test extends AnalyticsTestBase {
+public class SitewideSearch_Test extends AnalyticsTestClickBase {
 	
 	private SitewideSearchForm swSearchForm;
 	private SitewideSearchResults swSearchResults;

@@ -14,7 +14,7 @@ import gov.nci.WebAnalytics.AnalyticsPageLoad;
 import gov.nci.WebAnalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
-public class InnerPage_Test extends AnalyticsTestBase {
+public class InnerPage_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page / content types are covered by this test class:

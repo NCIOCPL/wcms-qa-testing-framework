@@ -10,7 +10,7 @@ import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
 import gov.nci.WebAnalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
-public class WaBasicSearch_Test extends AnalyticsTestBase {
+public class WaBasicSearch_Test extends AnalyticsTestClickBase {
 
 	private BasicSearch basicSearch;
 	private Beacon beacon;

@@ -12,7 +12,7 @@ import gov.nci.WebAnalytics.Beacon;
 import gov.nci.WebAnalytics.Resize;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
-public class Resize_Test extends AnalyticsTestBase {
+public class Resize_Test extends AnalyticsTestClickBase {
 	
 	private Resize resize;
 	private Beacon beacon;	
