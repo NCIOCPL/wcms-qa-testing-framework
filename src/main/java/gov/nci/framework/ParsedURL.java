@@ -2,10 +2,16 @@ package gov.nci.framework;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 /**
  * Breaks a URL string into its constituent components (path, query parameters,
@@ -40,7 +46,7 @@ public class ParsedURL {
             }
         }
     }
-
+    
     /**
      * Gets the path part of this URL.
      * 
@@ -73,11 +79,38 @@ public class ParsedURL {
             return  null;
     }
     
-    /**
-     * Public getter for the queryPairs<> object.
-     * @return Collection of key-value pairs <String, String>
+	/**
+	 * Split URI into list of encoded elements.
+	 * 
+	 * I realize this is very similar to the logic in the constructor, but trying to build the queryPairs 
+	 * maps throws the following error: 
+	 *   java.lang.StringIndexOutOfBoundsException: String index out of range: -1
+	 *   at java.lang.String.substring(Unknown Source)
+	 *   at gov.nci.framework.ParsedURL.<init>(ParsedURL.java:43)
+	 * Adding getParamsArrayList as a static method for now b/c I'd rather not mess with the constructor 
+	 * logic - daquinohd
+	 * 
+     * @param uri (URI)
+     * @return rtnParams
      */
-    public Map<String, String> getQueryPairs() {
-    	return queryPairs;
-    }
+	public static List<NameValuePair> getParamArrayList(URI uri) {
+		List<NameValuePair> rtnParams = new ArrayList<NameValuePair>();		
+		try {
+			String queries = uri.getRawQuery(); // get encoded query string
+			for(String parm : queries.split("&")) {
+				String[] pair = parm.split("=");
+				String name = URLDecoder.decode(pair[0], "UTF-8");
+				String value = "";
+				if(pair.length > 1) {
+					value = URLDecoder.decode(pair[1], "UTF-8"); 
+				}
+				rtnParams.add(new BasicNameValuePair(name, value));				
+			}
+		} 
+		catch (UnsupportedEncodingException ex) {
+			System.out.println("Error decoding URI in WaParams:buildParamsList()");
+		}		
+		return rtnParams;
+	}	
+	  
 }

@@ -1,11 +1,7 @@
 package gov.nci.WebAnalytics;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
 
 public class Beacon extends AnalyticsRequest {
@@ -31,7 +27,7 @@ public class Beacon extends AnalyticsRequest {
 	static final String EVAR_PARTIAL = "v";
 	static final String HIER_PARTIAL = "h";
 	
-	// Constructor
+	// This class represents an Adobe Analytics request beacon
 	public Beacon(String url) {
 		super(url);
 	}	

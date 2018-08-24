@@ -1,13 +1,8 @@
 package gov.nci.WebAnalytics;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
@@ -20,14 +15,12 @@ public class AnalyticsRequest {
 	public URI uri;
 	public String url;
 	public List<NameValuePair> paramsList;
-	public ParsedURL purl;
-    private Map<String, String> myMap = new LinkedHashMap<String, String>();
 	
 	public AnalyticsRequest(String url) {
 		try {
 			this.url = url;
 			this.uri = createUri(url);
-			this.paramsList = getList(this.uri);
+			this.paramsList = ParsedURL.getParamArrayList(this.uri);
 		} catch (Exception e) {
 			System.out.println("Error initializing AnalyticsRequest. Check the value of the URL being passed in.");
 			e.printStackTrace();
@@ -44,40 +37,10 @@ public class AnalyticsRequest {
 			URI rtnUri = URI.create(url);
 			return rtnUri;
 		} catch (IllegalArgumentException ex) {
-			System.out.println("Invalid request URL \"" + url + 
-					"\\\" at AnalyticsRequest:createURI()");
+			System.out.println("Invalid request URL \"" + url + "\\\" at AnalyticsRequest:createURI()");
 			return null;
 		}
 	}
-	
-
-	
-	/**
-	 * Split URI into list of encoded elements
-	 * @param uri
-	 * @return retParams
-	 */
-	@Deprecated
-	public static List<NameValuePair> getList(URI uri) {
-		List<NameValuePair> rtnParams = new ArrayList<NameValuePair>();
-		
-		try {
-			String queries = uri.getRawQuery(); // get encoded query string
-			for(String parm : queries.split("&")) {
-				String[] pair = parm.split("=");
-				String Name = URLDecoder.decode(pair[0], "UTF-8");
-				String value = "";
-				if(pair.length > 1) {
-					value = URLDecoder.decode(pair[1], "UTF-8"); 
-				}
-				rtnParams.add(new BasicNameValuePair(Name, value));				
-			}
-		} 
-		catch (UnsupportedEncodingException ex) {
-			System.out.println("Error decoding URI in WaParams:buildParamsList()");
-		}		
-		return rtnParams;
-	}	
 	
 	/******************** Utility functions ****************************************/
 	/**
