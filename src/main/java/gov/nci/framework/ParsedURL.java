@@ -2,7 +2,6 @@ package gov.nci.framework;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public class ParsedURL {
     }
     
 	/**
-	 * Split URI into list of encoded elements.
+	 * Get a list of decoded query parameters and values.
 	 * 
 	 * I realize this is very similar to the logic in the constructor, but trying to build the queryPairs 
 	 * maps throws the following error: 
@@ -90,13 +89,14 @@ public class ParsedURL {
 	 * Adding getParamsArrayList as a static method for now b/c I'd rather not mess with the constructor 
 	 * logic - daquinohd
 	 * 
-     * @param uri (URI)
-     * @return rtnParams
+     * @param url (String)
+     * @return
      */
-	public static List<NameValuePair> getParamArrayList(URI uri) {
-		List<NameValuePair> rtnParams = new ArrayList<NameValuePair>();		
+	public static List<NameValuePair> getParamArrayList(String url) {
+		List<NameValuePair> rtnParams = new ArrayList<NameValuePair>();			        
 		try {
-			String queries = uri.getRawQuery(); // get encoded query string
+			URL myUrl = new URL(url);
+			String queries = myUrl.getQuery(); // get encoded query string
 			for(String parm : queries.split("&")) {
 				String[] pair = parm.split("=");
 				String name = URLDecoder.decode(pair[0], "UTF-8");
@@ -107,10 +107,13 @@ public class ParsedURL {
 				rtnParams.add(new BasicNameValuePair(name, value));				
 			}
 		} 
+		catch (MalformedURLException ex) {
+			System.out.println("Malformed URL in ParsedURL:getParamsArrayList()");
+		}
 		catch (UnsupportedEncodingException ex) {
-			System.out.println("Error decoding URI in WaParams:buildParamsList()");
-		}		
+			System.out.println("Error decoding URL in ParsedURL:getParamsArrayList()");
+		}
 		return rtnParams;
 	}	
-	  
+	 
 }

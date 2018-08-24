@@ -1,6 +1,5 @@
 package gov.nci.WebAnalytics;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,34 +10,16 @@ import gov.nci.framework.ParsedURL;
 
 public class AnalyticsRequest {
 	
-	// TODO: Remove buildParamsList/getList when possible	
-	public URI uri;
 	public String url;
 	public List<NameValuePair> paramsList;
 	
 	public AnalyticsRequest(String url) {
 		try {
 			this.url = url;
-			this.uri = createUri(url);
-			this.paramsList = ParsedURL.getParamArrayList(this.uri);
+			this.paramsList = ParsedURL.getParamArrayList(url);
 		} catch (Exception e) {
 			System.out.println("Error initializing AnalyticsRequest. Check the value of the URL being passed in.");
 			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Create URI object from a given URL string
-	 * @param url (String)
-	 * @return URI
-	 */
-	private static URI createUri(String url) {
-		try {
-			URI rtnUri = URI.create(url);
-			return rtnUri;
-		} catch (IllegalArgumentException ex) {
-			System.out.println("Invalid request URL \"" + url + "\\\" at AnalyticsRequest:createURI()");
-			return null;
 		}
 	}
 	

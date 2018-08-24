@@ -38,6 +38,7 @@ public class Beacon extends AnalyticsRequest {
 	 * @param uri
 	 * @return
 	 */
+	/// TODO: change arg type
 	protected String[] getSuites(URI uri) {
 		try {
 			String[] path = uri.getPath().split("/");
