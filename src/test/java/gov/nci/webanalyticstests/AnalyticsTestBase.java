@@ -28,7 +28,7 @@ import gov.nci.Utilities.BrowserManager;
 import gov.nci.Utilities.ConfigReader;
 import gov.nci.WebAnalytics.Beacon;
 
-public class AnalyticsTestBase {
+public abstract class AnalyticsTestBase {
 
 	/**
 	* TODO: Set default URLs at test level, not base
@@ -132,9 +132,7 @@ public class AnalyticsTestBase {
 		proxy.stop();
 	}
 	
-	/******************************************************
-	 * Section: Initialize BMP and request beacon objects *
-	 ******************************************************/
+	/************************* Initialize BMP and request beacon objects *************************/
 	
 	/**
 	 * Start and configure BrowserMob Proxy for Selenium.<br/>
@@ -236,5 +234,14 @@ public class AnalyticsTestBase {
 		Beacon request = (index >= 0) ? requests.get(index) : null;
 		return request;
 	}
+	
+	/****************************** Abstract methods ******************************/
+	
+	/**
+	 * Get a single beacon object for testing.
+	 * @return beacon (Beacon)
+	 */
+	protected abstract Beacon getBeacon();
+	
 
 }

@@ -36,7 +36,7 @@ public class WaBasicSearch_Test extends AnalyticsTestClickBase {
 		basicSearch.setSearchKeyword("stomatitis");
 		
 		/* Get our beacon object **/ 
-		beacon = getClickBeacon();
+		beacon = getBeacon();
 		
 		/* Do assertions and log result */ 
 		Assert.assertTrue(beacon.hasEvent(38));
@@ -51,7 +51,7 @@ public class WaBasicSearch_Test extends AnalyticsTestClickBase {
 		/* Enter a keyword field, then abandon the form by navigating away  **/ 
 		basicSearch.setSearchKeyword("liver");
 		driver.navigate().to(config.getPageURL("HomePage"));
-		beacon = getClickBeacon();
+		beacon = getBeacon();
 
 		/* Verify that the expected values are tracked */
 		Assert.assertTrue(beacon.hasEvent(40));
@@ -65,7 +65,7 @@ public class WaBasicSearch_Test extends AnalyticsTestClickBase {
 		/* Enter an age field, then abandon the form by navigating away  **/ 
 		basicSearch.setSearchAge("55");
 		driver.navigate().to(config.getPageURL("HomePage"));
-		beacon = getClickBeacon();
+		beacon = getBeacon();
 
 		/* Verify that the expected values are tracked */
 		Assert.assertTrue(beacon.hasEvent(40));

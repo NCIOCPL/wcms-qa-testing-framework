@@ -1,26 +1,22 @@
 package gov.nci.webanalyticstests.load;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-
-import com.relevantcodes.extentreports.LogStatus;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
-import gov.nci.WebAnalytics.AnalyticsPageLoad;
 import gov.nci.WebAnalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 
-	private AnalyticsPageLoad analyticsPageLoad;
-	private Beacon beacon;
-	
-	@BeforeMethod(groups = { "Analytics" }) 
-	public void setupPageLoad() throws MalformedURLException, UnsupportedEncodingException {
-		analyticsPageLoad = new AnalyticsPageLoad(driver);
-	}	
+	/**
+	 * Get the 'load' beacon to test
+	 * @return AnalyticsRequest
+	 */
+	protected Beacon getBeacon() {
+		setHarUrlList(proxy);
+		setBeaconLists(harUrlList);
+		Beacon rtn = getLastReq(loadBeacons);		
+		System.out.println("Load beacon to test: ");
+		System.out.println(rtn.url  + "\n");
+		return getLastReq(loadBeacons);
+	}
 
 	// TODO: refactor has..() methods
 	// TODO: fix hasEvent() arg
@@ -211,17 +207,5 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 //		/** more **/
 //	}
 
-	/**
-	 * Get the 'load' beacon to test
-	 * @return AnalyticsRequest
-	 */
-	protected Beacon getLoadBeacon() {
-		setHarUrlList(proxy);
-		setBeaconLists(harUrlList);
-		Beacon rtn = getLastReq(loadBeacons);		
-		System.out.println("Load beacon to test: ");
-		System.out.println(rtn.url  + "\n");
-		return getLastReq(loadBeacons);
-	}	
 	
 }

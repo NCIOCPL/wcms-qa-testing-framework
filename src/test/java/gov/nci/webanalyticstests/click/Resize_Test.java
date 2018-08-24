@@ -27,7 +27,7 @@ public class Resize_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 1)
 	public void testResizeGeneral() {
 		resize.doAllResizes();
-		beacon = getClickBeacon();
+		beacon = getBeacon();
 		Assert.assertTrue(clickBeacons.size() > 1);
 		Assert.assertTrue(beacon.hasProp(4, "d=pev1"));
 		Assert.assertTrue(beacon.hasProp(67, "D=pageName"));
@@ -40,7 +40,7 @@ public class Resize_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 2)
 	public void testResizeToMobile() {
 		resize.toSmall();
-		beacon = getClickBeacon();
+		beacon = getBeacon();
 		Assert.assertTrue(beacon.hasEvent(7));
 		Assert.assertTrue(beacon.hasLinkName("ResizedToMobile"));
 		logger.log(LogStatus.PASS, "'Resize to mobile' values are correct.");
@@ -50,7 +50,7 @@ public class Resize_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 3)
 	public void testResizeToTablet() {
 		resize.toMed();
-		beacon = getClickBeacon();
+		beacon = getBeacon();
 		Assert.assertTrue(beacon.hasEvent(7));
 		Assert.assertTrue(beacon.hasLinkName("ResizedToTablet"));
 		logger.log(LogStatus.PASS, "'Resize to tablet' values are correct.");
@@ -60,7 +60,7 @@ public class Resize_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 4)
 	public void testResizeToDesktop() {
 		resize.toLarge();
-		beacon = getClickBeacon();
+		beacon = getBeacon();
 		Assert.assertTrue(beacon.hasEvent(7));
 		Assert.assertTrue(beacon.hasLinkName("ResizedToDesktop"));
 		logger.log(LogStatus.PASS, "'Resize to desktop' values are correct.");
@@ -70,7 +70,7 @@ public class Resize_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 5)
 	public void testResizeToExtraWide() {
 		resize.toXlarge();
-		beacon = getClickBeacon();
+		beacon = getBeacon();
 		Assert.assertTrue(beacon.hasEvent(7));
 		Assert.assertTrue(beacon.hasLinkName("ResizedToExtra wide"));
 		logger.log(LogStatus.PASS, "'Resize to extra wide' values are correct.");
@@ -80,7 +80,7 @@ public class Resize_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 6)
 	public void testMaximize() {
 		resize.maximize();
-		beacon = getClickBeacon();
+		beacon = getBeacon();
 		Assert.assertTrue(beacon.hasEvent(7));
 		logger.log(LogStatus.PASS, "Maximize values are correct.");
 	}	

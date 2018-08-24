@@ -59,7 +59,7 @@ public class InnerPage_Test extends AnalyticsTestLoadBase {
 			// Go to our load URL
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			beacon = getLoadBeacon();
+			beacon = getBeacon();
 			System.out.println(contentType + " page load (" + analyticsPageLoad.getLanguageName() + "):");
 			
 			// Do assertions			
