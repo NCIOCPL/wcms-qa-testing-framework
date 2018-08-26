@@ -28,7 +28,6 @@ public class Resize_Test extends AnalyticsTestClickBase {
 	public void testResizeGeneral() {
 		resize.doAllResizes();
 		beacon = getBeacon();
-		Assert.assertTrue(clickBeacons.size() > 1);
 		Assert.assertTrue(beacon.hasProp(4, "d=pev1"));
 		Assert.assertTrue(beacon.hasProp(67, "D=pageName"));
 		Assert.assertTrue(beacon.haseVar(2, "English"));

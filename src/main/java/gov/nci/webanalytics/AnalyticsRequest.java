@@ -10,6 +10,8 @@ import gov.nci.framework.ParsedURL;
 
 public class AnalyticsRequest {
 	
+	//	TODO: Handle null exceptions in has() methods
+	//	TODO: Create 'catch-all' Contains() method		
 	public String url;
 	public List<NameValuePair> paramsList;
 	

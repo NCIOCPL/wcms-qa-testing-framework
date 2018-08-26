@@ -1,21 +1,57 @@
 package gov.nci.webanalyticstests.load;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gov.nci.webanalytics.adobe.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class AnalyticsTestLoadBase extends AnalyticsTestBase {
-
+		
 	/**
-	 * Get the 'load' beacon to test
-	 * @return AnalyticsRequest
+	 * Get the 'load' beacon for testing.
+	 * @return Beacon
 	 */
 	protected Beacon getBeacon() {
-		setHarUrlList(proxy);
-		setBeaconLists(harUrlList);
-		Beacon rtn = getLastReq(loadBeacons);		
+		List<String> harList = getHarUrlList(proxy);
+		List<Beacon> beaconList = getBeaconList(harList);
+		Beacon beacon = getLastReq(beaconList);
 		System.out.println("Load beacon to test: ");
-		System.out.println(rtn.url  + "\n");
-		return getLastReq(loadBeacons);
+		System.out.println(beacon.url  + "\n");
+		return beacon;
+	}	
+	
+	/**
+	 * Create a list of load Beacon objects. 
+	 * loadBeacons -> a list of analytics request URLs fired off by an analytics load event, ie s.tl()
+	 * @param urlList
+	 */
+	protected List<Beacon> getBeaconList(List<String> urlList) {
+		
+		List<Beacon> loadBeacons = new ArrayList<Beacon>();
+		int clickBeacons = 0;
+		
+		// For each server URL, check if it is an analytics click
+		// or load event, then add it to the correct list
+		for(String url : urlList)
+		{
+			// Populate the beacon lists
+			Beacon beacon = new Beacon(url);
+			if(!beacon.isClickTypeEvent()) {
+				loadBeacons.add(beacon);
+			}
+			else {
+				++clickBeacons;
+			}
+		}
+
+	    // Debug analytics beacon counts
+		System.out.println("Total analytics requests: " + urlList.size()
+			+ " (load: " + loadBeacons.size() 
+			+ ", click: " + clickBeacons + ")"
+		);
+		
+		return loadBeacons;		
 	}
 
 	// TODO: refactor has..() methods
