@@ -6,7 +6,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import gov.nci.WebAnalytics.Beacon;
+import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class HomePage_Test extends AnalyticsTestLoadBase {

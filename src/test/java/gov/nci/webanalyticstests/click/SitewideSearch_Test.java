@@ -12,8 +12,8 @@ import org.testng.Assert;
 import gov.nci.commonobjects.SitewideSearchForm;
 import gov.nci.error.pages.PageNotFound;
 import gov.nci.sitewidesearch.pages.SitewideSearchResults;
+import gov.nci.webanalytics.Beacon;
 import gov.nci.Utilities.ExcelManager;
-import gov.nci.WebAnalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class SitewideSearch_Test extends AnalyticsTestClickBase {

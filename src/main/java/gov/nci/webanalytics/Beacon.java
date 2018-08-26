@@ -1,4 +1,4 @@
-package gov.nci.WebAnalytics;
+package gov.nci.webanalytics;
 
 import java.net.URI;
 import java.util.List;

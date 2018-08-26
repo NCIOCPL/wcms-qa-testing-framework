@@ -10,8 +10,8 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 
 import gov.nci.Utilities.ExcelManager;
-import gov.nci.WebAnalytics.AnalyticsPageLoad;
-import gov.nci.WebAnalytics.Beacon;
+import gov.nci.webanalytics.AnalyticsPageLoad;
+import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class InnerPage_Test extends AnalyticsTestLoadBase {
