@@ -1,8 +1,10 @@
-package gov.nci.webanalytics;
+package gov.nci.webanalytics.adobe;
 
 import java.net.URI;
 import java.util.List;
 import org.apache.http.NameValuePair;
+
+import gov.nci.webanalytics.AnalyticsRequest;
 
 public class Beacon extends AnalyticsRequest {
 	// TODO: move server strings into config	

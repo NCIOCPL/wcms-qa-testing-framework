@@ -11,7 +11,7 @@ import org.testng.Assert;
 
 import gov.nci.Utilities.ExcelManager;
 import gov.nci.webanalytics.AnalyticsPageLoad;
-import gov.nci.webanalytics.Beacon;
+import gov.nci.webanalytics.adobe.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class InnerPage_Test extends AnalyticsTestLoadBase {

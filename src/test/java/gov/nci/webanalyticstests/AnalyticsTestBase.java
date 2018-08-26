@@ -26,7 +26,7 @@ import org.testng.annotations.Parameters;
 
 import gov.nci.Utilities.BrowserManager;
 import gov.nci.Utilities.ConfigReader;
-import gov.nci.webanalytics.Beacon;
+import gov.nci.webanalytics.adobe.Beacon;
 
 public abstract class AnalyticsTestBase {
 
