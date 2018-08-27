@@ -13,26 +13,25 @@ import gov.nci.Utilities.ExcelManager;
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 
-public class LandingPage_Test extends AnalyticsTestLoadBase {
+public class TopicPage_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page types / content are covered by this test class:
-	 * - Landing (English and Spanish)
-	 * - News and Events page (English and Spanish)
+	 * - Topic (English and Spanish)
 	 */
 	
 	private AnalyticsPageLoad analyticsPageLoad;
 	private Beacon beacon;	
 	private String testDataFilePath;
-	private final String TESTDATA_SHEET_NAME = "LandingPage";
+	private final String TESTDATA_SHEET_NAME = "TopicPage";
 	
 	@BeforeClass(groups = { "Analytics" }) 
 	public void setup() {
 		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
 	
-	/// Landing page loads return expected values
-	@Test(dataProvider = "LandingPageLoad", groups = { "Analytics" })
+	/// Topic page loads return expected values
+	@Test(dataProvider = "TopicPageLoad", groups = { "Analytics" })
 	public void testHomePageLoad(String path, String contentType) {
 		try {
 			driver.get(config.goHome() + path);
@@ -57,8 +56,8 @@ public class LandingPage_Test extends AnalyticsTestLoadBase {
 		}
 	}
 
-	@DataProvider(name = "LandingPageLoad")
-	public Iterator<Object[]> getLandingPageLoadData() {
+	@DataProvider(name = "TopicPageLoad")
+	public Iterator<Object[]> getTopicPageLoadData() {
 		ExcelManager excelReader = new ExcelManager(testDataFilePath);
 		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
 		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
