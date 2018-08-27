@@ -54,15 +54,12 @@ public class InnerPage_Test extends AnalyticsTestLoadBase {
 	
 	/// Inner page loads return expected values
 	@Test(dataProvider = "InnerPageLoad", groups = { "Analytics" })
-	public void testInnerPageLoad(String path, String contentType) {
+	public void testHomePageLoad(String path, String contentType) {
 		try {
-			// Go to our load URL
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			beacon = getBeacon();
-			System.out.println(contentType + " page load (" + analyticsPageLoad.getLanguageName() + "):");
-			
-			// Do assertions			
+			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
 			Assert.assertTrue(beacon.hasEvent(1));
 			Assert.assertTrue(beacon.hasEvent(47));
 			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
@@ -70,13 +67,13 @@ public class InnerPage_Test extends AnalyticsTestLoadBase {
 			Assert.assertTrue(beacon.hasProp(6, analyticsPageLoad.getMetaTitle()));
 			Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getLanguageName()));
 			Assert.assertTrue(beacon.hasProp(10, analyticsPageLoad.getPageTitle()));
-			Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
 			Assert.assertTrue(beacon.hasProp(44, analyticsPageLoad.getMetaIsPartOf()));
+			Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
 			Assert.assertTrue(beacon.haseVar(44, analyticsPageLoad.getMetaIsPartOf()));
-			logger.log(LogStatus.PASS, "Article load values are correct.");
+			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		}
 		catch (Exception e) {
-			Assert.fail("Error loading Article.");
+			Assert.fail("Error loading " + contentType);
 			e.printStackTrace();
 		}
 	}
