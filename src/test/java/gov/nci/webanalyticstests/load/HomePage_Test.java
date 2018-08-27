@@ -19,6 +19,7 @@ import gov.nci.webanalytics.Beacon;
 // TODO: tests for engagement & event47
 // TODO: regexes for dynamic values
 // TODO: common asserts
+// TODO: re-use iterator in load base
 public class HomePage_Test extends AnalyticsTestLoadBase {	
 	
 	/**
@@ -45,10 +46,12 @@ public class HomePage_Test extends AnalyticsTestLoadBase {
 			// Go to our load URL
 			driver.get(config.goHome() + path);
 
-			// Do assertions
+			// Set page and request beacon objects
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			beacon = getBeacon();
 			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
+
+			// Do assertions
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		}
@@ -66,8 +69,6 @@ public class HomePage_Test extends AnalyticsTestLoadBase {
 			String path = "/";
 			driver.get(config.goHome());
 			driver.navigate().refresh();
-			
-			// Do assertions
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			beacon = getBeacon();
 			System.out.println("Home refresh load event (" + analyticsPageLoad.getLanguageName() + "):");
@@ -89,8 +90,6 @@ public class HomePage_Test extends AnalyticsTestLoadBase {
 			driver.get(config.goHome());
 			driver.get(config.getPageURL("SpanishPage"));
 			driver.get(config.goHome());
-			
-			// Do assertions
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			beacon = getBeacon();
 			System.out.println("Home page and back load event: ");
