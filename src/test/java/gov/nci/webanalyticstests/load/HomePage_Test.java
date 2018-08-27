@@ -44,21 +44,12 @@ public class HomePage_Test extends AnalyticsTestLoadBase {
 		try {
 			// Go to our load URL
 			driver.get(config.goHome() + path);
+
+			// Do assertions
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			beacon = getBeacon();
 			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
-			
-			// Do assertions
-			Assert.assertTrue(beacon.hasEvent(1));
-			Assert.assertTrue(beacon.hasEvent(47));
-			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
-			Assert.assertTrue(beacon.hasProp(3, path));
-			Assert.assertTrue(beacon.hasProp(6, analyticsPageLoad.getMetaTitle()));
-			Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getLanguageName()));
-			Assert.assertTrue(beacon.hasProp(10, analyticsPageLoad.getPageTitle()));
-			Assert.assertTrue(beacon.hasProp(44, analyticsPageLoad.getMetaIsPartOf()));
-			Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
-			Assert.assertTrue(beacon.haseVar(44, analyticsPageLoad.getMetaIsPartOf()));
+			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		}
 		catch (Exception e) {
@@ -75,19 +66,12 @@ public class HomePage_Test extends AnalyticsTestLoadBase {
 			String path = "/";
 			driver.get(config.goHome());
 			driver.navigate().refresh();
+			
+			// Do assertions
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			beacon = getBeacon();
-			System.out.println("Home refresh load event (" + analyticsPageLoad.getLanguageName() + "):");			
-			Assert.assertTrue(beacon.hasEvent(1));
-			Assert.assertTrue(beacon.hasEvent(47));
-			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
-			Assert.assertTrue(beacon.hasProp(3, path));
-			Assert.assertTrue(beacon.hasProp(6, analyticsPageLoad.getMetaTitle()));
-			Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getLanguageName()));
-			Assert.assertTrue(beacon.hasProp(10, analyticsPageLoad.getPageTitle()));
-			Assert.assertTrue(beacon.hasProp(44, analyticsPageLoad.getMetaIsPartOf()));
-			Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
-			Assert.assertTrue(beacon.haseVar(44, analyticsPageLoad.getMetaIsPartOf()));
+			System.out.println("Home refresh load event (" + analyticsPageLoad.getLanguageName() + "):");
+			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			logger.log(LogStatus.PASS, "Home-refresh load values are correct.");
 		}
 		catch (Exception e) {
@@ -105,20 +89,25 @@ public class HomePage_Test extends AnalyticsTestLoadBase {
 			driver.get(config.goHome());
 			driver.get(config.getPageURL("SpanishPage"));
 			driver.get(config.goHome());
+			
+			// Do assertions
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			beacon = getBeacon();
 			System.out.println("Home page and back load event: ");
-			Assert.assertTrue(beacon.hasEvent(1));
-			Assert.assertTrue(beacon.hasEvent(47));
-			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
-			Assert.assertTrue(beacon.hasProp(3, path));
-			Assert.assertTrue(beacon.hasProp(6, analyticsPageLoad.getMetaTitle()));
-			Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getLanguageName()));
-			Assert.assertTrue(beacon.hasProp(10, analyticsPageLoad.getPageTitle()));
-			Assert.assertTrue(beacon.hasProp(44, analyticsPageLoad.getMetaIsPartOf()));
-			Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
-			Assert.assertTrue(beacon.haseVar(44, analyticsPageLoad.getMetaIsPartOf()));
+			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			logger.log(LogStatus.PASS, "Home-and-back load values are correct.");
+		}
+		catch (Exception e) {
+			Assert.fail("Error loading Home-page-and-back.");
+			e.printStackTrace();
+		}
+	}
+	
+	/// Home-and-back pageload returns expected values
+	// @Test(groups = { "Analytics" })
+	public void testEngagement() throws MalformedURLException {
+		try {
+			// TODO
 		}
 		catch (Exception e) {
 			Assert.fail("Error loading Home-page-and-back.");

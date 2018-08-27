@@ -39,16 +39,7 @@ public class LandingPage_Test extends AnalyticsTestLoadBase {
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			beacon = getBeacon();
 			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
-			Assert.assertTrue(beacon.hasEvent(1));
-			Assert.assertTrue(beacon.hasEvent(47));
-			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
-			Assert.assertTrue(beacon.hasProp(3, path));
-			Assert.assertTrue(beacon.hasProp(6, analyticsPageLoad.getMetaTitle()));
-			Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getLanguageName()));
-			Assert.assertTrue(beacon.hasProp(10, analyticsPageLoad.getPageTitle()));
-			Assert.assertTrue(beacon.hasProp(44, analyticsPageLoad.getMetaIsPartOf()));
-			Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
-			Assert.assertTrue(beacon.haseVar(44, analyticsPageLoad.getMetaIsPartOf()));
+			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		}
 		catch (Exception e) {

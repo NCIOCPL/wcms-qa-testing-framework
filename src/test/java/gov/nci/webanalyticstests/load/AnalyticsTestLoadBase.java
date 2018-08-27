@@ -61,12 +61,14 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		
 		return loadBeacons;		
 	}
-
-	/// Homepage refresh load event returns expected values
-	@Test(groups = { "Analytics" })
 	
-	// Common assertions
-	private void DoCommonLoadAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
+	/**
+	 * Shared Assert() calls for all pageLoad tracking beacons.
+	 * @param beacon
+	 * @param analyticsPageLoad
+	 * @param path
+	 */
+	protected void DoCommonLoadAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
 		Assert.assertTrue(beacon.hasEvent(1));
 		Assert.assertTrue(beacon.hasEvent(47));
 		Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
