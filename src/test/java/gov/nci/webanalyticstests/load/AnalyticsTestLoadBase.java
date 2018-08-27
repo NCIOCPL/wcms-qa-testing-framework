@@ -3,7 +3,7 @@ package gov.nci.webanalyticstests.load;
 import java.util.ArrayList;
 import java.util.List;
 
-import gov.nci.webanalytics.adobe.Beacon;
+import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class AnalyticsTestLoadBase extends AnalyticsTestBase {
