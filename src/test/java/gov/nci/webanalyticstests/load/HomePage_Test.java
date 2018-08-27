@@ -71,16 +71,24 @@ public class HomePage_Test extends AnalyticsTestLoadBase {
 	@Test(groups = { "Analytics" })
 	public void testRefresh() throws MalformedURLException {
 		try {
-			System.out.println("Home page and back load event:");
+			// Go home and refresh
+			String path = "/";
 			driver.get(config.goHome());
 			driver.navigate().refresh();
+			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			beacon = getBeacon();
-			Assert.assertTrue(beacon.hasProp(3, "/"));
-			Assert.assertTrue(beacon.hasProp(6, "Comprehensive Cancer Information"));
-			Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
-			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
-			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
-			logger.log(LogStatus.PASS, "Home-and-back nav values are correct.");
+			System.out.println("Home refresh load event (" + analyticsPageLoad.getLanguageName() + "):");			
+			Assert.assertTrue(beacon.hasEvent(1));
+			Assert.assertTrue(beacon.hasEvent(47));
+			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
+			Assert.assertTrue(beacon.hasProp(3, path));
+			Assert.assertTrue(beacon.hasProp(6, analyticsPageLoad.getMetaTitle()));
+			Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getLanguageName()));
+			Assert.assertTrue(beacon.hasProp(10, analyticsPageLoad.getPageTitle()));
+			Assert.assertTrue(beacon.hasProp(44, analyticsPageLoad.getMetaIsPartOf()));
+			Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
+			Assert.assertTrue(beacon.haseVar(44, analyticsPageLoad.getMetaIsPartOf()));
+			logger.log(LogStatus.PASS, "Home-refresh load values are correct.");
 		}
 		catch (Exception e) {
 			Assert.fail("Error loading Home-page-and-back.");
@@ -92,17 +100,25 @@ public class HomePage_Test extends AnalyticsTestLoadBase {
 	@Test(groups = { "Analytics" })
 	public void testHomeAndBack() throws MalformedURLException {
 		try {
-			System.out.println("Home page and back load event:");
+			// Go away from home then back
+			String path = "/";
 			driver.get(config.goHome());
 			driver.get(config.getPageURL("SpanishPage"));
 			driver.get(config.goHome());
+			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			beacon = getBeacon();
-			Assert.assertTrue(beacon.hasProp(3, "/"));
-			Assert.assertTrue(beacon.hasProp(6, "Comprehensive Cancer Information"));
-			Assert.assertTrue(beacon.hasProp(44, "NCI Homepage"));
-			Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/"));
-			Assert.assertTrue(beacon.haseVar(44, "NCI Homepage"));
-			logger.log(LogStatus.PASS, "Home-and-back nav values are correct.");
+			System.out.println("Home page and back load event: ");
+			Assert.assertTrue(beacon.hasEvent(1));
+			Assert.assertTrue(beacon.hasEvent(47));
+			Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
+			Assert.assertTrue(beacon.hasProp(3, path));
+			Assert.assertTrue(beacon.hasProp(6, analyticsPageLoad.getMetaTitle()));
+			Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getLanguageName()));
+			Assert.assertTrue(beacon.hasProp(10, analyticsPageLoad.getPageTitle()));
+			Assert.assertTrue(beacon.hasProp(44, analyticsPageLoad.getMetaIsPartOf()));
+			Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
+			Assert.assertTrue(beacon.haseVar(44, analyticsPageLoad.getMetaIsPartOf()));
+			logger.log(LogStatus.PASS, "Home-and-back load values are correct.");
 		}
 		catch (Exception e) {
 			Assert.fail("Error loading Home-page-and-back.");
