@@ -1,6 +1,5 @@
 package gov.nci.webanalytics;
 
-import java.net.URI;
 import java.util.List;
 import org.apache.http.NameValuePair;
 
@@ -8,7 +7,6 @@ import org.apache.http.NameValuePair;
 public class Beacon extends AnalyticsRequest {
 	// TODO: move server strings into config	
 	// TODO: remove unused methods
-	// TODO: build setter/getter for channel? 
 	// TODO: reuse collection method from ParsedURL() instead of the local getList()
 
 	// Constants
@@ -29,44 +27,43 @@ public class Beacon extends AnalyticsRequest {
 	static final String HIER_PARTIAL = "h";
 	
 	// Testable variable names
-	public String channel; // s.channel
-	public String suite; // s.account or s_account
+	public String[] suites; // s.account or s_account
+	public String channels; // s.channel
 	public String[] events; // events
-	public List<String> hier; // Hierarchy variables 	
-	public List<String> props; // props, aka "Traffic Variables"
-	public List<String> eVars; // eVars, aka "Conversion Variables"
+	public List<String> prop; // props, aka "Traffic Variables"
+	public List<String> eVar; // eVars, aka "Conversion Variables"
+	public List<String> hier; // Hierarchy variables
 	
 	// This class represents an Adobe Analytics request beacon
 	public Beacon(String url) {
 		super(url);
-	}	
-	
-	/**
-	 * Get the reporting suites (s_account) value
-	 * as an array of strings
-	 * @param uri
-	 * @return
-	 */
-	/// TODO: change arg type
-	protected String[] getSuites(URI uri) {
-		try {
-			String[] path = uri.getPath().split("/");
-			String[] rtnSuites = path[3].split(",");
-			return rtnSuites;
-		} 
-		catch(ArrayIndexOutOfBoundsException ex) {
-			System.out.println("Invalid URI path: \"" + uri.getPath() + "\\\" at AnalyticsBase:getSuitesI()");			
-			return null;
-		}
+		
+		// Set our variables
+		this.suites = getSuites();
+		this.channels = getChannels();
 	}
 	
 	/**
-	 * Get channel value 
-	 * @param parms
-	 * @return
+	 * Get an array of suites (s.account) values from the URL path.
+	 * @return suites (String[])
 	 */
-	public String getChannel(List<NameValuePair> parms) {
-		for (NameValuePair param : parms) {
+	private String[] getSuites() {
+		try {
+			String[] path = this.url.split("/");
+			String[] suites = path[5].split(",");
+			return suites;
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Could not locate suite values in URL: " + url + "\nin Beacon: GetSuites()");
+			return null;
+		}
+	}
+
+	/**
+	 * Get channel parameter value. 
+	 * @return channel (String)
+	 */
+	private String getChannels() {
+		for (NameValuePair param : this.paramsList) {
 			if (param.getName().equalsIgnoreCase(CHANNEL)) {
 				return param.getValue().trim();
 			}
@@ -194,15 +191,6 @@ public class Beacon extends AnalyticsRequest {
 	 * @return
 	 */
 	public boolean hasSuite() {
-		// TODO: fill this out
-		return false;
-	}
-
-	/**
-	 * Utility function to check for a given channel name
-	 * @return
-	 */
-	public boolean hasChannel() {
 		// TODO: fill this out
 		return false;
 	}

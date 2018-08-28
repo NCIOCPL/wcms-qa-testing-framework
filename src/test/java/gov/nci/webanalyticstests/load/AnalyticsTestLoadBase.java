@@ -70,6 +70,10 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	 * @param path
 	 */
 	protected void DoCommonLoadAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
+		 // TODO: beef up these assertions:
+		Assert.assertTrue(beacon.suites.length > 0);
+		Assert.assertTrue(beacon.channels.length() > 0);
+		
 		Assert.assertTrue(beacon.hasEvent(1));
 		Assert.assertTrue(beacon.hasEvent(47));
 		Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
