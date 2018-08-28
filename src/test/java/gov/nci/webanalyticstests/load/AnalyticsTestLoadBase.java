@@ -1,11 +1,12 @@
 package gov.nci.webanalyticstests.load;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.testng.Assert;
-import org.testng.annotations.Test;
 
+import gov.nci.Utilities.ExcelManager;
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestBase;
@@ -81,17 +82,24 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		Assert.assertTrue(beacon.haseVar(44, analyticsPageLoad.getMetaIsPartOf()));
 	}
 	
+	/**
+	 * Get an iterator data object with path and content type Strings.
+	 * @param testDataFilePath
+	 * @param sheetName
+	 * @return Iterator<Object[]> myObjects
+	 */
+	public Iterator<Object[]> getPathContentTypeData(String testDataFilePath, String sheetName) {
+		ExcelManager excelReader = new ExcelManager(testDataFilePath);
+		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount(sheetName); rowNum++) {
+			String path = excelReader.getCellData(sheetName, "Path", rowNum);
+			String contentType = excelReader.getCellData(sheetName, "ContentType", rowNum);
+			Object ob[] = { path, contentType };
+			myObjects.add(ob);
+		}
+		return myObjects.iterator();
+	}
 
-	/// Load events have been captured
-//	@Test(groups = { "Analytics" })
-//	public void testHarAndBeacons() {
-//		analyticsPageLoad.gotoMultiplePages();
-//		beacon = getLoadBeacon();
-//		Assert.assertTrue(harUrlList.size() > 0);
-//		Assert.assertTrue(loadBeacons.size() > 0);
-//		Assert.assertTrue(beacon != null);
-//		logger.log(LogStatus.PASS, "Load events have been captured.");
-//	}
 //	
 //	
 //	/// Blog post pageload returns expected values

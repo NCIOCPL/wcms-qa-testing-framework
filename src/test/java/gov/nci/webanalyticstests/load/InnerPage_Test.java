@@ -1,6 +1,5 @@
 package gov.nci.webanalyticstests.load;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.relevantcodes.extentreports.LogStatus;
@@ -9,10 +8,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-import gov.nci.Utilities.ExcelManager;
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class InnerPage_Test extends AnalyticsTestLoadBase {
 
@@ -71,15 +68,7 @@ public class InnerPage_Test extends AnalyticsTestLoadBase {
 
 	@DataProvider(name = "InnerPageLoad")
 	public Iterator<Object[]> getInnerPageLoadData() {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
-			String path = excelReader.getCellData(TESTDATA_SHEET_NAME, "Path", rowNum);
-			String contentType = excelReader.getCellData(TESTDATA_SHEET_NAME, "ContentType", rowNum);
-			Object ob[] = { path, contentType };
-			myObjects.add(ob);
-		}		
-		return myObjects.iterator();
-	}	
+		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
+	}
 	
 }
