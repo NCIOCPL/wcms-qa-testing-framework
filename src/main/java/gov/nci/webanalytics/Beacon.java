@@ -13,7 +13,7 @@ public class Beacon extends AnalyticsRequest {
 
 	// Constants
 	public static final String TRACKING_SERVER = "nci.122.2o7.net";
-		
+	
 	// Parameter values from URL
 	static final String CHANNEL = "ch";
 	static final String EVENTS = "events";
@@ -27,6 +27,14 @@ public class Beacon extends AnalyticsRequest {
 	static final String PROP_PARTIAL = "c";
 	static final String EVAR_PARTIAL = "v";
 	static final String HIER_PARTIAL = "h";
+	
+	// Testable variable names
+	public String channel; // s.channel
+	public String suite; // s.account or s_account
+	public String[] events; // events
+	public List<String> hier; // Hierarchy variables 	
+	public List<String> props; // props, aka "Traffic Variables"
+	public List<String> eVars; // eVars, aka "Conversion Variables"
 	
 	// This class represents an Adobe Analytics request beacon
 	public Beacon(String url) {
