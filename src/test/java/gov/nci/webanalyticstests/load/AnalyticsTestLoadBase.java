@@ -70,10 +70,14 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	 * @param path
 	 */
 	protected void DoCommonLoadAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
-		 // TODO: beef up these assertions:
+		// TODO: Beef up these assertions:
 		Assert.assertTrue(beacon.suites.length > 0);
 		Assert.assertTrue(beacon.channels.length() > 0);
-		
+
+		// TODO: Start replacing assertTrue() with assertEqual()
+		Assert.assertEquals(beacon.props.get(1), driver.getCurrentUrl());
+
+		// TODO: For anything that can't be assertEqual (like dates), build out regex logic for assertTrue()		
 		Assert.assertTrue(beacon.hasEvent(1));
 		Assert.assertTrue(beacon.hasEvent(47));
 		Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
@@ -131,37 +135,6 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 //		Assert.assertTrue(beacon.haseVar(44, "CancerCurrents"));
 //		logger.log(LogStatus.PASS, "Blog series pageload values are correct.");
 //	}
-//	
-//	/// CTHP patient pageload returns expected values
-//	public void testCTHPPatientLoad() {
-//		analyticsPageLoad.gotoCTHPPatient();
-//		beacon = getLoadBeacon(); 
-//		Assert.assertTrue(beacon.hasEvent(1));
-//		Assert.assertTrue(beacon.hasEvent(47));
-//		Assert.assertTrue(beacon.hasProp(8, "english"));
-//		Assert.assertTrue(beacon.hasProp(6, "Bladder cancer"));
-//		// "\u2014" is an emdash
-//		Assert.assertTrue(beacon.hasProp(10, "Bladder Cancer\u2014Patient Version - National Cancer Institute"));
-//		Assert.assertTrue(beacon.hasProp(44, "Cancer Types Landing Page"));
-//		Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/types/bladder"));
-//		Assert.assertTrue(beacon.haseVar(44, "Cancer Types Landing Page"));
-//		logger.log(LogStatus.PASS, "CTHP Patient pageload values are correct.");
-//	}
-//	
-//	/// CTHP HP pageload returns expected values
-//	public void testCTHPHPLoad() {
-//		analyticsPageLoad.gotoCTHPHP();
-//		beacon = getLoadBeacon();
-//		Assert.assertTrue(beacon.hasEvent(1));
-//		Assert.assertTrue(beacon.hasEvent(47));
-//		Assert.assertTrue(beacon.hasProp(6, "Breast cancer"));
-//		// "\u2014" is an emdash
-//		Assert.assertTrue(beacon.hasProp(10, "Breast Cancer\u2014Health Professional Version - National Cancer Institute"));
-//		Assert.assertTrue(beacon.hasProp(44, "Cancer Types Landing Page"));
-//		Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/types/breast/hp"));
-//		logger.log(LogStatus.PASS, "CTHP HP pageload values are correct.");
-//	}
-//	
 //	
 //	/// PDQ pageload returns expected values
 //	@Test(groups = { "Analytics" })
@@ -235,10 +208,5 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 //		/** more **/
 //	}			
 //
-//	@Test(groups = { "Analytics" })
-//	public void testCTViewPageLoad() {
-//		Assert.assertTrue((2 + 2) == 4);
-//		/** more **/
-//	}
 	
 }

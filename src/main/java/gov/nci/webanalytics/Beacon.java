@@ -1,5 +1,6 @@
 package gov.nci.webanalytics;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.NameValuePair;
 
@@ -28,11 +29,11 @@ public class Beacon extends AnalyticsRequest {
 	
 	// Testable variable names
 	public String[] suites; // s.account or s_account
-	public String channels; // s.channel
 	public String[] events; // events
-	public List<String> prop; // props, aka "Traffic Variables"
-	public List<String> eVar; // eVars, aka "Conversion Variables"
-	public List<String> hier; // Hierarchy variables
+	public String channels; // s.channel
+	public List<String> props; // props, aka "Traffic Variables"
+	public List<String> eVars; // eVars, aka "Conversion Variables"
+	public List<String> hiers; // Hierarchy variables
 	
 	// This class represents an Adobe Analytics request beacon
 	public Beacon(String url) {
@@ -41,6 +42,7 @@ public class Beacon extends AnalyticsRequest {
 		// Set our variables
 		this.suites = getSuites();
 		this.channels = getChannels();
+		this.props = getPropList();
 	}
 	
 	/**
@@ -85,6 +87,11 @@ public class Beacon extends AnalyticsRequest {
 			}
 		}
 		return rtnEvents.split(",");
+	}
+	
+	private List<String> getPropList() {
+		List <String> rtn = getNumParams(PROP_PARTIAL, paramsList);
+		return rtn;
 	}
 	
 	/**
@@ -277,5 +284,46 @@ public class Beacon extends AnalyticsRequest {
 		}
 		return false;
 	}
+
+	/******************** Utility methods ****************************************/	
+	
+	/**
+	 * Initialize a numbered list of empty elements. 
+	 * @param size
+	 * @return rtnList List<String>
+	 */
+	private List<String> initNumberedArrayList(int size) {		
+		List<String> myList = new ArrayList<String>();
+		while(myList.size() <= size) {
+			myList.add(null);
+		}
+		return myList;
+	}
+	
+
+	/**
+	 * Get a list of numbered parameters and their values (e.g. [prop1="www.cancer.gov", prop2="/home", prop3="NCI"])
+	 * @param paramList
+	 * @param parm
+	 * @param replacement
+	 * @return
+	 */
+	protected List<String> getNumParams(String myParam, List<NameValuePair> myList) {
+		// Create a list with x names and null values
+		List<String> rtnList = initNumberedArrayList(75);
 		
+		// Go through the list of populated parameter values and add those to the return list 
+		// where the number matches
+		for(NameValuePair pair : myList) {
+			String name = pair.getName();
+			String val = pair.getValue();
+			// Regex: parameter name followed by 1 or more digits, starting with 1-9 only
+			if(name.matches("^" + myParam + "[1-9]\\d*$")) {
+				int index = Integer.parseInt(name.replace(myParam, ""));
+				rtnList.set(index, val);
+			}
+		}
+		return rtnList;
+	}
+	
 }
