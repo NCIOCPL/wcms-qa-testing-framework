@@ -48,8 +48,8 @@ public class HomePage_Test extends AnalyticsTestLoadBase {
 
 			// Set page and request beacon objects
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			beacon = getBeacon();
 			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
+			beacon = getBeacon();
 
 			// Do assertions
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
@@ -70,8 +70,8 @@ public class HomePage_Test extends AnalyticsTestLoadBase {
 			driver.get(config.goHome());
 			driver.navigate().refresh();
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			beacon = getBeacon();
 			System.out.println("Home refresh load event (" + analyticsPageLoad.getLanguageName() + "):");
+			beacon = getBeacon();
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			logger.log(LogStatus.PASS, "Home-refresh load values are correct.");
 		}
@@ -91,8 +91,8 @@ public class HomePage_Test extends AnalyticsTestLoadBase {
 			driver.get(config.getPageURL("SpanishPage"));
 			driver.get(config.goHome());
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			beacon = getBeacon();
 			System.out.println("Home page and back load event: ");
+			beacon = getBeacon();
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			logger.log(LogStatus.PASS, "Home-and-back load values are correct.");
 		}

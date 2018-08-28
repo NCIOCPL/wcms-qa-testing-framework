@@ -36,8 +36,8 @@ public class TopicPage_Test extends AnalyticsTestLoadBase {
 		try {
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			beacon = getBeacon();
 			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
+			beacon = getBeacon();
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		}
