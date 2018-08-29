@@ -42,7 +42,10 @@ public class Beacon extends AnalyticsRequest {
 		// Set our variables
 		this.suites = getSuites();
 		this.channels = getChannels();
+		this.events = getEvents();
 		this.props = getPropList();
+		this.eVars = geteVarList();
+		this.hiers = getHierList();
 	}
 	
 	/**
@@ -89,11 +92,33 @@ public class Beacon extends AnalyticsRequest {
 		return rtnEvents.split(",");
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private List<String> getPropList() {
-		List <String> rtn = getNumParams(PROP_PARTIAL, paramsList);
+		List <String> rtn = getNumParams(PROP_PARTIAL, paramsList, 75);
 		return rtn;
 	}
-	
+
+	/**
+	 * 
+	 * @return
+	 */
+	private List<String> geteVarList() {
+		List <String> rtn = getNumParams(EVAR_PARTIAL, paramsList, 75);
+		return rtn;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	private List<String> getHierList() {
+		List <String> rtn = getNumParams(HIER_PARTIAL, paramsList, 2);
+		return rtn;
+	}
+
 	/**
 	 * Get list of props ('c' values in request)
 	 * @param parms
@@ -110,15 +135,6 @@ public class Beacon extends AnalyticsRequest {
 	 */
 	public List<NameValuePair> getEvars() {
 		return getNumberedParams(paramsList, EVAR_PARTIAL, "eVar");
-	}
-	
-	/**
-	 * Get list of hierarchy values ("h" values in request)
-	 * @param parms
-	 * @return
-	 */
-	public List<NameValuePair> getHiers(List<NameValuePair> parms) {
-		return getNumberedParams(parms, HIER_PARTIAL, "hier");
 	}
 
 	/**
@@ -300,17 +316,16 @@ public class Beacon extends AnalyticsRequest {
 		return myList;
 	}
 	
-
 	/**
 	 * Get a list of numbered parameters and their values (e.g. [prop1="www.cancer.gov", prop2="/home", prop3="NCI"])
-	 * @param paramList
-	 * @param parm
-	 * @param replacement
-	 * @return
+	 * @param myParam
+	 * @param myList
+	 * @param total
+	 * @return List of values (String)
 	 */
-	protected List<String> getNumParams(String myParam, List<NameValuePair> myList) {
+	protected List<String> getNumParams(String myParam, List<NameValuePair> myList, int total) {
 		// Create a list with x names and null values
-		List<String> rtnList = initNumberedArrayList(75);
+		List<String> rtnList = initNumberedArrayList(total);
 		
 		// Go through the list of populated parameter values and add those to the return list 
 		// where the number matches

@@ -76,18 +76,17 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 
 		// TODO: Start replacing assertTrue() with assertEqual()
 		Assert.assertEquals(beacon.props.get(1), driver.getCurrentUrl());
-
+		Assert.assertEquals(beacon.props.get(3), path);
+		Assert.assertEquals(beacon.props.get(6), analyticsPageLoad.getMetaTitle());
+		Assert.assertEquals(beacon.props.get(8), analyticsPageLoad.getLanguageName());
+		Assert.assertEquals(beacon.props.get(10), analyticsPageLoad.getPageTitle());
+		Assert.assertEquals(beacon.props.get(44), analyticsPageLoad.getMetaIsPartOf());
+		Assert.assertEquals(beacon.eVars.get(2), analyticsPageLoad.getLanguageName());
+		Assert.assertEquals(beacon.eVars.get(44), analyticsPageLoad.getMetaIsPartOf());
+		
 		// TODO: For anything that can't be assertEqual (like dates), build out regex logic for assertTrue()		
 		Assert.assertTrue(beacon.hasEvent(1));
 		Assert.assertTrue(beacon.hasEvent(47));
-		Assert.assertTrue(beacon.hasProp(1, driver.getCurrentUrl()));
-		Assert.assertTrue(beacon.hasProp(3, path));
-		Assert.assertTrue(beacon.hasProp(6, analyticsPageLoad.getMetaTitle()));
-		Assert.assertTrue(beacon.hasProp(8, analyticsPageLoad.getLanguageName()));
-		Assert.assertTrue(beacon.hasProp(10, analyticsPageLoad.getPageTitle()));
-		Assert.assertTrue(beacon.hasProp(44, analyticsPageLoad.getMetaIsPartOf()));
-		Assert.assertTrue(beacon.haseVar(2, analyticsPageLoad.getLanguageName()));
-		Assert.assertTrue(beacon.haseVar(44, analyticsPageLoad.getMetaIsPartOf()));
 	}
 	
 	/**
