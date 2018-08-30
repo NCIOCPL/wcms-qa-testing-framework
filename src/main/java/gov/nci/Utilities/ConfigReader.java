@@ -45,11 +45,17 @@ public class ConfigReader {
 		{
 			put("", "www");
 			put("prod", "www");
+			put("prod-preview", "preview");
 			put("qa", "www-qa");
 			put("dt", "www-dt-qa");
+			put("dt-qa", "www-dt-qa");
 			put("blue", "www-blue-dev");
+			put("blue-dev", "www-blue-dev");
 			put("red", "www-red-dev");
+			put("red-dev", "www-red-dev");
 			put("pink", "www-pink-dev");
+			put("pink-dev", "www-pink-dev");
+			put("training", "www-training");
 			put("stage", "www-stage");
 		}
 	};
