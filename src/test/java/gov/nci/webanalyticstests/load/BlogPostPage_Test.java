@@ -11,53 +11,33 @@ import org.testng.Assert;
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 
-public class InnerPage_Test extends AnalyticsTestLoadBase {
+public class BlogPostPage_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page / content types are covered by this test class:
-	 * - Article (English and Spanish)
-	 * - General (English and Spanish)
-	 */		
-	
-	// TODO: more test cases
-	// TODO: create URLs
-	// TODO: handle these: 
-	/***
-	 * Other values needed:
-	 *  Example from General=https://www-qa.cancer.gov/about-nci/visit:
-		channel: about NCI
-		suites: ncidevelopment, ncienterprise-dev
-		prop25: 01/01/1980
-		prop26: 2018|8|22|15
-		prop29: 3:02 PM|Wednesday
-		prop42: Normal
-		prop48: 12pct|12pct|3796px|/
-		prop61: www.cancer.gov/
-		prop64: 12|0
-		prop65: 3
-		eVar1: www.cancer.gov/about-nci/visit
-		eVar5: Extra wide
-		Hierarchy: 1 www-qa.cancer.gov|about-nci|visit
+	 * - Blog Post Page (English and Spanish)
 	 */
+	
 	private AnalyticsPageLoad analyticsPageLoad;
 	private Beacon beacon;	
 	private String testDataFilePath;
-	private final String TESTDATA_SHEET_NAME = "InnerPage";
+	private final String TESTDATA_SHEET_NAME = "BlogPostPage";
 	
 	@BeforeClass(groups = { "Analytics" }) 
 	public void setup() {
 		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
 	
-	/// Inner page loads return expected values
-	@Test(dataProvider = "InnerPageLoad", groups = { "Analytics" })
-	public void testInnerPageLoad(String path, String contentType) {
+	/// BlogPost page loads return expected values
+	@Test(dataProvider = "BlogPostPageLoad", groups = { "Analytics" })
+	public void testBlogPostPageLoad(String path, String contentType) {
 		try {
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
 			beacon = getBeacon();
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
+			Assert.assertEquals(beacon.eVars.get(48), analyticsPageLoad.getMetaIsPartOf() + " Viewer");
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		}
 		catch (Exception e) {
@@ -66,8 +46,8 @@ public class InnerPage_Test extends AnalyticsTestLoadBase {
 		}
 	}
 
-	@DataProvider(name = "InnerPageLoad")
-	public Iterator<Object[]> getInnerPageLoadData() {
+	@DataProvider(name = "BlogPostPageLoad")
+	public Iterator<Object[]> getBlogPostPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
 	
