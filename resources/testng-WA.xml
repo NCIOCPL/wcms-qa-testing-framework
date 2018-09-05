@@ -27,6 +27,7 @@
 			<class name="gov.nci.webanalyticstests.load.BlogPostPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.BlogSeriesPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.CthpPage_Test" />
+			<class name="gov.nci.webanalyticstests.load.DynamicListingPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.HomePage_Test" />
 			<class name="gov.nci.webanalyticstests.load.InnerPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.LandingPage_Test" />
@@ -38,7 +39,6 @@
 			<class name="gov.nci.webanalyticstests.load.CtsAdvancedPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.CtsResultsPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.CtsViewPage_Test" />
-			<class name="gov.nci.webanalyticstests.load.DynamicListingPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.DictionaryPage_Test" />
 			 -->
 			
