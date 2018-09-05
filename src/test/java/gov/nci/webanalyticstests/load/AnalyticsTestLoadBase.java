@@ -107,34 +107,6 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		return myObjects.iterator();
 	}
 
-//	
-//	
-//	/// Blog post pageload returns expected values
-//	public void testBlogPostLoad() {
-//		analyticsPageLoad.gotoBlogPostPage();
-//		beacon = getLoadBeacon();
-//		Assert.assertTrue(beacon.hasEvent(1));
-//		Assert.assertTrue(beacon.hasEvent(47));
-//		Assert.assertTrue(beacon.hasEvent(53));
-//		Assert.assertTrue(beacon.hasProp(6, "Addressing Cancer Drug Costs and Value"));
-//		Assert.assertTrue(beacon.hasProp(44, "CancerCurrents"));
-//		Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/news-events/cancer-currents-blog/2018/presidents-cancer-panel-drug-prices"));
-//		// hasHier()
-//		logger.log(LogStatus.PASS, "Blog post pageload values are correct.");		
-//	}
-//	
-//	/// Blog series pageload returns expected values
-//	public void testBlogSeriesLoad() {
-//		analyticsPageLoad.gotoBlogSeriesPage();
-//		beacon = getLoadBeacon();
-//		Assert.assertTrue(beacon.hasEvent(1));
-//		Assert.assertTrue(beacon.hasEvent(47));
-//		Assert.assertTrue(beacon.hasProp(44, "CancerCurrents"));
-//		Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/news-events/cancer-currents-blog"));
-//		Assert.assertTrue(beacon.haseVar(44, "CancerCurrents"));
-//		logger.log(LogStatus.PASS, "Blog series pageload values are correct.");
-//	}
-//
 //
 //	/// Appmodule pageload returns expected values
 //	//@Test(groups = { "Analytics" })
