@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load;
+package gov.nci.webanalyticstests.load.appmodule;
 
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
@@ -6,21 +6,22 @@ import org.testng.Assert;
 
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
+import gov.nci.webanalyticstests.load.AnalyticsTestLoadBase;
 
-public class CtsBasicSearchPage_Test extends AnalyticsTestLoadBase {
+public class CtsAdvancedSearchPage_Test extends AnalyticsTestLoadBase {
 
 	/**
-	 * This test class covers Clinical Trial Basic Search pages only
+	 * This test class covers Clinical Trial Advanced Search pages only
 	 */
 
 	private AnalyticsPageLoad analyticsPageLoad;
 	private Beacon beacon;
-	private final String PATH = "/about-cancer/treatment/clinical-trials/search";
-	private final String CTS_CONTENT_TYPE = "Clinical Trials: Basic";
+	private final String PATH = "/about-cancer/treatment/clinical-trials/advanced-search";
+	private final String CTS_CONTENT_TYPE = "Clinical Trials: Advanced";
 	
-	/// CTS Basic Search page loads return expected values
+	/// CTS Advanced Search page loads return expected values
 	@Test(groups = { "Analytics" })
-	public void testCTSBasicSearchPageLoad() {
+	public void testCTSAdvancedSearchPageLoad() {
 		try {
 			driver.get(config.goHome() + PATH);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);

@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load;
+package gov.nci.webanalyticstests.load.appmodule;
 
 import java.util.Iterator;
 
@@ -10,6 +10,7 @@ import org.testng.Assert;
 
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
+import gov.nci.webanalyticstests.load.AnalyticsTestLoadBase;
 
 public class DynamicListingPage_Test extends AnalyticsTestLoadBase {
 

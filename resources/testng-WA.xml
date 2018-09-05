@@ -27,9 +27,9 @@
 			<class name="gov.nci.webanalyticstests.load.BlogPostPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.BlogSeriesPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.CthpPage_Test" />
-			<class name="gov.nci.webanalyticstests.load.CtsBasicSearchPage_Test" />
-			<class name="gov.nci.webanalyticstests.load.CtsAdvancedSearchPage_Test" />
-			<class name="gov.nci.webanalyticstests.load.DynamicListingPage_Test" />
+			<class name="gov.nci.webanalyticstests.load.appmodule.CtsBasicSearchPage_Test" />
+			<class name="gov.nci.webanalyticstests.load.appmodule.CtsAdvancedSearchPage_Test" />
+			<class name="gov.nci.webanalyticstests.load.appmodule.DynamicListingPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.HomePage_Test" />
 			<class name="gov.nci.webanalyticstests.load.InnerPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.LandingPage_Test" />
@@ -37,14 +37,11 @@
 			<class name="gov.nci.webanalyticstests.load.TopicPage_Test" />
 			
 			<!-- In progress:
-			<class name="gov.nci.webanalyticstests.load.CtsViewPage_Test" />
+			<class name="gov.nci.webanalyticstests.load.appmodule.CtsViewPage_Test" />
+			<class name="gov.nci.webanalyticstests.load.appmodule.CtsResultsPage_Test" />
+			<class name="gov.nci.webanalyticstests.load.appmodule.DictionaryPage_Test" />
 			 -->
-			
-			<!-- To add:
-			<class name="gov.nci.webanalyticstests.load.CtsResultsPage_Test" />
-			<class name="gov.nci.webanalyticstests.load.DictionaryPage_Test" />
-			 -->
-			
+			 
 			<class name="gov.nci.webanalyticstests.click.WaBasicSearch_Test" />
 			<class name="gov.nci.webanalyticstests.click.SitewideSearch_Test" />
 			<class name="gov.nci.webanalyticstests.click.Resize_Test" />
