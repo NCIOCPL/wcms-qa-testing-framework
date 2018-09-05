@@ -16,6 +16,7 @@
 			<parameter name="browser" value="iPad" />
 		-->
 			<parameter name="browser" value="GeckoHeadless" />
+			<parameter name="environment" value="prod" />
 		
 		<groups>
 			<run>
