@@ -71,11 +71,11 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	 */
 	protected void DoCommonLoadAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
 		// TODO: Beef up these assertions:
+		String currUrl = driver.getCurrentUrl();
+
 		Assert.assertTrue(beacon.suites.length > 0);
 		Assert.assertTrue(beacon.channels.length() > 0);
-
-		// TODO: Start replacing assertTrue() with assertEqual()
-		Assert.assertEquals(beacon.props.get(1), driver.getCurrentUrl());
+		Assert.assertEquals(beacon.props.get(1), currUrl.substring(0, Math.min(currUrl.length(), 100)));
 		Assert.assertEquals(beacon.props.get(3), path);
 		Assert.assertEquals(beacon.props.get(6), analyticsPageLoad.getMetaTitle());
 		Assert.assertEquals(beacon.props.get(8), analyticsPageLoad.getLanguageName());
@@ -134,27 +134,7 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 //		Assert.assertTrue(beacon.haseVar(44, "CancerCurrents"));
 //		logger.log(LogStatus.PASS, "Blog series pageload values are correct.");
 //	}
-//	
-//	/// PDQ pageload returns expected values
-//	@Test(groups = { "Analytics" })
-//	public void testPDQPageLoad() {
-//		analyticsPageLoad.gotoPDQPage();
-//		beacon = getLoadBeacon();
-//		Assert.assertTrue(beacon.hasEvent(1));
-//		Assert.assertTrue(beacon.hasEvent(47));
-//		Assert.assertTrue(beacon.hasProp(3, "/types/breast"));
-//		Assert.assertTrue(beacon.hasProp(6, "Breast Cancer Prevention"));
-//		Assert.assertTrue(beacon.hasProp(7, "patient"));
-//		// "\u2014" is an emdash
-//		// "\u00ae" is the registered mark.
-//		Assert.assertTrue(beacon.hasProp(10, "Breast Cancer Prevention (PDQ\u00ae)\u2014Patient Version - National Cancer Institute"));
-//		Assert.assertTrue(beacon.hasProp(44, "Cancer Types Landing Page"));
-//		//Assert.assertTrue(beacon.hasProp(65, "2"));
-//		Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/types/breast/patient/breast-prevention-pdq"));
-//		Assert.assertTrue(beacon.haseVar(44, "Cancer Types Landing Page"));
-//		logger.log(LogStatus.PASS, "PDQ page load values are correct.");
-//	}
-//	
+//
 //
 //	/// Appmodule pageload returns expected values
 //	//@Test(groups = { "Analytics" })
