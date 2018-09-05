@@ -34,11 +34,14 @@
 			<class name="gov.nci.webanalyticstests.load.PdqPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.TopicPage_Test" />
 			
-			<!-- 
+			<!-- In progress:
+			<class name="gov.nci.webanalyticstests.load.CtsViewPage_Test" />
+			 -->
+			
+			<!-- To add:
 			<class name="gov.nci.webanalyticstests.load.CtsBasicPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.CtsAdvancedPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.CtsResultsPage_Test" />
-			<class name="gov.nci.webanalyticstests.load.CtsViewPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.DictionaryPage_Test" />
 			 -->
 			
