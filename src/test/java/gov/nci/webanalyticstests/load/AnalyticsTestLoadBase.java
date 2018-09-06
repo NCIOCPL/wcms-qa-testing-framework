@@ -118,58 +118,5 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		}
 		return myObjects.iterator();
 	}
-
-//
-//	/// Appmodule pageload returns expected values
-//	//@Test(groups = { "Analytics" })
-//	public void testAppModulePageLoad1() {
-//		analyticsPageLoad.gotoAppModulePage();
-//		beacon = getLoadBeacon();
-//		Assert.assertTrue(beacon.hasEvent(1));
-//		Assert.assertTrue(beacon.hasEvent(47));
-//		Assert.assertTrue(beacon.hasProp(3, "/publications/dictionaries/cancer-terms"));
-//		Assert.assertTrue(beacon.hasProp(6, "NCI Dictionary of Cancer Terms"));
-//		Assert.assertTrue(beacon.hasProp(8, "English"));
-//		Assert.assertTrue(beacon.hasProp(44, "Dictionary of Cancer Terms"));
-//		Assert.assertTrue(beacon.haseVar(1, "www.cancer.gov/publications/dictionaries/cancer-terms"));
-//		Assert.assertTrue(beacon.haseVar(44, "Dictionary of Cancer Terms"));
-//		logger.log(LogStatus.PASS, "Appmodule (dictionary) page load values are correct.");		
-//	}
-//
-//	/// Appmodule pageload returns expected values
-//	@Test(groups = { "Analytics" })
-//	public void testAppModulePageLoad2() {
-//		pageLoad.gotoAppModulePage();
-//		setLoadBeacons();
-//	}		
-//		
-//	/// CTHP HP pageload returns expected values
-//	@Test(groups = { "Analytics" })
-//	public void testAdvSearchPageLoad() {
-//		pageLoad.gotoAdvSearchPage();
-//		setLoadBeacons();
-//		Assert.assertTrue(beacon.hasEvent(1));
-//		Assert.assertTrue(beacon.hasEvent(47));
-//		/** more **/
-//	}
-//	
-//	@Test(groups = { "Analytics" })
-//	public void testBasicSearchPageLoad() {
-//		pageLoad.gotoBasicSearchPage();
-//		setLoadBeacons();
-//		Assert.assertTrue(beacon.hasEvent(1));
-//		Assert.assertTrue(beacon.hasEvent(47));
-//		/** more **/
-//	}		
-//	
-//	@Test(groups = { "Analytics" })
-//	public void testCTResultsPageLoad() {
-//		pageLoad.gotoResultsPage();
-//		setLoadBeacons();
-//		Assert.assertTrue(beacon.hasEvent(1));
-//		Assert.assertTrue(beacon.hasEvent(47));
-//		/** more **/
-//	}			
-//
 	
 }
