@@ -5,9 +5,11 @@ import java.util.Iterator;
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
+import gov.nci.Utilities.ConfigReader;
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 
@@ -24,7 +26,9 @@ public class BlogSeriesPage_Test extends AnalyticsTestLoadBase {
 	private final String TESTDATA_SHEET_NAME = "BlogSeriesPage";
 	
 	@BeforeClass(groups = { "Analytics" }) 
-	public void setup() {
+	@Parameters({ "environment" })
+	public void setup(String environment) {
+		config = new ConfigReader(environment);
 		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
 	
