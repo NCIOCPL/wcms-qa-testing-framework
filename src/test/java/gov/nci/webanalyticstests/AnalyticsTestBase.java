@@ -32,12 +32,13 @@ public abstract class AnalyticsTestBase {
 
 	/**
 	* TODO: Create timer
+	* TODO: Fix configuration reader issues
 	**/	
 	protected static WebDriver driver;
 	protected static BrowserMobProxy proxy;
 	protected static ExtentReports report;
 	protected static ExtentTest logger;
-	protected ConfigReader config = new ConfigReader("prod");
+	protected ConfigReader config = new ConfigReader("dt");
 	
 	/**************************************
 	 * Section: TextNG Befores & Afters *
