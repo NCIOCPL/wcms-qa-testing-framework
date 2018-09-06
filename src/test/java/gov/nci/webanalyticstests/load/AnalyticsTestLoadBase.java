@@ -84,6 +84,18 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		Assert.assertEquals(beacon.eVars.get(2), analyticsPageLoad.getLanguageName());
 		Assert.assertEquals(beacon.eVars.get(44), analyticsPageLoad.getMetaIsPartOf());
 		
+		// TODO: regex assertions
+//		Assert.assertTrue(beacon.props.get(25).matches("some regex"));
+//		Assert.assertTrue(beacon.props.get(26).matches("some regex"));
+//		Assert.assertTrue(beacon.props.get(29).matches("some regex"));
+//		Assert.assertTrue(beacon.props.get(42).matches("some regex"));
+//		Assert.assertTrue(beacon.props.get(48).matches("some regex"));
+//		Assert.assertTrue(beacon.props.get(61).matches("some regex"));
+//		Assert.assertTrue(beacon.props.get(64).matches("some regex"));
+//		Assert.assertTrue(beacon.props.get(65).matches("some regex"));
+//		Assert.assertTrue(beacon.eVars.get(1).matches("some regex"));
+//		Assert.assertTrue(beacon.eVars.get(5).matches("some regex"));
+		
 		// TODO: For anything that can't be assertEqual (like dates), build out regex logic for assertTrue()		
 		Assert.assertTrue(beacon.hasEvent(1));
 		Assert.assertTrue(beacon.hasEvent(47));
