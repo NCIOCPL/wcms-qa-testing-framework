@@ -32,7 +32,6 @@ public abstract class AnalyticsTestBase {
 
 	/**
 	* TODO: Create timer
-	* TODO: Move "Logger Path" output up one level
 	**/	
 	protected static WebDriver driver;
 	protected static BrowserMobProxy proxy;
@@ -45,18 +44,18 @@ public abstract class AnalyticsTestBase {
 	 **************************************/
 	
 	/**
-	* Configuration information for a TestNG class (http://testng.org/doc/documentation-main.html): 
-	* @BeforeSuite: The annotated method will be run before all tests in this suite have run. 
-	* @AfterSuite: The annotated method will be run after all tests in this suite have run. 
-	* @BeforeTest: The annotated method will be run before any test method belonging to the classes inside the <test> tag is run. 
-	* @AfterTest: The annotated method will be run after all the test methods belonging to the classes inside the <test> tag have run. 
-	* @BeforeGroups: The list of groups that this configuration method will run before. 
-	* 				 This method is guaranteed to run shortly before the first test method that belongs to any of these groups is invoked. 
-	* @AfterGroups: The list of groups that this configuration method will run after. 
-	* 				This method is guaranteed to run shortly after the last test method that belongs to any of these groups is invoked. 
-	* @BeforeClass: The annotated method will be run before the first test method in the current class is invoked. 
-	* @AfterClass: The annotated method will be run after all the test methods in the current class have been run. 
-	* @BeforeMethod: The annotated method will be run before each test method. 
+	* Configuration information for a TestNG class (http://testng.org/doc/documentation-main.html):
+	* @BeforeSuite: The annotated method will be run before all tests in this suite have run.
+	* @AfterSuite: The annotated method will be run after all tests in this suite have run.
+	* @BeforeTest: The annotated method will be run before any test method belonging to the classes inside the <test> tag is run.
+	* @AfterTest: The annotated method will be run after all the test methods belonging to the classes inside the <test> tag have run.
+	* @BeforeGroups: The list of groups that this configuration method will run before.
+	* 				 This method is guaranteed to run shortly before the first test method that belongs to any of these groups is invoked.
+	* @AfterGroups: The list of groups that this configuration method will run after.
+	* 				This method is guaranteed to run shortly after the last test method that belongs to any of these groups is invoked.
+	* @BeforeClass: The annotated method will be run before the first test method in the current class is invoked.
+	* @AfterClass: The annotated method will be run after all the test methods in the current class have been run.
+	* @BeforeMethod: The annotated method will be run before each test method.
 	* @AfterMethod: The annotated method will be run after each test method.
 	**/
 	
@@ -73,18 +72,19 @@ public abstract class AnalyticsTestBase {
 		driver = BrowserManager.startProxyBrowser(browser, config, initUrl, proxy);
     	System.out.println("Requests to " + Beacon.TRACKING_SERVER + " will be tested.");
 		System.out.println("Analytics test group setup done.\r\nStarting from " + initUrl);
+		
+		// Get path and configure extent reports
+		String fileName = new SimpleDateFormat("yyyy-MM-dd HH-mm-SS").format(new Date());
+		String extentReportPath = config.getExtentReportPath();		
+		System.out.println("Logger Path:" + extentReportPath + "\n");
+		report = new ExtentReports(extentReportPath + config.getProperty("Environment") + "-" + fileName + ".html");
+		report.addSystemInfo("Environment", config.getProperty("Environment"));		
 	}
 	
 	@BeforeClass(groups = { "Analytics" })
 	public void beforeClass() {
-		String testClass = this.getClass().getSimpleName();
-		String fileName = new SimpleDateFormat("yyyy-MM-dd HH-mm-SS").format(new Date());
-		String extentReportPath = config.getExtentReportPath();
-		
-		System.out.println(testClass);
-		System.out.println("Logger Path:" + extentReportPath + "\n");
-		report = new ExtentReports(extentReportPath + config.getProperty("Environment") + "-" + fileName + ".html");
-		report.addSystemInfo("Environment", config.getProperty("Environment"));
+		String testClass = this.getClass().getSimpleName();		
+		System.out.println("~~ " + testClass + " ~~\n");
 		logger = report.startTest(testClass);
 	}
 	
@@ -110,12 +110,12 @@ public abstract class AnalyticsTestBase {
 	@AfterClass(groups = { "Analytics" })
 	public void afterClass() {
 		report.endTest(logger);
-		report.flush();
 	}
 	
 	@AfterTest(groups = { "Analytics"})
 	public void afterTest() {
 		System.out.println("=== Quitting Driver ===");
+		report.flush();
 		driver.quit();
 		System.out.println("=== Stopping BrowserMobProxy ===");
 		proxy.stop();
