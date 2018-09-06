@@ -62,13 +62,13 @@ public class CtsResultsPage_Test extends AnalyticsTestLoadBase {
 		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
 	
-	/// CTS Results page loads return expected values
-	@Test(dataProvider = "CtsResultsPageLoad", groups = { "Analytics" })
-	public void testCtsResultsPageLoad(String path, String contentType) {
+	/// CTS Advanced Results page loads return expected values
+	@Test(dataProvider = "CtsAdvancedResultsPageLoad", groups = { "Analytics" })
+	public void testCtsAdvacnedResultsPageLoad(String path, String contentType) {
 		try {
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
+			System.out.println("Advanced " + contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
 			beacon = getBeacon();
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
@@ -79,9 +79,31 @@ public class CtsResultsPage_Test extends AnalyticsTestLoadBase {
 		}
 	}
 
-	@DataProvider(name = "CtsResultsPageLoad")
-	public Iterator<Object[]> getCtsResultsPageLoadData() {
-		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
+	/// CTS Basic Results page loads return expected values
+	@Test(dataProvider = "CtsBasicResultsPageLoad", groups = { "Analytics" })
+	public void testCtBasicResultsPageLoad(String path, String contentType) {
+		try {
+			driver.get(config.goHome() + path);
+			analyticsPageLoad = new AnalyticsPageLoad(driver);
+			System.out.println("Basic " + contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
+			beacon = getBeacon();
+			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
+			logger.log(LogStatus.PASS, contentType + " load values are correct.");
+		}
+		catch (Exception e) {
+			Assert.fail("Error loading " + contentType);
+			e.printStackTrace();
+		}
+	}
+
+	@DataProvider(name = "CtsAdvancedResultsPageLoad")
+	public Iterator<Object[]> getCtsAdvancedResultsPageLoadData() {
+		return getFilteredPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME, "SearchType", "Advanced");
+	}
+	
+	@DataProvider(name = "CtsBasicResultsPageLoad")
+	public Iterator<Object[]> getCtsBasicResultsPageLoadData() {
+		return getFilteredPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME, "SearchType", "Basic");
 	}
 	
 }

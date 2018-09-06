@@ -119,4 +119,27 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		return myObjects.iterator();
 	}
 	
+	/**
+	 * Get an iterator data object with path and content type Strings, filtered by a given value.
+	 * @param testDataFilePath
+	 * @param sheetName
+	 * @param filterColumn
+	 * @param filter
+	 * @return
+	 */
+	public Iterator<Object[]> getFilteredPathContentTypeData(String testDataFilePath, String sheetName, String filterColumn, String myFilter) {
+		ExcelManager excelReader = new ExcelManager(testDataFilePath);
+		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount(sheetName); rowNum++) {
+			String path = excelReader.getCellData(sheetName, "Path", rowNum);
+			String contentType = excelReader.getCellData(sheetName, "ContentType", rowNum);
+			String filter = excelReader.getCellData(sheetName, filterColumn, rowNum);
+			if(filter.equalsIgnoreCase(myFilter))
+			{
+				Object ob[] = { path, contentType };
+				myObjects.add(ob);
+			}
+		}
+		return myObjects.iterator();
+	}	
 }

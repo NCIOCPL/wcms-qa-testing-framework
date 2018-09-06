@@ -32,8 +32,7 @@
 			<class name="gov.nci.webanalyticstests.load.LandingPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.PdqPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.TopicPage_Test" />
-			<class name="gov.nci.webanalyticstests.load.appmodule.CtsBasicSearchPage_Test" />
-			<class name="gov.nci.webanalyticstests.load.appmodule.CtsAdvancedSearchPage_Test" />
+			<class name="gov.nci.webanalyticstests.load.appmodule.CtsSearchPages_Test" />
 			<class name="gov.nci.webanalyticstests.load.appmodule.DictionaryPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.appmodule.DynamicListingPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.appmodule.SwsResultsPage_Test" />
