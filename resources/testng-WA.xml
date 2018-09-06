@@ -38,7 +38,7 @@
 			<class name="gov.nci.webanalyticstests.load.appmodule.DynamicListingPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.appmodule.SwsResultsPage_Test" />
 			
-			<!-- In progress:
+			<!-- Runs successfully, but with test failures
 			<class name="gov.nci.webanalyticstests.load.appmodule.CtsViewPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.appmodule.CtsResultsPage_Test" />
 			-->

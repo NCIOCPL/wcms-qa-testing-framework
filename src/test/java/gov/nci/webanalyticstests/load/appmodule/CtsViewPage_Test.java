@@ -19,6 +19,7 @@ public class CtsViewPage_Test extends AnalyticsTestLoadBase {
 	 * - Clinical Trial detailed view Page
 	 */
 
+	// TODO: Handle broken common variables	
 	// View details page 
 	//prop16: NCTID
 	//prop62: Clinical Trials: <searchtype>
