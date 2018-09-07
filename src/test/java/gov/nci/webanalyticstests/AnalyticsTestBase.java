@@ -38,7 +38,7 @@ public abstract class AnalyticsTestBase {
 	protected static BrowserMobProxy proxy;
 	protected static ExtentReports report;
 	protected static ExtentTest logger;
-	protected ConfigReader config;
+	protected ConfigReader config = new ConfigReader("dt");
 	
 	/**************************************
 	 * Section: TextNG Befores & Afters *
@@ -60,28 +60,9 @@ public abstract class AnalyticsTestBase {
 	* @AfterMethod: The annotated method will be run after each test method.
 	**/
 	
-
 	@BeforeTest(groups = { "Analytics" })
-	@Parameters({ "browser", "environment" })
-	public void beforeTest(String browser, String environment) throws MalformedURLException {
-
-		
-		
-		
-		
-		
-		
-		System.out.println("---- Start debug ----");
-		System.out.println("Browser: " + browser);
-		System.out.println("Environment: " + environment);		
-		System.out.println("---- End debug ----");
-		this.config = new ConfigReader(environment);
-		
-		
-		
-	
-	
-	
+	@Parameters({ "browser" })
+	public void beforeTest(String browser) throws MalformedURLException {
 		// Start the BrowserMob proxy on the site homepage
 		String initUrl = config.goHome();
 		System.out.println("=== Starting BrowserMobProxy ===");

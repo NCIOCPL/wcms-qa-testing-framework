@@ -7,11 +7,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
 
-import gov.nci.Utilities.ConfigReader;
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 
@@ -28,9 +24,7 @@ public class BlogPostPage_Test extends AnalyticsTestLoadBase {
 	private final String TESTDATA_SHEET_NAME = "BlogPostPage";
 	
 	@BeforeClass(groups = { "Analytics" }) 
-	@Parameters({ "environment" })
-	public void setup(String environment) {
-		config = new ConfigReader(environment);
+	public void setup() {
 		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
 	
