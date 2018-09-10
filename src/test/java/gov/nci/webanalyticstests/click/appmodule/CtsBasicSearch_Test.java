@@ -44,13 +44,9 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		beacon = getBeacon();
 
 		/* Do assertions and log result */ 
+		DoCommonAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(37));
-		Assert.assertEquals(beacon.props.get(4), "D=pev1");
-		Assert.assertEquals(beacon.props.get(8), "english");
-		Assert.assertEquals(beacon.props.get(67), "D=pageName");
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|display");
-		Assert.assertEquals(beacon.eVars.get(2), "english");
-		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_basic");
 		logger.log(LogStatus.PASS, "CTS Basic 'abandon' value test passed.");
 	}
 	
@@ -62,13 +58,9 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		action.pause(1000).perform();
 		beacon = getBeacon();
 		
+		DoCommonAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(38));
-		Assert.assertEquals(beacon.props.get(4), "D=pev1");
-		Assert.assertEquals(beacon.props.get(8), "english");
-		Assert.assertEquals(beacon.props.get(67), "D=pageName");
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|start");
-		Assert.assertEquals(beacon.eVars.get(2), "english");
-		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_basic");
 		logger.log(LogStatus.PASS, "CTS Basic 'start' value test passed.");
 	}
 	
@@ -78,13 +70,9 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		basicSearch.clickSearchButton();
 		beacon = getBeacon();
 		
+		DoCommonAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(39));
-		Assert.assertEquals(beacon.props.get(4), "D=pev1");
-		Assert.assertEquals(beacon.props.get(8), "english");
-		Assert.assertEquals(beacon.props.get(67), "D=pageName");
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|complete");
-		Assert.assertEquals(beacon.eVars.get(2), "english");
-		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_basic");
 		logger.log(LogStatus.PASS, "CTS Basic 'complete' value test passed.");
 	}
 	
@@ -97,13 +85,9 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		driver.get(config.goHome());
 		beacon = getBeacon();
 
+		DoCommonAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(40));
-		Assert.assertEquals(beacon.props.get(4), "D=pev1");
-		Assert.assertEquals(beacon.props.get(8), "english");
-		Assert.assertEquals(beacon.props.get(67), "D=pageName");
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|q");
-		Assert.assertEquals(beacon.eVars.get(2), "english");
-		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_basic");
 		logger.log(LogStatus.PASS, "CTS \"Abandon\" click event for keyword passed.");
 	}
 	
@@ -116,13 +100,9 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		driver.get(config.goHome());
 		beacon = getBeacon();
 
+		DoCommonAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(40));
-		Assert.assertEquals(beacon.props.get(4), "D=pev1");
-		Assert.assertEquals(beacon.props.get(8), "english");
-		Assert.assertEquals(beacon.props.get(67), "D=pageName");
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|a");
-		Assert.assertEquals(beacon.eVars.get(2), "english");
-		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_basic");
 		logger.log(LogStatus.PASS, "CTS \"Abandon\" click event for age passed.");
 	}
 	
@@ -135,14 +115,67 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		driver.get(config.goHome());
 		beacon = getBeacon();
 
+		DoCommonAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(40));
+		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|z");
+		logger.log(LogStatus.PASS, "CTS \"Abandon\" click event for zipcode passed.");
+	}
+
+	@Test(groups = { "Analytics" })
+	public void testErrorAge() {
+		System.out.println("CTS \"Error\" click event for age:");
+		basicSearch.setSearchAge("abc");
+		basicSearch.setSearchKeyword("");
+		beacon = getBeacon();
+
+		DoCommonAssertions(beacon);
+		Assert.assertTrue(beacon.hasEvent(41));
+		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
+		Assert.assertEquals(beacon.props.get(75), "a|Please enter a number between 1 and 120.");
+		logger.log(LogStatus.PASS, "CTS \"Error\" click event for age passed.");
+	}
+	
+	@Test(groups = { "Analytics" })
+	public void testErrorZip() {
+		System.out.println("CTS \"Error\" click event for zip:");
+		basicSearch.setSearchZip("abcde");
+		basicSearch.setSearchKeyword("");
+		beacon = getBeacon();
+
+		DoCommonAssertions(beacon);
+		Assert.assertTrue(beacon.hasEvent(41));
+		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
+		Assert.assertEquals(beacon.props.get(75), "z|Please enter a valid 5 digit ZIP code.");
+		logger.log(LogStatus.PASS, "CTS \"Error\" click event for zipcode passed.");
+	}
+
+	// TODO: fix Selenium TimeoutException on this test
+	// @Test(groups = { "Analytics" })
+	public void testErrorSubmit() throws MalformedURLException, UnsupportedEncodingException {
+		System.out.println("CTS \"Error\" submit button click:");
+		basicSearch.setSearchZip("abcde");
+		basicSearch.clickSearchButton();
+		beacon = getBeacon();
+
+		DoCommonAssertions(beacon);
+		Assert.assertTrue(beacon.hasEvent(41));
+		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
+		Assert.assertEquals(beacon.props.get(75), "submit|attempted form submit with errors");
+		logger.log(LogStatus.PASS, "CTS \"Error\" submit button click passed.");
+	}
+	
+	/**
+	 * Shared Assert() calls for CtsBasicSearch_Test
+	 * @param beacon
+	 */
+	private void DoCommonAssertions(Beacon beacon) {
+		Assert.assertTrue(beacon.suites.length > 0);
+		Assert.assertTrue(beacon.channels.length() > 0);
 		Assert.assertEquals(beacon.props.get(4), "D=pev1");
 		Assert.assertEquals(beacon.props.get(8), "english");
 		Assert.assertEquals(beacon.props.get(67), "D=pageName");
-		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|z");
 		Assert.assertEquals(beacon.eVars.get(2), "english");
 		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_basic");
-		logger.log(LogStatus.PASS, "CTS \"Abandon\" click event for zipcode passed.");
 	}
 	
 }
