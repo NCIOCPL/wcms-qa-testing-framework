@@ -28,6 +28,7 @@ public class CtsSearchPages_Test extends AnalyticsTestLoadBase {
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			System.out.println(ADV_CONTENT_TYPE + " load event (" + analyticsPageLoad.getLanguageName() + "):");
 			beacon = getBeacon();
+			
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, ADV_PATH);
 			Assert.assertEquals(beacon.props.get(62), ADV_CONTENT_TYPE);
 			Assert.assertEquals(beacon.eVars.get(62), ADV_CONTENT_TYPE);
@@ -47,6 +48,7 @@ public class CtsSearchPages_Test extends AnalyticsTestLoadBase {
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			System.out.println(BASIC_CONTENT_TYPE + " load event (" + analyticsPageLoad.getLanguageName() + "):");
 			beacon = getBeacon();
+			
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, BASIC_PATH);
 			Assert.assertEquals(beacon.props.get(62), BASIC_CONTENT_TYPE);
 			Assert.assertEquals(beacon.eVars.get(62), BASIC_CONTENT_TYPE);

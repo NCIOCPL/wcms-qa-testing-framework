@@ -18,7 +18,6 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 	private Actions action;	
 	
 	@BeforeMethod(groups = { "Analytics" }) 
-	// TODO: add wait() to capture begin / abandon events
 	// Run before each test method in this class
 	public void setup() {
 		driver.get(config.getPageURL("BasicClinicalTrialSearchURL"));
@@ -34,49 +33,67 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 	}
 
 	@Test(groups = { "Analytics" })
-	public void testBasicBegin() {
+	public void testBasicDisplay() {
 		/* Do browser actions  **/ 
-		basicSearch.setSearchKeyword("stomatitis");
-		action.pause(500).perform();
+		System.out.println("Test \"Display\" click event for keyword.");
+		driver.get(config.goHome());
 		
-		/* Get our beacon object **/ 
+		/* Get our beacon object **/ 		
+		beacon = getBeacon();
+
+		/* Do assertions and log result */ 
+		Assert.assertTrue(beacon.hasEvent(37));
+		Assert.assertEquals(beacon.props.get(4), "D=pev1");
+		Assert.assertEquals(beacon.props.get(8), "english");
+		Assert.assertEquals(beacon.props.get(67), "D=pageName");
+		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|display");
+		Assert.assertEquals(beacon.eVars.get(2), "english");
+		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_basic");
+		logger.log(LogStatus.PASS, "CTS Basic 'abandon' value test passed.");
+	}
+	
+	
+	@Test(groups = { "Analytics" })
+	public void testBasicBegin() {
+		/* Start entering values into a field  **/ 
+		System.out.println("Test \"Begin\" click event.");
+		basicSearch.setSearchKeyword("stomatitis");
+		action.pause(1000).perform();
 		beacon = getBeacon();
 		
-		/* Do assertions and log result */ 
 		Assert.assertTrue(beacon.hasEvent(38));
-		Assert.assertFalse(beacon.hasEvent(40));
-		Assert.assertTrue(beacon.hasProp(74, "clinicaltrials_basic|start"));
-		Assert.assertTrue(beacon.haseVar(47, "clinicaltrials_basic"));
+		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|start");
+		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_basic");
 		logger.log(LogStatus.PASS, "CTS Basic 'start' value test passed.");
 	}
 	
 	@Test(groups = { "Analytics" })
-	public void abandonKeyword() {
+	public void testAbandonKeyword() {
 		/* Enter a keyword field, then abandon the form by navigating away  **/ 
+		System.out.println("Test \"Abandon\" click event for keyword.");
 		basicSearch.setSearchKeyword("liver");
-		action.pause(500).perform();
-		driver.navigate().to(config.getPageURL("HomePage"));
+		action.pause(1000).perform();
+		driver.get(config.goHome());
 		beacon = getBeacon();
 
-		/* Verify that the expected values are tracked */
 		Assert.assertTrue(beacon.hasEvent(40));
-		Assert.assertTrue(beacon.hasProp(74, "clinicaltrials_basic|abandon|q"));
-		Assert.assertTrue(beacon.haseVar(47, "clinicaltrials_basic"));
+		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|q");
+		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_basic");
 		logger.log(LogStatus.PASS, "CTS Basic 'abandon' value test passed.");
 	}
 	
 	@Test(groups = { "Analytics" })
-	public void abandonAge() {
+	public void testAbandonAge() {
 		/* Enter an age field, then abandon the form by navigating away  **/ 
+		System.out.println("Test \"Abandon\" click event for age.");		
 		basicSearch.setSearchAge("55");
-		action.pause(500).perform();
-		driver.navigate().to(config.getPageURL("HomePage"));
+		action.pause(1000).perform();
+		driver.get(config.goHome());
 		beacon = getBeacon();
 
-		/* Verify that the expected values are tracked */
 		Assert.assertTrue(beacon.hasEvent(40));
-		Assert.assertTrue(beacon.hasProp(74, "clinicaltrials_basic|abandon|a"));
-		Assert.assertTrue(beacon.haseVar(47, "clinicaltrials_basic"));
+		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|a");
+		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_basic");
 		logger.log(LogStatus.PASS, "CTS Basic 'abandon' value test passed.");
 	}
 }

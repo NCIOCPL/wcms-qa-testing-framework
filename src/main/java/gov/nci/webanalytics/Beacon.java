@@ -242,7 +242,12 @@ public class Beacon extends AnalyticsRequest {
 				if(event.matches("^event47=\\d+")) {
 					return true;
 				}
-			} 
+			}
+			else if(evt.equalsIgnoreCase("event92")) {
+				if(event.matches("^event92=\\d+")) {
+					return true;
+				}
+			}			
 			else if(event.equalsIgnoreCase(evt)) {
 				return true;
 			}
