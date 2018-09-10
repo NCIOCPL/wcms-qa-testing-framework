@@ -72,9 +72,24 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		
 		DoCommonAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(39));
+		Assert.assertFalse(beacon.hasEvent(46));
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|complete");
 		logger.log(LogStatus.PASS, "CTS Basic 'complete' value test passed.");
 	}
+	
+	@Test(groups = { "Analytics" })
+	public void testKeywordMatch() throws MalformedURLException, UnsupportedEncodingException {
+		System.out.println("CTS \"Complete\" click event with keyword match:");
+		basicSearch.setSearchKeyword("Ampulla of Vater Cancer");		
+		basicSearch.clickSearchButton();
+		beacon = getBeacon();
+		
+		DoCommonAssertions(beacon);
+		Assert.assertTrue(beacon.hasEvent(39));
+		Assert.assertTrue(beacon.hasEvent(46));
+		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|complete");
+		logger.log(LogStatus.PASS, "CTS \"Complete\" click event with keyword match test passed.");
+	}	
 	
 	@Test(groups = { "Analytics" })
 	public void testAbandonKeyword() {
