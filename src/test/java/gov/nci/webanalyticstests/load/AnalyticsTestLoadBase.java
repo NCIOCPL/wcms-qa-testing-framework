@@ -120,11 +120,11 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	}
 	
 	/**
-	 * Get an iterator data object with path and content type Strings, filtered by a given value.
+	 * Get an iterator data object with path and content type Strings, filtered by a given value and column.
 	 * @param testDataFilePath
 	 * @param sheetName
 	 * @param filterColumn
-	 * @param filter
+	 * @param myFilter
 	 * @return
 	 */
 	public Iterator<Object[]> getFilteredPathContentTypeData(String testDataFilePath, String sheetName, String filterColumn, String myFilter) {
