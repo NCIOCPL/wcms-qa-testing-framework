@@ -19,18 +19,19 @@ public class SwsResultsPage_Test extends AnalyticsTestLoadBase {
 	private final String RESULTS_PATH_ES = "/espanol/buscar/resultados";
 	private final String SEARCH_TERM = "Tumor";	
 
-	// TODO: fix test failures
 	// Verify analytics load values for sitewide cancer term search results
 	@Test(groups = { "Analytics" })
 	public void testSwsResultsPageEn() {
 		try {
 			driver.get(config.goHome());
-			analyticsPageLoad = new AnalyticsPageLoad(driver);			
+			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			swSearchForm = new SitewideSearchForm(driver);
 		    swSearchForm.setSitewideSearchKeyword(SEARCH_TERM);
 		    swSearchForm.clickSearchButton();
 			System.out.println("Sitewide search term: " + SEARCH_TERM);
 		    beacon = getBeacon();
+		    
+		    analyticsPageLoad.setPageTitle("NCI Search Results - National Cancer Institute");
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, RESULTS_PATH_EN);
 			logger.log(LogStatus.PASS, "English results load values are correct.");
 		} catch (Exception e) {
@@ -50,6 +51,8 @@ public class SwsResultsPage_Test extends AnalyticsTestLoadBase {
 		    swSearchForm.clickSearchButton();
 			System.out.println("Sitewide search term: " + SEARCH_TERM);
 		    beacon = getBeacon();
+		    
+		    analyticsPageLoad.setPageTitle("Resultados - National Cancer Institute");
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, RESULTS_PATH_ES);
 			logger.log(LogStatus.PASS, "English results load values are correct.");
 		} catch (Exception e) {
@@ -65,6 +68,8 @@ public class SwsResultsPage_Test extends AnalyticsTestLoadBase {
 			driver.get(config.goHome() + RESULTS_PATH_EN);
 			System.out.println("Direct navigation to results page");
 		    beacon = getBeacon();
+		    
+		    analyticsPageLoad.setPageTitle("NCI Search Results - National Cancer Institute");		    
 			DoCommonLoadAssertions(beacon, analyticsPageLoad, RESULTS_PATH_EN);
 			logger.log(LogStatus.PASS, "English results load values are correct.");
 		} catch (Exception e) {
