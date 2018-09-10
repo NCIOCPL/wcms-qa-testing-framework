@@ -9,7 +9,9 @@ public class Beacon extends AnalyticsRequest {
 	// TODO: move server strings into config	
 	// TODO: remove unused methods
 	// TODO: reuse collection method from ParsedURL() instead of the local getList()
-
+	//	TODO: Handle null exceptions in has() methods
+	//	TODO: Create 'catch-all' Contains() method		
+	
 	// Constants
 	public static final String TRACKING_SERVER = "nci.122.2o7.net";
 	
@@ -119,23 +121,6 @@ public class Beacon extends AnalyticsRequest {
 		return rtn;
 	}
 
-	/**
-	 * Get list of props ('c' values in request)
-	 * @param parms
-	 * @return
-	 */
-	public List<NameValuePair> getProps() {
-		return getNumberedParams(paramsList, PROP_PARTIAL, "prop");
-	}
-	
-	/**
-	 * Get list of eVars ('v' values in request)
-	 * @param parms
-	 * @return
-	 */
-	public List<NameValuePair> getEvars() {
-		return getNumberedParams(paramsList, EVAR_PARTIAL, "eVar");
-	}
 
 	/**
 	 * Get "Link Type" value (pe)(
@@ -255,56 +240,6 @@ public class Beacon extends AnalyticsRequest {
 		return false;
 	}
 	
-	/**
-	 * Utility function to check for a given prop and value
-	 * @param num
-	 * @param val
-	 * @return
-	 */
-	public boolean hasProp(int num, String val) {
-		String blob = this.getProps().toString();
-		if(blob.toLowerCase().contains("prop" + Integer.toString(num) + "=" + val.toLowerCase())) {
-			return true;
-		}
-		return false;
-	}	
-	
-	/**
-	 * Utility function to check for a given eVar and value
-	 * @param num
-	 * @param val
-	 * @return
-	 */
-	public boolean haseVar(int num, String val) {
-		String blob = this.getEvars().toString();
-		if(blob.toLowerCase().contains("evar" + Integer.toString(num) + "=" + val.toLowerCase())) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Utility function overload to check for a given eVar 
-	 * @param num
-	 * @return
-	 */
-	public boolean haseVar(int num) {
-		return haseVar(num, "");
-	}	
-	
-	/**
-	 * Utility function to check for a given heirarchy and value
-	 * @param num
-	 * @param val
-	 * @return
-	 */
-	public boolean hasHier(int num, String val) {
-		String blob = this.getEvars().toString();
-		if(blob.toLowerCase().contains("hier" + Integer.toString(num) + "=" + val.toLowerCase())) {
-			return true;
-		}
-		return false;
-	}
 
 	/******************** Utility methods ****************************************/	
 	
@@ -345,5 +280,15 @@ public class Beacon extends AnalyticsRequest {
 		}
 		return rtnList;
 	}
-	
+
+	/**
+	 * Utility function to check for a user-specified variable and value
+	 * @param name
+	 * @param value
+	 * @return bool
+	 */
+	protected boolean hasVariable(String name, String value) {
+		// TODO: fill this out
+		return false;
+	}
 }

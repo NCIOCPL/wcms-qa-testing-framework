@@ -28,10 +28,12 @@ public class Resize_Test extends AnalyticsTestClickBase {
 	public void testResizeGeneral() {
 		resize.doAllResizes();
 		beacon = getBeacon();
-		Assert.assertTrue(beacon.hasProp(4, "d=pev1"));
-		Assert.assertTrue(beacon.hasProp(67, "D=pageName"));
-		Assert.assertTrue(beacon.haseVar(2, "English"));
+
 		Assert.assertFalse(beacon.hasEvent(1));
+		Assert.assertEquals(beacon.props.get(4), "D=pev1");
+		Assert.assertEquals(beacon.props.get(67), "D=pageName");
+		Assert.assertEquals(beacon.props.get(8), "english");
+		Assert.assertEquals(beacon.eVars.get(2), "english");
 		logger.log(LogStatus.PASS, "Resize gen value test passed.");		
 	}
 	

@@ -28,9 +28,8 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 	public void testMMGeneral() {
 		megaMenu.clickMMBarEn();
 		beacon = getBeacon();
-		Assert.assertTrue(beacon.hasProp(4, "d=pev1"));
-		Assert.assertTrue(beacon.hasProp(67, "D=pageName"));
-		Assert.assertTrue(beacon.haseVar(2, "English"));
+		
+		DoCommonAssertions(beacon);
 		logger.log(LogStatus.PASS, "MegaMenu gen value test passed.");
 	}	
 	
@@ -71,12 +70,14 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 	public void testMMSubnavLiClick() {
 		megaMenu.clickMMSubnavLi();
 		beacon = getBeacon();
+		
+		DoCommonAssertions(beacon);
 		Assert.assertTrue(beacon.hasLinkName("MegaMenuClick"));
 		Assert.assertTrue(beacon.hasEvent(26));
-		Assert.assertTrue(beacon.haseVar(53, "About Cancer"));
-		Assert.assertTrue(beacon.hasProp(53, "About Cancer"));
-		Assert.assertTrue(beacon.hasProp(54, "Understanding cancer"));
-		Assert.assertTrue(beacon.hasProp(55, "What is Cancer"));
+		Assert.assertEquals(beacon.props.get(53), "About Cancer");
+		Assert.assertEquals(beacon.props.get(54), "Understanding cancer");
+		Assert.assertEquals(beacon.props.get(55), "What is Cancer");
+		Assert.assertEquals(beacon.eVars.get(53), "About Cancer");
 		logger.log(LogStatus.PASS, "Expaned subnav title click passed.");
 	}
 	
@@ -99,6 +100,19 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 		Assert.assertTrue(beacon.hasEvent(28));
 		Assert.assertFalse(beacon.hasEvent(26));
 		logger.log(LogStatus.PASS, "MegaMenu expansion passed.");
+	}
+	
+	/**
+	 * Shared Assert() calls for CtsBasicSearch_Test
+	 * @param beacon
+	 */
+	private void DoCommonAssertions(Beacon beacon) {
+		Assert.assertTrue(beacon.suites.length > 0);
+		Assert.assertTrue(beacon.channels.length() > 0);
+		Assert.assertEquals(beacon.props.get(4), "D=pev1");
+		Assert.assertEquals(beacon.props.get(8), "english");
+		Assert.assertEquals(beacon.props.get(67), "D=pageName");
+		Assert.assertEquals(beacon.eVars.get(2), "english");
 	}
 	
 }
