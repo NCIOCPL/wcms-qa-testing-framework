@@ -1,6 +1,7 @@
 package gov.nci.webanalyticstests.click.appmodule;
 
 import com.relevantcodes.extentreports.LogStatus;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.Assert;
@@ -14,6 +15,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 
 	private BasicSearch basicSearch;
 	private Beacon beacon;
+	private Actions action;	
 	
 	@BeforeMethod(groups = { "Analytics" }) 
 	// TODO: add wait() to capture begin / abandon events
@@ -24,6 +26,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 			// Create search page with chat prompt suppressed.					
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			basicSearch = new BasicSearch(driver, chatPrompt);
+			action = new Actions(driver);
 		} catch (Exception e) {
 			basicSearch = null;
 			logger.log(LogStatus.ERROR, "Error creating Basic Search page.");
@@ -34,6 +37,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 	public void testBasicBegin() {
 		/* Do browser actions  **/ 
 		basicSearch.setSearchKeyword("stomatitis");
+		action.pause(500).perform();
 		
 		/* Get our beacon object **/ 
 		beacon = getBeacon();
@@ -50,6 +54,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 	public void abandonKeyword() {
 		/* Enter a keyword field, then abandon the form by navigating away  **/ 
 		basicSearch.setSearchKeyword("liver");
+		action.pause(500).perform();
 		driver.navigate().to(config.getPageURL("HomePage"));
 		beacon = getBeacon();
 
@@ -64,6 +69,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 	public void abandonAge() {
 		/* Enter an age field, then abandon the form by navigating away  **/ 
 		basicSearch.setSearchAge("55");
+		action.pause(500).perform();
 		driver.navigate().to(config.getPageURL("HomePage"));
 		beacon = getBeacon();
 
