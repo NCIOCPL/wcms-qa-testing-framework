@@ -48,16 +48,14 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 			Beacon beacon = new Beacon(url);
 			if(!beacon.isClickTypeEvent()) {
 				loadBeacons.add(beacon);
-			}
-			else {
+			} else {
 				++clickBeacons;
 			}
 		}
 
 	    // Debug analytics beacon counts
 		System.out.println("Total analytics requests: " + urlList.size()
-			+ " (load: " + loadBeacons.size() 
-			+ ", click: " + clickBeacons + ")"
+			+ " (load: " + loadBeacons.size() + ", click: " + clickBeacons + ")"
 		);
 		
 		return loadBeacons;		
@@ -73,33 +71,36 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		// TODO: Beef up these assertions:
 		String currUrl = driver.getCurrentUrl();
 
+		// Suites, channels, Events
 		Assert.assertTrue(beacon.suites.length > 0);
 		Assert.assertTrue(beacon.channels.length() > 0);
+		Assert.assertTrue(beacon.hasEvent(1));
+		Assert.assertTrue(beacon.hasEvent(47));		
+		
+		// Props
 		Assert.assertEquals(beacon.props.get(1), currUrl.substring(0, Math.min(currUrl.length(), 100)));
 		Assert.assertEquals(beacon.props.get(3), path);
 		Assert.assertEquals(beacon.props.get(6), analyticsPageLoad.getMetaTitle());
 		Assert.assertEquals(beacon.props.get(8), analyticsPageLoad.getLanguageName());
 		Assert.assertEquals(beacon.props.get(10), analyticsPageLoad.getPageTitle());
+		Assert.assertTrue(beacon.props.get(25).matches(beacon.REGEX_MMDDYY));
+		Assert.assertTrue(beacon.props.get(26).matches(beacon.REGEX_TIMESTAMP_PIPE));
+		Assert.assertTrue(beacon.props.get(29).matches(beacon.REGEX_TIME_PARTING));
+		Assert.assertEquals(beacon.props.get(42), "Normal");
 		Assert.assertEquals(beacon.props.get(44), analyticsPageLoad.getMetaIsPartOf());
+		Assert.assertTrue(beacon.props.get(65).matches(beacon.REGEX_PAGELOAD_TIME));
+
+		// Evars
+		Assert.assertTrue(beacon.eVars.get(1).contains("www.cancer.gov"));
 		Assert.assertEquals(beacon.eVars.get(2), analyticsPageLoad.getLanguageName());
+		Assert.assertTrue(beacon.eVars.get(5).matches(beacon.REGEX_BROWSER_SIZE));
 		Assert.assertEquals(beacon.eVars.get(44), analyticsPageLoad.getMetaIsPartOf());
 		
 		// TODO: regex assertions
-		Assert.assertTrue(beacon.props.get(25).matches(beacon.REGEX_MMDDYY));
-//		Assert.assertTrue(beacon.props.get(25).matches("some regex"));
-//		Assert.assertTrue(beacon.props.get(26).matches("some regex"));
-//		Assert.assertTrue(beacon.props.get(29).matches("some regex"));
-//		Assert.assertTrue(beacon.props.get(42).matches("some regex"));
 //		Assert.assertTrue(beacon.props.get(48).matches("some regex"));
 //		Assert.assertTrue(beacon.props.get(61).matches("some regex"));
 //		Assert.assertTrue(beacon.props.get(64).matches("some regex"));
-//		Assert.assertTrue(beacon.props.get(65).matches("some regex"));
-//		Assert.assertTrue(beacon.eVars.get(1).matches("some regex"));
-//		Assert.assertTrue(beacon.eVars.get(5).matches("some regex"));
-		
-		// TODO: For anything that can't be assertEqual (like dates), build out regex logic for assertTrue()		
-		Assert.assertTrue(beacon.hasEvent(1));
-		Assert.assertTrue(beacon.hasEvent(47));
+
 	}
 	
 	/**
