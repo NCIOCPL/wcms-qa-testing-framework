@@ -20,6 +20,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 	private Beacon beacon;
 	private Actions action;	
 	// TODO: fix action.pause() hanging issue
+	// TODO: try/catches around tests, rename methods for basic
 	
 	@BeforeMethod(groups = { "Analytics" }) 
 	// Run before each test method in this class
@@ -40,7 +41,6 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 	public void testBasicDisplay() {
 		/* Do browser actions and get our beacon object **/
 		System.out.println("CTS \"Display\" click event:");
-		driver.get(config.goHome());
 		beacon = getBeacon();
 
 		/* Do assertions and log result */ 
@@ -49,8 +49,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|display");
 		logger.log(LogStatus.PASS, "CTS Basic 'abandon' value test passed.");
 	}
-	
-	
+		
 	@Test(groups = { "Analytics" })
 	public void testBasicStart() {
 		System.out.println("CTS \"Start\" click event:");
