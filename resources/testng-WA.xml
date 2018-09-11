@@ -42,13 +42,13 @@
 			<class name="gov.nci.webanalyticstests.load.appmodule.DynamicListingPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.appmodule.SwsResultsPage_Test" />
 
-			<!-- Click tracking events -->
+			<!-- Click tracking events 
 			<class name="gov.nci.webanalyticstests.click.SitewideSearch_Test" />
 			<class name="gov.nci.webanalyticstests.click.Resize_Test" />
 			<class name="gov.nci.webanalyticstests.click.MegaMenu_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsAdvancedSearch_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsBasicSearch_Test" />
-
+-->
 		</classes>
 	</test>
 </suite>
