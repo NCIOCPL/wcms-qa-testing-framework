@@ -44,7 +44,7 @@ public class CtsViewPage_Test extends AnalyticsTestLoadBase {
 			beacon = getBeacon();
 			
 			String[] pathNoQuery = path.split("\\?");
-			DoCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
 			Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Advanced");
 			Assert.assertEquals(beacon.eVars.get(62), "Clinical Trials: Advanced");
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
@@ -65,7 +65,7 @@ public class CtsViewPage_Test extends AnalyticsTestLoadBase {
 			beacon = getBeacon();
 			
 			String[] pathNoQuery = path.split("\\?");
-			DoCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
 			Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Basic");
 			Assert.assertEquals(beacon.eVars.get(62), "Clinical Trials: Basic");
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
@@ -86,7 +86,7 @@ public class CtsViewPage_Test extends AnalyticsTestLoadBase {
 			beacon = getBeacon();
 			
 			String[] pathNoQuery = path.split("\\?");
-			DoCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
 			Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Custom");
 			Assert.assertEquals(beacon.eVars.get(62), "Clinical Trials: Custom");
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");

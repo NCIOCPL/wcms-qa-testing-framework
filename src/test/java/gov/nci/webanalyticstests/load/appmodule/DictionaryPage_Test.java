@@ -50,7 +50,7 @@ public class DictionaryPage_Test extends AnalyticsTestLoadBase {
 			beacon = getBeacon();
 			
 			path = getDictionaryPath(path);
-			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			//Assert.assertTrue(beacon.props.get(16).length() > 0);
 			//Assert.assertTrue(beacon.eVars.get(16).length() > 0);			
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");

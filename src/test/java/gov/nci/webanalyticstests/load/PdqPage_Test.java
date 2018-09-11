@@ -41,7 +41,7 @@ public class PdqPage_Test extends AnalyticsTestLoadBase {
 			beacon = getBeacon();
 			
 			String[] pathNoId = path.split("#");
-			DoCommonLoadAssertions(beacon, analyticsPageLoad, pathNoId[0]);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, pathNoId[0]);
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		}
 		catch (Exception e) {

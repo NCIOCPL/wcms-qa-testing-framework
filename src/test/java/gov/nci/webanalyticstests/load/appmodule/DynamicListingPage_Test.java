@@ -75,7 +75,7 @@ public class DynamicListingPage_Test extends AnalyticsTestLoadBase {
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
 			beacon = getBeacon();
-			DoCommonLoadAssertions(beacon, analyticsPageLoad, path);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Custom");
 			Assert.assertEquals(beacon.eVars.get(11), "clinicaltrials_custom");
 			Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_custom");

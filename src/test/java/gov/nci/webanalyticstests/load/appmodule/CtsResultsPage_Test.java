@@ -24,32 +24,24 @@ public class CtsResultsPage_Test extends AnalyticsTestLoadBase {
 	// TODO: Add custom variables:
 	/***
 		Advanced:
-		prop11 clinicaltrials_advanced
 		prop15 t:a:loc:lcnty:lst:tp
 		prop17 c3211|all|all|all|55|none
 		prop18 csc|united states|ny|none
 		*prop19 all|none|none
 		*prop20 iv|none|none|none
-		prop62 Clinical Trials: Advanced
-		eVar11 clinicaltrials_advanced
 		eVar15 t:a:loc:lcnty:lst:tp
 		eVar17 c3211|all|all|all|55|none
 		eVar18 csc|united states|ny|none
 		*eVar19 all|none|none
 		*eVar20 iv|none|none|none
-		eVar62 Clinical Trials: Advanced
 		
 		Basic: 
-		prop11 clinicaltrials_basic
 		prop15 a:q:loc:z
 		prop17 keyword|immunotherapy|99
 		prop18 zip|37914|none
-		prop62 Clinical Trials: Basic
-		eVar11 clinicaltrials_basic
 		eVar15 a:q:loc:z
 		eVar17 keyword|immunotherapy|99
 		eVar18 zip|37914|none
-		eVar62 Clinical Trials: Basic
 	 */
 	
 	private AnalyticsPageLoad analyticsPageLoad;
@@ -72,7 +64,11 @@ public class CtsResultsPage_Test extends AnalyticsTestLoadBase {
 			beacon = getBeacon();
 			
 			String[] pathNoQuery = path.split("\\?");			
-			DoCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
+			Assert.assertEquals(beacon.props.get(11), "clinicaltrials_advanced");
+			Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Advanced");
+			Assert.assertEquals(beacon.eVars.get(11), "clinicaltrials_advanced");
+			Assert.assertEquals(beacon.eVars.get(62), "Clinical Trials: Advanced");
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		}
 		catch (Exception e) {
@@ -91,7 +87,11 @@ public class CtsResultsPage_Test extends AnalyticsTestLoadBase {
 			beacon = getBeacon();
 			
 			String[] pathNoQuery = path.split("\\?");			
-			DoCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
+			Assert.assertEquals(beacon.props.get(11), "clinicaltrials_basic");
+			Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Basic");
+			Assert.assertEquals(beacon.eVars.get(11), "clinicaltrials_basic");
+			Assert.assertEquals(beacon.eVars.get(62), "Clinical Trials: Basic");
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		}
 		catch (Exception e) {

@@ -32,7 +32,7 @@ public class SwsResultsPage_Test extends AnalyticsTestLoadBase {
 		    beacon = getBeacon();
 		    
 		    analyticsPageLoad.setPageTitle("NCI Search Results - National Cancer Institute");
-			DoCommonLoadAssertions(beacon, analyticsPageLoad, RESULTS_PATH_EN);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, RESULTS_PATH_EN);
 			logger.log(LogStatus.PASS, "English results load values are correct.");
 		} catch (Exception e) {
 			Assert.fail("Error submitting sitewide search.");
@@ -53,7 +53,7 @@ public class SwsResultsPage_Test extends AnalyticsTestLoadBase {
 		    beacon = getBeacon();
 		    
 		    analyticsPageLoad.setPageTitle("Resultados - National Cancer Institute");
-			DoCommonLoadAssertions(beacon, analyticsPageLoad, RESULTS_PATH_ES);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, RESULTS_PATH_ES);
 			logger.log(LogStatus.PASS, "English results load values are correct.");
 		} catch (Exception e) {
 			Assert.fail("Error submitting sitewide search.");
@@ -70,7 +70,7 @@ public class SwsResultsPage_Test extends AnalyticsTestLoadBase {
 		    beacon = getBeacon();
 		    
 		    analyticsPageLoad.setPageTitle("NCI Search Results - National Cancer Institute");		    
-			DoCommonLoadAssertions(beacon, analyticsPageLoad, RESULTS_PATH_EN);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, RESULTS_PATH_EN);
 			logger.log(LogStatus.PASS, "English results load values are correct.");
 		} catch (Exception e) {
 			Assert.fail("Error doing sitewide search.");

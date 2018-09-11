@@ -62,7 +62,7 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 			+ " (load: " + loadBeacons.size() + ", click: " + clickBeacons + ")"
 		);
 		
-		return loadBeacons;		
+		return loadBeacons;
 	}
 	
 	/**
@@ -71,13 +71,11 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	 * @param analyticsPageLoad
 	 * @param path
 	 */
-	protected void DoCommonLoadAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
-		// TODO: Beef up these assertions:
+	protected void doCommonLoadAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
+		
 		String currUrl = driver.getCurrentUrl();
 
-		// Suites, channels, Events
-		Assert.assertTrue(beacon.suites.length > 0);
-		Assert.assertTrue(beacon.channels.length() > 0);
+		// Common events
 		Assert.assertTrue(beacon.hasEvent(1));
 		Assert.assertTrue(beacon.hasEvent(47));		
 		
@@ -100,8 +98,8 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		Assert.assertTrue(beacon.eVars.get(1).contains("www.cancer.gov"));
 		Assert.assertEquals(beacon.eVars.get(2), analyticsPageLoad.getLanguageName());
 		Assert.assertTrue(beacon.eVars.get(5).matches(REGEX_BROWSER_SIZE));
-		Assert.assertEquals(beacon.eVars.get(44), analyticsPageLoad.getMetaIsPartOf());
-		
+		Assert.assertEquals(beacon.eVars.get(44), analyticsPageLoad.getMetaIsPartOf());		
+
 	}
 	
 	/**
