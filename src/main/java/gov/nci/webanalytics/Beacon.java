@@ -29,6 +29,9 @@ public class Beacon extends AnalyticsRequest {
 	static final String EVAR_PARTIAL = "v";
 	static final String HIER_PARTIAL = "h";
 	
+	/// Regexes to match certain tracking value patterns
+	public final String REGEX_MMDDYY = "(0[1-9]|1[012])[- \\/.](0[1-9]|[12][0-9]|3[01])[- \\/.](19|20)\\d\\d"; // "mm/dd/yyyy"
+	
 	// Testable variable names
 	public String[] suites; // s.account or s_account
 	public String[] events; // events

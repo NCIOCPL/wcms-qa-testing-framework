@@ -32,7 +32,6 @@ public abstract class AnalyticsTestBase {
 
 	/**
 	* TODO: Create timer
-	* TODO: Fix configuration reader issues
 	**/	
 	protected static WebDriver driver;
 	protected static BrowserMobProxy proxy;

@@ -85,6 +85,7 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		Assert.assertEquals(beacon.eVars.get(44), analyticsPageLoad.getMetaIsPartOf());
 		
 		// TODO: regex assertions
+		Assert.assertTrue(beacon.props.get(25).matches(beacon.REGEX_MMDDYY));
 //		Assert.assertTrue(beacon.props.get(25).matches("some regex"));
 //		Assert.assertTrue(beacon.props.get(26).matches("some regex"));
 //		Assert.assertTrue(beacon.props.get(29).matches("some regex"));
