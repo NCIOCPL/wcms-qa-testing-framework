@@ -56,7 +56,7 @@ public class CtsResultsPage_Test extends AnalyticsTestLoadBase {
 	
 	/// CTS Advanced Results page loads return expected values
 	@Test(dataProvider = "CtsAdvancedResultsPageLoad", groups = { "Analytics" })
-	public void testCtsAdvacnedResultsPageLoad(String path, String contentType) {
+	public void testCtsAdvancedResultsPageLoad(String path, String contentType) {
 		try {
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
