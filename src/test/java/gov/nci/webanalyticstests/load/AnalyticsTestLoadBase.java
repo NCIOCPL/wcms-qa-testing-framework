@@ -13,9 +13,13 @@ import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	
-	// TODO: refactor has..() methods
-	// TODO: fix hasEvent() arg
-	// TODO: create generic param test
+	private final String REGEX_BROWSER_SIZE = "(Extra wide|Desktop|Tablet|Mobile)";
+	private final String REGEX_MMDDYY = "(0[1-9]|1[012])[- \\/.](0[1-9]|[12][0-9]|3[01])[- \\/.](19|20)\\d\\d"; // e.g. 01/01/2018
+	private final String REGEX_PAGE_SCROLL = "^\\d{1,3}pct\\|\\d{1,3}pct\\|\\d{1,5}px\\|\\/.+?"; // 30pct|30pct|3215px|/research
+	private final String REGEX_PAGELOAD_TIME = "^\\d{1,4}$";
+	private final String REGEX_PERCENT_VIEWED = "^\\d{1,3}\\|\\d{1,3}$"; // 26|0
+	private final String REGEX_TIME_PARTING = "\\d{1,2}:\\d{2} (AM|PM)\\|[a-zA-z]+day"; // 2:35 PM|Tuesday
+	private final String REGEX_TIMESTAMP_PIPE = "\\d{4}\\|\\d{1,2}\\|\\d{1,2}\\|\\d{1,2}"; // 05/06/2018
 	
 	/**
 	 * Get the 'load' beacon for testing.
@@ -83,24 +87,21 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		Assert.assertEquals(beacon.props.get(6), analyticsPageLoad.getMetaTitle());
 		Assert.assertEquals(beacon.props.get(8), analyticsPageLoad.getLanguageName());
 		Assert.assertEquals(beacon.props.get(10), analyticsPageLoad.getPageTitle());
-		Assert.assertTrue(beacon.props.get(25).matches(beacon.REGEX_MMDDYY));
-		Assert.assertTrue(beacon.props.get(26).matches(beacon.REGEX_TIMESTAMP_PIPE));
-		Assert.assertTrue(beacon.props.get(29).matches(beacon.REGEX_TIME_PARTING));
+		Assert.assertTrue(beacon.props.get(25).matches(REGEX_MMDDYY));
+		Assert.assertTrue(beacon.props.get(26).matches(REGEX_TIMESTAMP_PIPE));
+		Assert.assertTrue(beacon.props.get(29).matches(REGEX_TIME_PARTING));
 		Assert.assertEquals(beacon.props.get(42), "Normal");
 		Assert.assertEquals(beacon.props.get(44), analyticsPageLoad.getMetaIsPartOf());
-		Assert.assertTrue(beacon.props.get(65).matches(beacon.REGEX_PAGELOAD_TIME));
+		//Assert.assertTrue(beacon.props.get(48).matches(REGEX_PAGE_SCROLL));
+		Assert.assertTrue(beacon.props.get(64).matches(REGEX_PERCENT_VIEWED));
+		Assert.assertTrue(beacon.props.get(65).matches(REGEX_PAGELOAD_TIME));
 
 		// Evars
 		Assert.assertTrue(beacon.eVars.get(1).contains("www.cancer.gov"));
 		Assert.assertEquals(beacon.eVars.get(2), analyticsPageLoad.getLanguageName());
-		Assert.assertTrue(beacon.eVars.get(5).matches(beacon.REGEX_BROWSER_SIZE));
+		Assert.assertTrue(beacon.eVars.get(5).matches(REGEX_BROWSER_SIZE));
 		Assert.assertEquals(beacon.eVars.get(44), analyticsPageLoad.getMetaIsPartOf());
 		
-		// TODO: regex assertions
-//		Assert.assertTrue(beacon.props.get(48).matches("some regex"));
-//		Assert.assertTrue(beacon.props.get(61).matches("some regex"));
-//		Assert.assertTrue(beacon.props.get(64).matches("some regex"));
-
 	}
 	
 	/**

@@ -28,14 +28,7 @@ public class Beacon extends AnalyticsRequest {
 	static final String PROP_PARTIAL = "c";
 	static final String EVAR_PARTIAL = "v";
 	static final String HIER_PARTIAL = "h";
-	
-	/// Regexes to match certain tracking value patterns
-	public final String REGEX_MMDDYY = "(0[1-9]|1[012])[- \\/.](0[1-9]|[12][0-9]|3[01])[- \\/.](19|20)\\d\\d"; // "mm/dd/yyyy"
-	public final String REGEX_TIMESTAMP_PIPE = "\\d{4}\\|\\d{1,2}\\|\\d{1,2}\\|\\d{1,2}"; // e.g. 05/06/2018
-	public final String REGEX_TIME_PARTING = "\\d{1,2}:\\d{2} (AM|PM)\\|[a-zA-z]+day"; // e.g. 2:35 PM|Tuesday
-	public final String REGEX_BROWSER_SIZE = "(Extra wide|Desktop|Tablet|Mobile)";
-	public final String REGEX_PAGELOAD_TIME = "\\d(1,4)";
-	
+
 	// Testable variable names
 	public String[] suites; // s.account or s_account
 	public String[] events; // events
