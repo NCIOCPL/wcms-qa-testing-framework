@@ -65,6 +65,7 @@ public class AdvanceSearchResults extends ClinicalTrialPageObjectBase {
 
 	public void clickStartOverNoNav() {
 		js = (JavascriptExecutor) driver;
+		js.executeScript("document.querySelector('.cts-start-over a').setAttribute('href','#')");
 		lnk_StartOver.click();
 	}
 

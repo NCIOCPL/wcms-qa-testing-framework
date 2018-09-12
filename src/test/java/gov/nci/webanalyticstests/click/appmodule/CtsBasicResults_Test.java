@@ -35,11 +35,12 @@ public class CtsBasicResults_Test extends AnalyticsTestClickBase {
 		try {
 			System.out.println("Basic 'Start Over' click event:");
 			setBasicSearchResults(BASIC_PAGE_1ST);
-			searchResults.clickStartOver();
+			// TODO: build utility function to stop nav
+			searchResults.clickStartOverNoNav();
 			beacon = getBeacon();
 			
-			doCommonClassAssertions(beacon);
-			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|complete");
+			doCommonClassAssertions(beacon);			
+			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|start over");
 			logger.log(LogStatus.PASS, "Basic 'Start Over' click event passed.");
 		} catch (Exception e) {
 			Assert.fail("Error: Basic 'Start Over' click event.");
