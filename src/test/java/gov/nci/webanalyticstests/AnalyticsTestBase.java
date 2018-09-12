@@ -193,6 +193,21 @@ public abstract class AnalyticsTestBase {
 		Beacon request = (index >= 0) ? requests.get(index) : null;
 		return request;
 	}
+
+	/**
+	 * Utility function to get an element from a given index in a list of AnalyticsRequest objects.
+	 * @param requests
+	 * @param posFromEnd
+	 * @return the specified AnalyticsRequest object
+	 */
+	protected static Beacon getReqFromPosition(List<Beacon> requests, int index) {
+		try {
+			return requests.get(index);			
+		} 
+		catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+	}
 	
 	/****************************** Abstract methods ******************************/
 	

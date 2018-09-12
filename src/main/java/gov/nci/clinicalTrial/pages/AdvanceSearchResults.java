@@ -17,6 +17,7 @@ public class AdvanceSearchResults extends ClinicalTrialPageObjectBase {
 	public static final String H1_TITLE = "Clinical Trials Search Results";
 
 	WebDriver driver;
+	JavascriptExecutor js;
 
 	/*************** Advance Search Page WebElements **********************/
 	@FindBy(how = How.XPATH, using = ".//h1")
@@ -62,6 +63,15 @@ public class AdvanceSearchResults extends ClinicalTrialPageObjectBase {
 		return box_SearchCriteria;
 	}
 
+	public void clickStartOverNoNav() {
+		js = (JavascriptExecutor) driver;
+		lnk_StartOver.click();
+	}
+
+	public void clickStartOver() {
+		lnk_StartOver.click();
+	}
+	
 	public void clickOnSelectAllCheckBox() {
 		cbox_CheckAllTop.click();
 	}

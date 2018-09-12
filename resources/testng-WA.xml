@@ -48,6 +48,8 @@
 			<class name="gov.nci.webanalyticstests.click.MegaMenu_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsAdvancedSearch_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsBasicSearch_Test" />
+			<class name="gov.nci.webanalyticstests.click.appmodule.CtsAdvancedResults_Test" />
+			<class name="gov.nci.webanalyticstests.click.appmodule.CtsBasicResults_Test" />
 
 		</classes>
 	</test>
