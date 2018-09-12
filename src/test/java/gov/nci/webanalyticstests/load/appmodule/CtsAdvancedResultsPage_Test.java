@@ -43,7 +43,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvAllResultsLoad() {
 		System.out.println("Advanced CTS results for all trials: ");
 		getAdvResultsLoadBeacon(PARAMS_ALL_TRIALS);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "none");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -56,7 +56,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvCancerTypeResultsLoad() {
 		System.out.println("Advanced CTS results for Cancer Type: ");
 		getAdvResultsLoadBeacon(PARAMS_CANCERTYPE);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "t");
 		Assert.assertEquals(beacon.props.get(17), "c3167|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -69,7 +69,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvSubTypeResultsLoad() {
 		System.out.println("Advanced CTS results for Cancer Subtype: ");
 		getAdvResultsLoadBeacon(PARAMS_SUBTYPE);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "t:st");
 		Assert.assertEquals(beacon.props.get(17), "c4911|c147996|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -82,7 +82,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvStageResultsLoad() {
 		System.out.println("Advanced CTS results for Cancer Stage: ");
 		getAdvResultsLoadBeacon(PARAMS_STAGE);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "t:st:stg");
 		Assert.assertEquals(beacon.props.get(17), "c35850|c150207|c6009|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -95,7 +95,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvAttributesResultsLoad() {
 		System.out.println("Advanced CTS results for Cancer Attributes: ");
 		getAdvResultsLoadBeacon(PARAMS_ATTRIBUTES);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "t:st:stg:fin");
 		Assert.assertEquals(beacon.props.get(17), "c9106|c27819|c7508|c39877|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -108,7 +108,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvAgeResultsLoad() {
 		System.out.println("Advanced CTS results for Age: ");
 		getAdvResultsLoadBeacon(PARAMS_AGE);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "a");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|99|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -121,7 +121,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvKeywordResultsLoad() {
 		System.out.println("Advanced CTS results for Keyword: ");
 		getAdvResultsLoadBeacon(PARAMS_KEYWORD);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "q");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|paget disease");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -134,7 +134,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvLocVALoad() {
 		System.out.println("Advanced CTS results for VA locations: ");
 		getAdvResultsLoadBeacon(PARAMS_LOC_VA);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "loc:va");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all|va-only");
@@ -147,7 +147,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvLocNIHLoad() {
 		System.out.println("Advanced CTS results for NIH locations: ");
 		getAdvResultsLoadBeacon(PARAMS_LOC_NIH);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "loc");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "at nih");
@@ -160,7 +160,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvLocZipLoad() {
 		System.out.println("Advanced CTS results for locations by zip code: ");
 		getAdvResultsLoadBeacon(PARAMS_LOC_ZIP);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);		
+		doCommonClassAssertions(beacon, analyticsPageLoad);		
 		Assert.assertEquals(beacon.props.get(15), "loc:z:zp");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "zip|99501|200");
@@ -173,7 +173,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvLocCityLoad() {
 		System.out.println("Advanced CTS results for locations by city/state: ");
 		getAdvResultsLoadBeacon(PARAMS_LOC_CITY);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "loc:lcnty:lst:lcty");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "csc|united states|nm|las cruces");
@@ -186,7 +186,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvLocHospitalLoad() {
 		System.out.println("Advanced CTS results for locations by hospital: ");
 		getAdvResultsLoadBeacon(PARAMS_LOC_HOS);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "loc:hos");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "hi|seattle cancer care alliance");
@@ -199,7 +199,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvTrialTypeResultsLoad() {
 		System.out.println("Advanced CTS results for Trial Type: ");
 		getAdvResultsLoadBeacon(PARAMS_TRIAL_TYPE);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "tt");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -212,7 +212,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvDrugResultsLoad() {
 		System.out.println("Advanced CTS results for Drug Type: ");
 		getAdvResultsLoadBeacon(PARAMS_DRUG);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "d");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -225,7 +225,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvTreatmentResultsLoad() {
 		System.out.println("Advanced CTS results for treatment: ");
 		getAdvResultsLoadBeacon(PARAMS_TREATMENT);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "i");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -238,7 +238,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvPhaseResultsLoad() {
 		System.out.println("Advanced CTS results for phase: ");
 		getAdvResultsLoadBeacon(PARAMS_PHASE);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "tp");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -251,7 +251,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvTrialIDResultsLoad() {
 		System.out.println("Advanced CTS results for trial ID: ");
 		getAdvResultsLoadBeacon(PARAMS_TRIAL_ID);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "tid");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -265,7 +265,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvInvestigatorResultsLoad() {
 		System.out.println("Advanced CTS results for investigator: ");
 		getAdvResultsLoadBeacon(PARAMS_INVESTIGATOR);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "in");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -278,7 +278,7 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	public void testCtsAdvOrgResultsLoad() {
 		System.out.println("Advanced CTS results for organization: ");
 		getAdvResultsLoadBeacon(PARAMS_ORG);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "lo");
 		Assert.assertEquals(beacon.props.get(17), "all|all|all|all|none|none");
 		Assert.assertEquals(beacon.props.get(18), "all");
@@ -288,10 +288,10 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	}
 
 	@Test(groups = { "Analytics" })
-	public void testAllParamsLoad() {
+	public void testCtsAdvAllParamsLoad() {
 		System.out.println("Advanced CTS results for all parameters selected: ");
 		getAdvResultsLoadBeacon(KITCHEN_SINK);
-		doCommonClassAssertions(beacon, analyticsPageLoad, PATH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
 		Assert.assertEquals(beacon.props.get(15), "t:st:stg:fin:a:q:loc:lcnty:lcty:tt:d:i:tp:tid:in:lo");
 		Assert.assertEquals(beacon.props.get(17), "c4872|c8287|c94774|c3036|100|tumor");
 		Assert.assertEquals(beacon.props.get(18), "csc|canada|none|toronto");
@@ -322,8 +322,9 @@ public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
 	 * @param analyticsPageLoad
 	 * @param path
 	 */
-	private void doCommonClassAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
-		doCommonLoadAssertions(beacon, analyticsPageLoad, path);
+	private void doCommonClassAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad) {
+		doCommonLoadAssertions(beacon, analyticsPageLoad, PATH);
+		Assert.assertTrue(beacon.hasEvent(2));
 		Assert.assertEquals(beacon.channels, "About Cancer");
 		Assert.assertEquals(beacon.props.get(11), "clinicaltrials_advanced");
 		Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Advanced");
