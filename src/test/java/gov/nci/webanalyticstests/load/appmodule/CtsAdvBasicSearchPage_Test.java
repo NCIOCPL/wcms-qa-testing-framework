@@ -8,7 +8,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.load.AnalyticsTestLoadBase;
 
-public class CtsSearchPages_Test extends AnalyticsTestLoadBase {
+public class CtsAdvBasicSearchPage_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * This test class covers Clinical Trial Basic and Advanced Search pages
