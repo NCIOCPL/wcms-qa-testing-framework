@@ -29,7 +29,7 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 		megaMenu.clickMMBarEn();
 		beacon = getBeacon();
 		
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		logger.log(LogStatus.PASS, "MegaMenu gen value test passed.");
 	}	
 	
@@ -71,7 +71,7 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 		megaMenu.clickMMSubnavLi();
 		beacon = getBeacon();
 		
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		Assert.assertTrue(beacon.hasLinkName("MegaMenuClick"));
 		Assert.assertTrue(beacon.hasEvent(26));
 		Assert.assertEquals(beacon.props.get(53), "About Cancer");
@@ -106,7 +106,7 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 	 * Shared Assert() calls for CtsBasicSearch_Test
 	 * @param beacon
 	 */
-	private void DoCommonAssertions(Beacon beacon) {
+	private void doCommonClassAssertions(Beacon beacon) {
 		Assert.assertTrue(beacon.suites.length > 0);
 		Assert.assertTrue(beacon.channels.length() > 0);
 		Assert.assertEquals(beacon.props.get(4), "D=pev1");

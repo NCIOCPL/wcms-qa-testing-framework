@@ -44,7 +44,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		beacon = getBeacon();
 
 		/* Do assertions and log result */ 
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(37));
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|display");
 		logger.log(LogStatus.PASS, "CTS Basic 'abandon' value test passed.");
@@ -57,7 +57,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		action.pause(1000).perform();
 		beacon = getBeacon();
 		
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(38));
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|start");
 		logger.log(LogStatus.PASS, "CTS Basic 'start' value test passed.");
@@ -69,7 +69,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		basicSearch.clickSearchButton();
 		beacon = getBeacon();
 		
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(39));
 		Assert.assertFalse(beacon.hasEvent(46));
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|complete");
@@ -83,7 +83,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		basicSearch.clickSearchButton();
 		beacon = getBeacon();
 		
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(39));
 		Assert.assertTrue(beacon.hasEvent(46));
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|complete");
@@ -99,7 +99,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		driver.get(config.goHome());
 		beacon = getBeacon();
 
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(40));
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|q");
 		logger.log(LogStatus.PASS, "CTS \"Abandon\" click event for keyword passed.");
@@ -114,7 +114,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		driver.get(config.goHome());
 		beacon = getBeacon();
 
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(40));
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|a");
 		logger.log(LogStatus.PASS, "CTS \"Abandon\" click event for age passed.");
@@ -129,7 +129,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		driver.get(config.goHome());
 		beacon = getBeacon();
 
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(40));
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|z");
 		logger.log(LogStatus.PASS, "CTS \"Abandon\" click event for zipcode passed.");
@@ -142,7 +142,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		basicSearch.setSearchKeyword("");
 		beacon = getBeacon();
 
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(41));
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
 		Assert.assertEquals(beacon.props.get(75), "a|Please enter a number between 1 and 120.");
@@ -156,7 +156,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		basicSearch.setSearchKeyword("");
 		beacon = getBeacon();
 
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(41));
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
 		Assert.assertEquals(beacon.props.get(75), "z|Please enter a valid 5 digit ZIP code.");
@@ -171,7 +171,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 		basicSearch.clickSearchButton();
 		beacon = getBeacon();
 
-		DoCommonAssertions(beacon);
+		doCommonClassAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(41));
 		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
 		Assert.assertEquals(beacon.props.get(75), "submit|attempted form submit with errors");
@@ -182,7 +182,7 @@ public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
 	 * Shared Assert() calls for CtsBasicSearch_Test
 	 * @param beacon
 	 */
-	private void DoCommonAssertions(Beacon beacon) {
+	private void doCommonClassAssertions(Beacon beacon) {
 		Assert.assertTrue(beacon.suites.length > 0);
 		Assert.assertTrue(beacon.channels.length() > 0);
 		Assert.assertEquals(beacon.props.get(4), "D=pev1");
