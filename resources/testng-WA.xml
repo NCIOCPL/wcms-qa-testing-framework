@@ -17,7 +17,6 @@
 			<parameter name="browser" value="iPad" />
 			<parameter name="environment" value="prod" />
 		-->
-		<parameter name="browser" value="Chrome" />
 		<parameter name="environment" value="dt" />
 		<groups>
 			<run>
