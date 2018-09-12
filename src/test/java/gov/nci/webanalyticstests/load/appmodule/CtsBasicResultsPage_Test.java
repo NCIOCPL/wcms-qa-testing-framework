@@ -19,6 +19,12 @@ public class CtsBasicResultsPage_Test extends AnalyticsTestLoadBase {
 	 * - CTS Results Page - Basic search
 	 */		
 	
+	// Test paths
+	//	/about-cancer/treatment/clinical-trials/search/r	CTS Results Page	Basic
+	//	/about-cancer/treatment/clinical-trials/search/r?q=&t=&a=&z=&rl=1	CTS Results Page	Basic
+	//	/about-cancer/treatment/clinical-trials/search/r?q=immunotherapy&t=&a=99&z=37914&rl=1	CTS Results Page	Basic
+
+	
 	// TODO: Handle broken common variables
 	// TODO: Add custom variables:
 	/***

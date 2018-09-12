@@ -20,25 +20,6 @@ public class InnerPage_Test extends AnalyticsTestLoadBase {
 	 */		
 	
 	// TODO: more test cases
-	// TODO: create URLs
-	// TODO: handle these: 
-	/***
-	 * Other values needed:
-	 *  Example from General=https://www-qa.cancer.gov/about-nci/visit:
-		channel: about NCI
-		suites: ncidevelopment, ncienterprise-dev
-		prop25: 01/01/1980
-		prop26: 2018|8|22|15
-		prop29: 3:02 PM|Wednesday
-		prop42: Normal
-		prop48: 12pct|12pct|3796px|/
-		prop61: www.cancer.gov/
-		prop64: 12|0
-		prop65: 3
-		eVar1: www.cancer.gov/about-nci/visit
-		eVar5: Extra wide
-		Hierarchy: 1 www-qa.cancer.gov|about-nci|visit
-	 */
 	private AnalyticsPageLoad analyticsPageLoad;
 	private Beacon beacon;	
 	private String testDataFilePath;
