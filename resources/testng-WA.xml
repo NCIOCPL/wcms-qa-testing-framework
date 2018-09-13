@@ -49,6 +49,7 @@
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsAdvancedSearch_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsBasicSearch_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsAdvBasicResults_Test" />
+			<class name="gov.nci.webanalyticstests.click.appmodule.CtsAdvBasicView_Test" />
 
 		</classes>
 	</test>
