@@ -1,20 +1,11 @@
 package gov.nci.webanalyticstests.click.appmodule;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-
 import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.interactions.Actions;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-import gov.nci.clinicalTrial.pages.AdvanceSearch;
 import gov.nci.clinicalTrial.pages.AdvanceSearchResults;
-import gov.nci.clinicalTrial.pages.BasicSearch;
-import gov.nci.clinicalTrial.pages.SearchResults;
 import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
-import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.click.AnalyticsTestClickBase;
 
@@ -61,6 +52,43 @@ public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
 			logger.log(LogStatus.PASS, "Advanced 'Start Over' click event passed.");
 		} catch (Exception e) {
 			Assert.fail("Error: Advanced 'Start Over' click event.");
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(groups = { "Analytics" })
+	public void testPrintOneItem() {
+		try {
+			System.out.println("Basic print one item click event:");
+			setBasicSearchResults(BASIC_PAGE_1ST);
+			//searchResults.check one item
+			searchResults.clickPrintButton();
+			beacon = getBeacon();
+			
+			doCommonClassAssertions(beacon);			
+			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
+			Assert.assertEquals(beacon.props.get(75), "printselected|noneselected");
+			logger.log(LogStatus.PASS,"Basic print one item click event passed.");
+		} catch (Exception e) {
+			Assert.fail("Error: Basic print one item click event.");
+			e.printStackTrace();
+		}
+	}	
+	
+	@Test(groups = { "Analytics" })
+	public void testPrintError() {
+		try {
+			System.out.println("Basic print error click event:");
+			setBasicSearchResults(BASIC_PAGE_1ST);
+			searchResults.clickPrintButton();
+			beacon = getBeacon();
+			
+			doCommonClassAssertions(beacon);			
+			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
+			Assert.assertEquals(beacon.props.get(75), "printselected|noneselected");
+			logger.log(LogStatus.PASS,"Basic print error click event passed.");
+		} catch (Exception e) {
+			Assert.fail("Error: Basic print error click event.");
 			e.printStackTrace();
 		}
 	}

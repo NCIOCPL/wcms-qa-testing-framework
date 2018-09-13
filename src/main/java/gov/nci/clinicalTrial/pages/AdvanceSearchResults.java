@@ -11,13 +11,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import gov.nci.framework.ElementChange;
+
 public class AdvanceSearchResults extends ClinicalTrialPageObjectBase {
 	public static final String SEARCH_RESULT_PAGE_TITLE = "Clinical Trials Search Results";
 	public static final String BREAD_CRUMB = "Home\nAbout Cancer\nCancer Treatment\nClinical Trials Information\nFind NCI-Supported Clinical Trials";
 	public static final String H1_TITLE = "Clinical Trials Search Results";
 
 	WebDriver driver;
-	JavascriptExecutor js;
 
 	/*************** Advance Search Page WebElements **********************/
 	@FindBy(how = How.XPATH, using = ".//h1")
@@ -64,8 +65,7 @@ public class AdvanceSearchResults extends ClinicalTrialPageObjectBase {
 	}
 
 	public void clickStartOverNoNav() {
-		js = (JavascriptExecutor) driver;
-		js.executeScript("document.querySelector('.cts-start-over a').setAttribute('href','#')");
+		ElementChange.removeHref(driver, ".cts-start-over a");
 		lnk_StartOver.click();
 	}
 
