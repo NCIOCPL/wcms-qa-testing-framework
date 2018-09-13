@@ -39,9 +39,7 @@ public class DynamicListingPage_Test extends AnalyticsTestLoadBase {
 		System.out.println(contentType + " Dynamic Listing page load event: ");
 		getDynamicListingLoadBeacon(path);
 		
-		doCommonClassAssertions(path);
-		String total = analyticsPageLoad.getDynamiListingTotal();
-		Assert.assertEquals(beacon.eVars.get(20), filterInfo + total);
+		doCommonClassAssertions(path, filterInfo);
 		logger.log(LogStatus.PASS, contentType + " load values are correct.");
 	}
 
@@ -49,10 +47,8 @@ public class DynamicListingPage_Test extends AnalyticsTestLoadBase {
 	public void testInterventionListingPageLoad(String path, String contentType, String filterInfo) {
 		System.out.println(contentType + " Dynamic Listing page load event: ");
 		getDynamicListingLoadBeacon(path);
-			
-		doCommonClassAssertions(path);
-		String total = analyticsPageLoad.getDynamiListingTotal();
-		Assert.assertEquals(beacon.eVars.get(20), filterInfo + total);
+		
+		doCommonClassAssertions(path, filterInfo);
 		logger.log(LogStatus.PASS, contentType + " load values are correct.");
 	}
 	
@@ -60,14 +56,11 @@ public class DynamicListingPage_Test extends AnalyticsTestLoadBase {
 	public void testManualListingPageLoad(String path, String contentType, String filterInfo) {
 		System.out.println(contentType + " Dynamic Listing page load event: ");
 		getDynamicListingLoadBeacon(path);
-			
-		doCommonClassAssertions(path);
-		String total = analyticsPageLoad.getDynamiListingTotal();
-		Assert.assertEquals(beacon.eVars.get(20), filterInfo + total);
+		
+		doCommonClassAssertions(path, filterInfo);
 		logger.log(LogStatus.PASS, contentType + " load values are correct.");
 	}
 
-	
 	/******************** Data Providers ********************/	
 	@DataProvider(name = "DiseaseListingPage")
 	public Iterator<Object[]> getDiseaseListingPageLoadData() {
@@ -129,11 +122,14 @@ public class DynamicListingPage_Test extends AnalyticsTestLoadBase {
 	 * Shared Assert() calls for DynamicListPage_Test
 	 * @param path
 	 */
-	private void doCommonClassAssertions(String path) {
+	private void doCommonClassAssertions(String path, String filterInfo) {
+		String total = analyticsPageLoad.getDynamiListingTotal();
+		
 		doCommonLoadAssertions(beacon, analyticsPageLoad, path);
 		Assert.assertTrue(beacon.hasEvent(2));
 		Assert.assertEquals(beacon.channels, "About Cancer");
 		Assert.assertEquals(beacon.props.get(11), "clinicaltrials_custom");
+		Assert.assertEquals(beacon.props.get(20), filterInfo + total);
 		Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Custom");
 		Assert.assertTrue(beacon.eVars.get(10).matches(REGEX_ITEMS_PER_PAGE));
 		Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));
