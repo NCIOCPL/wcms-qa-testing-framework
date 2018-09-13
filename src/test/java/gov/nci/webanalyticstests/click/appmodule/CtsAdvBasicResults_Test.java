@@ -56,34 +56,17 @@ public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
 		}
 	}
 	
-	@Test(groups = { "Analytics" })
-	public void testPrintOneItem() {
-		try {
-			System.out.println("Basic print one item click event:");
-			setBasicSearchResults(BASIC_PAGE_1ST);
-			//searchResults.check one item
-			searchResults.clickPrintButton();
-			beacon = getBeacon();
-			
-			doCommonClassAssertions(beacon);			
-			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
-			Assert.assertEquals(beacon.props.get(75), "printselected|noneselected");
-			logger.log(LogStatus.PASS,"Basic print one item click event passed.");
-		} catch (Exception e) {
-			Assert.fail("Error: Basic print one item click event.");
-			e.printStackTrace();
-		}
-	}	
-	
-	@Test(groups = { "Analytics" })
+	@Test(groups = { "Analytics" }, priority = 1)
 	public void testPrintError() {
 		try {
 			System.out.println("Basic print error click event:");
 			setBasicSearchResults(BASIC_PAGE_1ST);
+			searchResults.clearCheckBoxes();
 			searchResults.clickPrintButton();
 			beacon = getBeacon();
 			
-			doCommonClassAssertions(beacon);			
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(41));
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
 			Assert.assertEquals(beacon.props.get(75), "printselected|noneselected");
 			logger.log(LogStatus.PASS,"Basic print error click event passed.");
@@ -92,34 +75,66 @@ public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
 			e.printStackTrace();
 		}
 	}
-//		
-//	@Test(groups = { "Analytics" })
-//	public void testBasicStart() {
-//		System.out.println("CTS \"Start\" click event:");
-//		basicSearch.setSearchKeyword("canc");
-//		action.pause(1000).perform();
-//		beacon = getBeacon();
-//		
-//		doCommonClassAssertions(beacon);
-//		Assert.assertTrue(beacon.hasEvent(38));
-//		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|start");
-//		logger.log(LogStatus.PASS, "CTS Basic 'start' value test passed.");
-//	}
-//	
-//
-//	@Test(groups = { "Analytics" })
-//	public void testErrorAge() {
-//		System.out.println("CTS \"Error\" click event for age:");
-//		basicSearch.setSearchAge("abc");
-//		basicSearch.setSearchKeyword("");
-//		beacon = getBeacon();
-//
-//		doCommonClassAssertions(beacon);
-//		Assert.assertTrue(beacon.hasEvent(41));
-//		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
-//		Assert.assertEquals(beacon.props.get(75), "a|Please enter a number between 1 and 120.");
-//		logger.log(LogStatus.PASS, "CTS \"Error\" click event for age passed.");
-//	}
+	
+	//@Test(groups = { "Analytics" }, priority = 2)
+	public void testPrintOneItem() {
+		try {
+			System.out.println("Basic print one item click event:");
+			setBasicSearchResults(BASIC_PAGE_1ST);
+			searchResults.clearCheckBoxes();
+			searchResults.selectCheckboxByIndex(2);
+			searchResults.clickPrintButton();
+			beacon = getBeacon();
+			
+			doCommonClassAssertions(beacon);			
+			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_1");
+			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
+			logger.log(LogStatus.PASS,"Basic print one item click event passed.");
+		} catch (Exception e) {
+			Assert.fail("Error: Basic print one item click event.");
+			e.printStackTrace();
+		}
+	}
+	
+	//@Test(groups = { "Analytics" }, priority = 3)
+	public void testPrintMultiItems() {
+		try {
+			System.out.println("Basic print one item click event:");
+			setBasicSearchResults(BASIC_PAGE_1ST);
+			searchResults.clearCheckBoxes();
+			searchResults.clickOnSelectAllCheckBox();
+			searchResults.clickPrintButton();
+			beacon = getBeacon();
+			
+			doCommonClassAssertions(beacon);			
+			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_1");
+			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
+			logger.log(LogStatus.PASS,"Basic print one item click event passed.");
+		} catch (Exception e) {
+			Assert.fail("Error: Basic print one item click event.");
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(groups = { "Analytics" }, priority = 4)
+	public void testPrintAllItems() {
+		try {
+			System.out.println("Basic print all items click event:");
+			setBasicSearchResults(BASIC_PAGE_1ST);
+			searchResults.clearCheckBoxes();
+			searchResults.clickOnSelectAllCheckBox();
+			searchResults.clickPrintButton();
+			beacon = getBeacon();
+			
+			doCommonClassAssertions(beacon);			
+			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_1");
+			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
+			logger.log(LogStatus.PASS,"Basic print all items click event passed.");
+		} catch (Exception e) {
+			Assert.fail("Error: Basic print all items click event.");
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Go to the results page and retrieve the beacon request object.
@@ -142,7 +157,7 @@ public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
 	 */
 	private void doCommonClassAssertions(Beacon beacon) {
 		Assert.assertTrue(beacon.suites.length > 0);
-		Assert.assertTrue(beacon.channels.length() > 0);
+		Assert.assertEquals(beacon.channels, "About Cancer");
 		Assert.assertEquals(beacon.props.get(4), "D=pev1");
 		Assert.assertEquals(beacon.props.get(8), "english");
 		Assert.assertEquals(beacon.props.get(67), "D=pageName");

@@ -95,9 +95,21 @@ public class AdvanceSearchResults extends ClinicalTrialPageObjectBase {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", checkBoxes.get(0));
 		System.out.println("Checkboxes: " + checkBoxes.get(1));
-
 	}
 
+	public void selectCheckboxByIndex(int index) {
+		try {
+			System.out.println("Selected list item #" + index);
+			checkBoxes.get(index).click();
+		} catch (IndexOutOfBoundsException ex) {
+			System.out.println("Invalid arraylist index: " + index);
+		}
+	}
+	
+	public void clearCheckBoxes() {
+		ElementChange.uncheckAll(driver);
+	}
+	
 	public List<WebElement> getResultsLinks() {
 		System.out.println("First result link: " + lnk_resultLink.get(0).getText());
 		System.out.println("Number of result links: " + lnk_resultLink.size());

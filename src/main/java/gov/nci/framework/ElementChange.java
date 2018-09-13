@@ -43,4 +43,15 @@ public class ElementChange {
     	javaScript.executeScript("document.querySelector('" + selector + "').setAttribute('href','')");
     }
     
+    /**
+     * Uncheck all checkboxes on a page.
+     * @param driver A WebDriver instance representing the browser, currently displaying
+     * the page where the change will take place.
+     */
+    public static void uncheckAll (WebDriver driver) {
+    	javaScript = (JavascriptExecutor) driver;
+    	javaScript.executeScript("for(var checkboxes=document.getElementsByTagName('input'),x=0;x<checkboxes.length;x++)" 
+    	                       + "'checkbox'==checkboxes[x].type&&(checkboxes[x].checked=!1);");
+    }
+    
 }
