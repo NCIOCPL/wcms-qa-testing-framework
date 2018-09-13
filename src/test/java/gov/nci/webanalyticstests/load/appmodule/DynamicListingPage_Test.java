@@ -1,5 +1,6 @@
 package gov.nci.webanalyticstests.load.appmodule;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.relevantcodes.extentreports.LogStatus;
@@ -8,6 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
+import gov.nci.Utilities.ExcelManager;
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.load.AnalyticsTestLoadBase;
@@ -33,72 +35,81 @@ public class DynamicListingPage_Test extends AnalyticsTestLoadBase {
 	}
 	
 	@Test(dataProvider = "DiseaseListingPage", groups = { "Analytics" })
-	public void testDiseaseListingPageLoad(String path, String contentType) {
+	public void testDiseaseListingPageLoad(String path, String contentType, String filterInfo) {
 		System.out.println(contentType + " Dynamic Listing page load event: ");
 		getDynamicListingLoadBeacon(path);
 		
 		doCommonClassAssertions(path);
 		String total = analyticsPageLoad.getDynamiListingTotal();
-		/*
-		//Disease Listing Page
-		//evar20 -> disease|<type>|treatment|<name>|total results (regex)
-		/about-cancer/treatment/clinical-trials/disease/breast-cancer
-			disease|breast-cancer|none|none|758
-		/about-cancer/treatment/clinical-trials/disease/breast-cancer/treatment
-			disease|breast-cancer|treatment|none|465
-		/about-cancer/treatment/clinical-trials/disease/breast-cancer/treatment/trastuzumab
-			disease|breast-cancer|treatment|trastuzumab|47
-		*/
+		Assert.assertEquals(beacon.eVars.get(20), filterInfo + total);
 		logger.log(LogStatus.PASS, contentType + " load values are correct.");
 	}
 
 	@Test(dataProvider = "InterventionListingPage", groups = { "Analytics" })
-	public void testInterventionListingPageLoad(String path, String contentType) {
+	public void testInterventionListingPageLoad(String path, String contentType, String filterInfo) {
 		System.out.println(contentType + " Dynamic Listing page load event: ");
 		getDynamicListingLoadBeacon(path);
 			
 		doCommonClassAssertions(path);
 		String total = analyticsPageLoad.getDynamiListingTotal();
-		/*
-		//Intervention Listing Page
-		//evar20 -> intervention|<intervention type>|??|total results (regex)
-		/about-cancer/treatment/clinical-trials/intervention/trastuzumab
-			intervention|trastuzumab|none|59
-		/about-cancer/treatment/clinical-trials/intervention/trastuzumab/treatment
-		 	intervention|trastuzumab|treatment|59
-		 */
+		Assert.assertEquals(beacon.eVars.get(20), filterInfo + total);
 		logger.log(LogStatus.PASS, contentType + " load values are correct.");
 	}
 	
 	@Test(dataProvider = "ManualListingPage", groups = { "Analytics" })
-	public void testManualListingPageLoad(String path, String contentType) {
+	public void testManualListingPageLoad(String path, String contentType, String filterInfo) {
 		System.out.println(contentType + " Dynamic Listing page load event: ");
 		getDynamicListingLoadBeacon(path);
 			
 		doCommonClassAssertions(path);
 		String total = analyticsPageLoad.getDynamiListingTotal();
-		Assert.assertEquals(beacon.eVars.get(20), "manual parameters|" + total);
+		Assert.assertEquals(beacon.eVars.get(20), filterInfo + total);
 		logger.log(LogStatus.PASS, contentType + " load values are correct.");
 	}
+
 	
-	/******************** Data Providers ********************/
-	
+	/******************** Data Providers ********************/	
 	@DataProvider(name = "DiseaseListingPage")
 	public Iterator<Object[]> getDiseaseListingPageLoadData() {
-		return getFilteredPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME, "ContentType", "Disease");
+		return getFilteredDataForDlp("ContentType", "Disease");
 	}
 
 	@DataProvider(name = "InterventionListingPage")
 	public Iterator<Object[]> getInterventionListingPageLoadData() {
-		return getFilteredPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME, "ContentType", "Intervention");
+		return getFilteredDataForDlp("ContentType", "Intervention");
 	}
 
 	@DataProvider(name = "ManualListingPage")
 	public Iterator<Object[]> getManualListingPageLoadData() {
-		return getFilteredPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME, "ContentType", "Manual");
+		return getFilteredDataForDlp("ContentType", "Manual");
 	}
 
-
+	/**
+	 * Get an iterator data object with path and content type Strings, filtered by a given value and column.
+	 * @param testDataFilePath
+	 * @param sheetName
+	 * @param filterColumn
+	 * @param myFilter
+	 * @return
+	 */
+	public Iterator<Object[]> getFilteredDataForDlp(String filterColumn, String myFilter) {
+		ExcelManager excelReader = new ExcelManager(testDataFilePath);
+		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
+			String path = excelReader.getCellData(TESTDATA_SHEET_NAME, "Path", rowNum);
+			String contentType = excelReader.getCellData(TESTDATA_SHEET_NAME, "ContentType", rowNum);
+			String expectedFilterInfo = excelReader.getCellData(TESTDATA_SHEET_NAME, "ExpectedFilterInfo", rowNum);
+			String filter = excelReader.getCellData(TESTDATA_SHEET_NAME, filterColumn, rowNum);
+			if(filter.equalsIgnoreCase(myFilter))
+			{
+				Object ob[] = { path, contentType, expectedFilterInfo };
+				myObjects.add(ob);
+			}
+		}
+		return myObjects.iterator();
+	}
+	
+	
 	/**
 	 * Go to the listing page and retrieve the beacon request object.
 	 * @param path
@@ -120,9 +131,13 @@ public class DynamicListingPage_Test extends AnalyticsTestLoadBase {
 	 */
 	private void doCommonClassAssertions(String path) {
 		doCommonLoadAssertions(beacon, analyticsPageLoad, path);
+		Assert.assertTrue(beacon.hasEvent(2));
+		Assert.assertEquals(beacon.channels, "About Cancer");
+		Assert.assertEquals(beacon.props.get(11), "clinicaltrials_custom");
 		Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Custom");
-		Assert.assertTrue(beacon.eVars.get(10).matches(REGEX_ITEMS_PER_PAGE));		
-		Assert.assertEquals(beacon.eVars.get(11), "clinicaltrials_custom");
+		Assert.assertTrue(beacon.eVars.get(10).matches(REGEX_ITEMS_PER_PAGE));
+		Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));
+		Assert.assertEquals(beacon.eVars.get(20), beacon.props.get(20));
 		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_custom");
 		Assert.assertEquals(beacon.eVars.get(62), beacon.props.get(62));
 	}
