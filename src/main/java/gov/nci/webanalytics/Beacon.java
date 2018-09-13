@@ -36,6 +36,7 @@ public class Beacon extends AnalyticsRequest {
 	public List<String> props; // props, aka "Traffic Variables"
 	public List<String> eVars; // eVars, aka "Conversion Variables"
 	public List<String> hiers; // Hierarchy variables
+	public String linkName;
 	
 	// This class represents an Adobe Analytics request beacon
 	public Beacon(String url) {
@@ -48,7 +49,14 @@ public class Beacon extends AnalyticsRequest {
 		this.props = getPropList();
 		this.eVars = geteVarList();
 		this.hiers = getHierList();
+		this.linkName = getLinkName();
 	}
+	
+	/**************** Methods to check for given values in a beacon ****************/
+	/*
+	 * TODO: Replace "contains' with "matches" where possible
+	 * TODO: Refactor common key/var logic into util methods
+	 */
 	
 	/**
 	 * Get an array of suites (s.account) values from the URL path.
@@ -162,20 +170,6 @@ public class Beacon extends AnalyticsRequest {
 	}
 	
 	/**
-	 * Check for parameters to verify that this is a link event
-	 * @param paramList
-	 * @return
-	 */
-	public boolean hasLinkType() {
-		for (NameValuePair param : paramsList) {
-			if (param.getName().equalsIgnoreCase(LINKTYPE)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * Check for parameters to verify that this is a click-type/link event
 	 * @param paramList
 	 * @return
@@ -187,38 +181,12 @@ public class Beacon extends AnalyticsRequest {
 			return true;
 		}
 	}
-		
-	/**************** Methods to check for given values in a beacon ****************/
-	/*
-	 * TODO: Replace "contains' with "matches" where possible
-	 * TODO: Refactor common key/var logic into util methods
-	 */
 	
 	/**
-	 * Utility function to check for a given suite name
+	 * Check for an event value within a click beacon.
+	 * 
+	 * @param eventNumber
 	 * @return
-	 */
-	public boolean hasSuite() {
-		// TODO: fill this out
-		return false;
-	}
-	
-	/**
-	 * Utility function to check for a link name value within a click beacon.
-	 * @param name
-	 * @return
-	 */
-	public boolean hasLinkName(String name) {
-		if(this.getLinkName().equalsIgnoreCase(name)) {
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Utility function to check for an event value within a click beacon.
-	 * @param evt
-	 * TODO: fix hardcoded values
 	 */
 	public boolean hasEvent(int eventNumber) {
 		String evt = "event" + Integer.toString(eventNumber);

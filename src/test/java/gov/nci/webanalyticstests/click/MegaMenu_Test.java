@@ -21,6 +21,7 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 	@Parameters({ "environment" })
 	public void setupMegaMenu(String environment) throws UnsupportedEncodingException, MalformedURLException {
 		megaMenu = new MegaMenu(driver, environment);
+		driver.get(config.goHome());
 	}
 	
 	/// Megamenu click returns the expected general/shared values
@@ -38,8 +39,9 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 	public void testMMBarEn() {
 		megaMenu.clickMMBarEn();
 		beacon = getBeacon();
-		Assert.assertTrue(beacon.hasLinkName("MegaMenuClick"));
+		
 		Assert.assertTrue(beacon.hasEvent(26));
+		Assert.assertEquals(beacon.props.get(8), "english");
 		logger.log(LogStatus.PASS, "MegaMenu top level click passed.");
 	}
 	
@@ -49,8 +51,9 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 		driver.get(config.getPageURL("SpanishPage"));		
 		megaMenu.clickMMBarEs();
 		beacon = getBeacon();
-		Assert.assertTrue(beacon.hasLinkName("MegaMenuClick"));
+
 		Assert.assertTrue(beacon.hasEvent(26));
+		Assert.assertEquals(beacon.props.get(8), "spanish");
 		logger.log(LogStatus.PASS, "MegaMenu Spanish top level click passed.");
 	}
 	
@@ -60,8 +63,9 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 	public void testMMSubnavHeaderClick() {		
 		megaMenu.clickMMSubnavHeader();
 		beacon = getBeacon();
-		Assert.assertTrue(beacon.hasLinkName("MegaMenuClick"));
+		
 		Assert.assertTrue(beacon.hasEvent(26));
+		Assert.assertEquals(beacon.linkName, "MegaMenuClick");
 		logger.log(LogStatus.PASS, "Subnav header click passed.");
 	}
 	
@@ -72,11 +76,10 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 		beacon = getBeacon();
 		
 		doCommonClassAssertions(beacon);
-		Assert.assertTrue(beacon.hasLinkName("MegaMenuClick"));
 		Assert.assertTrue(beacon.hasEvent(26));
 		Assert.assertEquals(beacon.props.get(53), "About Cancer");
-		Assert.assertEquals(beacon.props.get(54), "Understanding cancer");
-		Assert.assertEquals(beacon.props.get(55), "What is Cancer");
+		Assert.assertEquals(beacon.props.get(54), "Understanding Cancer");
+		Assert.assertEquals(beacon.props.get(55), "What Is Cancer");
 		Assert.assertEquals(beacon.eVars.get(53), "About Cancer");
 		logger.log(LogStatus.PASS, "Expaned subnav title click passed.");
 	}
@@ -86,7 +89,7 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 	public void testMegaMenuMobileReveal() {
 		megaMenu.revealMegaMenuMobile();
 		beacon = getBeacon();
-		Assert.assertTrue(beacon.hasLinkName("MegamenuMobileReveal"));
+		
 		Assert.assertTrue(beacon.hasEvent(28));
 		logger.log(LogStatus.PASS, "Expaned mobile mega menu passed");
 	}
@@ -96,7 +99,7 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 	public void testMegaMenuDesktopReveal() {
 		megaMenu.revealMegaMenuDesktop();
 		beacon = getBeacon();
-		Assert.assertTrue(beacon.hasLinkName("MegamenuDesktopReveal"));
+		
 		Assert.assertTrue(beacon.hasEvent(28));
 		Assert.assertFalse(beacon.hasEvent(26));
 		logger.log(LogStatus.PASS, "MegaMenu expansion passed.");
@@ -110,9 +113,9 @@ public class MegaMenu_Test extends AnalyticsTestClickBase {
 		Assert.assertTrue(beacon.suites.length > 0);
 		Assert.assertTrue(beacon.channels.length() > 0);
 		Assert.assertEquals(beacon.props.get(4), "D=pev1");
-		Assert.assertEquals(beacon.props.get(8), "english");
+		Assert.assertEquals(beacon.props.get(8), beacon.eVars.get(2));
 		Assert.assertEquals(beacon.props.get(67), "D=pageName");
-		Assert.assertEquals(beacon.eVars.get(2), "english");
+		Assert.assertEquals(beacon.linkName, "MegaMenuClick");		
 	}
 	
 }

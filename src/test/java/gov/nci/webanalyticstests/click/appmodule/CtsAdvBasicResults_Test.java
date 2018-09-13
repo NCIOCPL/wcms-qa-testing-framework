@@ -25,12 +25,13 @@ public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
 	public void testBasicStartOverClick() {
 		try {
 			System.out.println("Basic 'Start Over' click event:");
-			setBasicSearchResults(BASIC_PAGE_1ST);
+			setSearchResults(BASIC_PAGE_1ST);
 			// TODO: build utility function to stop nav
 			searchResults.clickStartOverNoNav();
 			beacon = getBeacon();
 			
-			doCommonClassAssertions(beacon);			
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(49));
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|start over");
 			logger.log(LogStatus.PASS, "Basic 'Start Over' click event passed.");
 		} catch (Exception e) {
@@ -43,11 +44,12 @@ public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
 	public void testAdvStartOverClick() {
 		try {
 			System.out.println("Advanced 'Start Over' click event:");
-			setBasicSearchResults(ADVANCED_PAGE_1ST);
+			setSearchResults(ADVANCED_PAGE_1ST);
 			searchResults.clickStartOverNoNav();
 			beacon = getBeacon();
 			
-			doCommonClassAssertions(beacon);			
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(49));
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|start over");
 			logger.log(LogStatus.PASS, "Advanced 'Start Over' click event passed.");
 		} catch (Exception e) {
@@ -60,7 +62,7 @@ public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
 	public void testPrintError() {
 		try {
 			System.out.println("Basic print error click event:");
-			setBasicSearchResults(BASIC_PAGE_1ST);
+			setSearchResults(BASIC_PAGE_1ST);
 			searchResults.clearCheckBoxes();
 			searchResults.clickPrintButton();
 			beacon = getBeacon();
@@ -80,13 +82,14 @@ public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
 	public void testPrintOneItem() {
 		try {
 			System.out.println("Basic print one item click event:");
-			setBasicSearchResults(BASIC_PAGE_1ST);
+			setSearchResults(BASIC_PAGE_1ST);
 			searchResults.clearCheckBoxes();
 			searchResults.selectCheckboxByIndex(2);
 			searchResults.clickPrintButton();
 			beacon = getBeacon();
 			
-			doCommonClassAssertions(beacon);			
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(48));
 			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_1");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
 			logger.log(LogStatus.PASS,"Basic print one item click event passed.");
@@ -100,13 +103,14 @@ public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
 	public void testPrintMultiItems() {
 		try {
 			System.out.println("Basic print one item click event:");
-			setBasicSearchResults(BASIC_PAGE_1ST);
+			setSearchResults(BASIC_PAGE_1ST);
 			searchResults.clearCheckBoxes();
 			searchResults.clickOnSelectAllCheckBox();
 			searchResults.clickPrintButton();
 			beacon = getBeacon();
 			
-			doCommonClassAssertions(beacon);			
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(48));
 			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_1");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
 			logger.log(LogStatus.PASS,"Basic print one item click event passed.");
@@ -120,13 +124,14 @@ public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
 	public void testPrintAllItems() {
 		try {
 			System.out.println("Basic print all items click event:");
-			setBasicSearchResults(BASIC_PAGE_1ST);
+			setSearchResults(BASIC_PAGE_1ST);
 			searchResults.clearCheckBoxes();
 			searchResults.clickOnSelectAllCheckBox();
 			searchResults.clickPrintButton();
 			beacon = getBeacon();
 			
-			doCommonClassAssertions(beacon);			
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(48));
 			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_1");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
 			logger.log(LogStatus.PASS,"Basic print all items click event passed.");
@@ -136,11 +141,51 @@ public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
 		}
 	}
 	
+	@Test(groups = { "Analytics" })
+	public void testBasicLinkRanking() {
+		try {
+			System.out.println("Basic ranked result click event:");
+			setSearchResults(BASIC_PAGE_2ND);
+			searchResults.clickResultLinkByIndex(0);
+			beacon = getBeacon();
+						
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(42));
+			Assert.assertEquals(beacon.props.get(12), "clinicaltrials_basic");
+			Assert.assertEquals(beacon.props.get(13), "1|page 2");
+			Assert.assertEquals(beacon.props.get(12), beacon.eVars.get(12));
+			logger.log(LogStatus.PASS,"Basic ranked result click event passed.");
+		} catch (Exception e) {
+			Assert.fail("Error: Basic ranked result click event.");
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(groups = { "Analytics" })
+	public void testAdvLinkRanking() {
+		try {
+			System.out.println("Advanced ranked result click event:");
+			setSearchResults(ADVANCED_PAGE_2ND);
+			searchResults.clickResultLinkByIndex(1);
+			beacon = getBeacon();
+						
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(42));
+			Assert.assertEquals(beacon.props.get(12), "clinicaltrials_advanced");
+			Assert.assertEquals(beacon.props.get(13), "2|page 2");
+			Assert.assertEquals(beacon.props.get(12), beacon.eVars.get(12));
+			logger.log(LogStatus.PASS,"Advanced ranked result click event passed.");
+		} catch (Exception e) {
+			Assert.fail("Error: Advanced ranked result click event.");
+			e.printStackTrace();
+		}
+	}
+	
 	/**
-	 * Go to the results page and retrieve the beacon request object.
+	 * Go to the results page and create a new searchresults object.
 	 * @param queryParams
 	 */
-	private void setBasicSearchResults(String queryParams) {
+	private void setSearchResults(String queryParams) {
 		try {
 			driver.get(config.goHome() + PATH + queryParams);
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);

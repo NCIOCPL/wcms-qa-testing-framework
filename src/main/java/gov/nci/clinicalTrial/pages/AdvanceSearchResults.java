@@ -116,4 +116,12 @@ public class AdvanceSearchResults extends ClinicalTrialPageObjectBase {
 		return lnk_resultLink;
 	}
 
+	public void clickResultLinkByIndex(int index) {
+		try {
+			lnk_resultLink.get(index).click();
+		} catch (IndexOutOfBoundsException ex) {
+			System.out.println("Invalid arraylist index: " + index);
+		}
+	}
+	
 }
