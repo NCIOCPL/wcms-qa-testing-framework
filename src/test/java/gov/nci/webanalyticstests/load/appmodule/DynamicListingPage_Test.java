@@ -21,42 +21,6 @@ public class DynamicListingPage_Test extends AnalyticsTestLoadBase {
 	 * - Manually-created Dynamic Listing Page
 	 */
 	
-	/**
-	 *  TODO: split into different listing types & add custom assertions
-	 *  TODO: create another data provider method to filter test items
-	**/
-	//Disease Listing Page
-	//prop62 -> Clinical Trials: Custom
-	//evar10 -> results per page (regex)
-	//evar11 -> clinicaltrials_custom
-	//evar20 -> disease|<type>|treatment|<name>|total results (regex)
-	//evar47 -> clinicaltrials_custom
-	//evar62 -> Clinical Trials: Custom
-	///about-cancer/treatment/clinical-trials/disease/breast-cancer
-	///about-cancer/treatment/clinical-trials/disease/breast-cancer/treatment
-	///about-cancer/treatment/clinical-trials/disease/breast-cancer/treatment/trastuzumab
-	//
-	//
-	//Intervention Listing Page
-	//prop62 -> Clinical Trials: Custom
-	//evar10 -> results per page (regex)
-	//evar11 -> clinicaltrials_custom
-	//evar20 -> intervention|<intervention type>|??|total results (regex)
-	//evar47 -> clinicaltrials_custom
-	//evar62 -> Clinical Trials: Custom
-	///about-cancer/treatment/clinical-trials/intervention/trastuzumab
-	///about-cancer/treatment/clinical-trials/intervention/trastuzumab/treatment
-	//
-	//
-	//Manual Listing Page
-	//prop62 -> Clinical Trials: Custom
-	//evar10 -> results per page
-	//evar11 -> clinicaltrials_custom
-	//evar20 -> manual parameters|total results (regex)
-	//evar47 -> clinicaltrials_custom
-	//evar62 -> Clinical Trials: Custom
-	///about-cancer/treatment/clinical-trials/kidney-cancer (edited)
-	
 	private AnalyticsPageLoad analyticsPageLoad;
 	private Beacon beacon;	
 	private String testDataFilePath;
@@ -67,30 +31,93 @@ public class DynamicListingPage_Test extends AnalyticsTestLoadBase {
 		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
 	
-	/// DynamicListing page loads return expected values
-	@Test(dataProvider = "DynamicListingPageLoad", groups = { "Analytics" })
-	public void testDynamicListingPageLoad(String path, String contentType) {
+	@Test(dataProvider = "DiseaseListingPage", groups = { "Analytics" })
+	public void testDiseaseListingPageLoad(String path, String contentType) {
+		System.out.println(contentType + " Dynamic Listing page load event: ");
+		getDynamicListingLoadBeacon(path);
+			
+		doCommonClassAssertions(beacon, analyticsPageLoad, path);
+		//Disease Listing Page
+		//evar10 -> results per page (regex)
+		//evar20 -> disease|<type>|treatment|<name>|total results (regex)
+		///about-cancer/treatment/clinical-trials/disease/breast-cancer
+		///about-cancer/treatment/clinical-trials/disease/breast-cancer/treatment
+		///about-cancer/treatment/clinical-trials/disease/breast-cancer/treatment/trastuzumab
+		logger.log(LogStatus.PASS, contentType + " load values are correct.");
+	}
+
+	@Test(dataProvider = "InterventionListingPage", groups = { "Analytics" })
+	public void testInterventionListingPageLoad(String path, String contentType) {
+		System.out.println(contentType + " Dynamic Listing page load event: ");
+		getDynamicListingLoadBeacon(path);
+			
+		doCommonClassAssertions(beacon, analyticsPageLoad, path);
+		//Intervention Listing Page
+		//evar10 -> results per page (regex)
+		//evar20 -> intervention|<intervention type>|??|total results (regex)
+		///about-cancer/treatment/clinical-trials/intervention/trastuzumab
+		///about-cancer/treatment/clinical-trials/intervention/trastuzumab/treatment
+		logger.log(LogStatus.PASS, contentType + " load values are correct.");
+	}
+	
+	@Test(dataProvider = "ManualListingPage", groups = { "Analytics" })
+	public void testManualListingPageLoad(String path, String contentType) {
+		System.out.println(contentType + " Dynamic Listing page load event: ");
+		getDynamicListingLoadBeacon(path);
+			
+		doCommonClassAssertions(beacon, analyticsPageLoad, path);
+		//Manual Listing Page
+		//evar10 -> results per page
+		//evar20 -> manual parameters|total results (regex)
+		///about-cancer/treatment/clinical-trials/kidney-cancer (edited)		
+		logger.log(LogStatus.PASS, contentType + " load values are correct.");
+	}
+	
+	/******************** Data Providers ********************/
+	
+	@DataProvider(name = "DiseaseListingPage")
+	public Iterator<Object[]> getDiseaseListingPageLoadData() {
+		return getFilteredPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME, "ContentType", "Disease");
+	}
+
+	@DataProvider(name = "InterventionListingPage")
+	public Iterator<Object[]> getInterventionListingPageLoadData() {
+		return getFilteredPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME, "ContentType", "Intervention");
+	}
+
+	@DataProvider(name = "ManualListingPage")
+	public Iterator<Object[]> getManualListingPageLoadData() {
+		return getFilteredPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME, "ContentType", "Manual");
+	}
+
+
+	/**
+	 * Go to the results page and retrieve the beacon request object.
+	 * @param queryParams
+	 */
+	private void getDynamicListingLoadBeacon(String path) {
 		try {
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
 			beacon = getBeacon();
-			doCommonLoadAssertions(beacon, analyticsPageLoad, path);
-			Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Custom");
-			Assert.assertEquals(beacon.eVars.get(11), "clinicaltrials_custom");
-			Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_custom");
-			Assert.assertEquals(beacon.eVars.get(62), "Clinical Trials: Custom");
-			logger.log(LogStatus.PASS, contentType + " load values are correct.");
-		}
-		catch (Exception e) {
-			Assert.fail("Error loading " + contentType);
-			e.printStackTrace();
+		} catch (Exception ex) {
+			Assert.fail("Error loading listing page path: " + path);
+			ex.printStackTrace();
 		}
 	}
-
-	@DataProvider(name = "DynamicListingPageLoad")
-	public Iterator<Object[]> getDynamicListingPageLoadData() {
-		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
+	
+	/**
+	 * Shared Assert() calls for DynamicListPage_Test
+	 * @param beacon
+	 * @param analyticsPageLoad
+	 * @param path
+	 */
+	private void doCommonClassAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
+		doCommonLoadAssertions(beacon, analyticsPageLoad, path);
+		Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Custom");
+		Assert.assertEquals(beacon.eVars.get(11), "clinicaltrials_custom");
+		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_custom");
+		Assert.assertEquals(beacon.eVars.get(62), beacon.props.get(62));
 	}
 	
 }
