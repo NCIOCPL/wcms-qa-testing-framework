@@ -30,6 +30,16 @@ public class AnalyticsPageLoad extends PageObjectBase {
 	WebElement meta_is_part_of;
 	@FindBy(how = How.XPATH, using = "//meta[@name='dcterms.issued']")
 	WebElement meta_issued;
+	@FindBy(how = How.XPATH, using = "//span[@data-basiccts-searchparam='n']")
+	WebElement txt_dlp_total;
+	
+	// Constructor to initialize the page object	
+	public AnalyticsPageLoad(WebDriver driver) throws MalformedURLException, UnsupportedEncodingException {
+		super(driver);
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
 	
 	public String getMetaTitle() {
 		return meta_title.getAttribute("content");
@@ -54,13 +64,11 @@ public class AnalyticsPageLoad extends PageObjectBase {
 	public String getMetaIssued() {
 		return meta_issued.getAttribute("content");
 	}
-	
-	// Constructor to initialize the page object	
-	public AnalyticsPageLoad(WebDriver driver) throws MalformedURLException, UnsupportedEncodingException {
-		super(driver);
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
+
+	public String getDynamiListingTotal() {
+		return txt_dlp_total.getText();
 	}
+	
 	
 	/**
 	 * Get full name for content language.
