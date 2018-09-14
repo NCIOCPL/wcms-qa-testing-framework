@@ -224,10 +224,9 @@ public class SitewideSearch_Test extends AnalyticsTestClickBase {
 	 * @param searchTerm
 	 */
 	private void doCommonClassAssertions(String searchTerm) {
+		doCommonClickAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(2));
-		Assert.assertEquals(beacon.props.get(4), "D=pev1");
 		Assert.assertEquals(beacon.props.get(14), searchTerm.toLowerCase());
-		Assert.assertEquals(beacon.props.get(67), "D=pageName");
 		//Assert.assertEquals(beacon.eVars.get(13), "eVar13 value incorrect.");
 		Assert.assertEquals(beacon.eVars.get(14), searchTerm.toLowerCase());
 	}

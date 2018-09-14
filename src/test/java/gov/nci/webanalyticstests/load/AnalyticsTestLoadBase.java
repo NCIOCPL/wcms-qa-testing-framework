@@ -46,8 +46,7 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		
 		// For each server URL, check if it is an analytics click
 		// or load event, then add it to the correct list
-		for(String url : urlList)
-		{
+		for(String url : urlList) {
 			// Populate the beacon lists
 			Beacon beacon = new Beacon(url);
 			if(!beacon.isClickTypeEvent()) {

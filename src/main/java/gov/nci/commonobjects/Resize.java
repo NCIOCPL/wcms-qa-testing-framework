@@ -19,7 +19,6 @@ public class Resize extends PageObjectBase {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
-		System.out.print("Resize pagefactory initialized: ");		
 	}
 	
 	/**
@@ -37,42 +36,28 @@ public class Resize extends PageObjectBase {
 	 * @throws RuntimeException
 	 */	
 	public void toSmall() throws RuntimeException {
-		System.out.println("Resize browser to mobile");
 		driver.manage().window().setSize(xlarge);
 		driver.manage().window().setSize(small);
 	}
 
 	public void toMed() throws RuntimeException {
-		System.out.println("Resize browser to tablet");
 		driver.manage().window().setSize(xlarge);
 		driver.manage().window().setSize(med);
 	}
 
 	public void toLarge() throws RuntimeException {
-		System.out.println("Resize browser to desktop/large");
 		driver.manage().window().setSize(small);
 		driver.manage().window().setSize(large);
 	}
 
 	public void toXlarge() throws RuntimeException {
-		System.out.println("Resize browser to extra large");
 		driver.manage().window().setSize(small);
 		driver.manage().window().setSize(xlarge);
 	}
 
 	public void maximize() throws RuntimeException {
-		System.out.println("Maximize browser window");		
 		driver.manage().window().setSize(small);
 		driver.manage().window().maximize();
-	}
-
-	public void doAllResizes() throws RuntimeException {
-		System.out.println("Cycle through all browser size breakpoints");
-		toXlarge();
-		toLarge();
-		toMed();
-		toSmall();
-		maximize();
 	}
 	
 }
