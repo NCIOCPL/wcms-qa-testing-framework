@@ -6,14 +6,12 @@ import org.apache.http.NameValuePair;
 
 // Represents a single Adobe Analytics request beacon with query parameters
 public class Beacon extends AnalyticsRequest {
-	// TODO: move server strings into config	
-	// TODO: remove unused methods
-	// TODO: reuse collection method from ParsedURL() instead of the local getList()
 	//	TODO: Handle null exceptions in has() methods
 	//	TODO: Create 'catch-all' Contains() method		
 	
 	// Constants
 	public static final String TRACKING_SERVER = "nci.122.2o7.net";
+	public static final String CGOV_PAGENAME = "www.cancer.gov";
 	
 	// Parameter values from URL
 	static final String CHANNEL = "ch";
@@ -208,6 +206,25 @@ public class Beacon extends AnalyticsRequest {
 		return false;
 	}
 	
+	/**
+	 * Check for a suite (s_accout/s.account) string value
+	 * @param eventNumber
+	 * @return
+	 */
+	public boolean hasSuite(String suite, String hostName) {
+		if(hostName.contains(CGOV_PAGENAME)) {
+			if(suite == "nciglobal") {
+				return true;
+			}
+		} else {
+			if(suite == "ncidevelopment") {
+				return true;
+			}
+		}
+		
+		return false;
+
+	}
 
 	/******************** Utility methods ****************************************/	
 	
