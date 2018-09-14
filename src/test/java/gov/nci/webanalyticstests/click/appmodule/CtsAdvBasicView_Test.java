@@ -6,6 +6,7 @@ import org.testng.Assert;
 
 import gov.nci.clinicalTrial.pages.AdvanceSearchResults;
 import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
+import gov.nci.clinicalTrial.pages.TrialDetailView;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.click.AnalyticsTestClickBase;
 
@@ -17,42 +18,74 @@ public class CtsAdvBasicView_Test extends AnalyticsTestClickBase {
 	private final String FROM_LISTING_PAGE = "?id=NCI-2016-01041&r=1";
 	private final String FROM_CT_REDIRECT = "?id=NCT02834013&r=1";
 	
-	// Don't see an exisiting BasicSearchResultsPage, so I'm reusing advanced for all instances
-	private AdvanceSearchResults searchResults;
+	private TrialDetailView trialView;
 	private Beacon beacon;
 		
 	
 	@Test(groups = { "Analytics" })
-	public void testAdvLinkRanking() {
-		try {
-			
-			// DO STUFF HERE
-			Assert.assertEquals(1,  1);
+	public void testTrialViewStartOverClick() {
+		System.out.println("CTS View - start over click: ");
+		getTrialDetailView(FROM_ADVANCED_SEARCH);
+		trialView.clickStartOverNoNav();
+		beacon = getBeacon();
+		
+		doCommonClassAssertions(beacon);
+		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|start over");
+	}
+	
+	@Test(groups = { "Analytics" })
+	public void testTrialViewOpenAllClick() {
+		System.out.println("CTS View - open all sections click: ");
+		getTrialDetailView(FROM_ADVANCED_SEARCH);
+		trialView.clickOpenAll();
+		beacon = getBeacon();
+		
+		doCommonClassAssertions(beacon);
+		Assert.assertEquals(beacon.props.get(41), "clinical_trial|none|none|open-all");
+	}
 
-			logger.log(LogStatus.PASS,"Advanced ranked result click event passed.");
-		} catch (Exception e) {
-			Assert.fail("Error: Advanced ranked result click event.");
-			e.printStackTrace();
-		}
+	@Test(groups = { "Analytics" })
+	public void testTrialViewCloseAllClick() {
+		System.out.println("CTS View - close all sections click: ");
+		getTrialDetailView(FROM_ADVANCED_SEARCH);
+		trialView.clickCloseAll();
+		beacon = getBeacon();
+		
+		doCommonClassAssertions(beacon);
+		Assert.assertEquals(beacon.props.get(41), "clinical_trial|none|none|close-all");
+	}
+
+
+	@Test(groups = { "Analytics" })
+	public void testSectionExpandClick() {
+		System.out.println("CTS View - expand one section click: ");
+		getTrialDetailView(FROM_BASIC_SEARCH);
+		trialView.clickCloseAll();
+		trialView.clickSection("description");
+		beacon = getBeacon();
+		
+		doCommonClassAssertions(beacon);
+		Assert.assertEquals(beacon.props.get(41), "clinical_trial|trial-description|Description|expand");
 	}
 	
 	/**
-	 * Go to the results page and create a new searchresults object.
+	 * Go to the trial view page and create a new TrialDetailView object..
+	 * 
 	 * @param queryParams
 	 */
-	private void setSearchResults(String queryParams) {
+	private void getTrialDetailView(String queryParams) {
 		try {
 			driver.get(config.goHome() + PATH + queryParams);
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
-			searchResults = new AdvanceSearchResults(driver, chatPrompt);
+			trialView = new TrialDetailView(driver, chatPrompt);
 		} catch (Exception ex) {
-			Assert.fail("Error loading Advanced CTS results url: " + PATH + queryParams);
+			Assert.fail("Error loading CTS Trial Detail View: " + PATH + queryParams);
 			ex.printStackTrace();
 		}
 	}
 	
 	/**
-	 * Shared Assert() calls for CtsBasicSearch_Test
+	 * Shared Assert() calls for CtsAdvBasicView_Test
 	 * @param beacon
 	 */
 	private void doCommonClassAssertions(Beacon beacon) {
