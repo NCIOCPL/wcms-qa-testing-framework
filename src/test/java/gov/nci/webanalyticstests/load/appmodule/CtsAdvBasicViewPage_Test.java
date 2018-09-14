@@ -12,7 +12,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.load.AnalyticsTestLoadBase;
 
-public class CtsViewPage_Test extends AnalyticsTestLoadBase {
+public class CtsAdvBasicViewPage_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page / content types are covered by this test class:
