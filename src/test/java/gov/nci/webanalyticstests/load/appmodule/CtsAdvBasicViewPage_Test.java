@@ -1,10 +1,6 @@
 package gov.nci.webanalyticstests.load.appmodule;
 
-import java.util.Iterator;
-
 import com.relevantcodes.extentreports.LogStatus;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -19,97 +15,77 @@ public class CtsAdvBasicViewPage_Test extends AnalyticsTestLoadBase {
 	 * - Clinical Trial detailed view Page
 	 */
 
-	// TODO: Handle broken common variables	
-	// View details page 
-	//prop16: NCTID
-	//prop62: Clinical Trials: <searchtype>
-	//eVar62: Clinical Trials: <searchtype>
+	private final String PATH = "/about-cancer/treatment/clinical-trials/search/v";
+	private final String PARAMS_ADVANCED_SEARCH = "?t=C4911&q=nivolumab&loc=0&tid=S1609&rl=2&id=NCI-2016-01041&pn=1&ni=10";
+	private final String PARAMS_BASIC_SEARCH = "?q=ipilimumab&loc=1&z=20850&zp=100&rl=1&id=NCI-2016-01041&pn=1&ni=10";	
+	private final String PARAMS_LISTING_PAGE = "?id=NCI-2016-01041&r=1";
+	
 	private AnalyticsPageLoad analyticsPageLoad;
 	private Beacon beacon;	
-	private String testDataFilePath;
-	private final String TESTDATA_SHEET_NAME = "CTSViewPage";
 	
-	@BeforeClass(groups = { "Analytics" }) 
-	public void setup() {
-		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
-	}
-	
-	/// CTSView page loads return expected values
-	@Test(dataProvider = "CTSAdvancedViewPage", groups = { "Analytics" })
-	public void testCTSAdvancedViewPageLoad(String path, String contentType) {
-		try {
-			driver.get(config.goHome() + path);
-			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
-			beacon = getBeacon();
-			
-			String[] pathNoQuery = path.split("\\?");
-			doCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
-			Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Advanced");
-			Assert.assertEquals(beacon.eVars.get(62), "Clinical Trials: Advanced");
-			logger.log(LogStatus.PASS, contentType + " load values are correct.");
-		}
-		catch (Exception e) {
-			Assert.fail("Error loading " + contentType);
-			e.printStackTrace();
-		}
+	@Test(groups = { "Analytics" })
+	public void testCTSAdvancedViewPageLoad() {
+		System.out.println("Trial detail view from Advanced Search results: ");
+		getTrialDetailViewLoadBeacon(PARAMS_ADVANCED_SEARCH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
+		Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Advanced");
+		logger.log(LogStatus.PASS, "Trial detail view from Advanced Search load values are correct.");		
 	}
 
-	/// CTSView page loads return expected values
-	@Test(dataProvider = "CTSBasicViewPage", groups = { "Analytics" })
-	public void testCTSBasicViewPageLoad(String path, String contentType) {
+	@Test(groups = { "Analytics" })
+	public void testCTSBasicViewPageLoad() {
+		System.out.println("Trial detail view from Basic Search results: ");
+		getTrialDetailViewLoadBeacon(PARAMS_BASIC_SEARCH);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
+		Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Basic");
+		logger.log(LogStatus.PASS, "Trial detail view from Basic Search load values are correct.");
+	}
+	
+	@Test(groups = { "Analytics" })
+	public void testCTSCustomViewPageLoad() {
+		System.out.println("Trial detail view from Custom/Listing results: ");
+		getTrialDetailViewLoadBeacon(PARAMS_LISTING_PAGE);
+		doCommonClassAssertions(beacon, analyticsPageLoad);
+		Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Custom");
+		logger.log(LogStatus.PASS, "Trial detail view from Custom/Listing load values are correct.");
+	}
+	
+	/**
+	 * Go to the view page and retrieve the beacon request object.
+	 * @param queryParams
+	 */
+	private void getTrialDetailViewLoadBeacon(String queryParams) {
 		try {
-			driver.get(config.goHome() + path);
+			driver.get(config.goHome() + PATH + queryParams);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
 			beacon = getBeacon();
-			
-			String[] pathNoQuery = path.split("\\?");
-			doCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
-			Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Basic");
-			Assert.assertEquals(beacon.eVars.get(62), "Clinical Trials: Basic");
-			logger.log(LogStatus.PASS, contentType + " load values are correct.");
-		}
-		catch (Exception e) {
-			Assert.fail("Error loading " + contentType);
-			e.printStackTrace();
+		} catch (Exception ex) {
+			Assert.fail("Error loading CTS Trial View url: " + PATH + queryParams);
+			ex.printStackTrace();
 		}
 	}
 	
-	/// CTSView page loads return expected values
-	@Test(dataProvider = "CTSCustomViewPage", groups = { "Analytics" })
-	public void testCTSCustomViewPageLoad(String path, String contentType) {
-		try {
-			driver.get(config.goHome() + path);
-			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
-			beacon = getBeacon();
-			
-			String[] pathNoQuery = path.split("\\?");
-			doCommonLoadAssertions(beacon, analyticsPageLoad, pathNoQuery[0]);
-			Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Custom");
-			Assert.assertEquals(beacon.eVars.get(62), "Clinical Trials: Custom");
-			logger.log(LogStatus.PASS, contentType + " load values are correct.");
-		}
-		catch (Exception e) {
-			Assert.fail("Error loading " + contentType);
-			e.printStackTrace();
-		}
+	/**
+	 * Shared assertions for all tests in this class.
+	 * @param beacon
+	 * @param analyticsPageLoad
+	 * @param path
+	 */
+	private void doCommonClassAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad) {
+		doCommonLoadAssertions(beacon, analyticsPageLoad, PATH);
+		Assert.assertEquals(beacon.channels, "About Cancer");
+		Assert.assertEquals(beacon.props.get(16), getNCTID(analyticsPageLoad));
+		Assert.assertEquals(beacon.eVars.get(62), beacon.props.get(62));
 	}
 	
-	@DataProvider(name = "CTSAdvancedViewPage")
-	public Iterator<Object[]> getAdvancedViewPageLoadData() {
-		return getFilteredPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME, "SearchType", "Advanced");
-	}
-	
-	@DataProvider(name = "CTSBasicViewPage")
-	public Iterator<Object[]> getBasicViewPageLoadData() {
-		return getFilteredPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME, "SearchType", "Basic");
-	}
-
-	@DataProvider(name = "CTSCustomViewPage")
-	public Iterator<Object[]> getCustomViewPageLoadData() {
-		return getFilteredPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME, "SearchType", "Custom");
+	/**
+	 * Retrieve the NCT ID for a give clinical trial view page.
+	 * @param pageLoad
+	 * @return
+	 */
+	private String getNCTID(AnalyticsPageLoad pageLoad) {
+		String[] titleId = pageLoad.getMetaTitle().split("-");
+		return titleId[titleId.length - 1].trim();
 	}
 	
 }
