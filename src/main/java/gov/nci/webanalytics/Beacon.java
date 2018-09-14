@@ -1,8 +1,13 @@
 package gov.nci.webanalytics;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.http.NameValuePair;
+import org.testng.annotations.BeforeClass;
+
+import gov.nci.Utilities.ExcelManager;
 
 // Represents a single Adobe Analytics request beacon with query parameters
 public class Beacon extends AnalyticsRequest {
@@ -207,25 +212,42 @@ public class Beacon extends AnalyticsRequest {
 	}
 	
 	/**
-	 * Check for a suite (s_accout/s.account) string value
-	 * @param eventNumber
+	 * Check for a suite (s_accout/s.account) string value in a Beacon object.
+	 * @param suite
+	 * @param currentUrl
 	 * @return
 	 */
-	public boolean hasSuite(String suite, String hostName) {
-		if(hostName.contains(CGOV_PAGENAME)) {
-			if(suite == "nciglobal") {
-				return true;
-			}
-		} else {
-			if(suite == "ncidevelopment") {
-				return true;
-			}
-		}
-		
-		return false;
-
+	public boolean hasSuite(String suite, String currentUrl) {
+		boolean isProd = currentUrl.contains(CGOV_PAGENAME);
+		String mappedSuite = getMappedSuite(suite, isProd);
+		return Arrays.asList(this.suites).contains(mappedSuite);
 	}
 
+	/**
+	 * Given a suite name and environment, return corresponding suite name from the map.
+	 * 
+	 * @param mySuite
+	 * @param isProd
+	 * @return
+	 */
+	private String getMappedSuite(String mySuite, boolean isProd) {
+		String dataFilePath = "./test-data/webanalytics-suitemap.xlsx";
+		String dataSheetName = "CancerGov";
+		String mappedSuite = "";
+		ExcelManager excelReader = new ExcelManager(dataFilePath);			
+		String row = (isProd == true) ? "ProdSuite" : "DevSuite";
+		
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount(dataSheetName); rowNum++) {
+			String suiteOriginal = excelReader.getCellData(dataSheetName, "Suite", rowNum);
+			if(suiteOriginal.equalsIgnoreCase(mySuite)) {
+				mappedSuite = excelReader.getCellData(dataSheetName, row, rowNum);
+				break;
+			}
+		}
+		return mappedSuite;		
+	}
+
+	
 	/******************** Utility methods ****************************************/	
 	
 	/**

@@ -70,10 +70,13 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	 * @param analyticsPageLoad
 	 * @param path
 	 */
-	protected void doCommonLoadAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
-		
-		String currUrl = driver.getCurrentUrl();
+	protected void doCommonLoadAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {		
 
+		String currUrl = driver.getCurrentUrl();
+		
+		// Common Suites
+		Assert.assertTrue(beacon.hasSuite("nciglobal", currUrl));
+		
 		// Common events
 		Assert.assertTrue(beacon.hasEvent(1));
 		Assert.assertTrue(beacon.hasEvent(47));		
