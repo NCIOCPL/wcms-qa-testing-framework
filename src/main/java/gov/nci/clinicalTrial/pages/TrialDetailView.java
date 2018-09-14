@@ -33,7 +33,11 @@ public class TrialDetailView extends ClinicalTrialPageObjectBase {
 	private WebElement btn_openAll;
 	@FindBy(how = How.CSS, using = ".accordion-controls .close-all")
 	private WebElement btn_closeAll;
-
+	@FindBy(how = How.CSS, using = ".cts-share a.print")
+	private WebElement lnk_print;
+	@FindBy(how = How.CSS, using = ".cts-share a.email")
+	private WebElement lnk_email;
+	
 	// Constructor - Initializing the Page objects
 	public TrialDetailView(WebDriver driver, ClinicalTrialPageObjectBase decorator) throws MalformedURLException, UnsupportedEncodingException {
 		super(driver, decorator);
@@ -68,19 +72,26 @@ public class TrialDetailView extends ClinicalTrialPageObjectBase {
 	}
 
 	public WebElement getSection(String sectionId) {
-		WebElement section = driver.findElement(By.cssSelector(".accordion #trial-" + sectionId + " h2"));
+		WebElement section = driver.findElement(By.cssSelector("#trial-" + sectionId + " h2"));
 		return section;
-	}
-	
+	}	
+
 	public void clickSection(String sectionId) {
 		WebElement section = getSection(sectionId);
 		ScrollUtil.scrollIntoview(this.driver, section);
 		section.click();
-		action.pause(1000);
 	}
-//
-//	// Make the search button visible so it can be clicked.
-//	ScrollUtil.scrollIntoview(this.browser, btn_Search);
-//
-//	expectUrlChange(() ->{
+	
+	public void clickPrintLink() {
+		ScrollUtil.scrollIntoview(this.driver, lnk_print);
+		lnk_print.click();
+		action.keyDown(Keys.ESCAPE).perform();
+	}
+	
+	public void clickEmailLink() {
+		ElementChange.removeHref(driver, "a.email");		
+		ScrollUtil.scrollIntoview(this.driver, lnk_email);
+		lnk_email.click();
+	}
+		
 }
