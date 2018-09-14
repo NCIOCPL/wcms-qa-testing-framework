@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 import gov.nci.framework.PageObjectBase;
@@ -13,11 +14,13 @@ public class Resize extends PageObjectBase {
 	
 	// Local driver object
 	public WebDriver driver;
+	public Actions action;
 	
 	// Constructor to initialize the page object
 	public Resize(WebDriver driver) throws MalformedURLException, UnsupportedEncodingException {
 		super(driver);
 		this.driver = driver;
+		this.action = new Actions(driver);
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -27,7 +30,7 @@ public class Resize extends PageObjectBase {
 	public static Dimension small = new Dimension(600, 800);
 	public static Dimension med = new Dimension(700, 800);
 	public static Dimension large = new Dimension(1100, 800);
-	public static Dimension xlarge = new Dimension(1450, 800);	
+	public static Dimension xlarge = new Dimension(1600, 800);	
 	
 	/**
 	 * All the proxy browser 'actions' go in here. These are not tests, but things that we do 
@@ -35,29 +38,29 @@ public class Resize extends PageObjectBase {
 	 * then be tested.
 	 * @throws RuntimeException
 	 */	
-	public void toSmall() throws RuntimeException {
-		driver.manage().window().setSize(xlarge);
+	public void toSmall() {
 		driver.manage().window().setSize(small);
+		action.pause(1000);
 	}
 
-	public void toMed() throws RuntimeException {
-		driver.manage().window().setSize(xlarge);
+	public void toMed() {
 		driver.manage().window().setSize(med);
+		action.pause(1000);
 	}
 
-	public void toLarge() throws RuntimeException {
-		driver.manage().window().setSize(small);
+	public void toLarge() {
 		driver.manage().window().setSize(large);
+		action.pause(1000);
 	}
 
-	public void toXlarge() throws RuntimeException {
-		driver.manage().window().setSize(small);
+	public void toXlarge() {
 		driver.manage().window().setSize(xlarge);
+		action.pause(1000);
 	}
 
-	public void maximize() throws RuntimeException {
-		driver.manage().window().setSize(small);
+	public void maximize() {
 		driver.manage().window().maximize();
+		action.pause(1000);
 	}
 	
 }
