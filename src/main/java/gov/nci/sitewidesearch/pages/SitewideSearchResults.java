@@ -110,8 +110,11 @@ public class SitewideSearchResults extends PageObjectBase {
 		return btn_sw_res_search;		
 	}
 
+	public String getResultsCount() {
+		return getLblResultsCount().getText();
+	}
+	
 	/**************** Sitewide Search Results Page Actions *****************************/
-	// TODO: refactor single actions into group actions
 	/**
 	 * Select 'New Search' radio button
 	 */
@@ -142,10 +145,7 @@ public class SitewideSearchResults extends PageObjectBase {
 	 */
 	public void clickSearchButton() throws MalformedURLException, UnsupportedEncodingException {
 		ScrollUtil.scrollIntoview(driver, input_sw_res_search);
-		//whoops
-		//expectUrlChange(() ->{ 
-			btn_sw_res_search.click();
-		//});
+		btn_sw_res_search.click();
  	}
 	
 }

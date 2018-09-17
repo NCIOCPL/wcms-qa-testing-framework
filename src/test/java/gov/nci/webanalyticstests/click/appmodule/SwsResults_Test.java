@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load.appmodule;
+package gov.nci.webanalyticstests.click.appmodule;
 
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
@@ -10,16 +10,17 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.load.AnalyticsTestLoadBase;
 
-public class SwsResultsPage_Test extends AnalyticsTestLoadBase {
+public class SwsResults_Test extends AnalyticsTestLoadBase {
 	
 	private AnalyticsPageLoad analyticsPageLoad;
+	private SitewideSearchResults swSearchResults;	
 	private SitewideSearchForm swSearchForm;
-	private SitewideSearchResults swSearchResults;
 	private Beacon beacon;
 
 	private final String RESULTS_PATH_EN = "/search/results";
 	private final String RESULTS_PATH_ES = "/espanol/buscar/resultados";
 	private final String SEARCH_TERM = "Tumor";	
+	private final String CSS_RESULTS_NUM = ".sitewide-results span.results-num";
 
 	// Verify analytics load values for sitewide cancer term search results
 	@Test(groups = { "Analytics" })
@@ -87,14 +88,8 @@ public class SwsResultsPage_Test extends AnalyticsTestLoadBase {
 	 * @param path
 	 */
 	private void doCommonClassAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
-		try {
-			swSearchResults = new SitewideSearchResults(driver);
-			doCommonLoadAssertions(beacon, analyticsPageLoad, path);
-			Assert.assertEquals(beacon.eVars.get(10), swSearchResults.getResultsCount());
-		} catch (Exception e) {
-			System.out.println("Error in SwsResultsPage_Test common assertions");
-			e.printStackTrace();
-		}
+		doCommonLoadAssertions(beacon, analyticsPageLoad, path);
+		Assert.assertEquals(beacon.eVars.get(10), analyticsPageLoad.getElementTextFromCss(CSS_RESULTS_NUM));
 	}
 	
 }
