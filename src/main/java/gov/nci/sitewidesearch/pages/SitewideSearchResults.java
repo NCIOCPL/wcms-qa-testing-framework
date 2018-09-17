@@ -3,6 +3,7 @@ package gov.nci.sitewidesearch.pages;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -115,6 +116,14 @@ public class SitewideSearchResults extends PageObjectBase {
 	}
 	
 	/**************** Sitewide Search Results Page Actions *****************************/
+	/**
+	 * Clicks the Best Bets link.
+	 */
+	public void clickBestBets() {
+		WebElement bbLink = txt_bestbets.findElement(By.cssSelector(".managed .title-and-desc a"));
+		bbLink.click();
+ 	}
+	
 	/**
 	 * Select 'New Search' radio button
 	 */

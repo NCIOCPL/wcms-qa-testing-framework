@@ -6,80 +6,123 @@ import org.testng.Assert;
 
 import gov.nci.commonobjects.SitewideSearchForm;
 import gov.nci.sitewidesearch.pages.SitewideSearchResults;
-import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.load.AnalyticsTestLoadBase;
+import gov.nci.webanalyticstests.click.AnalyticsTestClickBase;
 
-public class SwsResults_Test extends AnalyticsTestLoadBase {
+public class SwsResults_Test extends AnalyticsTestClickBase {
 	
-	private AnalyticsPageLoad analyticsPageLoad;
-	private SitewideSearchResults swSearchResults;	
 	private SitewideSearchForm swSearchForm;
+	private SitewideSearchResults swSearchResults;
 	private Beacon beacon;
 
-	private final String RESULTS_PATH_EN = "/search/results";
-	private final String RESULTS_PATH_ES = "/espanol/buscar/resultados";
 	private final String SEARCH_TERM = "Tumor";	
-	private final String CSS_RESULTS_NUM = ".sitewide-results span.results-num";
 
-	// Verify analytics load values for sitewide cancer term search results
+	
+//	Regular 	
+//	prop4
+//	D=pev1
+//	prop8
+//	english
+//	prop12
+//	generic
+//	prop13
+//	1
+//	prop67
+//	D=pageName
+//	eVar2
+//	english
+//	eVar12
+//	generic
+	
+//	Best bet 	
+//	prop4
+//	D=pev1
+//	prop8
+//	english
+//	prop12
+//	generic
+//	prop13
+//	1
+//	prop67
+//	D=pageName
+//	eVar2
+//	english
+//	eVar12
+//	generic
+	
+
 	@Test(groups = { "Analytics" })
-	public void testSwsResultsPageEn() {
+	public void testBestBetsClick() {
 		try {
-			System.out.println("Test sitewide search term: " + SEARCH_TERM);
+			System.out.println("Test Best Bets click event for " + SEARCH_TERM);
 			driver.get(config.goHome());
-			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			swSearchForm = new SitewideSearchForm(driver);
-		    swSearchForm.setSitewideSearchKeyword(SEARCH_TERM);
-		    swSearchForm.clickSearchButton();
+			swSearchForm.doSitewideSearch(SEARCH_TERM);
+			swSearchResults = new SitewideSearchResults(driver);
+			swSearchResults.clickBestBets();
 		    beacon = getBeacon();
 		    
-		    analyticsPageLoad.setPageTitle("NCI Search Results - National Cancer Institute");
-		    doCommonClassAssertions(beacon, analyticsPageLoad, RESULTS_PATH_EN);
-			logger.log(LogStatus.PASS, "English results load values are correct.");
+		    doCommonClassAssertions(beacon);
+		    Assert.assertEquals(beacon.props.get(12), "best_bets");
+		    Assert.assertEquals(beacon.props.get(13), "1");
+		    Assert.assertEquals(beacon.eVars.get(12), beacon.props.get(12));
+			logger.log(LogStatus.PASS, "Best Bet click values are correct.");
 		} catch (Exception e) {
-			Assert.fail("Error submitting English sitewide search.");
+			Assert.fail("Error getting Best Bet click values.");
 			e.printStackTrace();
 		}
 	}
 	
-	// Verify analytics load values for Spanish sitewide cancer term search results
+	// Verify analytics click values when searching from sitewide search results page
 	@Test(groups = { "Analytics" })
-	public void testSwsResultsPageEs() {
+	public void testSearchWithinResults() {
 		try {
-			System.out.println("Test Spanish sitewide search term: " + SEARCH_TERM);
-			driver.get(config.goHome() + "/espanol");
-			analyticsPageLoad = new AnalyticsPageLoad(driver);			
-			swSearchForm = new SitewideSearchForm(driver);
-		    swSearchForm.setSitewideSearchKeyword(SEARCH_TERM);
-		    swSearchForm.clickSearchButton();
+			driver.get(config.getPageURL("SitewideResultsPage"));
+			swSearchResults = new SitewideSearchResults(driver);
+			swSearchResults.doWithinSearch();
+			swSearchResults.setSitewideSearchKeyword(SEARCH_TERM);
+		    swSearchResults.clickSearchButton();
+			System.out.println("Sitewide search term: " + SEARCH_TERM);
 		    beacon = getBeacon();
 		    
-		    analyticsPageLoad.setPageTitle("Resultados - National Cancer Institute");
-		    doCommonClassAssertions(beacon, analyticsPageLoad, RESULTS_PATH_ES);
-			logger.log(LogStatus.PASS, "Spanish results load values are correct.");
+			doCommonClassAssertions(beacon);
+			Assert.assertEquals(beacon.linkName, "SiteWideSearchResultsSearch");
+			Assert.assertEquals(beacon.props.get(11), "sitewide_bottom_withinresults");
+			Assert.assertTrue(beacon.hasEvent(2));
+			Assert.assertEquals(beacon.props.get(14), SEARCH_TERM.toLowerCase());
+			Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));		
+			Assert.assertTrue(beacon.eVars.get(13).matches("^\\+\\d{1,2}$"));
+			Assert.assertEquals(beacon.eVars.get(14), beacon.props.get(14));
 		} catch (Exception e) {
-			Assert.fail("Error submitting Spanish sitewide search.");
+			Assert.fail("Error submitting sitewide search.");
 			e.printStackTrace();
 		}
 	}
-
-	// Verify analytics load values for sitewide cancer term search results
+	
+	// Verify analytics click values when searching from sitewide search results page
 	@Test(groups = { "Analytics" })
-	public void testSwsResultsPageNoResults() {
+	public void testSearchNewFromResults() {
 		try {
-			System.out.println("Direct navigation to results page");			
-			driver.get(config.goHome() + RESULTS_PATH_EN);
+			driver.get(config.getPageURL("SitewideResultsPage"));
+			swSearchResults = new SitewideSearchResults(driver);			
+			swSearchResults.setSitewideSearchKeyword(SEARCH_TERM);
+		    swSearchResults.clickSearchButton();
+			System.out.println("Sitewide search term: " + SEARCH_TERM);
 		    beacon = getBeacon();
 		    
-		    analyticsPageLoad.setPageTitle("NCI Search Results - National Cancer Institute");		    
-		    doCommonClassAssertions(beacon, analyticsPageLoad, RESULTS_PATH_EN);
-			logger.log(LogStatus.PASS, "Sitewide search direct navigation values are correct.");
+			doCommonClassAssertions(beacon);
+			Assert.assertEquals(beacon.linkName, "SiteWideSearchResultsSearch");
+			Assert.assertEquals(beacon.props.get(11), "sitewide_bottom_new");
+			Assert.assertTrue(beacon.hasEvent(2));
+			Assert.assertEquals(beacon.props.get(14), SEARCH_TERM.toLowerCase());
+			Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));		
+			Assert.assertTrue(beacon.eVars.get(13).matches("^\\+\\d{1,2}$"));
+			Assert.assertEquals(beacon.eVars.get(14), beacon.props.get(14));
 		} catch (Exception e) {
-			Assert.fail("Error on sitewide search direct navigation.");
+			Assert.fail("Error submitting sitewide search.");
 			e.printStackTrace();
 		}
-	}
+	}	
 	
 	/**
 	 * Shared assertions for all tests in this class.
@@ -87,9 +130,8 @@ public class SwsResults_Test extends AnalyticsTestLoadBase {
 	 * @param analyticsPageLoad
 	 * @param path
 	 */
-	private void doCommonClassAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad, String path) {
-		doCommonLoadAssertions(beacon, analyticsPageLoad, path);
-		Assert.assertEquals(beacon.eVars.get(10), analyticsPageLoad.getElementTextFromCss(CSS_RESULTS_NUM));
+	private void doCommonClassAssertions(Beacon beacon) {
+		doCommonClickAssertions(beacon);
 	}
 	
 }
