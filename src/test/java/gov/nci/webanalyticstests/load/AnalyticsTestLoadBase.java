@@ -1,5 +1,7 @@
 package gov.nci.webanalyticstests.load;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -100,7 +102,10 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		Assert.assertTrue(beacon.eVars.get(1).contains("www.cancer.gov"));
 		Assert.assertEquals(beacon.eVars.get(2), analyticsPageLoad.getLanguageName());
 		Assert.assertTrue(beacon.eVars.get(5).matches(REGEX_BROWSER_SIZE));
-		Assert.assertEquals(beacon.eVars.get(44), analyticsPageLoad.getMetaIsPartOf());		
+		Assert.assertEquals(beacon.eVars.get(44), analyticsPageLoad.getMetaIsPartOf());
+		
+		// HIer
+		Assert.assertEquals(beacon.hiers.get(1), buildHier1(currUrl));
 
 	}
 	
@@ -144,5 +149,25 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 			}
 		}
 		return myObjects.iterator();
-	}	
+	}
+	
+	/**
+	 * Recreate the "Hierarchy 1" variable from a URL.
+	 * @param myUrl
+	 * @return formatted hier1 string
+	 */
+	private String buildHier1(String myUrl) {
+		try {
+			URL url = new URL(myUrl);
+			String hier = url.getHost() + url.getPath();
+			if(hier.charAt(hier.length() - 1) == '/') {
+				hier = hier.substring(0, hier.length() - 1);
+			}
+			return hier.replaceAll("/", "|");
+		} catch (MalformedURLException ex) {
+			ex.printStackTrace();
+			return "";
+		}
+	}
+	
 }

@@ -2,21 +2,25 @@ package gov.nci.webanalytics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import org.apache.http.NameValuePair;
-import org.testng.annotations.BeforeClass;
 
 import gov.nci.Utilities.ExcelManager;
 
 // Represents a single Adobe Analytics request beacon with query parameters
 public class Beacon extends AnalyticsRequest {
-	//	TODO: Handle null exceptions in has() methods
-	//	TODO: Create 'catch-all' Contains() method		
+	// TODO: Handle null exceptions in has() methods
+	// TODO: Create 'catch-all' Contains() method	
+	// TODO: Comments for uncommented methods
+	// TODO: Replace "contains' with "matches" where possible
+	// TODO: Refactor common key/var logic into util methods
+	
 	
 	// Constants
 	public static final String TRACKING_SERVER = "nci.122.2o7.net";
 	public static final String CGOV_PAGENAME = "www.cancer.gov";
+	protected static final String DATA_FILEPATH = "./test-data/webanalytics-suitemap.xlsx";
+	protected static final String DATA_SHEETNAME = "CancerGov";
 	
 	// Parameter values from URL
 	static final String CHANNEL = "ch";
@@ -56,10 +60,6 @@ public class Beacon extends AnalyticsRequest {
 	}
 	
 	/**************** Methods to check for given values in a beacon ****************/
-	/*
-	 * TODO: Replace "contains' with "matches" where possible
-	 * TODO: Refactor common key/var logic into util methods
-	 */
 	
 	/**
 	 * Get an array of suites (s.account) values from the URL path.
@@ -231,16 +231,15 @@ public class Beacon extends AnalyticsRequest {
 	 * @return
 	 */
 	private String getMappedSuite(String mySuite, boolean isProd) {
-		String dataFilePath = "./test-data/webanalytics-suitemap.xlsx";
-		String dataSheetName = "CancerGov";
 		String mappedSuite = "";
-		ExcelManager excelReader = new ExcelManager(dataFilePath);			
+		// The mapped suite name is pulled from the webanalytics-suitemap spreadsheet in test-data
+		ExcelManager excelReader = new ExcelManager(DATA_FILEPATH);
 		String row = (isProd == true) ? "ProdSuite" : "DevSuite";
 		
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(dataSheetName); rowNum++) {
-			String suiteOriginal = excelReader.getCellData(dataSheetName, "Suite", rowNum);
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount(DATA_SHEETNAME); rowNum++) {
+			String suiteOriginal = excelReader.getCellData(DATA_SHEETNAME, "Suite", rowNum);
 			if(suiteOriginal.equalsIgnoreCase(mySuite)) {
-				mappedSuite = excelReader.getCellData(dataSheetName, row, rowNum);
+				mappedSuite = excelReader.getCellData(DATA_SHEETNAME, row, rowNum);
 				break;
 			}
 		}
