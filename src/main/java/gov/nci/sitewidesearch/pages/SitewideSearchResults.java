@@ -2,6 +2,7 @@ package gov.nci.sitewidesearch.pages;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -45,8 +46,12 @@ public class SitewideSearchResults extends PageObjectBase {
 	WebElement lbl_search_term;
 	@FindBy(css = ".sitewide-results .results-num")
 	WebElement lbl_results_count;
-	@FindBy(css = ".sitewide-results .results-range")	
-	WebElement lbl_results_range;
+	@FindBy(css = ".sitewide-results .results-range")
+	WebElement lbl_results_range;	
+	@FindBy(css = ".sitewide-list ul")
+	WebElement list_results;
+	@FindBy(css = ".sitewide-list ul li a")
+	List<WebElement> lnk_list_item;
 	@FindBy(css = ".results-pager span.ui-selectmenu-button")
 	WebElement btn_results_per;
 	@FindBy(css = ".results-pager .pagination")
@@ -123,6 +128,21 @@ public class SitewideSearchResults extends PageObjectBase {
 		WebElement bbLink = txt_bestbets.findElement(By.cssSelector(".managed .title-and-desc a"));
 		bbLink.click();
  	}
+
+	/**
+	 * Clicks the link at a given position.
+	 */
+	public void clickListItem(int position) {
+		lnk_list_item.get(position - 1).click();
+ 	}
+
+	/**
+	 * Click the first result link.
+	 */
+	public void clickListItem() {
+		clickListItem(0);
+ 	}
+
 	
 	/**
 	 * Select 'New Search' radio button
@@ -135,7 +155,7 @@ public class SitewideSearchResults extends PageObjectBase {
 	/**
 	 * Select 'Search Within Results' radio button
 	 */	
-	public void doWithinSearch() {
+	public void selectWithinResults() {
 		ScrollUtil.scrollIntoview(driver, input_sw_res_search);
 		btn_search_within.click();
 	}
