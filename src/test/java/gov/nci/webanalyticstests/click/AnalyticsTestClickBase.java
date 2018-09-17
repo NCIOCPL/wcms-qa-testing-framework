@@ -58,10 +58,9 @@ public class AnalyticsTestClickBase extends AnalyticsTestBase {
 	 * @param beacon
 	 */
 	protected void doCommonClickAssertions(Beacon beacon) {
-
-		String currUrl = driver.getCurrentUrl();
 		
 		// Suites
+		String currUrl = driver.getCurrentUrl();
 		Assert.assertTrue(beacon.hasSuite("nciglobal", currUrl));
 		
 		// Props
