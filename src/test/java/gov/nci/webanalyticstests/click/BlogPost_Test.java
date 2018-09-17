@@ -23,7 +23,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		    beacon = getBeacon();
 
 			String currUrl = driver.getCurrentUrl();
-			Assert.assertEquals(beacon.linkName, "BlogFeatureCardclick");
+			Assert.assertEquals(beacon.linkName, "BlogFeatureCardClick");
 			Assert.assertTrue(beacon.hasEvent(54));
 		    Assert.assertEquals(beacon.props.get(50), blogPost.getRecommendedLinkText());
 		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_BlogCard:1");
@@ -54,7 +54,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		    
 		    
 		} catch (Exception e) {
-			Assert.fail("Error submitting sitewide search.");
+			Assert.fail("Error navigating blost post page.");
 			e.printStackTrace();
 		}
 	}
