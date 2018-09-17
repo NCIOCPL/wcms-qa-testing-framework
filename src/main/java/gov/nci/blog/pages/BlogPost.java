@@ -2,13 +2,10 @@ package gov.nci.blog.pages;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 import gov.nci.framework.PageObjectBase;
@@ -30,6 +27,9 @@ public class BlogPost extends PageObjectBase {
 	}
 
 	/**************** Blog Post Page Elements *****************************/
+	@FindBy(css = "#cgvBody p a")
+	WebElement lnk_body;
+	
 	@FindBy(css = "#blog-cards .feature-card a")	
 	WebElement lnk_blogFeatureCard;
 
@@ -40,6 +40,15 @@ public class BlogPost extends PageObjectBase {
 	
 	/**************** Blog Post Page Actions *****************************/
 
+	/**
+	 * Clicks on the first "Recommended From NCI" card.
+	 */
+	public void clickBodyLink() {
+		ScrollUtil.scrollIntoview(driver, lnk_body);
+		lnk_body.click();
+ 	}
+
+	
 	/**
 	 * Clicks on the first "Recommended From NCI" card.
 	 */
