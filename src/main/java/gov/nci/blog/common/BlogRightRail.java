@@ -2,7 +2,6 @@ package gov.nci.blog.common;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -28,23 +27,31 @@ public class BlogRightRail extends PageObjectBase {
 	@FindBy(id = "nvcgSlListBlogRTRail")
 	WebElement div_rightRail;
 	
-	@FindBy(css = "#Featured+Posts + ul")
-	WebElement list_featured;
-
-	@FindBy(css = "#Categories + ul")
-	WebElement list_categories;
-
 	@FindBy(css = "#blog-archive-accordion")
 	WebElement div_archiveAccordion;
 
 	@FindBy(css = "h3#archive")
 	WebElement hdr_archive;
+
+	@FindBy(css = "#Featured\\+Posts + ul li a")
+	List<WebElement> list_featured;
+	
+	@FindBy(css = "#Categories + ul li a")
+	List<WebElement> list_categories;
 	
 	@FindBy(css = "li.month a")
 	List<WebElement> list_months;
 	
+	public String getFeaturedItemText(int index) {
+		return list_featured.get(index).getText();
+	}
+
+	public String getCategoryItemText(int index) {
+		return list_categories.get(index).getText();
+	}
+	
 	/**
-	 * Get a 'Year' header webelement.
+	 * Get a 'Year' header WebElement.
 	 * @param year
 	 * @return
 	 */
@@ -70,6 +77,24 @@ public class BlogRightRail extends PageObjectBase {
 	
 	/**************** Blog Post Page Actions *****************************/
 
+	/**
+	 * Click on featured item at given position.
+	 */
+	public void clickFeaturedItem(int index) {
+		WebElement element = list_featured.get(index);
+		ScrollUtil.scrollIntoview(driver, element);
+		element.click();
+	}
+
+	/**
+	 * Click on a category item at given position.
+	 */
+	public void clickCategoryItem(int index) {
+		WebElement element = list_categories.get(index);
+		ScrollUtil.scrollIntoview(driver, element);
+		element.click();
+	}
+	
 	/**
 	 * Click on archive header.
 	 */

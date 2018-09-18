@@ -33,7 +33,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 
 	/**************** Blog Post body tests *****************************/
 	
-	@Test(groups = { "Analytics" })
+	@Test(groups = { "Analytics" }, priority = 1)
 	public void testBlogBodyLinkClick() {
 		try {
 			System.out.println("Test body link click: ");
@@ -53,7 +53,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		}
 	}
 	
-	@Test(groups = { "Analytics" })
+	@Test(groups = { "Analytics" }, priority = 2)
 	public void testBlogDefinitionLinkClick() {
 		try {
 			System.out.println("Test definition link click: ");
@@ -73,7 +73,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		}
 	}
 	
-	@Test(groups = { "Analytics" })
+	@Test(groups = { "Analytics" }, priority = 3)
 	public void testBlogRecommendedClick() {
 		try {
 			System.out.println("Test 'Recommended' card click: ");
@@ -95,7 +95,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		
 	/**************** Blog right rail tests *****************************/
 	
-	@Test(groups = { "Analytics" })
+	@Test(groups = { "Analytics" }, priority = 4)
 	public void testBlogRailArchiveExpand() {
 		try {
 			System.out.println("Test expand archive click: ");			
@@ -112,11 +112,12 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		}
 	}
 	
-	@Test(groups = { "Analytics" })
+	@Test(groups = { "Analytics" }, priority = 5)
 	public void testBlogRailArchiveCollapse() {
 		try {
 			System.out.println("Test collapse archive click: ");
 			rightRail = blogPost.getRightRail();
+			action.pause(500);
 			rightRail.clickArchiveHeader();
 			rightRail.clickArchiveHeader();
 		    beacon = getBeacon();
@@ -130,7 +131,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	@Test(groups = { "Analytics" })
+	@Test(groups = { "Analytics" }, priority = 6)
 	public void testBlogRailMonthClick() {
 		try {
 			System.out.println("Test month click: ");
@@ -138,6 +139,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			rightRail = blogPost.getRightRail();
 			rightRail.clickArchiveHeader();
 			rightRail.clickArchiveYear("2017");
+			action.pause(500);
 			rightRail.clickArchiveMonth("May");
 		    beacon = getBeacon();
 
@@ -150,15 +152,56 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			e.printStackTrace();
 		}
 	}
+
+	@Test(groups = { "Analytics" }, priority = 7)
+	public void testBlogRailFeaturedClick() {
+		try {
+			System.out.println("Test featured click: ");
+			String currUrl = driver.getCurrentUrl();
+			rightRail = blogPost.getRightRail();
+			String featuredText = rightRail.getFeaturedItemText(0);			
+			rightRail.clickFeaturedItem(0);
+		    beacon = getBeacon();
+
+		    doCommonClassAssertions(currUrl);
+			Assert.assertTrue(beacon.hasEvent(54));
+			Assert.assertEquals(beacon.linkName, "FeaturedPostsClick");
+		    Assert.assertEquals(beacon.props.get(50), featuredText);
+		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_FeaturedPosts:1");
+		} catch (Exception e) {
+			Assert.fail("Error clicking a featured blog link.");
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(groups = { "Analytics" }, priority = 8)
+	public void testBlogRailCategoryClick() {
+		try {
+			System.out.println("Test category click: ");
+			String currUrl = driver.getCurrentUrl();
+			rightRail = blogPost.getRightRail();
+			String catText = rightRail.getCategoryItemText(1);
+			rightRail.clickCategoryItem(1);
+		    beacon = getBeacon();
+
+		    doCommonClassAssertions(currUrl);
+			Assert.assertTrue(beacon.hasEvent(55));
+			Assert.assertEquals(beacon.linkName, "CategoryClick");
+		    Assert.assertEquals(beacon.props.get(50), catText);
+		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Category:2");
+		} catch (Exception e) {
+			Assert.fail("Error clicking a blog category link.");
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Shared Assert() calls for BlogPost_Test class.
 	 * @param currentUrl
 	 */
 	private void doCommonClassAssertions(String currentUrl) {
-		// Note: remvoe this once pageName value is fixed on CDE side
+		// Note: remove this once pageName value is fixed on CDE side
 		Assert.assertTrue(currentUrl.contains(beacon.props.get(67)));		
-	}
-	
+	}	
 	
 }
