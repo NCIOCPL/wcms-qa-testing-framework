@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import gov.nci.framework.ElementChange;
 import gov.nci.framework.PageObjectBase;
 import gov.nci.Utilities.ScrollUtil;
 
@@ -27,10 +28,12 @@ public class BlogPost extends PageObjectBase {
 	}
 
 	/**************** Blog Post Page Elements *****************************/
+	private final String SELECTOR_DEF = "#cgvBody a.definition";
+	
 	@FindBy(css = "#cgvBody a:not(.definition)")
 	WebElement lnk_body;
 
-	@FindBy(css = "#cgvBody a.definition")
+	@FindBy(css = SELECTOR_DEF)
 	WebElement lnk_definition;
 	
 	@FindBy(css = "#blog-cards .feature-card a")	
@@ -58,12 +61,21 @@ public class BlogPost extends PageObjectBase {
 		ScrollUtil.scrollIntoview(driver, lnk_body);
 		lnk_body.click();
  	}
+
+	/**
+	 * Click on first definition LINK.
+	 */
+	public void clickDefinition() {
+		ScrollUtil.scrollIntoview(driver, lnk_definition);
+		lnk_definition.click();
+ 	}	
 	
 	/**
 	 * Click on first definition without opening a popup.
 	 */
 	public void clickDefinitionNoPopup() {
 		ScrollUtil.scrollIntoview(driver, lnk_definition);
+		ElementChange.clearAttribute(driver, SELECTOR_DEF, "onclick");
 		lnk_definition.click();
  	}	
 	
