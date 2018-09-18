@@ -27,16 +27,27 @@ public class BlogPost extends PageObjectBase {
 	}
 
 	/**************** Blog Post Page Elements *****************************/
-	@FindBy(css = "#cgvBody p a")
+	@FindBy(css = "#cgvBody a:not(.definition)")
 	WebElement lnk_body;
+
+	@FindBy(css = "#cgvBody a.definition")
+	WebElement lnk_definition;
 	
 	@FindBy(css = "#blog-cards .feature-card a")	
 	WebElement lnk_blogFeatureCard;
 
+	public String getBodyLinkText() {
+		return lnk_body.getText();
+	}
+
+	public String getDefinitionLinkText() {
+		return lnk_definition.getText();
+	}
+	
 	public String getRecommendedLinkText() {
 		return lnk_blogFeatureCard.getText();
 	}
-	
+
 	
 	/**************** Blog Post Page Actions *****************************/
 
@@ -47,7 +58,14 @@ public class BlogPost extends PageObjectBase {
 		ScrollUtil.scrollIntoview(driver, lnk_body);
 		lnk_body.click();
  	}
-
+	
+	/**
+	 * Click on first definition without opening a popup.
+	 */
+	public void clickDefinitionNoPopup() {
+		ScrollUtil.scrollIntoview(driver, lnk_definition);
+		lnk_definition.click();
+ 	}	
 	
 	/**
 	 * Clicks on the first "Recommended From NCI" card.
