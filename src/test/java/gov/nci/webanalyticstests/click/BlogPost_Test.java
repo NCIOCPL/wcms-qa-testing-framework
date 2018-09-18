@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
+import gov.nci.blog.common.BlogLinks;
 import gov.nci.blog.common.BlogRightRail;
 import gov.nci.blog.pages.BlogPost;
 import gov.nci.webanalytics.Beacon;
@@ -13,17 +14,22 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 	
 	private BlogPost blogPost;
 	private BlogRightRail rightRail;
+	private BlogLinks blogLinks;
+
 	private Beacon beacon;
 	private Actions action;
 	
-	private final String CANCER_CURRENTS_PATH = "/news-events/cancer-currents-blog/2018/fda-olaparib-breast-brca-mutations";
+	private final String CANCER_CURRENTS_POST = "/news-events/cancer-currents-blog/2018/fda-olaparib-breast-brca-mutations";
+	private final String CRCHD_POST = "	/about-nci/organization/crchd/blog/2017/celebrating-cure";
 
 	@BeforeMethod(groups = { "Analytics" }) 
 	public void setupBlogPost() {
 		try {
 			action = new Actions(driver);
-			driver.get(config.goHome() + CANCER_CURRENTS_PATH);
-			blogPost = new BlogPost(driver);
+			driver.get(config.goHome() + CANCER_CURRENTS_POST);
+			this.blogPost = new BlogPost(driver);
+			this.rightRail = blogPost.getRightRail();
+			this.blogLinks = blogPost.getBlogLinks();
 			action.pause(2000);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,7 +40,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 	/**************** Blog Post body tests *****************************/
 	
 	@Test(groups = { "Analytics" }, priority = 1)
-	public void testBlogBodyLinkClick() {
+	public void testBlogPostBodyLinkClick() {
 		try {
 			System.out.println("Test body link click: ");
 			String firstLinkText = blogPost.getBodyLinkText();
@@ -54,7 +60,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 	}
 	
 	@Test(groups = { "Analytics" }, priority = 2)
-	public void testBlogDefinitionLinkClick() {
+	public void testBlogPostDefinitionLinkClick() {
 		try {
 			System.out.println("Test definition link click: ");
 			String firstLinkText = blogPost.getDefinitionLinkText();
@@ -74,7 +80,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 	}
 	
 	@Test(groups = { "Analytics" }, priority = 3)
-	public void testBlogRecommendedClick() {
+	public void testBlogPostRecommendedClick() {
 		try {
 			System.out.println("Test 'Recommended' card click: ");
 			String recommended = blogPost.getRecommendedLinkText();
@@ -93,13 +99,33 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		}
 	}
 		
+	@Test(groups = { "Analytics" }, priority = 4)
+	public void testBlogPostRelatedResourcesClick() {
+		try {
+			driver.get(config.goHome() + CRCHD_POST);			
+			System.out.println("Test Related Resources link click: ");
+			String linkText = blogPost.getRelatedResourcesLinkText();
+			String currUrl = driver.getCurrentUrl();
+			blogPost.clickRelatedResources();
+		    beacon = getBeacon();
+
+		    doCommonClassAssertions(currUrl);
+			Assert.assertEquals(beacon.linkName, "BlogRelatedLinkClick");
+			Assert.assertTrue(beacon.hasEvent(57));
+		    Assert.assertEquals(beacon.props.get(50), linkText);
+		    Assert.assertEquals(beacon.props.get(66), "Blog_CRCHDDialogueDisparities_Post_RelatedResource:1");
+		} catch (Exception e) {
+			Assert.fail("Error clicking Related Resources link.");
+			e.printStackTrace();
+		}
+	}
+	
 	/**************** Blog right rail tests *****************************/
 	
-	@Test(groups = { "Analytics" }, priority = 4)
-	public void testBlogRailArchiveExpand() {
+	@Test(groups = { "Analytics" }, priority = 5)
+	public void testBlogPostRailArchiveExpand() {
 		try {
-			System.out.println("Test expand archive click: ");			
-			rightRail = blogPost.getRightRail();
+			System.out.println("Test expand archive click: ");
 			rightRail.clickArchiveHeader();
 		    beacon = getBeacon();
 
@@ -112,12 +138,11 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		}
 	}
 	
-	@Test(groups = { "Analytics" }, priority = 5)
-	public void testBlogRailArchiveCollapse() {
+	@Test(groups = { "Analytics" }, priority = 6)
+	public void testBlogPostRailArchiveCollapse() {
 		try {
 			System.out.println("Test collapse archive click: ");
-			rightRail = blogPost.getRightRail();
-			action.pause(500);
+			action.pause(1000);
 			rightRail.clickArchiveHeader();
 			rightRail.clickArchiveHeader();
 		    beacon = getBeacon();
@@ -131,15 +156,14 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	@Test(groups = { "Analytics" }, priority = 6)
-	public void testBlogRailMonthClick() {
+	@Test(groups = { "Analytics" }, priority = 7)
+	public void testBlogPostRailMonthClick() {
 		try {
 			System.out.println("Test month click: ");
 			String currUrl = driver.getCurrentUrl();
-			rightRail = blogPost.getRightRail();
+			action.pause(1000);
 			rightRail.clickArchiveHeader();
 			rightRail.clickArchiveYear("2017");
-			action.pause(500);
 			rightRail.clickArchiveMonth("May");
 		    beacon = getBeacon();
 
@@ -153,12 +177,11 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	@Test(groups = { "Analytics" }, priority = 7)
-	public void testBlogRailFeaturedClick() {
+	@Test(groups = { "Analytics" }, priority = 8)
+	public void testBlogPostRailFeaturedClick() {
 		try {
 			System.out.println("Test featured click: ");
 			String currUrl = driver.getCurrentUrl();
-			rightRail = blogPost.getRightRail();
 			String featuredText = rightRail.getFeaturedItemText(0);			
 			rightRail.clickFeaturedItem(0);
 		    beacon = getBeacon();
@@ -174,12 +197,11 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		}
 	}
 	
-	@Test(groups = { "Analytics" }, priority = 8)
-	public void testBlogRailCategoryClick() {
+	@Test(groups = { "Analytics" }, priority = 9)
+	public void testBlogPostRailCategoryClick() {
 		try {
 			System.out.println("Test category click: ");
 			String currUrl = driver.getCurrentUrl();
-			rightRail = blogPost.getRightRail();
 			String catText = rightRail.getCategoryItemText(1);
 			rightRail.clickCategoryItem(1);
 		    beacon = getBeacon();
@@ -195,6 +217,22 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		}
 	}
 	
+	/**************** Blog common link tests *****************************/
+	
+	@Test(groups = { "Analytics" }, priority = 10)
+	public void testBlogPostSubscribeClick() {
+		try {
+			System.out.println("Test subscribe click: ");
+			String currUrl = driver.getCurrentUrl();
+			blogLinks.clickSubscribeNoNav();
+
+		    doCommonClassAssertions(currUrl);
+		} catch (Exception e) {
+			Assert.fail("Error clicking 'subscribe' link.");
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Shared Assert() calls for BlogPost_Test class.
 	 * @param currentUrl
@@ -202,6 +240,6 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 	private void doCommonClassAssertions(String currentUrl) {
 		// Note: remove this once pageName value is fixed on CDE side
 		Assert.assertTrue(currentUrl.contains(beacon.props.get(67)));		
-	}	
+	}
 	
 }

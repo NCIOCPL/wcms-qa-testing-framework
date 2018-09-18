@@ -11,12 +11,14 @@ import org.openqa.selenium.support.PageFactory;
 import gov.nci.framework.ElementChange;
 import gov.nci.framework.PageObjectBase;
 import gov.nci.Utilities.ScrollUtil;
+import gov.nci.blog.common.BlogLinks;
 import gov.nci.blog.common.BlogRightRail;
 
 public class BlogPost extends PageObjectBase {
 
 	WebDriver driver;
 	BlogRightRail rightRail;
+	BlogLinks blogLinks;
 	
 	/**
 	 * @param driver
@@ -27,9 +29,18 @@ public class BlogPost extends PageObjectBase {
 		super(driver);
 		this.driver = driver;
 		this.rightRail = new BlogRightRail(driver);
+		this.blogLinks = new BlogLinks(driver);
 		PageFactory.initElements(driver, this);
 	}
+	
+	public BlogRightRail getRightRail() {
+		return this.rightRail;
+	}
 
+	public BlogLinks getBlogLinks() {
+		return this.blogLinks;
+	}
+	
 	/**************** Blog Post Page Elements *****************************/
 	private final String SELECTOR_DEF = "#cgvBody a.definition";
 	
@@ -42,6 +53,9 @@ public class BlogPost extends PageObjectBase {
 	@FindBy(css = "#blog-cards .feature-card a")	
 	WebElement lnk_blogFeatureCard;
 
+	@FindBy(css = ".related-resources.list a")	
+	WebElement lnk_blogRelResources;
+	
 	public String getBodyLinkText() {
 		return lnk_body.getText();
 	}
@@ -54,6 +68,9 @@ public class BlogPost extends PageObjectBase {
 		return lnk_blogFeatureCard.getText();
 	}
 
+	public String getRelatedResourcesLinkText() {
+		return lnk_blogRelResources.getText();
+	}
 	
 	/**************** Blog Post Page Actions *****************************/
 
@@ -90,9 +107,12 @@ public class BlogPost extends PageObjectBase {
 		lnk_blogFeatureCard.click();
  	}
 
-	
-	public BlogRightRail getRightRail() {
-		return this.rightRail;
-	}
-	
+	/**
+	 * Click on the first "Related Resources" link.
+	 */
+	public void clickRelatedResources() {
+		ScrollUtil.scrollIntoview(driver, lnk_blogRelResources);
+		lnk_blogRelResources.click();
+ 	}
+		
 }

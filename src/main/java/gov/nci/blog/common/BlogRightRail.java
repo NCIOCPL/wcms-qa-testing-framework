@@ -21,7 +21,7 @@ public class BlogRightRail extends PageObjectBase {
         super(driver);
         this.driver = driver;
         PageFactory.initElements(driver, this);
-    }	
+    }
 	
 	/**************** Blog Right Rail Elements *****************************/
 	@FindBy(id = "nvcgSlListBlogRTRail")
