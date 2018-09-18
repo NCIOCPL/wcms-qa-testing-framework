@@ -262,6 +262,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 	/**
 	 * Shared Assert() calls for BlogPost_Test class.
 	 * @param currentUrl
+	 * @param linkName
 	 */
 	private void doCommonClassAssertions(String currentUrl, String linkName) {
 		// Note: remove this once pageName value is fixed on CDE side
