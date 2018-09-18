@@ -217,11 +217,44 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			System.out.println("Test subscribe click: ");
 			String currUrl = driver.getCurrentUrl();
 			blogLinks.clickSubscribeNoNav();
-
+		    beacon = getBeacon();
+			
 		    doCommonClassAssertions(currUrl, "BlogSubscribeClick");
 		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Subscribe");
 		} catch (Exception e) {
 			Assert.fail("Error clicking 'subscribe' link.");
+			e.printStackTrace();
+		}
+	}
+	
+	@Test(groups = { "Analytics" }, priority = 11)
+	public void testBlogPostNewerClick() {
+		try {
+			System.out.println("Test 'newer' click: ");
+			String currUrl = driver.getCurrentUrl();
+			blogLinks.clickNewerPost();
+		    beacon = getBeacon();
+
+		    doCommonClassAssertions(currUrl, "OlderNewerClick");
+		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Newer");
+		} catch (Exception e) {
+			Assert.fail("Error clicking 'newer' link.");
+			e.printStackTrace();
+		}
+	}
+
+	@Test(groups = { "Analytics" }, priority = 11)
+	public void testBlogPostOlderClick() {
+		try {
+			System.out.println("Test 'older' click: ");
+			String currUrl = driver.getCurrentUrl();
+			blogLinks.clickOlderPost();
+		    beacon = getBeacon();
+
+		    doCommonClassAssertions(currUrl, "OlderNewerClick");
+		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Older");
+		} catch (Exception e) {
+			Assert.fail("Error clicking 'older' link.");
 			e.printStackTrace();
 		}
 	}
