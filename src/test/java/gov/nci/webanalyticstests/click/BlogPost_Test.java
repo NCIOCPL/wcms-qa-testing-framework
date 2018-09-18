@@ -46,13 +46,13 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			String firstLinkText = blogPost.getBodyLinkText();
 			String currUrl = driver.getCurrentUrl();
 			blogPost.clickBodyLink();
-		    beacon = getBeacon();
+			beacon = getBeacon();
 
-		    doCommonClassAssertions(currUrl, "BlogBodyLinkClick");
+			doCommonClassAssertions(currUrl, "BlogBodyLinkClick");
 			Assert.assertTrue(beacon.hasEvent(56));
-		    Assert.assertEquals(beacon.props.get(50), firstLinkText);
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_BodyLink");
-		    Assert.assertTrue(currUrl.contains(beacon.props.get(67)));		   		    
+			Assert.assertEquals(beacon.props.get(50), firstLinkText);
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_BodyLink");
+			Assert.assertTrue(currUrl.contains(beacon.props.get(67)));		   			
 		} catch (Exception e) {
 			Assert.fail("Error clicking link in body.");
 			e.printStackTrace();
@@ -66,12 +66,12 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			String firstLinkText = blogPost.getDefinitionLinkText();
 			String currUrl = driver.getCurrentUrl();
 			blogPost.clickDefinitionNoPopup();
-		    beacon = getBeacon();
+			beacon = getBeacon();
 
-		    doCommonClassAssertions(currUrl, "BlogBodyLinkClick");
+			doCommonClassAssertions(currUrl, "BlogBodyLinkClick");
 			Assert.assertTrue(beacon.hasEvent(56));
-		    Assert.assertEquals(beacon.props.get(50), firstLinkText);
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_BodyGlossifiedTerm");
+			Assert.assertEquals(beacon.props.get(50), firstLinkText);
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_BodyGlossifiedTerm");
 		} catch (Exception e) {
 			Assert.fail("Error clicking definition link.");
 			e.printStackTrace();
@@ -85,12 +85,12 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			String recommended = blogPost.getRecommendedLinkText();
 			String currUrl = driver.getCurrentUrl();
 			blogPost.clickRecommended();
-		    beacon = getBeacon();
+			beacon = getBeacon();
 
-		    doCommonClassAssertions(currUrl, "BlogFeatureCardClick");
+			doCommonClassAssertions(currUrl, "BlogFeatureCardClick");
 			Assert.assertTrue(beacon.hasEvent(54));
-		    Assert.assertEquals(beacon.props.get(50), recommended);
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_BlogCard:1");
+			Assert.assertEquals(beacon.props.get(50), recommended);
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_BlogCard:1");
 		} catch (Exception e) {
 			Assert.fail("Error navigating blost post page.");
 			e.printStackTrace();
@@ -105,12 +105,12 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			String linkText = blogPost.getRelatedResourcesLinkText();
 			String currUrl = driver.getCurrentUrl();
 			blogPost.clickRelatedResources();
-		    beacon = getBeacon();
+			beacon = getBeacon();
 
-		    doCommonClassAssertions(currUrl, "BlogRelatedLinkClick");
+			doCommonClassAssertions(currUrl, "BlogRelatedLinkClick");
 			Assert.assertTrue(beacon.hasEvent(57));
-		    Assert.assertEquals(beacon.props.get(50), linkText);
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CRCHDDialogueDisparities_Post_RelatedResource:1");
+			Assert.assertEquals(beacon.props.get(50), linkText);
+			Assert.assertEquals(beacon.props.get(66), "Blog_CRCHDDialogueDisparities_Post_RelatedResource:1");
 		} catch (Exception e) {
 			Assert.fail("Error clicking Related Resources link.");
 			e.printStackTrace();
@@ -124,10 +124,10 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		try {
 			System.out.println("Test expand archive click: ");
 			rightRail.clickArchiveHeader();
-		    beacon = getBeacon();
+			beacon = getBeacon();
 
-		    doCommonClassAssertions(driver.getCurrentUrl(), "BlogAccordionAction");
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Expand:Archive");
+			doCommonClassAssertions(driver.getCurrentUrl(), "BlogAccordionAction");
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Expand:Archive");
 		} catch (Exception e) {
 			Assert.fail("Error expanding archive on rail.");
 			e.printStackTrace();
@@ -141,10 +141,10 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			action.pause(1000);
 			rightRail.clickArchiveHeader();
 			rightRail.clickArchiveHeader();
-		    beacon = getBeacon();
+			beacon = getBeacon();
 
-		    doCommonClassAssertions(driver.getCurrentUrl(), "BlogAccordionAction");
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Collapse:Archive");
+			doCommonClassAssertions(driver.getCurrentUrl(), "BlogAccordionAction");
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Collapse:Archive");
 		} catch (Exception e) {
 			Assert.fail("Error collapsing archive on rail.");
 			e.printStackTrace();
@@ -160,11 +160,11 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			rightRail.clickArchiveHeader();
 			rightRail.clickArchiveYear("2017");
 			rightRail.clickArchiveMonth("May");
-		    beacon = getBeacon();
+			beacon = getBeacon();
 
-		    doCommonClassAssertions(currUrl, "BlogArchiveDateClick");
+			doCommonClassAssertions(currUrl, "BlogArchiveDateClick");
 			Assert.assertTrue(beacon.hasEvent(55));
-		    Assert.assertEquals(beacon.props.get(50), "2017:5");
+			Assert.assertEquals(beacon.props.get(50), "2017:5");
 		} catch (Exception e) {
 			Assert.fail("Error clicking the month.");
 			e.printStackTrace();
@@ -178,12 +178,12 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			String currUrl = driver.getCurrentUrl();
 			String featuredText = rightRail.getFeaturedItemText(0);			
 			rightRail.clickFeaturedItem(0);
-		    beacon = getBeacon();
+			beacon = getBeacon();
 
-		    doCommonClassAssertions(currUrl, "FeaturedPostsClick");
+			doCommonClassAssertions(currUrl, "FeaturedPostsClick");
 			Assert.assertTrue(beacon.hasEvent(54));
-		    Assert.assertEquals(beacon.props.get(50), featuredText);
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_FeaturedPosts:1");
+			Assert.assertEquals(beacon.props.get(50), featuredText);
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_FeaturedPosts:1");
 		} catch (Exception e) {
 			Assert.fail("Error clicking a featured blog link.");
 			e.printStackTrace();
@@ -197,12 +197,12 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			String currUrl = driver.getCurrentUrl();
 			String catText = rightRail.getCategoryItemText(1);
 			rightRail.clickCategoryItem(1);
-		    beacon = getBeacon();
+			beacon = getBeacon();
 
-		    doCommonClassAssertions(currUrl, "CategoryClick");
+			doCommonClassAssertions(currUrl, "CategoryClick");
 			Assert.assertTrue(beacon.hasEvent(55));
-		    Assert.assertEquals(beacon.props.get(50), catText);
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Category:2");
+			Assert.assertEquals(beacon.props.get(50), catText);
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Category:2");
 		} catch (Exception e) {
 			Assert.fail("Error clicking a blog category link.");
 			e.printStackTrace();
@@ -217,10 +217,10 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			System.out.println("Test subscribe click: ");
 			String currUrl = driver.getCurrentUrl();
 			blogLinks.clickSubscribeNoNav();
-		    beacon = getBeacon();
+			beacon = getBeacon();
 			
-		    doCommonClassAssertions(currUrl, "BlogSubscribeClick");
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Subscribe");
+			doCommonClassAssertions(currUrl, "BlogSubscribeClick");
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Subscribe");
 		} catch (Exception e) {
 			Assert.fail("Error clicking 'subscribe' link.");
 			e.printStackTrace();
@@ -233,10 +233,10 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			System.out.println("Test 'newer' click: ");
 			String currUrl = driver.getCurrentUrl();
 			blogLinks.clickNewerPost();
-		    beacon = getBeacon();
+			beacon = getBeacon();
 
-		    doCommonClassAssertions(currUrl, "OlderNewerClick");
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Newer");
+			doCommonClassAssertions(currUrl, "OlderNewerClick");
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Newer");
 		} catch (Exception e) {
 			Assert.fail("Error clicking 'newer' link.");
 			e.printStackTrace();
@@ -249,10 +249,10 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			System.out.println("Test 'older' click: ");
 			String currUrl = driver.getCurrentUrl();
 			blogLinks.clickOlderPost();
-		    beacon = getBeacon();
+			beacon = getBeacon();
 
-		    doCommonClassAssertions(currUrl, "OlderNewerClick");
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Older");
+			doCommonClassAssertions(currUrl, "OlderNewerClick");
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Older");
 		} catch (Exception e) {
 			Assert.fail("Error clicking 'older' link.");
 			e.printStackTrace();
