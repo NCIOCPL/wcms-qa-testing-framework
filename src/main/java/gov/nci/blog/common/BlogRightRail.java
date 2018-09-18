@@ -2,6 +2,7 @@ package gov.nci.blog.common;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -39,6 +40,9 @@ public class BlogRightRail extends PageObjectBase {
 	@FindBy(css = "h3#archive")
 	WebElement hdr_archive;
 	
+	@FindBy(css = "li.month a")
+	List<WebElement> list_months;
+	
 	/**
 	 * Get a 'Year' header webelement.
 	 * @param year
@@ -55,8 +59,12 @@ public class BlogRightRail extends PageObjectBase {
 	 * @return
 	 */
 	public WebElement getArchiveMonth(String month) {
-		WebElement element = driver.findElement(By.xpath("//li[contains(text(), '" + month + "')]"));
-		return element;
+		for(WebElement element : list_months) {
+			if (element.getText().equalsIgnoreCase(month)) {
+				return element;
+			}
+		}
+		return null;
 	}
 	
 	
@@ -84,7 +92,6 @@ public class BlogRightRail extends PageObjectBase {
 	 */
 	public void clickArchiveMonth(String month) {
 		WebElement element = getArchiveMonth(month);
-		ScrollUtil.scrollIntoview(driver, element);
 		element.click();
 	}
 	

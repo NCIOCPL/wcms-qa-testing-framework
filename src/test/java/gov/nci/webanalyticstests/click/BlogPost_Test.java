@@ -134,15 +134,17 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 	public void testBlogRailMonthClick() {
 		try {
 			System.out.println("Test month click: ");
+			String currUrl = driver.getCurrentUrl();
 			rightRail = blogPost.getRightRail();
 			rightRail.clickArchiveHeader();
 			rightRail.clickArchiveYear("2017");
-			//rightRail.clickArchiveMonth("May");
+			rightRail.clickArchiveMonth("May");
 		    beacon = getBeacon();
 
-		    doCommonClassAssertions(driver.getCurrentUrl());		    
-			Assert.assertEquals(beacon.linkName, "BlogAccordionAction");
-		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Expand:Archive");
+		    doCommonClassAssertions(currUrl);
+			Assert.assertTrue(beacon.hasEvent(55));
+			Assert.assertEquals(beacon.linkName, "BlogArchiveDateClick");
+		    Assert.assertEquals(beacon.props.get(50), "2017:5");
 		} catch (Exception e) {
 			Assert.fail("Error clicking the month.");
 			e.printStackTrace();
