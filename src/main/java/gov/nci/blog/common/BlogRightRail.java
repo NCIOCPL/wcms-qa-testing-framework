@@ -23,7 +23,6 @@ public class BlogRightRail extends PageObjectBase {
         PageFactory.initElements(driver, this);
     }	
 	
-
 	/**************** Blog Right Rail Elements *****************************/
 	@FindBy(id = "nvcgSlListBlogRTRail")
 	WebElement div_rightRail;
@@ -39,35 +38,54 @@ public class BlogRightRail extends PageObjectBase {
 
 	@FindBy(css = "h3#archive")
 	WebElement hdr_archive;
-
-	
-	/**************** Blog Post Page Actions *****************************/
-//
-//	/**
-//	 * Clicks on the first "Recommended From NCI" card.
-//	 */
-//	public void clickBodyLink() {
-//		ScrollUtil.scrollIntoview(driver, lnk_body);
-//		lnk_body.click();
-// 	}
-//
 	
 	/**
-	 * Click on first definition LINK.
+	 * Get a 'Year' header webelement.
+	 * @param year
+	 * @return
+	 */
+	public WebElement getArchiveYear(String year) {
+		WebElement element = driver.findElement(By.xpath("//h4[contains(text(), '" + year + "')]"));
+		return element;
+	}
+	
+	/**
+	 * Get a 'Month' list WebElement.
+	 * @param month
+	 * @return
+	 */
+	public WebElement getArchiveMonth(String month) {
+		WebElement element = driver.findElement(By.xpath("//li[contains(text(), '" + month + "')]"));
+		return element;
+	}
+	
+	
+	/**************** Blog Post Page Actions *****************************/
+
+	/**
+	 * Click on archive header.
 	 */
 	public void clickArchiveHeader() {
 		ScrollUtil.scrollIntoview(driver, hdr_archive);
 		hdr_archive.click();
 	}
-
-    private List<WebElement> getPageOptionsControl() {
-            List<WebElement> pocControls = getBrowser().findElements(By.cssSelector("#PageOptionsControl1"));
-            // int controlCount = pocControls.size();
-            // System.out.println("   Size = " + controlCount);
-
-            return pocControls;
-    }
+	
+	/**
+	 * Click on an archive year header.
+	 */
+	public void clickArchiveYear(String year) {
+		WebElement element = getArchiveYear(year);		
+		ScrollUtil.scrollIntoview(driver, element);
+		element.click();
+	}
     
-    
-    
+	/**
+	 * Click on an archive month link.
+	 */
+	public void clickArchiveMonth(String month) {
+		WebElement element = getArchiveMonth(month);
+		ScrollUtil.scrollIntoview(driver, element);
+		element.click();
+	}
+	
 }

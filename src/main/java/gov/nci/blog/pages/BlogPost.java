@@ -90,6 +90,9 @@ public class BlogPost extends PageObjectBase {
 		lnk_blogFeatureCard.click();
  	}
 
-
+	
+	public BlogRightRail getRightRail() {
+		return this.rightRail;
+	}
 	
 }
