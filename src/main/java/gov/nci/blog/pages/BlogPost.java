@@ -11,10 +11,12 @@ import org.openqa.selenium.support.PageFactory;
 import gov.nci.framework.ElementChange;
 import gov.nci.framework.PageObjectBase;
 import gov.nci.Utilities.ScrollUtil;
+import gov.nci.blog.common.BlogRightRail;
 
 public class BlogPost extends PageObjectBase {
 
-	WebDriver driver;	
+	WebDriver driver;
+	BlogRightRail rightRail;
 	
 	/**
 	 * @param driver
@@ -24,6 +26,7 @@ public class BlogPost extends PageObjectBase {
 	public BlogPost(WebDriver driver) throws MalformedURLException, UnsupportedEncodingException {
 		super(driver);
 		this.driver = driver;
+		this.rightRail = new BlogRightRail(driver);
 		PageFactory.initElements(driver, this);
 	}
 

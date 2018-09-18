@@ -11,12 +11,14 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 import gov.nci.webanalytics.Beacon;
+import gov.nci.blog.common.BlogRightRail;
 import gov.nci.blog.pages.BlogPost;
 import gov.nci.commonobjects.MegaMenu;
 
 public class BlogPost_Test extends AnalyticsTestClickBase {
 	
 	private BlogPost blogPost;
+	private BlogRightRail rightRail;
 	private Beacon beacon;
 	private Actions action;
 	
@@ -28,8 +30,10 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		action = new Actions(driver);
 	}
 
+	/**************** Blog Post body tests *****************************/
+	
 	@Test(groups = { "Analytics" })
-	public void testBodyLinkClick() {
+	public void testBlogBodyLinkClick() {
 		try {
 			System.out.println("Test body link click: ");			
 			driver.get(config.goHome() + CANCER_CURRENTS_PATH);
@@ -52,7 +56,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 	}
 	
 	@Test(groups = { "Analytics" })
-	public void testDefinitionLinkClick() {
+	public void testBlogDefinitionLinkClick() {
 		try {
 			System.out.println("Test definition link click: ");			
 			driver.get(config.goHome() + CANCER_CURRENTS_PATH);
@@ -75,7 +79,7 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 	}
 	
 	@Test(groups = { "Analytics" })
-	public void testRecommendedClick() {
+	public void testBlogRecommendedClick() {
 		try {
 			System.out.println("Test 'Recommended' card click: ");			
 			driver.get(config.goHome() + CANCER_CURRENTS_PATH);
@@ -96,16 +100,45 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	/**
-	 * Shared Assert() calls for BlogPost_Test 
-	 * @param beacon
-	 */
-	private void doCommonClassAssertions(Beacon beacon) {
-		doCommonClickAssertions(beacon);
-
 		
+	/**************** Blog right rail tests *****************************/
+	
+	@Test(groups = { "Analytics" })
+	public void testBlogRailArchiveExpand() {
+		try {
+			System.out.println("Test expand archive click: ");
+			driver.get(config.goHome() + CANCER_CURRENTS_PATH);
+			rightRail = new BlogRightRail(driver);
+			action.pause(2000);
+			rightRail.clickArchiveHeader();
+		    beacon = getBeacon();
+
+			Assert.assertEquals(beacon.linkName, "BlogAccordionAction");
+		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Expand:Archive");
+		} catch (Exception e) {
+			Assert.fail("Error expanding archive on rail.");
+			e.printStackTrace();
+		}
 	}
+	
+	@Test(groups = { "Analytics" })
+	public void testBlogRailArchiveCollapse() {
+		try {
+			System.out.println("Test collapse archive click: ");
+			driver.get(config.goHome() + CANCER_CURRENTS_PATH);
+			rightRail = new BlogRightRail(driver);
+			action.pause(2000);
+			rightRail.clickArchiveHeader();
+			rightRail.clickArchiveHeader();
+		    beacon = getBeacon();
+
+			Assert.assertEquals(beacon.linkName, "BlogAccordionAction");
+		    Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Collapse:Archive");
+		} catch (Exception e) {
+			Assert.fail("Error collapsing archive on rail.");
+			e.printStackTrace();
+		}
+	}
+	
 	
 }
