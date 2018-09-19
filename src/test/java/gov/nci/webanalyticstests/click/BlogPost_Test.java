@@ -97,26 +97,6 @@ public class BlogPost_Test extends AnalyticsTestClickBase {
 		}
 	}
 		
-	@Test(groups = { "Analytics" }, priority = 4)
-	public void testBlogPostRelatedResourcesClick() {
-		try {
-			driver.get(config.goHome() + CRCHD_POST);			
-			System.out.println("Test Related Resources link click: ");
-			String linkText = blogPost.getRelatedResourcesLinkText();
-			String currUrl = driver.getCurrentUrl();
-			blogPost.clickRelatedResources();
-			beacon = getBeacon();
-
-			doCommonClassAssertions(currUrl, "BlogRelatedLinkClick");
-			Assert.assertTrue(beacon.hasEvent(57));
-			Assert.assertEquals(beacon.props.get(50), linkText);
-			Assert.assertEquals(beacon.props.get(66), "Blog_CRCHDDialogueDisparities_Post_RelatedResource:1");
-		} catch (Exception e) {
-			Assert.fail("Error clicking Related Resources link.");
-			e.printStackTrace();
-		}
-	}
-	
 	/**************** Blog right rail tests *****************************/
 	
 	@Test(groups = { "Analytics" }, priority = 5)

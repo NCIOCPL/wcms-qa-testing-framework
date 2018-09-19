@@ -52,9 +52,6 @@ public class BlogPost extends PageObjectBase {
 	
 	@FindBy(css = "#blog-cards .feature-card a")	
 	WebElement lnk_blogFeatureCard;
-
-	@FindBy(css = ".related-resources.list a")	
-	WebElement lnk_blogRelResources;
 	
 	public String getBodyLinkText() {
 		return lnk_body.getText();
@@ -68,10 +65,6 @@ public class BlogPost extends PageObjectBase {
 		return lnk_blogFeatureCard.getText();
 	}
 
-	public String getRelatedResourcesLinkText() {
-		return lnk_blogRelResources.getText();
-	}
-	
 	/**************** Blog Post Page Actions *****************************/
 
 	/**
@@ -105,14 +98,6 @@ public class BlogPost extends PageObjectBase {
 	public void clickRecommended() {
 		ScrollUtil.scrollIntoview(driver, lnk_blogFeatureCard);
 		lnk_blogFeatureCard.click();
- 	}
-
-	/**
-	 * Click on the first "Related Resources" link.
-	 */
-	public void clickRelatedResources() {
-		ScrollUtil.scrollIntoview(driver, lnk_blogRelResources);
-		lnk_blogRelResources.click();
  	}
 		
 }
