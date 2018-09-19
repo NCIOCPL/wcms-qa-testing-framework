@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load;
+package gov.nci.webanalyticstests.home.pages;
 
 import java.net.MalformedURLException;
 import java.util.Iterator;
@@ -19,7 +19,7 @@ import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 // TODO: regexes for dynamic values
 // TODO: common asserts
 // TODO: re-use iterator in load base
-public class HomePage_Test extends AnalyticsTestLoadBase {	
+public class HomeLoad_Test extends AnalyticsTestLoadBase {	
 	
 	/**
 	 * The following page / content types are covered by this test class:

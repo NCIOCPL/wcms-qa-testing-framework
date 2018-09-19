@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load;
+package gov.nci.webanalyticstests.pdq.pages;
 
 import java.util.Iterator;
 
@@ -12,34 +12,37 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class InnerPage_Test extends AnalyticsTestLoadBase {
+public class PdqLoad_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page / content types are covered by this test class:
-	 * - Article (English and Spanish)
-	 * - General (English and Spanish)
+	 * - PDQ Cancer Info Summary (English and Spanish)
+	 * - PDQ Cancer Info Summary section URLs (English and Spanish)
+	 * - PDQ Cancer Info Summary link URLs(English and Spanish)
 	 */		
 	
-	// TODO: more test cases
 	private AnalyticsPageLoad analyticsPageLoad;
 	private Beacon beacon;	
 	private String testDataFilePath;
-	private final String TESTDATA_SHEET_NAME = "InnerPage";
+	private final String TESTDATA_SHEET_NAME = "PDQPage";
 	
 	@BeforeClass(groups = { "Analytics" }) 
 	public void setup() {
 		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
 	
-	/// Inner page loads return expected values
-	@Test(dataProvider = "InnerPageLoad", groups = { "Analytics" })
-	public void testInnerPageLoad(String path, String contentType) {
+	/// PDQ page loads return expected values
+	@Test(dataProvider = "PDQPageLoad", groups = { "Analytics" })
+	public void testPdqPageLoad(String path, String contentType) {
 		try {
 			driver.get(config.goHome() + path);
+			driver.navigate().refresh();
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
 			beacon = getBeacon();
-			doCommonLoadAssertions(beacon, analyticsPageLoad, path);
+			
+			String[] pathNoId = path.split("#");
+			doCommonLoadAssertions(beacon, analyticsPageLoad, pathNoId[0]);
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		}
 		catch (Exception e) {
@@ -48,8 +51,8 @@ public class InnerPage_Test extends AnalyticsTestLoadBase {
 		}
 	}
 
-	@DataProvider(name = "InnerPageLoad")
-	public Iterator<Object[]> getInnerPageLoadData() {
+	@DataProvider(name = "PDQPageLoad")
+	public Iterator<Object[]> getPDQPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
 	

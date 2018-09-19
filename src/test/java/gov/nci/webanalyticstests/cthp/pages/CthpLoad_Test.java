@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load;
+package gov.nci.webanalyticstests.cthp.pages;
 
 import java.util.Iterator;
 
@@ -12,32 +12,32 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class TopicPage_Test extends AnalyticsTestLoadBase {
+public class CthpLoad_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page types / content are covered by this test class:
-	 * - Topic (English and Spanish)
+	 * - CTHP Patient (English and Spanish)
+	 * - CTHP Health Professional (English and Spanish)
 	 */
-
+	
 	private AnalyticsPageLoad analyticsPageLoad;
-	private Beacon beacon;
+	private Beacon beacon;	
 	private String testDataFilePath;
-	private final String TESTDATA_SHEET_NAME = "TopicPage";
-
-	@BeforeClass(groups = { "Analytics" })
+	private final String TESTDATA_SHEET_NAME = "CTHPPage";
+	
+	@BeforeClass(groups = { "Analytics" }) 
 	public void setup() {
 		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
-
-	/// Topic page loads return expected values
-	@Test(dataProvider = "TopicPageLoad", groups = { "Analytics" })
-	public void testHomePageLoad(String path, String contentType) {
+	
+	/// CTHP page loads return expected values
+	@Test(dataProvider = "CTHPPageLoad", groups = { "Analytics" })
+	public void testCthpPageLoad(String path, String contentType) {
 		try {
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
 			beacon = getBeacon();
-			
 			doCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		}
@@ -47,9 +47,9 @@ public class TopicPage_Test extends AnalyticsTestLoadBase {
 		}
 	}
 
-	@DataProvider(name = "TopicPageLoad")
-	public Iterator<Object[]> getTopicPageLoadData() {
+	@DataProvider(name = "CTHPPageLoad")
+	public Iterator<Object[]> getCTHPPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
-
+	
 }

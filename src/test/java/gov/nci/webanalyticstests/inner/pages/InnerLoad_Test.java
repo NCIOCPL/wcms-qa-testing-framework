@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load;
+package gov.nci.webanalyticstests.inner.pages;
 
 import java.util.Iterator;
 
@@ -12,27 +12,28 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class CthpPage_Test extends AnalyticsTestLoadBase {
+public class InnerLoad_Test extends AnalyticsTestLoadBase {
 
 	/**
-	 * The following page types / content are covered by this test class:
-	 * - CTHP Patient (English and Spanish)
-	 * - CTHP Health Professional (English and Spanish)
-	 */
+	 * The following page / content types are covered by this test class:
+	 * - Article (English and Spanish)
+	 * - General (English and Spanish)
+	 */		
 	
+	// TODO: more test cases
 	private AnalyticsPageLoad analyticsPageLoad;
 	private Beacon beacon;	
 	private String testDataFilePath;
-	private final String TESTDATA_SHEET_NAME = "CTHPPage";
+	private final String TESTDATA_SHEET_NAME = "InnerPage";
 	
 	@BeforeClass(groups = { "Analytics" }) 
 	public void setup() {
 		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
 	
-	/// CTHP page loads return expected values
-	@Test(dataProvider = "CTHPPageLoad", groups = { "Analytics" })
-	public void testCthpPageLoad(String path, String contentType) {
+	/// Inner page loads return expected values
+	@Test(dataProvider = "InnerPageLoad", groups = { "Analytics" })
+	public void testInnerPageLoad(String path, String contentType) {
 		try {
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
@@ -47,8 +48,8 @@ public class CthpPage_Test extends AnalyticsTestLoadBase {
 		}
 	}
 
-	@DataProvider(name = "CTHPPageLoad")
-	public Iterator<Object[]> getCTHPPageLoadData() {
+	@DataProvider(name = "InnerPageLoad")
+	public Iterator<Object[]> getInnerPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
 	

@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load;
+package gov.nci.webanalyticstests.landing.pages;
 
 import java.util.Iterator;
 
@@ -12,7 +12,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class LandingPage_Test extends AnalyticsTestLoadBase {
+public class LandingLoad_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page types / content are covered by this test class:
