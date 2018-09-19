@@ -14,7 +14,7 @@ import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
-public class CtsBasicSearchClick_Test extends AnalyticsTestClickBase {
+public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 	private BasicSearch basicSearch;
 	private Beacon beacon;

@@ -9,13 +9,11 @@ import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
-public class CtsAdvBasicResultsClick_Test extends AnalyticsTestClickBase {
+public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 	
 	private final String PATH = "/about-cancer/treatment/clinical-trials/search/r";
 	private final String BASIC_PAGE_1ST = "?rl=1";
 	private final String BASIC_PAGE_2ND = "?loc=0&rl=1&pn=2&ni=10";	
-	private final String ADVANCED_PAGE_1ST = "?rl=2";
-	private final String ADVANCED_PAGE_2ND = "?loc=0&rl=2&pn=2&ni=10";
 	
 	// Don't see an existing BasicSearchResultsPage, so I'm reusing advanced for all instances
 	private AdvanceSearchResults searchResults;
@@ -36,24 +34,6 @@ public class CtsAdvBasicResultsClick_Test extends AnalyticsTestClickBase {
 			logger.log(LogStatus.PASS, "Basic 'Start Over' click event passed.");
 		} catch (Exception e) {
 			Assert.fail("Error: Basic 'Start Over' click event.");
-			e.printStackTrace();
-		}
-	}
-	
-	@Test(groups = { "Analytics" })
-	public void testAdvStartOverClick() {
-		try {
-			System.out.println("Advanced 'Start Over' click event:");
-			setSearchResults(ADVANCED_PAGE_1ST);
-			searchResults.clickStartOverNoNav();
-			beacon = getBeacon();
-			
-			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(49));
-			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|start over");
-			logger.log(LogStatus.PASS, "Advanced 'Start Over' click event passed.");
-		} catch (Exception e) {
-			Assert.fail("Error: Advanced 'Start Over' click event.");
 			e.printStackTrace();
 		}
 	}
@@ -161,26 +141,6 @@ public class CtsAdvBasicResultsClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 	
-	@Test(groups = { "Analytics" })
-	public void testAdvLinkRanking() {
-		try {
-			System.out.println("Advanced ranked result click event:");
-			setSearchResults(ADVANCED_PAGE_2ND);
-			searchResults.clickResultLinkByIndex(1);
-			beacon = getBeacon();
-						
-			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(42));
-			Assert.assertEquals(beacon.props.get(12), "clinicaltrials_advanced");
-			Assert.assertEquals(beacon.props.get(13), "2|page 2");
-			Assert.assertEquals(beacon.props.get(12), beacon.eVars.get(12));
-			logger.log(LogStatus.PASS,"Advanced ranked result click event passed.");
-		} catch (Exception e) {
-			Assert.fail("Error: Advanced ranked result click event.");
-			e.printStackTrace();
-		}
-	}
-	
 	/**
 	 * Go to the results page and create a new searchresults object.
 	 * @param queryParams
@@ -197,7 +157,7 @@ public class CtsAdvBasicResultsClick_Test extends AnalyticsTestClickBase {
 	}
 	
 	/**
-	 * Shared Assert() calls for CtsBasicSearch_Test
+	 * Shared Assert() calls for BasicResultsClick_Test
 	 * @param beacon
 	 */
 	private void doCommonClassAssertions(Beacon beacon) {

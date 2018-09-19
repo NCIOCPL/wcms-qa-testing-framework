@@ -8,7 +8,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class CtsAdvancedResultsLoad_Test extends AnalyticsTestLoadBase {
+public class AdvancedResultsLoad_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The CTS Results Page for Advanced search is covered by this test class.

@@ -8,7 +8,7 @@ import gov.nci.clinicalTrial.pages.TrialDetailView;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
-public class CtsAdvBasicViewClick_Test extends AnalyticsTestClickBase {
+public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 		
 	private final String PATH = "/about-cancer/treatment/clinical-trials/search/v";
 	private final String FROM_ADVANCED_SEARCH = "?t=C4911&q=nivolumab&loc=0&tid=S1609&rl=2&id=NCI-2016-01041&pn=1&ni=10";
