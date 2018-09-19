@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.click;
+package gov.nci.webanalyticstests.blog.pages;
 
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeMethod;
@@ -11,7 +11,7 @@ import gov.nci.blog.pages.BlogPost;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
-public class BlogPost_Test extends AnalyticsTestClickBase {
+public class BlogPostClick_Test extends AnalyticsTestClickBase {
 	
 	private BlogPost blogPost;
 	private BlogRightRail rightRail;

@@ -26,8 +26,9 @@
 		<classes>
 
 			<!-- Load tracking events -->
-			<class name="gov.nci.webanalyticstests.load.BlogPostPage_Test" />
-			<class name="gov.nci.webanalyticstests.load.BlogSeriesPage_Test" />
+			<class name="gov.nci.webanalyticstests.blog.pages.BlogPostLoad_Test" />
+			<class name="gov.nci.webanalyticstests.blog.pages.BlogSeriesLoad_Test" />
+
 			<class name="gov.nci.webanalyticstests.load.CthpPage_Test" />
 			<class name="gov.nci.webanalyticstests.load.HomePage_Test" />
 			<class name="gov.nci.webanalyticstests.load.InnerPage_Test" />
@@ -43,14 +44,14 @@
 			<class name="gov.nci.webanalyticstests.load.appmodule.SwsResultsPage_Test" />
 
 			<!-- Click tracking events -->
+			<class name="gov.nci.webanalyticstests.blog.pages.BlogPostClick_Test" />
+			<class name="gov.nci.webanalyticstests.blog.pages.BlogSeriesClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.OnThisPageClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.MegaMenuClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.RelatedResourcesClick_Test" />
-			<class name="gov.nci.webanalyticstests.commonobjects.Resize_Test" />
+			<class name="gov.nci.webanalyticstests.commonobjects.ResizeClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.SwsFormClick_Test" />
 
-			<class name="gov.nci.webanalyticstests.click.BlogPost_Test" />
-			<class name="gov.nci.webanalyticstests.click.BlogSeries_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsAdvancedSearch_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsBasicSearch_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsAdvBasicResults_Test" />

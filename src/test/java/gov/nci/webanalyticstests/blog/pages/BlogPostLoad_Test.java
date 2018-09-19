@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load;
+package gov.nci.webanalyticstests.blog.pages;
 
 import java.util.Iterator;
 
@@ -12,7 +12,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class BlogPostPage_Test extends AnalyticsTestLoadBase {
+public class BlogPostLoad_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page / content types are covered by this test class:

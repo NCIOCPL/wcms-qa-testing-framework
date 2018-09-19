@@ -14,7 +14,7 @@ import gov.nci.commonobjects.Resize;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
-public class Resize_Test extends AnalyticsTestClickBase {
+public class ResizeClick_Test extends AnalyticsTestClickBase {
 	
 	private Resize resize;
 	private Beacon beacon;	
