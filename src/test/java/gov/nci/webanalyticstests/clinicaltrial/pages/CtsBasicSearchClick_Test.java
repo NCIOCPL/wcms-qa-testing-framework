@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.click.appmodule;
+package gov.nci.webanalyticstests.clinicaltrial.pages;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -14,7 +14,7 @@ import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
-public class CtsBasicSearch_Test extends AnalyticsTestClickBase {
+public class CtsBasicSearchClick_Test extends AnalyticsTestClickBase {
 
 	private BasicSearch basicSearch;
 	private Beacon beacon;

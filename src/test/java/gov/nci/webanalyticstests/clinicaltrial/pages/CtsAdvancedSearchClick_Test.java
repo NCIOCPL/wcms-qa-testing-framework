@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.click.appmodule;
+package gov.nci.webanalyticstests.clinicaltrial.pages;
 
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.interactions.Actions;
@@ -11,7 +11,7 @@ import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
-public class CtsAdvancedSearch_Test extends AnalyticsTestClickBase {
+public class CtsAdvancedSearchClick_Test extends AnalyticsTestClickBase {
 
 	private AdvanceSearch advancedSearch;
 	private Beacon beacon;

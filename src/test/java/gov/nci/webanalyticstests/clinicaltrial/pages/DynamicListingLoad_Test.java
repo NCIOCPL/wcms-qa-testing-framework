@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load.appmodule;
+package gov.nci.webanalyticstests.clinicaltrial.pages;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,7 +14,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class DynamicListingPage_Test extends AnalyticsTestLoadBase {
+public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page / content types are covered by this test class:

@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load.appmodule;
+package gov.nci.webanalyticstests.clinicaltrial.pages;
 
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
@@ -8,7 +8,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class CtsAdvancedResultsPage_Test extends AnalyticsTestLoadBase {
+public class CtsAdvancedResultsLoad_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The CTS Results Page for Advanced search is covered by this test class.

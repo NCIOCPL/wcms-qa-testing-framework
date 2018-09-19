@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.click.appmodule;
+package gov.nci.webanalyticstests.clinicaltrial.pages;
 
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
@@ -9,7 +9,7 @@ import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
-public class CtsAdvBasicResults_Test extends AnalyticsTestClickBase {
+public class CtsAdvBasicResultsClick_Test extends AnalyticsTestClickBase {
 	
 	private final String PATH = "/about-cancer/treatment/clinical-trials/search/r";
 	private final String BASIC_PAGE_1ST = "?rl=1";

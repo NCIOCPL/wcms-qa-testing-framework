@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load.appmodule;
+package gov.nci.webanalyticstests.sitewidesearch.pages;
 
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
@@ -10,7 +10,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class SwsResultsPage_Test extends AnalyticsTestLoadBase {
+public class SwsResultsLoad_Test extends AnalyticsTestLoadBase {
 	
 	private AnalyticsPageLoad analyticsPageLoad;
 	private SitewideSearchForm swSearchForm;

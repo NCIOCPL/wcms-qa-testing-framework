@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load.appmodule;
+package gov.nci.webanalyticstests.clinicaltrial.pages;
 
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
@@ -8,7 +8,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class CtsAdvBasicViewPage_Test extends AnalyticsTestLoadBase {
+public class CtsAdvBasicViewLoad_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page / content types are covered by this test class:

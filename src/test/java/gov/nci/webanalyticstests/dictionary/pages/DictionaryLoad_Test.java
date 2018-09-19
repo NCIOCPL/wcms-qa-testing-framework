@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load.appmodule;
+package gov.nci.webanalyticstests.dictionary.pages;
 
 import java.util.Iterator;
 
@@ -12,7 +12,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class DictionaryPage_Test extends AnalyticsTestLoadBase {
+public class DictionaryLoad_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page / content types are covered by this test class:
