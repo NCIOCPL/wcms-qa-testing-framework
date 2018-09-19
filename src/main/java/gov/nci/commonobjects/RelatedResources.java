@@ -32,8 +32,8 @@ public class RelatedResources extends PageObjectBase {
 		List<WebElement> elementExists = getRelatedResources();
 
 		if (elementExists.size() > 0) {
-			WebElement pocElement = elementExists.get(0);
-			return pocElement.isDisplayed();
+			WebElement element = elementExists.get(0);
+			return element.isDisplayed();
 		}
 		return false;
 	}

@@ -43,6 +43,7 @@
 			<class name="gov.nci.webanalyticstests.load.appmodule.SwsResultsPage_Test" />
 
 			<!-- Click tracking events -->
+			<class name="gov.nci.webanalyticstests.commonobjects.OnThisPageClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.RelatedResourcesClick_Test" />
 			<class name="gov.nci.webanalyticstests.click.BlogPost_Test" />
 			<class name="gov.nci.webanalyticstests.click.BlogSeries_Test" />
