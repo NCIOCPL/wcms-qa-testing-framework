@@ -44,12 +44,13 @@
 
 			<!-- Click tracking events -->
 			<class name="gov.nci.webanalyticstests.commonobjects.OnThisPageClick_Test" />
+			<class name="gov.nci.webanalyticstests.commonobjects.MegaMenuClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.RelatedResourcesClick_Test" />
+			<class name="gov.nci.webanalyticstests.commonobjects.Resize_Test" />
+			<class name="gov.nci.webanalyticstests.commonobjects.SwsFormClick_Test" />
+
 			<class name="gov.nci.webanalyticstests.click.BlogPost_Test" />
 			<class name="gov.nci.webanalyticstests.click.BlogSeries_Test" />
-			<class name="gov.nci.webanalyticstests.click.SwsForm_Test" />
-			<class name="gov.nci.webanalyticstests.click.Resize_Test" />
-			<class name="gov.nci.webanalyticstests.click.MegaMenu_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsAdvancedSearch_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsBasicSearch_Test" />
 			<class name="gov.nci.webanalyticstests.click.appmodule.CtsAdvBasicResults_Test" />

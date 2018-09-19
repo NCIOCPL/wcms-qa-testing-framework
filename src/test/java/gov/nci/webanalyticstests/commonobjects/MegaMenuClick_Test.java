@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.click;
+package gov.nci.webanalyticstests.commonobjects;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -11,8 +11,9 @@ import org.testng.annotations.Test;
 
 import gov.nci.commonobjects.MegaMenu;
 import gov.nci.webanalytics.Beacon;
+import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
-public class MegaMenu_Test extends AnalyticsTestClickBase {
+public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 	
 	private MegaMenu megaMenu;
 	private Beacon beacon;

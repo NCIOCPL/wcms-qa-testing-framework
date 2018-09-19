@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
+import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
 // TODO: add other values, heir, channel, suite
 // TODO: verify has() logic in AnalyticsRequest

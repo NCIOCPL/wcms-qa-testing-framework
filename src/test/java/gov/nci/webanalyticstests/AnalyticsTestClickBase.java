@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.click;
+package gov.nci.webanalyticstests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.List;
 import org.testng.Assert;
 
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class AnalyticsTestClickBase extends AnalyticsTestBase {
 

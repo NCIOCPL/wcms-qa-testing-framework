@@ -9,6 +9,7 @@ import gov.nci.blog.common.BlogLinks;
 import gov.nci.blog.common.BlogRightRail;
 import gov.nci.blog.pages.BlogPost;
 import gov.nci.webanalytics.Beacon;
+import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
 public class BlogPost_Test extends AnalyticsTestClickBase {
 	

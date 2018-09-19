@@ -9,7 +9,7 @@ import org.testng.Assert;
 import gov.nci.clinicalTrial.pages.AdvanceSearch;
 import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.click.AnalyticsTestClickBase;
+import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
 public class CtsAdvancedSearch_Test extends AnalyticsTestClickBase {
 

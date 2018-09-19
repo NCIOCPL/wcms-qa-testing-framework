@@ -8,7 +8,7 @@ import gov.nci.commonobjects.SitewideSearchForm;
 import gov.nci.sitewidesearch.pages.SitewideSearchResults;
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.load.AnalyticsTestLoadBase;
+import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
 public class SwsResultsPage_Test extends AnalyticsTestLoadBase {
 	

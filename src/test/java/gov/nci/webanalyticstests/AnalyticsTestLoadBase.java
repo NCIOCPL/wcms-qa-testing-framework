@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.load;
+package gov.nci.webanalyticstests;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -11,7 +11,6 @@ import org.testng.Assert;
 import gov.nci.Utilities.ExcelManager;
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.AnalyticsTestBase;
 
 public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	

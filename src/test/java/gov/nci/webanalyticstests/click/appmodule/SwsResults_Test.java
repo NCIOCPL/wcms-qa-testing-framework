@@ -7,7 +7,7 @@ import org.testng.Assert;
 import gov.nci.commonobjects.SitewideSearchForm;
 import gov.nci.sitewidesearch.pages.SitewideSearchResults;
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.click.AnalyticsTestClickBase;
+import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
 public class SwsResults_Test extends AnalyticsTestClickBase {
 	

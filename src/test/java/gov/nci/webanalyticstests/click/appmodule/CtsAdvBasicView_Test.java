@@ -6,7 +6,7 @@ import org.testng.Assert;
 import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
 import gov.nci.clinicalTrial.pages.TrialDetailView;
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.click.AnalyticsTestClickBase;
+import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
 public class CtsAdvBasicView_Test extends AnalyticsTestClickBase {
 		

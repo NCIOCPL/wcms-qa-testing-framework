@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.click;
+package gov.nci.webanalyticstests.commonobjects;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,9 +11,10 @@ import org.testng.Assert;
 import gov.nci.commonobjects.SitewideSearchForm;
 import gov.nci.error.pages.PageNotFound;
 import gov.nci.webanalytics.Beacon;
+import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 import gov.nci.Utilities.ExcelManager;
 
-public class SwsForm_Test extends AnalyticsTestClickBase {
+public class SwsFormClick_Test extends AnalyticsTestClickBase {
 	
 	private SitewideSearchForm swSearchForm;
 	private PageNotFound pageNotFound;

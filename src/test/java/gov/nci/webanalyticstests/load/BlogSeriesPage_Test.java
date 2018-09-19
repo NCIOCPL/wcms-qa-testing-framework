@@ -10,6 +10,7 @@ import org.testng.Assert;
 
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
+import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
 public class BlogSeriesPage_Test extends AnalyticsTestLoadBase {
 

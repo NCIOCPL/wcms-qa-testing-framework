@@ -10,7 +10,7 @@ import org.testng.Assert;
 
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.load.AnalyticsTestLoadBase;
+import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
 public class DictionaryPage_Test extends AnalyticsTestLoadBase {
 
