@@ -26,7 +26,7 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 	private final String PATH_CRCHD = "/about-nci/organization/crchd";
 
 	@BeforeMethod(groups = { "Analytics" })
-	public void setupBlogPost() {
+	public void setupClickTest() {
 		try {
 			this.card = new Card(driver);
 		} catch (Exception e) {

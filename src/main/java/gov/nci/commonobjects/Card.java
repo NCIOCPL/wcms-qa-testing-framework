@@ -50,6 +50,18 @@ public class Card extends PageObjectBase {
 	}
 
 	/**
+	 * Using XPATH, return an element based on the contained text.
+	 * @param text
+	 * @return
+	 */
+	// TODO: make this a reusable utility function
+	private WebElement getCardElementByText(String text) {
+		WebElement element = driver.findElement(By.xpath("//*[contains(text(), '" + text + "')]"));
+		return element;
+	}
+
+	
+	/**
 	 * Get a Card item at a given index.
 	 * 
 	 * @param selector
@@ -109,4 +121,14 @@ public class Card extends PageObjectBase {
 		clickCardLink(selector, 0);
 	}
 
+	/**
+	 * Click on a given text value.
+	 * @param text
+	 */
+	public void clickCardText(String text) {
+		WebElement element = getCardElementByText(text);
+		ScrollUtil.scrollIntoview(driver, element);
+		element.click();
+	}
+	
 }
