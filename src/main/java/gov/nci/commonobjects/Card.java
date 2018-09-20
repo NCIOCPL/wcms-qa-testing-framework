@@ -12,11 +12,11 @@ import org.openqa.selenium.support.PageFactory;
 import gov.nci.Utilities.ScrollUtil;
 import gov.nci.framework.PageObjectBase;
 
-public class Cards extends PageObjectBase {
+public class Card extends PageObjectBase {
 
 	private WebDriver driver;
 
-	public Cards(WebDriver driver) throws MalformedURLException, UnsupportedEncodingException {
+	public Card(WebDriver driver) throws MalformedURLException, UnsupportedEncodingException {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
