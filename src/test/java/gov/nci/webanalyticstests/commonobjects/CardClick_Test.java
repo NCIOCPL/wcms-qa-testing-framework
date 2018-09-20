@@ -14,12 +14,16 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 	private Beacon beacon;
 	private String titleText;
 	private String linkText;
+	private String currentUrl;
 
-	private final String SEL_HOME_PRIMARY_FEATURE = ".feature-primary .feature-card";
-	private final String SEL_HOME_SECONDARY_FEATURE = ".feature-secondary .feature-card";
-	private final String SEL_HOME_GUIDE = ".guide-card .card";
-	private final String SEL_HOME_MULTIMEDIA = ".multimedia div[class*=feature-card]";
-	private final String SEL_HOME_THUMB = ".card-thumbnail";
+	private final String SELECTOR_PRIMARY_FEATURE = ".feature-primary .feature-card";
+	private final String SELECTOR_SECONDARY_FEATURE = ".feature-secondary .feature-card";
+	private final String SELECTOR_GUIDE = ".guide-card .card";
+	private final String SELECTOR_MULTIMEDIA = ".multimedia div[class*=feature-card]";
+	private final String SELECTOR_THUMB = ".card-thumbnail";
+	private final String SELECTOR_INLINE = "#cgvBody .feature-card";
+	private final String SELECTOR_TOPIC_FEATURE = ".topic-feature .feature-card";
+	private final String PATH_CRCHD = "/about-nci/organization/crchd";
 
 	@BeforeMethod(groups = { "Analytics" })
 	public void setupBlogPost() {
@@ -33,102 +37,95 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 
 	@Test(groups = { "Analytics" })
 	public void testHomePrimaryFeatureClick() {
-		try {
-			System.out.println("Test home primary feature card click: ");
-			driver.get(config.goHome());
-			String linkAndTitle = SEL_HOME_PRIMARY_FEATURE + " h3";
-			getCardClickBeacon(linkAndTitle, linkAndTitle);
+		System.out.println("Test home Primary Feature Card click: ");
+		driver.get(config.goHome());
+		String linkAndTitle = SELECTOR_PRIMARY_FEATURE + " h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle);
 
-			doCommonClassAssertions();
-			Assert.assertEquals(beacon.props.get(59), "Feature:1");
-		} catch (Exception e) {
-			Assert.fail("Error clicking home primary feature card.");
-			e.printStackTrace();
-		}
+		doCommonClassAssertions("Feature:1");
 	}
 
 	@Test(groups = { "Analytics" })
 	public void testHomeGuideCardClick() {
-		try {
-			System.out.println("Test home guide card click: ");
-			driver.get(config.goHome());
-			String title = SEL_HOME_GUIDE + " h2";
-			String link = title + " + ul li a";
-			getCardClickBeacon(title, link);
+		System.out.println("Test home guide card click: ");
+		driver.get(config.goHome());
+		String title = SELECTOR_GUIDE + " h2";
+		String link = title + " + ul li a";
+		getCardClickBeacon(title, link);
 
-			doCommonClassAssertions();
-			Assert.assertEquals(beacon.props.get(59), "Guide:1");
-		} catch (Exception e) {
-			Assert.fail("Error clicking home guide card.");
-			e.printStackTrace();
-		}
+		doCommonClassAssertions("Guide:1");
 	}
 
 	@Test(groups = { "Analytics" })
 	public void testHomeMultimediaCardClick() {
-		try {
-			System.out.println("Test home multimedia card click: ");
-			driver.get(config.goHome());
-			String linkAndTitle = SEL_HOME_MULTIMEDIA + " h3";
-			getCardClickBeacon(linkAndTitle, linkAndTitle, 0);
+		System.out.println("Test home multimedia card click: ");
+		driver.get(config.goHome());
+		String linkAndTitle = SELECTOR_MULTIMEDIA + " h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 0);
 
-			doCommonClassAssertions();
-			Assert.assertEquals(beacon.props.get(59), "Multimedia:1");
-		} catch (Exception e) {
-			Assert.fail("Error clicking multimedia card.");
-			e.printStackTrace();
-		}
+		doCommonClassAssertions("Multimedia:1");
 	}
-	
+
 	@Test(groups = { "Analytics" })
 	public void testHomeThumbnailCardClick() {
-		try {
-			System.out.println("Test home Thumbnail card click: ");
-			driver.get(config.goHome());
-			String linkAndTitle = SEL_HOME_THUMB + " h3 a";
-			getCardClickBeacon(linkAndTitle, linkAndTitle);
+		System.out.println("Test home Thumbnail card click: ");
+		driver.get(config.goHome());
+		String linkAndTitle = SELECTOR_THUMB + " h3 a";
+		getCardClickBeacon(linkAndTitle, linkAndTitle);
 
-			doCommonClassAssertions();
-			Assert.assertEquals(beacon.props.get(59), "Thumbnail:1");
-		} catch (Exception e) {
-			Assert.fail("Error clicking home Thumbnail card.");
-			e.printStackTrace();
-		}
+		doCommonClassAssertions("Thumbnail:1");
 	}
-	
+
 	@Test(groups = { "Analytics" })
 	public void testLandingPrimaryFeatureClick() {
-		try {
-			System.out.println("Test Landing page primary feature card click: ");
-			driver.get(config.getPageURL("LandingPage"));
-			String linkAndTitle = SEL_HOME_PRIMARY_FEATURE + " h3";
-			getCardClickBeacon(linkAndTitle, linkAndTitle);
+		System.out.println("Test Landing page primary feature card click: ");
+		driver.get(config.getPageURL("LandingPage"));
+		String linkAndTitle = SELECTOR_PRIMARY_FEATURE + " h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle);
 
-			doCommonClassAssertions();
-			Assert.assertEquals(beacon.props.get(59), "Feature:1");
-		} catch (Exception e) {
-			Assert.fail("Error clicking Landing page primary feature card.");
-			e.printStackTrace();
-		}
+		doCommonClassAssertions("Feature:1");
 	}
-	
+
 	@Test(groups = { "Analytics" })
 	public void testLandingSecFeatureClick() {
-		try {
-			System.out.println("Test Landing page secondary feature card click: ");
-			driver.get(config.getPageURL("LandingPage"));
-			String linkAndTitle = SEL_HOME_SECONDARY_FEATURE + " h3";
-			getCardClickBeacon(linkAndTitle, linkAndTitle, 1);
+		System.out.println("Test Landing page secondary feature card click: ");
+		driver.get(config.getPageURL("LandingPage"));
+		String linkAndTitle = SELECTOR_SECONDARY_FEATURE + " h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 1);
 
-			doCommonClassAssertions();
-			Assert.assertEquals(beacon.props.get(59), "SecondaryFeature:2");
-		} catch (Exception e) {
-			Assert.fail("Error clicking Landing page primary feature card.");
-			e.printStackTrace();
-		}
+		doCommonClassAssertions("SecondaryFeature:2");
 	}
 
-	
+	@Test(groups = { "Analytics" })
+	public void testTopicInlineFeatureCardClick() {
+		System.out.println("Test Topic Page inline Feature card click: ");
+		driver.get(config.getPageURL("TopicPage"));
+		String linkAndTitle = SELECTOR_INLINE + " a h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle);
+
+		doCommonClassAssertions("InlineCard:1");
+	}
+
+	@Test(groups = { "Analytics" })
+	public void testTopicSlottedFeatureCardClick() {
+		System.out.println("Test Topic Page slotted Feature card click: ");
+		driver.get(config.goHome() + PATH_CRCHD);
+		String linkAndTitle = SELECTOR_TOPIC_FEATURE + " a h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 1);
+
+		doCommonClassAssertions("SlottedTopicCard:2");
+	}
+
+	@Test(groups = { "Analytics" })
+	public void testTopicThumbnailCardClick() {
+		System.out.println("Test Topic Page Thumbnail card click: ");
+		driver.get(config.getPageURL("TopicPage"));
+		String linkAndTitle = SELECTOR_THUMB + " h3 a";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 2);
+
+		doCommonClassAssertions("Thumbnail:3");
+	}
+
 	/**
 	 * Go to the results page and retrieve the beacon request object.
 	 * 
@@ -137,10 +134,16 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 	 * @param index
 	 */
 	private void getCardClickBeacon(String titleSelector, String linkSelector, int index) {
-		this.titleText = card.getCardText(titleSelector, index);
-		this.linkText = card.getCardText(linkSelector, index);
-		card.clickCardLink(linkSelector, index);
-		this.beacon = getBeacon();
+		try {
+			this.titleText = card.getCardText(titleSelector, index);
+			this.linkText = card.getCardText(linkSelector, index);
+			this.currentUrl = driver.getCurrentUrl();
+			card.clickCardLink(linkSelector, index);
+			this.beacon = getBeacon();
+		} catch (Exception e) {
+			Assert.fail("Error clicking card: " + titleText);
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -155,9 +158,10 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 
 	/**
 	 * Shared Assert() calls for CardClick_Test
+	 * 
+	 * @param typePosition [Card Type]:[position number]
 	 */
-	private void doCommonClassAssertions() {
-		String currentUrl = driver.getCurrentUrl();
+	private void doCommonClassAssertions(String typePosition) {
 		String testPath = beacon.props.get(60);
 
 		doCommonClickAssertions(beacon);
@@ -165,6 +169,7 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 		Assert.assertEquals(beacon.linkName, "FeatureCardClick");
 		Assert.assertEquals(beacon.props.get(57).trim(), titleText.trim());
 		Assert.assertEquals(beacon.props.get(58).trim(), linkText.trim());
+		Assert.assertEquals(beacon.props.get(59), typePosition);
 		Assert.assertTrue(currentUrl.contains(testPath.substring(testPath.indexOf("cancer.gov"))));
 	}
 
