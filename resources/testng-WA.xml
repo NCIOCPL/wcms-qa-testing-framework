@@ -52,6 +52,7 @@
 			<class name="gov.nci.webanalyticstests.dictionary.pages.DictionaryLoad_Test" />
 
 			<!-- Common component tracking -->
+			<class name="gov.nci.webanalyticstests.commonobjects.CardClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.MegaMenuClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.OnThisPageClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.RelatedResourcesClick_Test" />
