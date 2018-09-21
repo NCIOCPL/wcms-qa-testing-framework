@@ -12,7 +12,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class DictionaryLoad_Test extends AnalyticsTestLoadBase {
+public class DictTermsLoad_Test extends AnalyticsTestLoadBase {
 
 	/**
 	 * The following page / content types are covered by this test class:
@@ -31,13 +31,12 @@ public class DictionaryLoad_Test extends AnalyticsTestLoadBase {
 		<dictionary type>|<language>|<term>|<id>
 	 */
 	private AnalyticsPageLoad analyticsPageLoad;
-	private Beacon beacon;	
 	private String testDataFilePath;
 	private final String TESTDATA_SHEET_NAME = "DictionaryPage";
 	
 	@BeforeClass(groups = { "Analytics" }) 
 	public void setup() {
-		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
+		testDataFilePath = config.getProperty("AnalyticsDictData");
 	}
 	
 	/// Dictionary page loads return expected values
@@ -47,7 +46,7 @@ public class DictionaryLoad_Test extends AnalyticsTestLoadBase {
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			System.out.println(contentType + " load event (" + analyticsPageLoad.getLanguageName() + "):");
-			beacon = getBeacon();
+			Beacon beacon = getBeacon();
 			
 			path = getDictionaryPath(path);
 			doCommonLoadAssertions(beacon, analyticsPageLoad, path);
