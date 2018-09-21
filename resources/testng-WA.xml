@@ -49,7 +49,9 @@
 			<class name="gov.nci.webanalyticstests.sitewidesearch.pages.SwsResultsClick_Test" />
 
 			<!-- Dictionary tracking -->
+			<class name="gov.nci.webanalyticstests.dictionary.pages.DictDefinitionLoad_Test" />
 			<class name="gov.nci.webanalyticstests.dictionary.pages.DictTermsLoad_Test" />
+			<class name="gov.nci.webanalyticstests.dictionary.pages.DictTermsEsLoad_Test" />
 			<class name="gov.nci.webanalyticstests.dictionary.pages.DictPopupLoad_Test" />
 
 			<!-- CTHP tracking -->
