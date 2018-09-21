@@ -11,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import gov.nci.Utilities.ScrollUtil;
+import gov.nci.framework.ElementChange;
 import gov.nci.framework.PageObjectBase;
 
 public class PdqRightNav extends PageObjectBase {
@@ -71,4 +72,18 @@ public class PdqRightNav extends PageObjectBase {
 		section.click();
 	}
 
+	/**
+	 * Click on a given section baed on text value.
+	 * 
+	 * @param text
+	 */
+	public void clickSectionNoNav(String text) {
+		WebElement section = getSection(text);
+		ScrollUtil.scrollIntoview(driver, section);
+		
+		ElementChange.removeHref(driver, ".pdq-toptoc a");
+		
+		section.click();
+	}
+	
 }
