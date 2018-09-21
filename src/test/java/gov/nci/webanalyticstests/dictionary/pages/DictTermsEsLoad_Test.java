@@ -10,34 +10,28 @@ import org.testng.Assert;
 
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class DictPopupLoad_Test extends DictionaryBase {
+public class DictTermsEsLoad_Test extends DictionaryBase {
 
 	private AnalyticsPageLoad analyticsPageLoad;
 	private String testDataFilePath;
-	private final String TESTDATA_SHEET_NAME = "DictionaryPopup";
+	private final String TESTDATA_SHEET_NAME = "TermsSpanish";
 
 	@BeforeClass(groups = { "Analytics" })
 	public void setup() {
 		testDataFilePath = config.getProperty("AnalyticsDictData");
 	}
 
-	@Test(dataProvider = "DictionaryPopupLoad", groups = { "Analytics" })
+	@Test(dataProvider = "DictionarySpanishLoad", groups = { "Analytics" })
 	public void testDictionaryPageLoad(String path, String contentType) {
 		try {
-			System.out.println("Test popup at " + path + ":");
+			System.out.println("Test Spanish Term Dictionary at " + path + ":");
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			Beacon beacon = getBeacon();
 
-			Assert.assertTrue(beacon.hasEvent(1), "Expected event1");
-			Assert.assertEquals(beacon.props.get(7), "patient");
-			Assert.assertTrue(beacon.hasEvent(11), "Expected event11");
-			Assert.assertTrue(beacon.hasEvent(47), "Expected event47=");
-			Assert.assertEquals(beacon.props.get(8), analyticsPageLoad.getLanguageName());
-			Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));
-			Assert.assertEquals(beacon.eVars.get(7), beacon.props.get(7));
+			path = getDictionaryPath(path);
+			doCommonLoadAssertions(beacon, analyticsPageLoad, path);
 			logger.log(LogStatus.PASS, contentType + " load values are correct.");
 		} catch (Exception e) {
 			Assert.fail("Error loading " + contentType);
@@ -45,7 +39,7 @@ public class DictPopupLoad_Test extends DictionaryBase {
 		}
 	}
 
-	@DataProvider(name = "DictionaryPopupLoad")
+	@DataProvider(name = "DictionarySpanishLoad")
 	public Iterator<Object[]> getDictionaryPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}

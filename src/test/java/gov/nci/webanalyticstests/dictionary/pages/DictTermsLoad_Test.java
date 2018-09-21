@@ -12,7 +12,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class DictTermsLoad_Test extends AnalyticsTestLoadBase {
+public class DictTermsLoad_Test extends DictionaryBase {
 
 	/**
 	 * The following page / content types are covered by this test class:
@@ -65,24 +65,5 @@ public class DictTermsLoad_Test extends AnalyticsTestLoadBase {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
 	
-	/**
-	 * Clean up paths for expected dictionary analytics values
-	 * @param path
-	 * @return
-	 */
-	private String getDictionaryPath(String path) {
-		if(path.contains("/def/")) {
-			return path.split("/def/")[0];
-		}
-		else if(path.contains("/search?")) {
-			return path.split("/search?")[0];
-		}
-		else if(path.contains("?")) {
-			return path.split("\\?")[0];
-		}
-		else {
-			return path;
-		}
-	}
 	
 }
