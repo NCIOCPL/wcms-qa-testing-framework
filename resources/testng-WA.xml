@@ -50,8 +50,10 @@
 
 			<!-- Dictionary tracking -->
 			<class name="gov.nci.webanalyticstests.dictionary.pages.DictDefinitionLoad_Test" />
-			<class name="gov.nci.webanalyticstests.dictionary.pages.DictTermsLoad_Test" />
+			<class name="gov.nci.webanalyticstests.dictionary.pages.DictTermsEnLoad_Test" />
 			<class name="gov.nci.webanalyticstests.dictionary.pages.DictTermsEsLoad_Test" />
+			<class name="gov.nci.webanalyticstests.dictionary.pages.DictDrugsLoad_Test" />
+			<class name="gov.nci.webanalyticstests.dictionary.pages.DictGeneticsLoad_Test" />
 			<class name="gov.nci.webanalyticstests.dictionary.pages.DictPopupLoad_Test" />
 
 			<!-- CTHP tracking -->

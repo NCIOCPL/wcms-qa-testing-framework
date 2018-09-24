@@ -11,21 +11,21 @@ import org.testng.Assert;
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 
-public class DictDrugsLoad_Test extends DictionaryBase {
+public class DictGeneticsLoad_Test extends DictionaryBase {
 
 	private AnalyticsPageLoad analyticsPageLoad;
 	private String testDataFilePath;
-	private final String TESTDATA_SHEET_NAME = "TermsDrugs";
+	private final String TESTDATA_SHEET_NAME = "TermsGenetics";
 
 	@BeforeClass(groups = { "Analytics" })
 	public void setup() {
 		testDataFilePath = config.getProperty("AnalyticsDictData");
 	}
 
-	@Test(dataProvider = "DictionaryDrugsLoad", groups = { "Analytics" })
-	public void testDrugDictionaryPageLoad(String path, String contentType) {
+	@Test(dataProvider = "DictionaryGeneticsLoad", groups = { "Analytics" })
+	public void testGeneticsDictionaryPageLoad(String path, String contentType) {
 		try {
-			System.out.println("Test Drugs Term Dictionary at " + path + ":");
+			System.out.println("Test Genetics Term Dictionary at " + path + ":");
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			Beacon beacon = getBeacon();
@@ -39,7 +39,7 @@ public class DictDrugsLoad_Test extends DictionaryBase {
 		}
 	}
 
-	@DataProvider(name = "DictionaryDrugsLoad")
+	@DataProvider(name = "DictionaryGeneticsLoad")
 	public Iterator<Object[]> getDictionaryPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}

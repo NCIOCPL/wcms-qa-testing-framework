@@ -23,6 +23,16 @@ public class DictDefinitionLoad_Test extends DictionaryBase {
 		testDataFilePath = config.getProperty("AnalyticsDictData");
 	}
 
+	// TODO: genetics/drug defintiions
+	// TODO: pageload from dictionary search
+	// TODO: handle prop/eVar16 logic:
+	// TODO: prop / evar16
+	/***
+	 * Other values needed:
+		prop16 / eVar 16:
+		<dictionary type>|<language>|<term>|<id>
+	 */
+	
 	@Test(dataProvider = "DefinitionData", groups = { "Analytics" })
 	public void testDictionaryDefinitionLoad(String path, String contentType, String dat) {
 		try {
