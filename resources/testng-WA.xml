@@ -62,8 +62,9 @@
 			<class name="gov.nci.webanalyticstests.cthp.common.CthpCardClick_Test" />
 
 			<!-- PDQ tracking -->
-			<class name="gov.nci.webanalyticstests.pdq.pages.PdqClick_Test" />
-			<class name="gov.nci.webanalyticstests.pdq.pages.PdqLoad_Test" />
+			<class name="gov.nci.webanalyticstests.pdq.pages.PdqCisClick_Test" />
+			<class name="gov.nci.webanalyticstests.pdq.pages.PdqCisLoad_Test" />
+			<class name="gov.nci.webanalyticstests.pdq.pages.PdqDrugLoad_Test" />
 
 			<!-- Common component tracking -->
 			<class name="gov.nci.webanalyticstests.commonobjects.CardClick_Test" />
