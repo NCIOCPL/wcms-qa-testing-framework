@@ -32,15 +32,14 @@ public class AdvancedSearchLoad_Test extends AnalyticsTestLoadBase {
 			Assert.assertEquals(beacon.eVars.get(62), beacon.props.get(62));
 			logger.log(LogStatus.PASS, type + " page load values passed.");
 		} catch (Exception e) {
-			Assert.fail("Error loading " + type + " page load values.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error loading page in " + currMethod + "()");
 		}
 	}
 
 	/**
 	 * Get an iterator data object with path and search type Strings.
-	 * 
-	 * @return
 	 */
 	@DataProvider(name = "AdvancedSearchPage")
 	public Iterator<Object[]> getPathTypeData() {
