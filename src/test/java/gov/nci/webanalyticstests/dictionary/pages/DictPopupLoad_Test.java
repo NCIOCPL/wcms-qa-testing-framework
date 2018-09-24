@@ -24,7 +24,7 @@ public class DictPopupLoad_Test extends DictionaryBase {
 	}
 
 	@Test(dataProvider = "DictionaryPopupLoad", groups = { "Analytics" })
-	public void testDictionaryPageLoad(String path, String contentType) {
+	public void testDictionaryPopupLoad(String path, String contentType) {
 		try {
 			System.out.println("Test popup at " + path + ":");
 			driver.get(config.goHome() + path);

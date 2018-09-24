@@ -12,7 +12,7 @@ import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class DictTermsLoad_Test extends DictionaryBase {
+public class DictDrugsLoad_Test extends DictionaryBase {
 
 	/**
 	 * The following page / content types are covered by this test class:
@@ -41,7 +41,7 @@ public class DictTermsLoad_Test extends DictionaryBase {
 	
 	/// Dictionary page loads return expected values
 	@Test(dataProvider = "DictionaryPageLoad", groups = { "Analytics" })
-	public void testDictionaryPageLoad(String path, String contentType) {
+	public void testDrugDictionaryPageLoad(String path, String contentType) {
 		try {
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);

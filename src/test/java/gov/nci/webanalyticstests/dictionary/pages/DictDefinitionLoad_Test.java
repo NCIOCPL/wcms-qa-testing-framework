@@ -24,9 +24,9 @@ public class DictDefinitionLoad_Test extends DictionaryBase {
 	}
 
 	@Test(dataProvider = "DefinitionData", groups = { "Analytics" })
-	public void testDictionaryPageLoad(String path, String contentType, String dat) {
+	public void testDictionaryDefinitionLoad(String path, String contentType, String dat) {
 		try {
-			System.out.println("Test Spanish Term Dictionary at " + path + ":");
+			System.out.println("Test definition at " + path + ":");
 			driver.get(config.goHome() + path);
 			analyticsPageLoad = new AnalyticsPageLoad(driver);
 			Beacon beacon = getBeacon();
@@ -53,7 +53,7 @@ public class DictDefinitionLoad_Test extends DictionaryBase {
 	public Iterator<Object[]> getRightNavData() {
 		ExcelManager excelReader = new ExcelManager(testDataFilePath);
 		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 8; rowNum <= excelReader.getRowCount("Definitions"); rowNum++) {
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount("Definitions"); rowNum++) {
 			String path = excelReader.getCellData("Definitions", "Path", rowNum);
 			String sectionName = excelReader.getCellData("Definitions", "DictionaryType", rowNum);
 			String pageDetail = excelReader.getCellData("Definitions", "CDRData", rowNum);
