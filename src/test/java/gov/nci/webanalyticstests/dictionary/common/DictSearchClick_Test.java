@@ -1,107 +1,122 @@
 package gov.nci.webanalyticstests.dictionary.common;
 
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
-import gov.nci.commonobjects.Card;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import gov.nci.Utilities.ExcelManager;
 import gov.nci.dictionary.DictObjectBase;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
 public class DictSearchClick_Test extends AnalyticsTestClickBase {
 
-	String pathTermsEn = "/publications/dictionaries/cancer-terms";
-	String pathTermsEs = "/espanol/publicaciones/diccionario";
-	String pathDrug = "/publications/dictionaries/cancer-drug";
-	String pathGenetics = "/publications/dictionaries/genetics-dictionary";
+	private String testDataFilePath;
+	private final String SEARCH_SELECTOR = ".dictionary-search-input";
 
-	private Beacon beacon;
-	private Actions action;
-	private String currentUrl;
+	@BeforeClass(groups = { "Analytics" })
+	public void setup() {
+		testDataFilePath = config.getProperty("AnalyticsDictData");
+	}
 
-//	TermsDictionarySearch
-//	event2
-//
-//		D=pev1
-//	prop8
-//	english
-//	prop11
-//	dictionary_terms
-//	prop22
-//	breast
-//	prop24
-//	starts with
-//
-//	eVar11
-//	dictionary_terms
-//	eVar13
-//	+1
-//	eVar26
-//	starts with
-	
-	
-	@Test(groups = { "Analytics" })
-	public void testCancerTermsEnStartsSearch() {
-		String curMethod = new Object(){}.getClass().getEnclosingMethod().getName();		
-		System.out.println("Cancer Terms English Search click: ");
-		
+	@Test(dataProvider = "SearchClickData", groups = { "Analytics" })
+	public void testTermSearchStartsWithClick(String path, String term, String searchType, String linkName) {
+		String curMethod = new Object() {
+		}.getClass().getEnclosingMethod().getName();
+		System.out.println(linkName + " starts with '" + term + "':");
+		driver.get(config.goHome() + path);
+
 		try {
-			driver.get(config.goHome() + pathTermsEn);
 			DictObjectBase dict = new DictObjectBase(driver);
-			dict.SubmitSearchTerm(".dictionary-search-input", "breast");
+			dict.SubmitSearchTerm(SEARCH_SELECTOR, term);
 			Beacon beacon = getBeacon();
-			
+
 			doCommonClickAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(2));
-			Assert.assertEquals(beacon.linkName, "TermsDictionarySearch");
-			Assert.assertEquals(beacon.props.get(11), "dictionary_terms");
-			Assert.assertEquals(beacon.props.get(8), "english");
+			Assert.assertEquals(beacon.linkName, linkName);
+			Assert.assertEquals(beacon.props.get(11), searchType);
+			Assert.assertEquals(beacon.props.get(22), term);
+			Assert.assertEquals(beacon.props.get(24), "starts with");
+			Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));
+			Assert.assertTrue(beacon.eVars.get(13).matches("^[+]\\d$"), "eVar13 regex mismatch");
+			Assert.assertEquals(beacon.eVars.get(26), beacon.props.get(24));
 		} catch (Exception ex) {
 			Assert.fail("Error clicking element in " + curMethod + "()");
 		}
 
 	}
 
-	@Test(groups = { "Analytics" })
-	public void testCancerTermsEnContainsSearch() {
-		String curMethod = new Object(){}.getClass().getEnclosingMethod().getName();		
-		System.out.println("Cancer Terms English Search click: ");
-		
+	@Test(dataProvider = "SearchClickData", groups = { "Analytics" })
+	public void testTermSearchContainsClick(String path, String term, String searchType, String linkName) {
+		String curMethod = new Object() {
+		}.getClass().getEnclosingMethod().getName();
+		System.out.println(linkName + " contains '" + term + "':");
+		driver.get(config.goHome() + path);
+
 		try {
-			driver.get(config.goHome() + pathTermsEn);
 			DictObjectBase dict = new DictObjectBase(driver);
 			dict.selectContains();
-			dict.SubmitSearchTerm(".dictionary-search-input", "breast");
+			dict.SubmitSearchTerm(SEARCH_SELECTOR, term);
 			Beacon beacon = getBeacon();
-			
+
 			doCommonClickAssertions(beacon);
-			Assert.assertEquals(beacon.props.get(11),  "dictionary_terms");
-			Assert.assertEquals(beacon.props.get(8), beacon.eVars.get(2));
+			Assert.assertTrue(beacon.hasEvent(2));
+			Assert.assertEquals(beacon.linkName, linkName);
+			Assert.assertEquals(beacon.props.get(11), searchType);
+			Assert.assertEquals(beacon.props.get(22), term);
+			Assert.assertEquals(beacon.props.get(24), "contains");
+			Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));
+			Assert.assertTrue(beacon.eVars.get(13).matches("^[+]\\d$"), "eVar13 regex mismatch");
+			Assert.assertEquals(beacon.eVars.get(26), beacon.props.get(24));
 		} catch (Exception ex) {
 			Assert.fail("Error clicking element in " + curMethod + "()");
 		}
 
 	}
-	/**
-	 * Shared Assert() calls for CardClick_Test
-	 * 
-	 * @param cardTitle
-	 * @param linkText
-	 * @param typePosition
-	 *            formatted as cardType:positionNumber
-	 */
-	private void doCommonClassAssertions(String cardTitle, String linkText, String typePosition) {
-		String testPath = beacon.props.get(60);
 
-		doCommonClickAssertions(beacon);
-		Assert.assertTrue(beacon.hasEvent(27));
-		Assert.assertEquals(beacon.linkName, "FeatureCardClick");
-		Assert.assertEquals(beacon.props.get(57).trim(), cardTitle.trim());
-		Assert.assertEquals(beacon.props.get(58).trim(), linkText.trim());
-		Assert.assertEquals(beacon.props.get(59), typePosition);
-		Assert.assertTrue(currentUrl.contains(testPath.substring(testPath.indexOf("cancer.gov"))));
+	@Test(dataProvider = "SearchClickData", groups = { "Analytics" })
+	public void testTermRankedResultsClick(String path, String term, String searchType, String linkName) {
+		String curMethod = new Object() {
+		}.getClass().getEnclosingMethod().getName();
+		System.out.println("Test " + path + " results click: ");
+		driver.get(config.goHome() + path);
+
+		try {
+			DictObjectBase dict = new DictObjectBase(driver);
+			dict.clickSearchResult("dfn a", 2);
+			Beacon beacon = getBeacon();
+
+			doCommonClickAssertions(beacon);
+			Assert.assertTrue(beacon.linkName.contains("DictionaryResults"));
+			Assert.assertEquals(beacon.props.get(13), "3");
+		} catch (Exception ex) {
+			Assert.fail("Error clicking element in " + curMethod + "()");
+		}
+
+	}
+
+	/**
+	 * Get an iterator data object with path, term, and expected test values.
+	 * 
+	 * @return path, search term, search type, linkname
+	 */
+	@DataProvider(name = "SearchClickData")
+	public Iterator<Object[]> getSearchClickData() {
+		ExcelManager excelReader = new ExcelManager(testDataFilePath);
+		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount("SearchTerms"); rowNum++) {
+			String path = excelReader.getCellData("SearchTerms", "Path", rowNum);
+			String term = excelReader.getCellData("SearchTerms", "SearchTerm", rowNum);
+			String type = excelReader.getCellData("SearchTerms", "SearchType", rowNum);
+			String name = excelReader.getCellData("SearchTerms", "LinkName", rowNum);
+			Object ob[] = { path, term, type, name };
+			myObjects.add(ob);
+		}
+		return myObjects.iterator();
 	}
 
 }
