@@ -32,7 +32,7 @@ public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 	
 	@BeforeClass(groups = { "Analytics" }) 
 	public void setup() {
-		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
+		testDataFilePath = config.getProperty("AnalyticsCTSData");
 	}
 	
 	@Test(dataProvider = "DiseaseListingPage", groups = { "Analytics" })
