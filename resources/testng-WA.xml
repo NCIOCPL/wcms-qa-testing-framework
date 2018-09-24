@@ -55,6 +55,7 @@
 			<class name="gov.nci.webanalyticstests.dictionary.pages.DictDrugsLoad_Test" />
 			<class name="gov.nci.webanalyticstests.dictionary.pages.DictGeneticsLoad_Test" />
 			<class name="gov.nci.webanalyticstests.dictionary.pages.DictPopupLoad_Test" />
+			<class name="gov.nci.webanalyticstests.dictionary.common.DictSearchClick_Test" />
 
 			<!-- CTHP tracking -->
 			<class name="gov.nci.webanalyticstests.cthp.pages.CthpLoad_Test" />

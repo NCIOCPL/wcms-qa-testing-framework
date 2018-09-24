@@ -23,16 +23,6 @@ public class DictDefinitionLoad_Test extends DictionaryBase {
 		testDataFilePath = config.getProperty("AnalyticsDictData");
 	}
 
-	// TODO: genetics/drug defintiions
-	// TODO: pageload from dictionary search
-	// TODO: handle prop/eVar16 logic:
-	// TODO: prop / evar16
-	/***
-	 * Other values needed:
-		prop16 / eVar 16:
-		<dictionary type>|<language>|<term>|<id>
-	 */
-	
 	@Test(dataProvider = "DefinitionData", groups = { "Analytics" })
 	public void testDictionaryDefinitionLoad(String path, String contentType, String dat) {
 		try {
@@ -52,12 +42,10 @@ public class DictDefinitionLoad_Test extends DictionaryBase {
 		}
 	}
 
-
-	// TODO: populate the rest of the data!!
 	/**
 	 * Get an iterator data object with path, section, and page detail values.
 	 * 
-	 * @return a path and section string
+	 * @return path, type, and expected CDR data for testing
 	 */
 	@DataProvider(name = "DefinitionData")
 	public Iterator<Object[]> getRightNavData() {
@@ -65,9 +53,9 @@ public class DictDefinitionLoad_Test extends DictionaryBase {
 		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
 		for (int rowNum = 2; rowNum <= excelReader.getRowCount("Definitions"); rowNum++) {
 			String path = excelReader.getCellData("Definitions", "Path", rowNum);
-			String sectionName = excelReader.getCellData("Definitions", "DictionaryType", rowNum);
-			String pageDetail = excelReader.getCellData("Definitions", "CDRData", rowNum);
-			Object ob[] = { path, sectionName, pageDetail };
+			String type = excelReader.getCellData("Definitions", "DictionaryType", rowNum);
+			String cdr = excelReader.getCellData("Definitions", "CDRData", rowNum);
+			Object ob[] = { path, type, cdr };
 			myObjects.add(ob);
 		}
 		return myObjects.iterator();
