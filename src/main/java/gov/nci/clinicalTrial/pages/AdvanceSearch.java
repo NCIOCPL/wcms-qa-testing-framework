@@ -510,4 +510,20 @@ public class AdvanceSearch extends ClinicalTrialPageObjectBase {
 		defaultSearch();
 	}
 
+	/* Fill out the zipcode field without submitting */
+	public void enterZipCode(String zip) {
+		ScrollUtil.scrollIntoview(driver, lgd_location);
+		rbtn_zipcode.click();
+		txt_zipcode.click();
+		txt_zipcode.clear();
+		txt_zipcode.sendKeys(zip);
+	}
+	
+	/* Click a given input element based on its selector */
+	public void clickSelectedInput(String selector) {
+		WebElement inputElement = driver.findElement(By.cssSelector("input" + selector));
+		ScrollUtil.scrollIntoview(driver, inputElement);
+		inputElement.click();
+	}
+
 }
