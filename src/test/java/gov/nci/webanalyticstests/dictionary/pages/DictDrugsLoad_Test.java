@@ -15,7 +15,7 @@ public class DictDrugsLoad_Test extends DictionaryBase {
 
 	private AnalyticsPageLoad analyticsPageLoad;
 	private String testDataFilePath;
-	private final String TESTDATA_SHEET_NAME = "TermsDrugs";
+	private final String TESTDATA_SHEET_NAME = "TermsPageDrugs";
 
 	@BeforeClass(groups = { "Analytics" })
 	public void setup() {

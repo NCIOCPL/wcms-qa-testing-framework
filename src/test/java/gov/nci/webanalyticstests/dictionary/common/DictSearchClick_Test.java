@@ -21,14 +21,58 @@ public class DictSearchClick_Test extends AnalyticsTestClickBase {
 	private Actions action;
 	private String currentUrl;
 
+//	TermsDictionarySearch
+//	event2
+//
+//		D=pev1
+//	prop8
+//	english
+//	prop11
+//	dictionary_terms
+//	prop22
+//	breast
+//	prop24
+//	starts with
+//
+//	eVar11
+//	dictionary_terms
+//	eVar13
+//	+1
+//	eVar26
+//	starts with
+	
+	
 	@Test(groups = { "Analytics" })
-	public void testCancerTermsEnglishSearchClick() {
+	public void testCancerTermsEnStartsSearch() {
 		String curMethod = new Object(){}.getClass().getEnclosingMethod().getName();		
 		System.out.println("Cancer Terms English Search click: ");
 		
 		try {
 			driver.get(config.goHome() + pathTermsEn);
 			DictObjectBase dict = new DictObjectBase(driver);
+			dict.SubmitSearchTerm(".dictionary-search-input", "breast");
+			Beacon beacon = getBeacon();
+			
+			doCommonClickAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(2));
+			Assert.assertEquals(beacon.linkName, "TermsDictionarySearch");
+			Assert.assertEquals(beacon.props.get(11), "dictionary_terms");
+			Assert.assertEquals(beacon.props.get(8), "english");
+		} catch (Exception ex) {
+			Assert.fail("Error clicking element in " + curMethod + "()");
+		}
+
+	}
+
+	@Test(groups = { "Analytics" })
+	public void testCancerTermsEnContainsSearch() {
+		String curMethod = new Object(){}.getClass().getEnclosingMethod().getName();		
+		System.out.println("Cancer Terms English Search click: ");
+		
+		try {
+			driver.get(config.goHome() + pathTermsEn);
+			DictObjectBase dict = new DictObjectBase(driver);
+			dict.selectContains();
 			dict.SubmitSearchTerm(".dictionary-search-input", "breast");
 			Beacon beacon = getBeacon();
 			
@@ -40,7 +84,6 @@ public class DictSearchClick_Test extends AnalyticsTestClickBase {
 		}
 
 	}
-
 	/**
 	 * Shared Assert() calls for CardClick_Test
 	 * 

@@ -15,7 +15,7 @@ public class DictTermsEsLoad_Test extends DictionaryBase {
 
 	private AnalyticsPageLoad analyticsPageLoad;
 	private String testDataFilePath;
-	private final String TESTDATA_SHEET_NAME = "TermsSpanish";
+	private final String TESTDATA_SHEET_NAME = "TermsPageSpanish";
 
 	@BeforeClass(groups = { "Analytics" })
 	public void setup() {
