@@ -1,8 +1,12 @@
 package gov.nci.webanalyticstests.clinicaltrial.pages;
 
 import com.relevantcodes.extentreports.LogStatus;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import gov.nci.webanalytics.AnalyticsPageLoad;
 import gov.nci.webanalytics.Beacon;
@@ -13,30 +17,41 @@ public class BasicSearchLoad_Test extends AnalyticsTestLoadBase {
 	/**
 	 * This test class covers Clinical Trial Basic Search pages
 	 */
-	
-	private final String BASIC_PATH = "/about-cancer/treatment/clinical-trials/search";
-	private final String BASIC_CONTENT_TYPE = "Clinical Trials: Basic";
 
-	private AnalyticsPageLoad analyticsPageLoad;
-	private Beacon beacon;
-	
-	@Test(groups = { "Analytics" })
-	public void testCTSBasicSearchPageLoad() {
+	@Test(dataProvider = "BasicSearchPage", groups = { "Analytics" })
+	public void testCTSAdvancedSearchPageLoad(String path, String type) {
+		System.out.println("Test " + type + " page load:");
+		driver.get(config.goHome() + path);
+
 		try {
-			driver.get(config.goHome() + BASIC_PATH);
-			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			System.out.println(BASIC_CONTENT_TYPE + " load event (" + analyticsPageLoad.getLanguageName() + "):");
-			beacon = getBeacon();
-			
-			doCommonLoadAssertions(beacon, analyticsPageLoad, BASIC_PATH);
-			Assert.assertEquals(beacon.props.get(62), BASIC_CONTENT_TYPE);
-			Assert.assertEquals(beacon.eVars.get(62), BASIC_CONTENT_TYPE);
-			logger.log(LogStatus.PASS, BASIC_CONTENT_TYPE + " load values are correct.");
-		}
-		catch (Exception e) {
-			Assert.fail("Error loading " + BASIC_CONTENT_TYPE);
+			AnalyticsPageLoad analyticsPageLoad = new AnalyticsPageLoad(driver);
+			Beacon beacon = getBeacon();
+
+			doCommonLoadAssertions(beacon, analyticsPageLoad, path);
+			Assert.assertEquals(beacon.props.get(62), type);
+			Assert.assertEquals(beacon.eVars.get(62), beacon.props.get(62));
+			logger.log(LogStatus.PASS, type + " page load values passed.");
+		} catch (Exception e) {
+			Assert.fail("Error loading " + type + " page load values.");
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Get an iterator data object with path and search type Strings.
+	 * 
+	 * @return
+	 */
+	@DataProvider(name = "BasicSearchPage")
+	public Iterator<Object[]> getPathTypeData() {
+		String path = "/about-cancer/treatment/clinical-trials/search";
+		String type = "Clinical Trials: Basic";
+
+		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
+		Object ob[] = { path, type };
+		myObjects.add(ob);
+
+		return myObjects.iterator();
+	}
+
 }
