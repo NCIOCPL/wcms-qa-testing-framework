@@ -59,18 +59,24 @@ public class Checkboxes extends PageObjectBase {
 		return checkboxes;
 	}
 
-	// document.querySelector('.cts-results-container input').checked = false
-	
 	/**
-	 * Uncheck all checkboxes on a page.
+	 * Check a checkbox at a given index.
 	 * 
-	 * @param driver
-	 *            A WebDriver instance representing the browser, currently
-	 *            displaying the page where the change will take place.
+	 * @param index
 	 */
 	public void checkCheckBox(int index) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("document.querySelectorAll('" + this.selector + "')[" + index + "].checked = true;");
+	}
+
+	/**
+	 * Uncheck a checkbox at a given index.
+	 * 
+	 * @param index
+	 */
+	public void uncheckCheckBox(int index) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("document.querySelectorAll('" + this.selector + "')[" + index + "].checked = false;");
 	}
 
 }

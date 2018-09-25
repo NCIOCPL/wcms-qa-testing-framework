@@ -87,7 +87,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Basic 'print one item' click event
-	//@Test(groups = { "Analytics" })
+	// @Test(groups = { "Analytics" }, priority = 1)
 	public void testPrintOneItem() {
 		System.out.println("Test Basic 'print one item' click event:");
 		setupTestMethod(BASIC_PAGE_1ST);
@@ -95,7 +95,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		try {
 			Checkboxes checkboxes = new Checkboxes(driver, ".cts-results-container input");
 			checkboxes.checkCheckBox(2);
-			
+
 			action.pause(3000);
 
 			searchResults.clickPrintButton();
@@ -113,12 +113,13 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	// @Test(groups = { "Analytics" }, priority = 3)
+	/// Test Basic 'print multiple items' click event
+	// @Test(groups = { "Analytics" })
 	public void testPrintMultiItems() {
+		System.out.println("Test Basic 'print multiple items' click event:");
+		setupTestMethod(BASIC_PAGE_1ST);
+
 		try {
-			System.out.println("Basic print one item click event:");
-			setupTestMethod(BASIC_PAGE_1ST);
-			searchResults.clearCheckBoxes();
 			searchResults.clickOnSelectAllCheckBox();
 			searchResults.clickPrintButton();
 			Beacon beacon = getBeacon();
@@ -127,15 +128,16 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.hasEvent(48));
 			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_1");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
-			logger.log(LogStatus.PASS, "Basic print one item click event passed.");
+			logger.log(LogStatus.PASS, "Test Basic 'print multiple items' click event passed.");
 		} catch (Exception e) {
-			Assert.fail("Error: Basic print one item click event.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
 
 	// @Test(groups = { "Analytics" }, priority = 4)
-	public void testPrintAllItems() {
+	public void testPrintAllItemsOnPage() {
 		try {
 			System.out.println("Basic print all items click event:");
 			setupTestMethod(BASIC_PAGE_1ST);
@@ -155,11 +157,13 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	// @Test(groups = { "Analytics" })
+	/// Test Basic result ranking click event
+	@Test(groups = { "Analytics" })
 	public void testBasicLinkRanking() {
+		System.out.println("Test Basic result ranking click event:");
+		setupTestMethod(BASIC_PAGE_2ND);
+
 		try {
-			System.out.println("Basic ranked result click event:");
-			setupTestMethod(BASIC_PAGE_2ND);
 			searchResults.clickResultLinkByIndex(0);
 			Beacon beacon = getBeacon();
 
@@ -168,10 +172,11 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(12), "clinicaltrials_basic");
 			Assert.assertEquals(beacon.props.get(13), "1|page 2");
 			Assert.assertEquals(beacon.props.get(12), beacon.eVars.get(12));
-			logger.log(LogStatus.PASS, "Basic ranked result click event passed.");
+			logger.log(LogStatus.PASS, "Test Basic result ranking click event passed.");
 		} catch (Exception e) {
-			Assert.fail("Error: Basic ranked result click event.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
 
