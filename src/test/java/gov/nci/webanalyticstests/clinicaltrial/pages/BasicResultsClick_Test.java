@@ -89,13 +89,13 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Basic 'print one item' click event
-	@Test(groups = { "Analytics" }, priority = 1)
+	// @Test(groups = { "Analytics" }, priority = 1)
 	public void testPrintOneItem() {
 		System.out.println("Test Basic 'print one item' click event:");
 		setupTestMethod(BASIC_PAGE_1ST);
 
 		try {
-			checkbox.clickCheckbox(2);
+			//checkbox.clickCheckbox(2);
 			searchResults.clickPrintButton();
 			Beacon beacon = getBeacon();
 

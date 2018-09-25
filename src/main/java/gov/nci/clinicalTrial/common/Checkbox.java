@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import gov.nci.Utilities.ScrollUtil;
 
@@ -59,27 +60,6 @@ public class Checkbox {
 	}
 
 	/**
-	 * Click a checkbox.
-	 * 
-	 * @param index
-	 */
-	public void clickCheckbox(int index) {
-		WebElement checkbox = getCheckbox(index);
-		ScrollUtil.scrollIntoview(browser, checkbox);
-		makeInputsVisible(index);
-		checkbox.click();
-	}
-
-	/**
-	 * Click the first checkbox in the collection.
-	 * 
-	 * @param index
-	 */
-	public void clickCheckbox() {
-		clickCheckbox(0);
-	}
-
-	/**
 	 * Uncheck all checkboxes on a page.
 	 */
 	public void uncheckAll() {
@@ -87,13 +67,4 @@ public class Checkbox {
 		js.executeScript("for(var checkboxes=document.getElementsByTagName('input'),x=0;x<checkboxes.length;x++)"
 				+ "'checkbox'==checkboxes[x].type&&(checkboxes[x].checked=!1);");
 	}
-
-	/**
-	 * Make any hidden input elements visible for testing.
-	 */
-	private void makeInputsVisible(int index) {
-		JavascriptExecutor js = (JavascriptExecutor) browser;
-		js.executeScript("document.querySelectorAll('input')[" + index + "].setAttribute('style', 'display:block;');");
-	}
-	
 }
