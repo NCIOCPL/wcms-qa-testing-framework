@@ -21,14 +21,14 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 	public void setupTestMethod() {
 		driver.get(config.getPageURL("AdvanceSearchPageURL"));
 		currentUrl = driver.getCurrentUrl();
-
+		
 		try {
 			// Create search page with chat prompt suppressed.
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			advancedSearch = new AdvanceSearch(driver, chatPrompt);
 		} catch (Exception e) {
-			advancedSearch = null;
-			logger.log(LogStatus.ERROR, "Error creating Advanced Search page.");
+			Assert.fail("Error loading Advanced CTS results url: " + currentUrl);
+			e.printStackTrace();
 		}
 	}
 

@@ -11,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import gov.nci.Utilities.ScrollUtil;
 import gov.nci.framework.ElementChange;
 
 public class AdvanceSearchResults extends ClinicalTrialPageObjectBase {
@@ -79,6 +80,7 @@ public class AdvanceSearchResults extends ClinicalTrialPageObjectBase {
 	}
 
 	public void clickPrintButton() {
+		ScrollUtil.scrollIntoview(driver, btn_Print);
 		btn_Print.click();
 	}
 

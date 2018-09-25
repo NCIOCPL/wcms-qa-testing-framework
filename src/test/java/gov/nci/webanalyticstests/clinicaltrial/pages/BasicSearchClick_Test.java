@@ -27,8 +27,8 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			basicSearch = new BasicSearch(driver, chatPrompt);
 		} catch (Exception e) {
-			basicSearch = null;
-			logger.log(LogStatus.ERROR, "Error creating Basic Search page.");
+			Assert.fail("Error loading Basic CTS results url: " + currentUrl);
+			e.printStackTrace();
 		}
 	}
 

@@ -15,18 +15,17 @@ public class AdvancedResultsClick_Test extends AnalyticsTestClickBase {
 	private final String ADVANCED_PAGE_1ST = "?rl=2";
 	private final String ADVANCED_PAGE_2ND = "?loc=0&rl=2&pn=2&ni=10";
 
-	// Don't see an existing BasicSearchResultsPage, so I'm reusing advanced for all
-	// instances
 	private AdvanceSearchResults searchResults;
 
 	/**
 	 * Navigate, suppress chat, create advancedSearch object for each test.
+	 * 
+	 * @param queryParams
 	 */
 	public void setupTestMethod(String queryParams) {
 		driver.get(config.goHome() + PATH + queryParams);
 
 		try {
-			// Create search page with chat prompt suppressed.
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			searchResults = new AdvanceSearchResults(driver, chatPrompt);
 		} catch (Exception e) {
@@ -86,7 +85,6 @@ public class AdvancedResultsClick_Test extends AnalyticsTestClickBase {
 	 */
 	private void doCommonClassAssertions(Beacon beacon) {
 		doCommonClickAssertions(beacon);
-		Assert.assertTrue(beacon.suites.length > 0);
 		Assert.assertEquals(beacon.channels, "About Cancer");
 		Assert.assertEquals(beacon.props.get(8), "english");
 		Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));
