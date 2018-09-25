@@ -20,6 +20,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 	// There is no "BasicSearchResults" page object class; so we're reusing
 	// AdvanceSearchResults for now
 	private AdvanceSearchResults searchResults;
+	private Checkbox checkbox;
 	private Actions action;
 
 	/**
@@ -33,7 +34,9 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		try {
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			searchResults = new AdvanceSearchResults(driver, chatPrompt);
-			searchResults.clearCheckBoxes();
+			checkbox = new Checkbox(driver, ".cts-results-container input");
+			checkbox.uncheckAll();
+
 			action = new Actions(driver);
 			action.pause(1000);
 		} catch (Exception ex) {
@@ -86,17 +89,13 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Basic 'print one item' click event
-	// @Test(groups = { "Analytics" }, priority = 1)
+	@Test(groups = { "Analytics" }, priority = 1)
 	public void testPrintOneItem() {
 		System.out.println("Test Basic 'print one item' click event:");
 		setupTestMethod(BASIC_PAGE_1ST);
 
 		try {
-			Checkbox checkboxes = new Checkbox(driver, ".cts-results-container input");
-			//checkboxes.checkCheckBox(2);
-
-			action.pause(3000);
-
+			checkbox.clickCheckbox(2);
 			searchResults.clickPrintButton();
 			Beacon beacon = getBeacon();
 
@@ -137,10 +136,10 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 
 	// @Test(groups = { "Analytics" }, priority = 4)
 	public void testPrintAllItemsOnPage() {
+		System.out.println("Basic print all items click event:");
+		setupTestMethod(BASIC_PAGE_1ST);
+
 		try {
-			System.out.println("Basic print all items click event:");
-			setupTestMethod(BASIC_PAGE_1ST);
-			searchResults.clearCheckBoxes();
 			searchResults.clickOnSelectAllCheckBox();
 			searchResults.clickPrintButton();
 			Beacon beacon = getBeacon();

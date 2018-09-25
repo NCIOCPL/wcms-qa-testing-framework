@@ -100,10 +100,6 @@ public class AdvanceSearchResults extends ClinicalTrialPageObjectBase {
 		System.out.println("Checkboxes: " + checkBoxes.get(1));
 	}
 	
-	public void clearCheckBoxes() {
-		ElementChange.uncheckAll(driver);
-	}
-	
 	public List<WebElement> getResultsLinks() {
 		System.out.println("First result link: " + lnk_resultLink.get(0).getText());
 		System.out.println("Number of result links: " + lnk_resultLink.size());
