@@ -15,9 +15,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 	private final String BASIC_PAGE_1ST = "?rl=1";
 	private final String BASIC_PAGE_2ND = "?loc=0&rl=1&pn=2&ni=10";	
 	
-	// Don't see an existing BasicSearchResultsPage, so I'm reusing advanced for all instances
 	private AdvanceSearchResults searchResults;
-	private Beacon beacon;
 		
 	@Test(groups = { "Analytics" })
 	public void testBasicStartOverClick() {
@@ -26,7 +24,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			setSearchResults(BASIC_PAGE_1ST);
 			// TODO: build utility function to stop nav
 			searchResults.clickStartOverNoNav();
-			beacon = getBeacon();
+			Beacon beacon = getBeacon();
 			
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(49));
@@ -45,7 +43,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			setSearchResults(BASIC_PAGE_1ST);
 			searchResults.clearCheckBoxes();
 			searchResults.clickPrintButton();
-			beacon = getBeacon();
+			Beacon beacon = getBeacon();
 			
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(41));
@@ -66,7 +64,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			searchResults.clearCheckBoxes();
 			searchResults.selectCheckboxByIndex(2);
 			searchResults.clickPrintButton();
-			beacon = getBeacon();
+			Beacon beacon = getBeacon();
 			
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(48));
@@ -87,7 +85,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			searchResults.clearCheckBoxes();
 			searchResults.clickOnSelectAllCheckBox();
 			searchResults.clickPrintButton();
-			beacon = getBeacon();
+			Beacon beacon = getBeacon();
 			
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(48));
@@ -108,7 +106,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			searchResults.clearCheckBoxes();
 			searchResults.clickOnSelectAllCheckBox();
 			searchResults.clickPrintButton();
-			beacon = getBeacon();
+			Beacon beacon = getBeacon();
 			
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(48));
@@ -127,7 +125,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			System.out.println("Basic ranked result click event:");
 			setSearchResults(BASIC_PAGE_2ND);
 			searchResults.clickResultLinkByIndex(0);
-			beacon = getBeacon();
+			Beacon beacon = getBeacon();
 						
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(42));
@@ -162,7 +160,6 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 	 */
 	private void doCommonClassAssertions(Beacon beacon) {
 		doCommonClickAssertions(beacon);
-		Assert.assertTrue(beacon.suites.length > 0);
 		Assert.assertEquals(beacon.channels, "About Cancer");
 		Assert.assertEquals(beacon.props.get(8), "english");
 		Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));
