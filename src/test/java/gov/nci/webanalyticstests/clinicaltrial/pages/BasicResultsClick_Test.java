@@ -8,7 +8,6 @@ import org.testng.Assert;
 import gov.nci.clinicalTrial.common.Checkbox;
 import gov.nci.clinicalTrial.pages.AdvanceSearchResults;
 import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
-import gov.nci.commonobjects.Checkboxes;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
@@ -93,8 +92,8 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BASIC_PAGE_1ST);
 
 		try {
-			Checkboxes checkboxes = new Checkboxes(driver, ".cts-results-container input");
-			checkboxes.checkCheckBox(2);
+			Checkbox checkboxes = new Checkbox(driver, ".cts-results-container input");
+			//checkboxes.checkCheckBox(2);
 
 			action.pause(3000);
 
