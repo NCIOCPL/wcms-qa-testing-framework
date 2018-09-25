@@ -14,10 +14,7 @@ import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
 public class AdvancedSearchLoad_Test extends AnalyticsTestLoadBase {
 
-	/**
-	 * This test class covers Clinical Trial Advanced Search pages
-	 */
-
+	/// Test CTS Advanced Search page load
 	@Test(dataProvider = "AdvancedSearchPage", groups = { "Analytics" })
 	public void testCTSAdvancedSearchPageLoad(String path, String type) {
 		System.out.println("Test " + type + " page load:");

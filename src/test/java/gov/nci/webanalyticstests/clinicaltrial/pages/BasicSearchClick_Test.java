@@ -1,15 +1,10 @@
 package gov.nci.webanalyticstests.clinicaltrial.pages;
 
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-
 import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-import gov.nci.clinicalTrial.pages.AdvanceSearch;
 import gov.nci.clinicalTrial.pages.BasicSearch;
 import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
 import gov.nci.webanalytics.Beacon;
@@ -245,19 +240,27 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	// TODO: fix Selenium TimeoutException on this test
-	// @Test(groups = { "Analytics" })
-	public void testBasicErrorSubmit() throws MalformedURLException, UnsupportedEncodingException {
-		System.out.println("CTS \"Error\" submit button click:");
-		basicSearch.setSearchZip("abcde");
-		basicSearch.clickSearchButton();
-//		beacon = getBeacon();
-//
-//		doCommonClassAssertions(beacon);
-//		Assert.assertTrue(beacon.hasEvent(41));
-//		Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
-//		Assert.assertEquals(beacon.props.get(75), "submit|attempted form submit with errors");
-		logger.log(LogStatus.PASS, "CTS \"Error\" submit button click passed.");
+	/// Test Basic CTS error message submit click event
+	@Test(groups = { "Analytics" })
+	public void testBasicErrorSubmit() {
+		System.out.println("Test Basic CTS error message submit click event:");
+		setupTestMethod();
+
+		try {
+			basicSearch.setSearchZip("abcde");
+			basicSearch.clickSelectedField(".btn-group input.submit");
+			Beacon beacon = getBeacon();
+
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(41));
+			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
+			Assert.assertEquals(beacon.props.get(75), "submit|attempted form submit with errors");
+			logger.log(LogStatus.PASS, "Test Basic CTS error message submit click event passed.");
+		} catch (Exception e) {
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
+		}
 	}
 
 	/**
