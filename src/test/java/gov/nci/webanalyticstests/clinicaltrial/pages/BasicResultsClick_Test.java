@@ -19,12 +19,11 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 	private final String PATH = "/about-cancer/treatment/clinical-trials/search/r";
 	private final String BASIC_PAGE_1ST = "?rl=1";
 	private final String BASIC_PAGE_2ND = "?loc=0&rl=1&pn=2&ni=10";
-	private final String CHECKBOX_SELECTOR = ".cts-results-container input";
+	private final String CHECKBOX_ITEM_SELECTOR = ".cts-results-container input";
 
 	// There is no "BasicSearchResults" page object class; so we're reusing
 	// AdvanceSearchResults for now
 	private AdvanceSearchResults searchResults;
-	private Checkbox checkbox;
 	private Actions action;
 
 	/**
@@ -38,8 +37,11 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		try {
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			searchResults = new AdvanceSearchResults(driver, chatPrompt);
-			checkbox = new Checkbox(driver, CHECKBOX_SELECTOR);
-			checkbox.uncheckAll();
+
+			// Clear checkboxes from previous session
+			Checkbox.uncheckAll(driver);
+			driver.manage().deleteAllCookies();
+			driver.navigate().refresh();
 
 			action = new Actions(driver);
 			action.pause(1000);
@@ -77,6 +79,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BASIC_PAGE_1ST);
 
 		try {
+			action.pause(2000);			
 			searchResults.clickPrintButton();
 			Beacon beacon = getBeacon();
 
@@ -99,7 +102,8 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BASIC_PAGE_1ST);
 
 		try {
-			List<String> attrList = searchResults.getFieldAttributeCollection(CHECKBOX_SELECTOR, "id");
+			List<String> attrList = searchResults.getFieldAttributeCollection(CHECKBOX_ITEM_SELECTOR, "id");
+			Checkbox checkbox = new Checkbox(driver, CHECKBOX_ITEM_SELECTOR);;
 			checkbox.checkCheckbox(attrList.get(1));
 			searchResults.clickPrintButton();
 			Beacon beacon = getBeacon();
@@ -115,24 +119,24 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
-	
-	
-	
 
 	/// Test Basic 'print multiple items' click event
-	// @Test(groups = { "Analytics" })
+	@Test(groups = { "Analytics" })
 	public void testPrintMultiItems() {
 		System.out.println("Test Basic 'print multiple items' click event:");
 		setupTestMethod(BASIC_PAGE_1ST);
 
 		try {
-			searchResults.clickOnSelectAllCheckBox();
+			List<String> attrList = searchResults.getFieldAttributeCollection(CHECKBOX_ITEM_SELECTOR, "id");
+			Checkbox checkbox = new Checkbox(driver, CHECKBOX_ITEM_SELECTOR);
+			checkbox.checkCheckbox(attrList.get(1));
+			checkbox.checkCheckbox(attrList.get(2));
 			searchResults.clickPrintButton();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(48));
-			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_1");
+			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_noselectall_2_1");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
 			logger.log(LogStatus.PASS, "Test Basic 'print multiple items' click event passed.");
 		} catch (Exception e) {
@@ -142,24 +146,28 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	// @Test(groups = { "Analytics" }, priority = 4)
+	/// Test Basic 'select all' print click event
+	// TODO: this method is making error, multiItems, and oneItem break
+	// @Test(groups = { "Analytics" })
 	public void testPrintAllItemsOnPage() {
-		System.out.println("Basic print all items click event:");
-		setupTestMethod(BASIC_PAGE_1ST);
+		System.out.println("Test Basic 'select all' print click event:");
+		setupTestMethod(BASIC_PAGE_2ND);
 
 		try {
+			Checkbox checkbox = new Checkbox(driver, CHECKBOX_ITEM_SELECTOR);
 			searchResults.clickOnSelectAllCheckBox();
 			searchResults.clickPrintButton();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(48));
-			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_1");
+			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_2");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
-			logger.log(LogStatus.PASS, "Basic print all items click event passed.");
+			logger.log(LogStatus.PASS, "Test Basic 'select all' print click event passed.");
 		} catch (Exception e) {
-			Assert.fail("Error: Basic print all items click event.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
 

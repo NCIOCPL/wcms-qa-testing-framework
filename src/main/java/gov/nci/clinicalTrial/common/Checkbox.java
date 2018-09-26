@@ -63,7 +63,7 @@ public class Checkbox {
 	/**
 	 * Uncheck all input elements on a page.
 	 */
-	public void uncheckAll() {
+	public static void uncheckAll(WebDriver browser) {
 		JavascriptExecutor js = (JavascriptExecutor) browser;
 		js.executeScript("for(var checkboxes=document.getElementsByTagName('input'),x=0;x<checkboxes.length;x++)"
 				+ "'checkbox'==checkboxes[x].type&&(checkboxes[x].checked=!1);");
