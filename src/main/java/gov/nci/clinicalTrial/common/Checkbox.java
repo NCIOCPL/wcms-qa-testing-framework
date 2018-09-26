@@ -66,6 +66,8 @@ public class Checkbox {
 	 * @return
 	 */
 	private WebElement getFromId(String id) {
+
+		
 		WebElement element = browser.findElement(By.cssSelector("#" + id));
 		return element;
 	}
@@ -77,11 +79,11 @@ public class Checkbox {
 		JavascriptExecutor javaScript = (JavascriptExecutor) browser;
 		javaScript.executeScript("var x=document.getElementById('NCI-2015-01918');x.style.display='inline';x.click();x.checked=true;");
 
+
 		Actions action = new Actions(browser);
 		action.pause(5000);
 
-		ScrollUtil.scrollIntoview(browser, element);
-		element.click();
+		//element.click();
 	}
 
 	/**
