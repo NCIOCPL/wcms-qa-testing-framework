@@ -1,5 +1,6 @@
 package gov.nci.clinicalTrial.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -34,29 +35,53 @@ public class Checkbox {
 	}
 
 	/**
-	 * Get a checkbox by index.
+	 * Get a collection of checkbox WebElements.
 	 * 
-	 * @param index
-	 * @return
+	 * @return list of checkbox WebElements
 	 */
-	private WebElement getCheckbox(int index) {
-		try {
-			WebElement checkbox = getCheckboxes().get(index);
-			return checkbox;
-		} catch (IndexOutOfBoundsException ex) {
-			System.out.println("Invalid arraylist index: " + index);
-			return null;
-		}
+	private List<WebElement> getCollection() {
+		List<WebElement> elements = browser.findElements(By.cssSelector(cssSelector));
+		return elements;
 	}
 
 	/**
-	 * Get a list of checkbox elements by selector.
+	 * Get a list of attribute values from the WebElements collection.
 	 * 
+	 * @param HTML attribute
 	 * @return
 	 */
-	private List<WebElement> getCheckboxes() {
-		List<WebElement> checkboxes = browser.findElements(By.cssSelector(cssSelector));
-		return checkboxes;
+	public List<String> getAttributeCollection(String attribute) {
+		List<String> attrList = new ArrayList<String>();
+		List<WebElement> elements = getCollection();
+		for (WebElement element : elements) {
+			attrList.add(element.getAttribute(attribute));
+		}
+		return attrList;
+	}
+
+	/**
+	 * Get a checkbox WebElement from the item's ID.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	private WebElement getFromId(String id) {
+		WebElement element = browser.findElement(By.cssSelector("#" + id));
+		return element;
+	}
+
+	
+	public void clickById(String id) {
+		WebElement element = getFromId(id);
+
+		JavascriptExecutor javaScript = (JavascriptExecutor) browser;
+		javaScript.executeScript("var x=document.getElementById('NCI-2015-01918');x.style.display='inline';x.click();x.checked=true;");
+
+		Actions action = new Actions(browser);
+		action.pause(5000);
+
+		ScrollUtil.scrollIntoview(browser, element);
+		element.click();
 	}
 
 	/**
