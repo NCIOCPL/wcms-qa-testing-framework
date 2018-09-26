@@ -32,16 +32,28 @@ public class ClinicalTrialPageObjectBase extends PageObjectBase {
 	}
 
 	/**
-	 * Click a given input element based on its selector.
+	 * Get a given input element based on its selector.
 	 * 
 	 * @param selector
 	 * @return
 	 */
-	public WebElement getSelectedField(String selector) {
+	private WebElement getSelectedField(String selector) {
 		WebElement element = browser.findElement(By.cssSelector(selector));
 		return element;
 	}
 
+	/**
+	 * Get an element attribute.
+	 * 
+	 * @param selector
+	 * @param attribute
+	 * @return
+	 */
+	public String getSelectedFieldAttribute(String selector, String attribute) {
+		WebElement element = getSelectedField(selector);
+		return element.getAttribute(attribute);
+	}
+	
 	/**
 	 * Click a given input element based on its selector.
 	 * 
