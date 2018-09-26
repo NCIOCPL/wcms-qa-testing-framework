@@ -35,63 +35,39 @@ public class Checkbox {
 	}
 
 	/**
-	 * Get a collection of checkbox WebElements.
-	 * 
-	 * @return list of checkbox WebElements
-	 */
-	private List<WebElement> getCollection() {
-		List<WebElement> elements = browser.findElements(By.cssSelector(cssSelector));
-		return elements;
-	}
-
-	/**
-	 * Get a list of attribute values from the WebElements collection.
-	 * 
-	 * @param HTML attribute
-	 * @return
-	 */
-	public List<String> getAttributeCollection(String attribute) {
-		List<String> attrList = new ArrayList<String>();
-		List<WebElement> elements = getCollection();
-		for (WebElement element : elements) {
-			attrList.add(element.getAttribute(attribute));
-		}
-		return attrList;
-	}
-
-	/**
-	 * Get a checkbox WebElement from the item's ID.
+	 * Javascript function to make checkbox visible and set checked=true.
 	 * 
 	 * @param id
-	 * @return
 	 */
-	private WebElement getFromId(String id) {
-
-		
-		WebElement element = browser.findElement(By.cssSelector("#" + id));
-		return element;
-	}
-
-	
-	public void clickById(String id) {
-		WebElement element = getFromId(id);
-
-		JavascriptExecutor javaScript = (JavascriptExecutor) browser;
-		javaScript.executeScript("var x=document.getElementById('NCI-2015-01918');x.style.display='inline';x.click();x.checked=true;");
-
-
+	public void checkCheckbox(String id) {
+		JavascriptExecutor js = (JavascriptExecutor) browser;
+		js.executeScript(
+				"var x=document.getElementById('" + id + "');x.style.display='inline';x.click();x.checked=true;");
 		Actions action = new Actions(browser);
-		action.pause(5000);
-
-		//element.click();
+		action.pause(500);
 	}
 
 	/**
-	 * Uncheck all checkboxes on a page.
+	 * Javascript function to make checkbox visible and set checked=false.
+	 * 
+	 * @param id
+	 */
+	public void uncheckCheckbox(String id) {
+		JavascriptExecutor js = (JavascriptExecutor) browser;
+		js.executeScript(
+				"var x=document.getElementById('" + id + "');x.style.display='inline';x.checked=false;");
+		Actions action = new Actions(browser);
+		action.pause(500);
+	}
+
+	/**
+	 * Uncheck all input elements on a page.
 	 */
 	public void uncheckAll() {
 		JavascriptExecutor js = (JavascriptExecutor) browser;
 		js.executeScript("for(var checkboxes=document.getElementsByTagName('input'),x=0;x<checkboxes.length;x++)"
 				+ "'checkbox'==checkboxes[x].type&&(checkboxes[x].checked=!1);");
+		Actions action = new Actions(browser);
+		action.pause(500);
 	}
 }

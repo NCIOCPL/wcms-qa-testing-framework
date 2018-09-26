@@ -2,6 +2,8 @@ package gov.nci.clinicalTrial.pages;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -74,5 +76,33 @@ public class ClinicalTrialPageObjectBase extends PageObjectBase {
 		setSelectedField(selector, value);
 		element.sendKeys(Keys.ENTER);
 	}
+	
+	/**
+	 * Get a collection of checkbox WebElements.
+	 * 
+	 * @param CSS selector
+	 * @return
+	 */
+	private List<WebElement> getFieldCollection(String selector) {
+		List<WebElement> elements = browser.findElements(By.cssSelector(selector));
+		return elements;
+	}
+
+	/**
+	 * Get a list of attribute values from the getFieldCollection() WebElements.
+	 * 
+	 * @param CSS selector
+	 * @param HTML attribute
+	 * @return
+	 */
+	public List<String> getFieldAttributeCollection(String selector, String attribute) {
+		List<String> attrList = new ArrayList<String>();
+		List<WebElement> elements = getFieldCollection(selector);
+		for (WebElement element : elements) {
+			attrList.add(element.getAttribute(attribute));
+		}
+		return attrList;
+	}
+
 	
 }
