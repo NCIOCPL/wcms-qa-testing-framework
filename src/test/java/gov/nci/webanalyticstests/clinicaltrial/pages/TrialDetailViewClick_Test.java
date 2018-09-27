@@ -180,11 +180,13 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			trialView.clickEmailLink();
+			Actions action = new Actions(driver);
+			action.pause(500).perform();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
 			Assert.assertEquals(beacon.linkName, "CTSLink");
-			Assert.assertEquals(beacon.channels, "About Cancer");			
+			Assert.assertEquals(beacon.channels, "About Cancer");
 			logger.log(LogStatus.PASS, "Test Trial View - 'email' click event passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
