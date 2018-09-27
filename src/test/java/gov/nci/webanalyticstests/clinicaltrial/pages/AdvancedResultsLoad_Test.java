@@ -76,11 +76,7 @@ public class AdvancedResultsLoad_Test extends AnalyticsTestLoadBase {
 	 * Get an iterator data object with path and content type Strings, filtered by a
 	 * given value and column.
 	 * 
-	 * @param testDataFilePath
-	 * @param sheetName
-	 * @param filterColumn
-	 * @param myFilter
-	 * @return
+	 * @return expected strings
 	 */
 	@DataProvider(name = "AdvancedResultsLoadData")
 	public Iterator<Object[]> getAdvancedResultsLoadData() {
@@ -107,7 +103,6 @@ public class AdvancedResultsLoad_Test extends AnalyticsTestLoadBase {
 	 * 
 	 * @param beacon
 	 * @param analyticsPageLoad
-	 * @param path
 	 */
 	private void doCommonClassAssertions(Beacon beacon, AnalyticsPageLoad analyticsPageLoad) {
 		doCommonLoadAssertions(beacon, analyticsPageLoad, PATH);
