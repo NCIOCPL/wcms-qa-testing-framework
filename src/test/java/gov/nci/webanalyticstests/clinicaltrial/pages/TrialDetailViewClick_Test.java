@@ -173,7 +173,7 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Trial View - 'email' click event
-	// @Test(groups = { "Analytics" })
+	@Test(dataProvider = "CustomViewFullPath", groups = { "Analytics" })
 	public void testTrialViewEmailClick(String fullPath) {
 		System.out.println("Test Trial View - 'email' click event:");
 		setupTestMethod(fullPath);
@@ -183,6 +183,8 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
+			Assert.assertEquals(beacon.linkName, "CTSLink");
+			Assert.assertEquals(beacon.channels, "About Cancer");			
 			logger.log(LogStatus.PASS, "Test Trial View - 'email' click event passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {

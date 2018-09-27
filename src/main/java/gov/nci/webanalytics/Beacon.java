@@ -10,28 +10,30 @@ import gov.nci.Utilities.ExcelManager;
 // Represents a single Adobe Analytics request beacon with query parameters
 public class Beacon extends AnalyticsRequest {
 	// TODO: Handle null exceptions in has() methods
-	// TODO: Create 'catch-all' Contains() method	
+	// TODO: Create 'catch-all' Contains() method
 	// TODO: Comments for uncommented methods
 	// TODO: Replace "contains' with "matches" where possible
 	// TODO: Refactor common key/var logic into util methods
-	
-	
+
 	// Constants
 	public static final String TRACKING_SERVER = "nci.122.2o7.net";
 	public static final String CGOV_PAGENAME = "www.cancer.gov";
 	protected static final String DATA_FILEPATH = "./test-data/webanalytics-suitemap.xlsx";
 	protected static final String DATA_SHEETNAME = "CancerGov";
-	
+
 	// Parameter values from URL
 	static final String CHANNEL = "ch";
 	static final String EVENTS = "events";
 	static final String LINKTYPE = "pe";
 	static final String LINKNAME = "pev2";
 	static final String LINKURL = "pev1";
-	static final String PAGETYPE = "pageType";
+	static final String PAGE_NAME = "pageName";
+	static final String PAGE_TYPE = "pageType";
 
-	// Partial parameter values. Each prop, eVar, and hier is its own query parameter.
-	// The getNumberedParams() method handles the logic of appending the number values
+	// Partial parameter values. Each prop, eVar, and hier is its own query
+	// parameter.
+	// The getNumberedParams() method handles the logic of appending the number
+	// values
 	// to each of these query parameter
 	static final String PROP_PARTIAL = "c";
 	static final String EVAR_PARTIAL = "v";
@@ -45,8 +47,8 @@ public class Beacon extends AnalyticsRequest {
 	public List<String> eVars; // eVars, aka "Conversion Variables"
 	public List<String> hiers; // Hierarchy variables
 	public String linkName;
-	public String pageType;
-	
+	public String pageName;
+
 	// This class represents an Adobe Analytics request beacon
 	public Beacon(String url) {
 		super(url);
@@ -59,13 +61,16 @@ public class Beacon extends AnalyticsRequest {
 		this.eVars = geteVarList();
 		this.hiers = getHierList();
 		this.linkName = getLinkName();
-		this.pageType = getPageType();
+		this.pageName = getPageName();
 	}
-	
-	/**************** Methods to check for given values in a beacon ****************/
-	
+
+	/****************
+	 * Methods to check for given values in a beacon
+	 ****************/
+
 	/**
 	 * Get an array of suites (s.account) values from the URL path.
+	 * 
 	 * @return suites (String[])
 	 */
 	private String[] getSuites() {
@@ -81,6 +86,7 @@ public class Beacon extends AnalyticsRequest {
 
 	/**
 	 * Get channel parameter value.
+	 * 
 	 * @return channel (String)
 	 */
 	private String getChannels() {
@@ -94,6 +100,7 @@ public class Beacon extends AnalyticsRequest {
 
 	/**
 	 * Get array of event values
+	 * 
 	 * @param parms
 	 * @return
 	 */
@@ -113,7 +120,7 @@ public class Beacon extends AnalyticsRequest {
 	 * @return
 	 */
 	private List<String> getPropList() {
-		List <String> rtn = getNumParams(PROP_PARTIAL, paramsList, 75);
+		List<String> rtn = getNumParams(PROP_PARTIAL, paramsList, 75);
 		return rtn;
 	}
 
@@ -122,7 +129,7 @@ public class Beacon extends AnalyticsRequest {
 	 * @return
 	 */
 	private List<String> geteVarList() {
-		List <String> rtn = getNumParams(EVAR_PARTIAL, paramsList, 75);
+		List<String> rtn = getNumParams(EVAR_PARTIAL, paramsList, 75);
 		return rtn;
 	}
 
@@ -131,12 +138,13 @@ public class Beacon extends AnalyticsRequest {
 	 * @return
 	 */
 	private List<String> getHierList() {
-		List <String> rtn = getNumParams(HIER_PARTIAL, paramsList, 2);
+		List<String> rtn = getNumParams(HIER_PARTIAL, paramsList, 2);
 		return rtn;
 	}
 
 	/**
 	 * Get "Link Type" value (pe)(
+	 * 
 	 * @return
 	 */
 	public String getLinkType() {
@@ -150,6 +158,7 @@ public class Beacon extends AnalyticsRequest {
 
 	/**
 	 * Get "Link Name" value (pev2)(
+	 * 
 	 * @return
 	 */
 	public String getLinkName() {
@@ -163,6 +172,7 @@ public class Beacon extends AnalyticsRequest {
 
 	/**
 	 * Get "Link URL" value (pev1)
+	 * 
 	 * @return
 	 */
 	public String getLinkUrl() {
@@ -181,29 +191,45 @@ public class Beacon extends AnalyticsRequest {
 	 */
 	public String getPageType() {
 		for (NameValuePair param : paramsList) {
-			if (param.getName().equalsIgnoreCase(PAGETYPE)) {
+			if (param.getName().equalsIgnoreCase(PAGE_TYPE)) {
 				return param.getValue().trim();
 			}
 		}
 		return "";
 	}
-	
+
+	/**
+	 * Get the Page Name param value (pageName).
+	 * 
+	 * @return string representing page name
+	 */
+	public String getPageName() {
+		for (NameValuePair param : paramsList) {
+			if (param.getName().equalsIgnoreCase(PAGE_NAME)) {
+				return param.getValue().trim();
+			}
+		}
+		return "";
+	}
+
 	/**
 	 * Check parameters to verify that this is a click-type event (s.tl).
+	 * 
 	 * @return boolean
 	 */
 	public boolean isClickTypeEvent() {
-		if(getLinkType().isEmpty() && getLinkName().isEmpty() && getLinkUrl().isEmpty()) {
+		if (getLinkType().isEmpty() && getLinkName().isEmpty() && getLinkUrl().isEmpty()) {
 			return false;
-		} else if(isExitClickTypeEvent() == true) {
+		} else if (isExitClickTypeEvent() == true) {
 			return false;
 		} else {
 			return true;
 		}
 	}
-	
+
 	/**
 	 * Check parameters to verify that this is an exit link click.
+	 * 
 	 * @return boolean
 	 */
 	public boolean isExitClickTypeEvent() {
@@ -218,18 +244,16 @@ public class Beacon extends AnalyticsRequest {
 	 */
 	public boolean hasEvent(int eventNumber) {
 		String evt = "event" + Integer.toString(eventNumber);
-		for(String event : this.getEvents()) {
-			if(evt.equalsIgnoreCase("event47")) {
-				if(event.matches("^event47=\\d+")) {
+		for (String event : this.getEvents()) {
+			if (evt.equalsIgnoreCase("event47")) {
+				if (event.matches("^event47=\\d+")) {
 					return true;
 				}
-			}
-			else if(evt.equalsIgnoreCase("event92")) {
-				if(event.matches("^event92=\\d+")) {
+			} else if (evt.equalsIgnoreCase("event92")) {
+				if (event.matches("^event92=\\d+")) {
 					return true;
 				}
-			}			
-			else if(event.equalsIgnoreCase(evt)) {
+			} else if (event.equalsIgnoreCase(evt)) {
 				return true;
 			}
 		}
@@ -238,6 +262,7 @@ public class Beacon extends AnalyticsRequest {
 
 	/**
 	 * Check for a suite (s_accout/s.account) string value in a Beacon object.
+	 * 
 	 * @param suite
 	 * @param currentUrl
 	 * @return
@@ -249,7 +274,8 @@ public class Beacon extends AnalyticsRequest {
 	}
 
 	/**
-	 * Given a suite name and environment, return corresponding suite name from the map.
+	 * Given a suite name and environment, return corresponding suite name from the
+	 * map.
 	 * 
 	 * @param mySuite
 	 * @param isProd
@@ -257,37 +283,41 @@ public class Beacon extends AnalyticsRequest {
 	 */
 	private String getMappedSuite(String mySuite, boolean isProd) {
 		String mappedSuite = "";
-		// The mapped suite name is pulled from the webanalytics-suitemap spreadsheet in test-data
+		// The mapped suite name is pulled from the webanalytics-suitemap spreadsheet in
+		// test-data
 		ExcelManager excelReader = new ExcelManager(DATA_FILEPATH);
 		String row = (isProd == true) ? "ProdSuite" : "DevSuite";
-		
+
 		for (int rowNum = 2; rowNum <= excelReader.getRowCount(DATA_SHEETNAME); rowNum++) {
 			String suiteOriginal = excelReader.getCellData(DATA_SHEETNAME, "Suite", rowNum);
-			if(suiteOriginal.equalsIgnoreCase(mySuite)) {
+			if (suiteOriginal.equalsIgnoreCase(mySuite)) {
 				mappedSuite = excelReader.getCellData(DATA_SHEETNAME, row, rowNum);
 				break;
 			}
 		}
-		return mappedSuite;		
+		return mappedSuite;
 	}
 
 	/******************** Utility methods ****************************************/
 
 	/**
 	 * Initialize a numbered list of empty elements.
+	 * 
 	 * @param size
 	 * @return rtnList List<String>
 	 */
 	private List<String> initNumberedArrayList(int size) {
 		List<String> myList = new ArrayList<String>();
-		while(myList.size() <= size) {
+		while (myList.size() <= size) {
 			myList.add(null);
 		}
 		return myList;
 	}
 
 	/**
-	 * Get a list of numbered parameters and their values (e.g. [prop1="www.cancer.gov", prop2="/home", prop3="NCI"])
+	 * Get a list of numbered parameters and their values (e.g.
+	 * [prop1="www.cancer.gov", prop2="/home", prop3="NCI"])
+	 * 
 	 * @param myParam
 	 * @param myList
 	 * @param total
@@ -297,13 +327,14 @@ public class Beacon extends AnalyticsRequest {
 		// Create a list with x names and null values
 		List<String> rtnList = initNumberedArrayList(total);
 
-		// Go through the list of populated parameter values and add those to the return list
+		// Go through the list of populated parameter values and add those to the return
+		// list
 		// where the number matches
-		for(NameValuePair pair : myList) {
+		for (NameValuePair pair : myList) {
 			String name = pair.getName();
 			String val = pair.getValue();
 			// Regex: parameter name followed by 1 or more digits, starting with 1-9 only
-			if(name.matches("^" + myParam + "[1-9]\\d*$")) {
+			if (name.matches("^" + myParam + "[1-9]\\d*$")) {
 				int index = Integer.parseInt(name.replace(myParam, ""));
 				rtnList.set(index, val);
 			}
@@ -313,6 +344,7 @@ public class Beacon extends AnalyticsRequest {
 
 	/**
 	 * Utility function to check for a user-specified variable and value
+	 * 
 	 * @param name
 	 * @param value
 	 * @return bool
