@@ -40,6 +40,8 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 			driver.get(config.goHome() + path);
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			trialView = new TrialDetailView(driver, chatPrompt);
+
+			driver.navigate().refresh();
 			Actions action = new Actions(driver);
 			action.pause(500).perform();
 		} catch (Exception ex) {
@@ -153,17 +155,20 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Trial View - 'Print' click event
-	// @Test(groups = { "Analytics" })
-	// TODO: escape print dialog
+	@Test(dataProvider = "CustomViewFullPath", groups = { "Analytics" })
 	public void testTrialViewPrintClick(String fullPath) {
 		System.out.println("Test Trial View - 'Print' click event:");
 		setupTestMethod(fullPath);
 
 		try {
 			trialView.clickPrintLink();
+			Actions action = new Actions(driver);
+			action.pause(500).perform();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
+			Assert.assertEquals(beacon.linkName, "CTSLink");
+			Assert.assertEquals(beacon.props.get(5), "print|" + beacon.pageName);
 			logger.log(LogStatus.PASS, "Test Trial View - 'Print' click event passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
@@ -186,7 +191,7 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 			doCommonClassAssertions(beacon);
 			Assert.assertEquals(beacon.linkName, "CTSLink");
-			Assert.assertEquals(beacon.channels, "About Cancer");
+			Assert.assertEquals(beacon.props.get(5), "email|" + beacon.pageName);
 			logger.log(LogStatus.PASS, "Test Trial View - 'email' click event passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {

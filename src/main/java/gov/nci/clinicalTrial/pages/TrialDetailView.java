@@ -92,9 +92,11 @@ public class TrialDetailView extends ClinicalTrialPageObjectBase {
 	}
 	
 	public void clickPrintLink() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;		
+		js.executeScript("window.print=function(){};");		
+
 		ScrollUtil.scrollIntoview(this.driver, lnk_print);
 		lnk_print.click();
-		action.keyDown(Keys.ESCAPE).perform();
 	}
 	
 	public void clickEmailLink() {
