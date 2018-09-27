@@ -26,6 +26,8 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 	private AdvanceSearchResults searchResults;
 	private Actions action;
 
+	// ==================== Setup methods ==================== //
+
 	/**
 	 * Navigate, suppress chat, create advancedSearch object for each test.
 	 * 
@@ -50,6 +52,8 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			ex.printStackTrace();
 		}
 	}
+
+	// ==================== Test methods ==================== //
 
 	/// Test Basic 'Start Over' click event
 	@Test(groups = { "Analytics" })
@@ -79,7 +83,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BASIC_PAGE_1ST);
 
 		try {
-			action.pause(2000);			
+			action.pause(2000);
 			searchResults.clickPrintButton();
 			Beacon beacon = getBeacon();
 
@@ -103,7 +107,8 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			List<String> attrList = searchResults.getFieldAttributeCollection(CHECKBOX_ITEM_SELECTOR, "id");
-			Checkbox checkbox = new Checkbox(driver, CHECKBOX_ITEM_SELECTOR);;
+			Checkbox checkbox = new Checkbox(driver, CHECKBOX_ITEM_SELECTOR);
+			;
 			checkbox.checkCheckbox(attrList.get(1));
 			searchResults.clickPrintButton();
 			Beacon beacon = getBeacon();
@@ -193,6 +198,8 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
+
+	// ==================== Common assertions ==================== //
 
 	/**
 	 * Shared Assert() calls for BasicResultsClick_Test

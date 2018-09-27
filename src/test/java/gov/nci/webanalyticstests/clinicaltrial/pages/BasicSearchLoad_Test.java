@@ -11,8 +11,10 @@ import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 public class BasicSearchLoad_Test extends AnalyticsTestLoadBase {
 
 	private final String PATH = "/about-cancer/treatment/clinical-trials/search";
-	private final String SEARCH_TYPE = "Clinical Trials: Basic";	
-	
+	private final String SEARCH_TYPE = "Clinical Trials: Basic";
+
+	// ==================== Test methods ==================== //
+
 	/// Test CTS Advanced Search page load
 	@Test(groups = { "Analytics" })
 	public void testCTSAdvancedSearchPageLoad() {

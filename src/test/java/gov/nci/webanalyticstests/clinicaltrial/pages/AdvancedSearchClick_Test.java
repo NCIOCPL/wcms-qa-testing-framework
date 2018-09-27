@@ -15,13 +15,15 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 	private AdvanceSearch advancedSearch;
 	private String currentUrl;
 
+	// ==================== Setup methods ==================== //
+
 	/**
 	 * Navigate, suppress chat, create advancedSearch object for each test.
 	 */
 	public void setupTestMethod() {
 		driver.get(config.getPageURL("AdvanceSearchPageURL"));
 		currentUrl = driver.getCurrentUrl();
-		
+
 		try {
 			// Create search page with chat prompt suppressed.
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
@@ -31,6 +33,8 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 			e.printStackTrace();
 		}
 	}
+
+	// ==================== Test methods ==================== //
 
 	/// Test Advanced CTS 'Display' click event
 	@Test(groups = { "Analytics" })
@@ -282,6 +286,8 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
+
+	// ==================== Common assertions ==================== //
 
 	/**
 	 * Shared Assert() calls for CtsBasicSearch_Test

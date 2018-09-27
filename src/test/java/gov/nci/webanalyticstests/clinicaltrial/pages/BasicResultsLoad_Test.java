@@ -22,7 +22,7 @@ public class BasicResultsLoad_Test extends AnalyticsTestLoadBase {
 	private String testDataFilePath;
 	private AnalyticsPageLoad analyticsPageLoad;
 
-	// ==================== Class & test setup methods ==================== //
+	// ==================== Setup methods ==================== //
 
 	@BeforeClass(groups = { "Analytics" })
 	public void setupClass() {
@@ -68,7 +68,7 @@ public class BasicResultsLoad_Test extends AnalyticsTestLoadBase {
 		}
 	}
 
-	// ==================== Data Provider ==================== //
+	// ==================== Data providers ==================== //
 
 	/**
 	 * Get an iterator data object with path and content type Strings, filtered by a

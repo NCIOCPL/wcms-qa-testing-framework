@@ -15,6 +15,8 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 	private BasicSearch basicSearch;
 	private String currentUrl;
 
+	// ==================== Setup methods ==================== //
+
 	/**
 	 * Navigate, suppress chat, create advancedSearch object for each test.
 	 */
@@ -31,6 +33,8 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 			e.printStackTrace();
 		}
 	}
+
+	// ==================== Test methods ==================== //
 
 	/// Test Basic CTS 'Display' click event
 	@Test(groups = { "Analytics" })
@@ -262,6 +266,8 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
+
+	// ==================== Common assertions ==================== //
 
 	/**
 	 * Shared Assert() calls for CtsBasicSearch_Test

@@ -17,6 +17,8 @@ public class AdvancedResultsClick_Test extends AnalyticsTestClickBase {
 
 	private AdvanceSearchResults searchResults;
 
+	// ==================== Setup methods ==================== //
+
 	/**
 	 * Navigate, suppress chat, create advancedSearch object for each test.
 	 * 
@@ -33,6 +35,8 @@ public class AdvancedResultsClick_Test extends AnalyticsTestClickBase {
 			e.printStackTrace();
 		}
 	}
+
+	// ==================== Test methods ==================== //
 
 	/// Test Advanced 'Start Over' click event
 	@Test(groups = { "Analytics" })
@@ -77,6 +81,8 @@ public class AdvancedResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
+
+	// ==================== Common assertions ==================== //
 
 	/**
 	 * Shared Assert() calls for AdvancedResultsClick_Test

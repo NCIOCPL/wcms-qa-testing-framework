@@ -13,6 +13,8 @@ public class AdvancedSearchLoad_Test extends AnalyticsTestLoadBase {
 	private final String PATH = "/about-cancer/treatment/clinical-trials/advanced-search";
 	private final String SEARCH_TYPE = "Clinical Trials: Advanced";
 
+	// ==================== Test methods ==================== //
+	
 	/// Test CTS Advanced Search page load
 	@Test(groups = { "Analytics" })
 	public void testCTSAdvancedSearchPageLoad() {
