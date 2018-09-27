@@ -45,35 +45,17 @@ public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 
 	// ==================== Test methods ==================== //
 
-	/// Test 'Disease" Dynamic Listing Page load event
-	@Test(dataProvider = "DiseaseListingPage", groups = { "Analytics" })
-	public void testDiseaseListingPageLoad(String path, String contentType, String filterInfo) {
-		System.out.println("Test '" + contentType + "' Dynamic Listing Page load event:");
+	/// Test Dynamic Listing Page load event
+	@Test(dataProvider = "DynamicListingPage", groups = { "Analytics" })
+	public void testInterventionListingPageLoad(String path, String listingType, String filterInfo) {
+		System.out.println("Test '" + listingType + "' Dynamic Listing Page load event:");
 		setupTestMethod(path);
 
 		try {
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon, path, filterInfo);
-			logger.log(LogStatus.PASS, "Test '" + contentType + "' Dynamic Listing Page load event failed.");
-		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
-		}
-	}
-
-	/// Test 'Disease" Dynamic Listing Page load event
-	@Test(dataProvider = "InterventionListingPage", groups = { "Analytics" })
-	public void testInterventionListingPageLoad(String path, String contentType, String filterInfo) {
-		System.out.println("Test '" + contentType + "' Dynamic Listing Page load event:");
-		setupTestMethod(path);
-
-		try {
-			Beacon beacon = getBeacon();
-
-			doCommonClassAssertions(beacon, path, filterInfo);
-			logger.log(LogStatus.PASS, "Test '" + contentType + "' Dynamic Listing Page load event failed.");
+			logger.log(LogStatus.PASS, "Test '" + listingType + "' Dynamic Listing Page load event failed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
 			}.getClass().getEnclosingMethod().getName();
@@ -83,15 +65,15 @@ public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 
 	/// Test Manual Trial Listing Page load event
 	@Test(dataProvider = "ManualListingPage", groups = { "Analytics" })
-	public void testManualListingPageLoad(String path, String contentType, String filterInfo) {
-		System.out.println("Test '" + contentType + "' Trial Listing Page load event:");
+	public void testManualListingPageLoad(String path, String listingType, String filterInfo) {
+		System.out.println("Test '" + listingType + "' Trial Listing Page load event:");
 		setupTestMethod(path);
 
 		try {
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon, path, filterInfo);
-			logger.log(LogStatus.PASS, "Test '" + contentType + "' Trial Listing Page load event failed.");
+			logger.log(LogStatus.PASS, "Test '" + listingType + "' Trial Listing Page load event failed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
 			}.getClass().getEnclosingMethod().getName();
@@ -101,43 +83,42 @@ public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 
 	// ==================== Data providers ==================== //
 
-	@DataProvider(name = "DiseaseListingPage")
-	private Iterator<Object[]> getDiseaseListingPageLoadData() {
-		return getFilteredDataForDlp("ContentType", "Disease");
-	}
-
-	@DataProvider(name = "InterventionListingPage")
-	private Iterator<Object[]> getInterventionListingPageLoadData() {
-		return getFilteredDataForDlp("ContentType", "Intervention");
+	@DataProvider(name = "DynamicListingPage")
+	private Iterator<Object[]> getDynamicListingPageLoadData() {
+		ArrayList<Object[]> dynamicObj = new ArrayList<Object[]>();
+		dynamicObj.addAll(getFilteredDataForDlp("ListingType", "Disease"));
+		dynamicObj.addAll(getFilteredDataForDlp("ListingType", "Intervention"));
+		return dynamicObj.iterator();
 	}
 
 	@DataProvider(name = "ManualListingPage")
 	private Iterator<Object[]> getManualListingPageLoadData() {
-		return getFilteredDataForDlp("ContentType", "Manual");
+		ArrayList<Object[]> manualObj = getFilteredDataForDlp("ListingType", "Manual");
+		return manualObj.iterator();
 	}
 
 	/**
-	 * Get an iterator data object with path and content type Strings, filtered by a
-	 * given value and column.
+	 * Get a data object with path and content type Strings, filtered by a given
+	 * value and column.
 	 * 
 	 * @param filterColumn
 	 * @param myFilter
 	 * @return
 	 */
-	private Iterator<Object[]> getFilteredDataForDlp(String filterColumn, String myFilter) {
+	private ArrayList<Object[]> getFilteredDataForDlp(String filterColumn, String myFilter) {
 		ExcelManager excelReader = new ExcelManager(testDataFilePath);
 		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
 		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
 			String path = excelReader.getCellData(TESTDATA_SHEET_NAME, "Path", rowNum);
-			String contentType = excelReader.getCellData(TESTDATA_SHEET_NAME, "ContentType", rowNum);
+			String type = excelReader.getCellData(TESTDATA_SHEET_NAME, "ListingType", rowNum);
 			String expectedFilterInfo = excelReader.getCellData(TESTDATA_SHEET_NAME, "ExpectedFilterInfo", rowNum);
 			String filter = excelReader.getCellData(TESTDATA_SHEET_NAME, filterColumn, rowNum);
 			if (filter.equalsIgnoreCase(myFilter)) {
-				Object ob[] = { path, contentType, expectedFilterInfo };
+				Object ob[] = { path, type, expectedFilterInfo };
 				myObjects.add(ob);
 			}
 		}
-		return myObjects.iterator();
+		return myObjects;
 	}
 
 	// ==================== Common assertions ==================== //
