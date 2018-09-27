@@ -55,7 +55,7 @@ public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon, path, filterInfo);
-			logger.log(LogStatus.PASS, "Test '" + listingType + "' Dynamic Listing Page load event failed.");
+			logger.log(LogStatus.PASS, "Test '" + listingType + "' Dynamic Listing Page load event passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
 			}.getClass().getEnclosingMethod().getName();
@@ -73,7 +73,7 @@ public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon, path, filterInfo);
-			logger.log(LogStatus.PASS, "Test '" + listingType + "' Trial Listing Page load event failed.");
+			logger.log(LogStatus.PASS, "Test '" + listingType + "' Trial Listing Page load event passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
 			}.getClass().getEnclosingMethod().getName();
