@@ -4,6 +4,7 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -39,6 +40,8 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 			driver.get(config.goHome() + path);
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			trialView = new TrialDetailView(driver, chatPrompt);
+			Actions action = new Actions(driver);
+			action.pause(500).perform();
 		} catch (Exception ex) {
 			Assert.fail("Error loading CTS Trial Detail View: " + path);
 			ex.printStackTrace();
@@ -110,24 +113,17 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Trial View - expand section click event
-	// TODO: why isn't the element found
-	// org.openqa.selenium.WebDriverException: unknown error: Element <h2
-	// class="ui-accordion-header ui-corner-top
-	// ui-accordion-header-collapsed ui-corner-all ui-state-default
-	// ui-accordion-icons odd" role="tab" id="ui-id-14"
-	// aria-controls="ui-id-15" aria-selected="false" aria-expanded="false"
-	// tabindex="-1">...</h2> is not clickable
-	//@Test(dataProvider = "BasicViewFullPath", groups = { "Analytics" })
+	@Test(dataProvider = "BasicViewFullPath", groups = { "Analytics" })
 	public void testTrialViewSectionExpandClick(String fullPath) {
 		System.out.println("Test Trial View - expand section click event: ");
 		setupTestMethod(fullPath);
 
 		try {
-			trialView.clickSection("ids");
+			trialView.clickComponent("#trial-ids h2");
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
-			Assert.assertEquals(beacon.props.get(41), "clinical_trial|trial-description|Description|expand");
+			Assert.assertEquals(beacon.props.get(41), "clinical_trial|trial-ids|Trial IDs|expand");
 			logger.log(LogStatus.PASS, "Test Trial View - expand section click event passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
