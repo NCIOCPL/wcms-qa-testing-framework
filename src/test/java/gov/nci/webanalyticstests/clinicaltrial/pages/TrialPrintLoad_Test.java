@@ -21,6 +21,8 @@ public class TrialPrintLoad_Test extends AnalyticsTestLoadBase {
 
 	private AdvanceSearchResults searchResults;
 
+	// ==================== Setup methods ==================== //
+
 	/**
 	 * Navigate to page, create new SearchResults object, and clear any checkboxes.
 	 */
@@ -37,6 +39,8 @@ public class TrialPrintLoad_Test extends AnalyticsTestLoadBase {
 			ex.printStackTrace();
 		}
 	}
+
+	// ==================== Test methods ==================== //
 
 	/// Test CTS Trial(s) print page load
 	@Test(groups = { "Analytics" })
@@ -65,6 +69,8 @@ public class TrialPrintLoad_Test extends AnalyticsTestLoadBase {
 		}
 	}
 
+	// ==================== Utility methods ==================== //
+
 	/**
 	 * Get the print ID from the print page URL.
 	 * 
@@ -81,6 +87,8 @@ public class TrialPrintLoad_Test extends AnalyticsTestLoadBase {
 			return null;
 		}
 	}
+
+	// ==================== Common assertions ==================== //
 
 	/**
 	 * Shared assertions for all tests in this class.

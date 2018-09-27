@@ -25,7 +25,7 @@ public class BasicResultsLoad_Test extends AnalyticsTestLoadBase {
 	// ==================== Setup methods ==================== //
 
 	@BeforeClass(groups = { "Analytics" })
-	public void setupClass() {
+	private void setupClass() {
 		testDataFilePath = config.getProperty("AnalyticsCTSData");
 	}
 

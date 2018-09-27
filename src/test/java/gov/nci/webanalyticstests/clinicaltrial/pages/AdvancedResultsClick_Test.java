@@ -24,7 +24,7 @@ public class AdvancedResultsClick_Test extends AnalyticsTestClickBase {
 	 * 
 	 * @param queryParams
 	 */
-	public void setupTestMethod(String queryParams) {
+	private void setupTestMethod(String queryParams) {
 		driver.get(config.goHome() + PATH + queryParams);
 
 		try {

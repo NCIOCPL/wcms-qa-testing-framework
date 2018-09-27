@@ -16,77 +16,115 @@ import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
 public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 
-	/**
-	 * The following page / content types are covered by this test class:
-	 * - Disease Dynamic Listing Page
-	 * - Intervention Dynamic Listing Page
-	 * - Manually-created Dynamic Listing Page
-	 */
-	
-	private AnalyticsPageLoad analyticsPageLoad;
-	private Beacon beacon;	
-	private String testDataFilePath;
 	private final String TESTDATA_SHEET_NAME = "DynamicListingPage";
-	private final String REGEX_ITEMS_PER_PAGE = "^\\d{1,4}$";
-	private final String XPATH_ITEM_TOTAL = "//span[@data-basiccts-searchparam='n']";
-	
-	@BeforeClass(groups = { "Analytics" }) 
-	public void setup() {
+
+	private AnalyticsPageLoad analyticsPageLoad;
+	private String testDataFilePath;
+
+	// ==================== Setup methods ==================== //
+
+	@BeforeClass(groups = { "Analytics" })
+	private void setupClass() {
 		testDataFilePath = config.getProperty("AnalyticsCTSData");
 	}
-	
+
+	/**
+	 * Go to the listing page and create a new create a page object.
+	 * 
+	 * @param path
+	 */
+	private void setupTestMethod(String path) {
+		try {
+			driver.get(config.goHome() + path);
+			analyticsPageLoad = new AnalyticsPageLoad(driver);
+		} catch (Exception ex) {
+			Assert.fail("Error loading listing page path: " + path);
+			ex.printStackTrace();
+		}
+	}
+
+	// ==================== Test methods ==================== //
+
+	/// Test 'Disease" Dynamic Listing Page load event
 	@Test(dataProvider = "DiseaseListingPage", groups = { "Analytics" })
 	public void testDiseaseListingPageLoad(String path, String contentType, String filterInfo) {
-		System.out.println(contentType + " Dynamic Listing page load event: ");
-		getDynamicListingLoadBeacon(path);
-		
-		doCommonClassAssertions(path, filterInfo);
-		logger.log(LogStatus.PASS, contentType + " load values are correct.");
+		System.out.println("Test '" + contentType + "' Dynamic Listing Page load event:");
+		setupTestMethod(path);
+
+		try {
+			Beacon beacon = getBeacon();
+
+			doCommonClassAssertions(beacon, path, filterInfo);
+			logger.log(LogStatus.PASS, "Test '" + contentType + "' Dynamic Listing Page load event failed.");
+		} catch (Exception e) {
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error loading page in " + currMethod + "()");
+		}
 	}
 
+	/// Test 'Disease" Dynamic Listing Page load event
 	@Test(dataProvider = "InterventionListingPage", groups = { "Analytics" })
 	public void testInterventionListingPageLoad(String path, String contentType, String filterInfo) {
-		System.out.println(contentType + " Dynamic Listing page load event: ");
-		getDynamicListingLoadBeacon(path);
-		
-		doCommonClassAssertions(path, filterInfo);
-		logger.log(LogStatus.PASS, contentType + " load values are correct.");
-	}
-	
-	@Test(dataProvider = "ManualListingPage", groups = { "Analytics" })
-	public void testManualListingPageLoad(String path, String contentType, String filterInfo) {
-		System.out.println(contentType + " Dynamic Listing page load event: ");
-		getDynamicListingLoadBeacon(path);
-		
-		doCommonClassAssertions(path, filterInfo);
-		logger.log(LogStatus.PASS, contentType + " load values are correct.");
+		System.out.println("Test '" + contentType + "' Dynamic Listing Page load event:");
+		setupTestMethod(path);
+
+		try {
+			Beacon beacon = getBeacon();
+
+			doCommonClassAssertions(beacon, path, filterInfo);
+			logger.log(LogStatus.PASS, "Test '" + contentType + "' Dynamic Listing Page load event failed.");
+		} catch (Exception e) {
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error loading page in " + currMethod + "()");
+		}
 	}
 
-	/******************** Data Providers ********************/	
+	/// Test Manual Trial Listing Page load event
+	@Test(dataProvider = "ManualListingPage", groups = { "Analytics" })
+	public void testManualListingPageLoad(String path, String contentType, String filterInfo) {
+		System.out.println("Test '" + contentType + "' Trial Listing Page load event:");
+		setupTestMethod(path);
+
+		try {
+			Beacon beacon = getBeacon();
+
+			doCommonClassAssertions(beacon, path, filterInfo);
+			logger.log(LogStatus.PASS, "Test '" + contentType + "' Trial Listing Page load event failed.");
+		} catch (Exception e) {
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error loading page in " + currMethod + "()");
+		}
+	}
+
+	// ==================== Data providers ==================== //
+
 	@DataProvider(name = "DiseaseListingPage")
-	public Iterator<Object[]> getDiseaseListingPageLoadData() {
+	private Iterator<Object[]> getDiseaseListingPageLoadData() {
 		return getFilteredDataForDlp("ContentType", "Disease");
 	}
 
 	@DataProvider(name = "InterventionListingPage")
-	public Iterator<Object[]> getInterventionListingPageLoadData() {
+	private Iterator<Object[]> getInterventionListingPageLoadData() {
 		return getFilteredDataForDlp("ContentType", "Intervention");
 	}
 
 	@DataProvider(name = "ManualListingPage")
-	public Iterator<Object[]> getManualListingPageLoadData() {
+	private Iterator<Object[]> getManualListingPageLoadData() {
 		return getFilteredDataForDlp("ContentType", "Manual");
 	}
 
 	/**
-	 * Get an iterator data object with path and content type Strings, filtered by a given value and column.
-	 * @param testDataFilePath
-	 * @param sheetName
+	 * Get an iterator data object with path and content type Strings, filtered by a
+	 * given value and column.
+	 * 
 	 * @param filterColumn
 	 * @param myFilter
 	 * @return
 	 */
-	public Iterator<Object[]> getFilteredDataForDlp(String filterColumn, String myFilter) {
+	private Iterator<Object[]> getFilteredDataForDlp(String filterColumn, String myFilter) {
 		ExcelManager excelReader = new ExcelManager(testDataFilePath);
 		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
 		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
@@ -94,49 +132,39 @@ public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 			String contentType = excelReader.getCellData(TESTDATA_SHEET_NAME, "ContentType", rowNum);
 			String expectedFilterInfo = excelReader.getCellData(TESTDATA_SHEET_NAME, "ExpectedFilterInfo", rowNum);
 			String filter = excelReader.getCellData(TESTDATA_SHEET_NAME, filterColumn, rowNum);
-			if(filter.equalsIgnoreCase(myFilter))
-			{
+			if (filter.equalsIgnoreCase(myFilter)) {
 				Object ob[] = { path, contentType, expectedFilterInfo };
 				myObjects.add(ob);
 			}
 		}
 		return myObjects.iterator();
 	}
-	
-	
-	/**
-	 * Go to the listing page and retrieve the beacon request object.
-	 * @param path
-	 */
-	private void getDynamicListingLoadBeacon(String path) {
-		try {
-			driver.get(config.goHome() + path);
-			analyticsPageLoad = new AnalyticsPageLoad(driver);
-			beacon = getBeacon();
-		} catch (Exception ex) {
-			Assert.fail("Error loading listing page path: " + path);
-			ex.printStackTrace();
-		}
-	}
-	
+
+	// ==================== Common assertions ==================== //
+
 	/**
 	 * Shared Assert() calls for DynamicListPage_Test
+	 * 
+	 * @param beacon
 	 * @param path
+	 * @param filter
 	 */
-	private void doCommonClassAssertions(String path, String filterInfo) {
-		String total = analyticsPageLoad.getElementTextFromXpath(XPATH_ITEM_TOTAL);
-		
+	private void doCommonClassAssertions(Beacon beacon, String path, String filter) {
+		String itemsPerPageRegex = "^\\d{1,4}$";
+		String itemCountXpath = "//span[@data-basiccts-searchparam='n']";
+		String itemsTotal = analyticsPageLoad.getElementTextFromXpath(itemCountXpath);
+
 		doCommonLoadAssertions(beacon, analyticsPageLoad, path);
 		Assert.assertTrue(beacon.hasEvent(2));
 		Assert.assertEquals(beacon.channels, "About Cancer");
 		Assert.assertEquals(beacon.props.get(11), "clinicaltrials_custom");
-		Assert.assertEquals(beacon.props.get(20), filterInfo + total);
+		Assert.assertEquals(beacon.props.get(20), filter + itemsTotal);
 		Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Custom");
-		Assert.assertTrue(beacon.eVars.get(10).matches(REGEX_ITEMS_PER_PAGE));
+		Assert.assertTrue(beacon.eVars.get(10).matches(itemsPerPageRegex));
 		Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));
 		Assert.assertEquals(beacon.eVars.get(20), beacon.props.get(20));
-		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_custom");
+		Assert.assertEquals(beacon.eVars.get(47), beacon.props.get(11));
 		Assert.assertEquals(beacon.eVars.get(62), beacon.props.get(62));
 	}
-	
+
 }

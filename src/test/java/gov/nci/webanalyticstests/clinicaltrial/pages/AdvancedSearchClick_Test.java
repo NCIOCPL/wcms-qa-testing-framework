@@ -20,7 +20,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 	/**
 	 * Navigate, suppress chat, create advancedSearch object for each test.
 	 */
-	public void setupTestMethod() {
+	private void setupTestMethod() {
 		driver.get(config.getPageURL("AdvanceSearchPageURL"));
 		currentUrl = driver.getCurrentUrl();
 
