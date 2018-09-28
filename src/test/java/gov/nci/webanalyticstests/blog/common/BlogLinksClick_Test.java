@@ -20,28 +20,26 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 	private Beacon beacon;
 	private Actions action;
 
-	// TODO: Spanish series
+	private final String CANCER_CURRENTS_POST = "/news-events/cancer-currents-blog/2018/fda-olaparib-breast-brca-mutations";
+	private final String CRCHD_POST = "	/about-nci/organization/crchd/blog/2017/celebrating-cure";
 	private final String CANCER_CURRENTS_EN = "/news-events/cancer-currents-blog";
 	private final String CANCER_CURRENTS_ES = "/espanol/noticias/temas-y-relatos-blog";
 
 	// ==================== Setup methods ==================== //
 
-	// private setupClass() {}
-	//
-	// private setupTestMethod() {}
-
-	@BeforeMethod(groups = { "Analytics" })
-	public void setupBlogPost() {
+	private void setupTestMethod() {
 		try {
 			action = new Actions(driver);
 			driver.get(config.goHome() + CANCER_CURRENTS_EN);
+			driver.navigate().refresh();
+
 			this.blogSeries = new BlogSeries(driver);
 			this.rightRail = blogSeries.getRightRail();
 			this.blogLinks = blogSeries.getBlogLinks();
-			action.pause(5000);
+			action.pause(2000).perform();
 		} catch (Exception e) {
+			Assert.fail("Error building Blog Series page object.");
 			e.printStackTrace();
-			System.out.println("Error building Blog Series page object.");
 		}
 	}
 
@@ -50,8 +48,10 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 
 	@Test(groups = { "Analytics" })
 	public void testBlogSeriesRailArchiveExpand() {
+		System.out.println("Test expand archive click: ");
+		setupTestMethod();
+
 		try {
-			System.out.println("Test expand archive click: ");
 			rightRail.clickArchiveHeader();
 			beacon = getBeacon();
 
@@ -62,13 +62,14 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			}.getClass().getEnclosingMethod().getName();
 			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
-
 	}
 
 	@Test(groups = { "Analytics" })
 	public void testBlogSeriesRailMonthClick() {
+		System.out.println("Test month click: ");
+		setupTestMethod();
+
 		try {
-			System.out.println("Test month click: ");
 			String currUrl = driver.getCurrentUrl();
 			action.pause(1000);
 			rightRail.clickArchiveHeader();
@@ -80,15 +81,18 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.hasEvent(55));
 			Assert.assertEquals(beacon.props.get(50), "2017:5");
 		} catch (Exception e) {
-			Assert.fail("Error clicking the month.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
 
 	@Test(groups = { "Analytics" })
 	public void testBlogSeriesRailFeaturedClick() {
+		System.out.println("Test featured click: ");
+		setupTestMethod();
+
 		try {
-			System.out.println("Test featured click: ");
 			String currUrl = driver.getCurrentUrl();
 			String featuredText = rightRail.getFeaturedItemText(0);
 			rightRail.clickFeaturedItem(0);
@@ -99,15 +103,18 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(50), featuredText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_FeaturedPosts:1");
 		} catch (Exception e) {
-			Assert.fail("Error clicking a featured blog link.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
 
 	@Test(groups = { "Analytics" })
 	public void testBlogSeriesRailCategoryClick() {
+		System.out.println("Test category click: ");
+		setupTestMethod();
+
 		try {
-			System.out.println("Test category click: ");
 			String currUrl = driver.getCurrentUrl();
 			String catText = rightRail.getCategoryItemText(1);
 			rightRail.clickCategoryItem(1);
@@ -118,8 +125,9 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(50), catText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_Category:2");
 		} catch (Exception e) {
-			Assert.fail("Error clicking a blog category link.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
 
@@ -127,8 +135,10 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 
 	@Test(groups = { "Analytics" })
 	public void testBlogSeriesSubscribeClick() {
+		System.out.println("Test subscribe click: ");
+		setupTestMethod();
+
 		try {
-			System.out.println("Test subscribe click: ");
 			String currUrl = driver.getCurrentUrl();
 			blogLinks.clickSubscribeNoNav();
 			beacon = getBeacon();
@@ -136,15 +146,18 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			doCommonClassAssertions(currUrl, "BlogSubscribeClick");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_Subscribe");
 		} catch (Exception e) {
-			Assert.fail("Error clicking 'subscribe' link.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
 
 	// @Test(groups = { "Analytics" })
 	public void testBlogSeriesNewerClick() {
+		System.out.println("Test 'newer' click: ");
+		setupTestMethod();
+
 		try {
-			System.out.println("Test 'newer' click: ");
 			String currUrl = driver.getCurrentUrl();
 			blogLinks.clickOlderSeries();
 			blogLinks.clickNewerSeries();
@@ -153,15 +166,18 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			doCommonClassAssertions(currUrl, "OlderNewerClick");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_Newer");
 		} catch (Exception e) {
-			Assert.fail("Error clicking 'newer' link.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
 
 	// @Test(groups = { "Analytics" })
 	public void testBlogSeriesOlderClick() {
+		System.out.println("Test 'older' click: ");
+		setupTestMethod();
+
 		try {
-			System.out.println("Test 'older' click: ");
 			String currUrl = driver.getCurrentUrl();
 			blogLinks.clickOlderSeries();
 			beacon = getBeacon();
@@ -169,8 +185,9 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			doCommonClassAssertions(currUrl, "OlderNewerClick");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_Older");
 		} catch (Exception e) {
-			Assert.fail("Error clicking 'older' link.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
 

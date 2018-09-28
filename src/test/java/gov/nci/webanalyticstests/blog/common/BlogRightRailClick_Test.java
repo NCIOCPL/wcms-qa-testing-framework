@@ -13,14 +13,6 @@ import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
 public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 
-	//
-	//
-	// catch (Exception e) {
-	// String currMethod = new Object() {
-	// }.getClass().getEnclosingMethod().getName();
-	// Assert.fail("Error clicking component in " + currMethod + "()");
-	// }
-
 	private BlogPost blogPost;
 	private BlogRightRail rightRail;
 	private BlogLinks blogLinks;
@@ -30,22 +22,24 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 
 	private final String CANCER_CURRENTS_POST = "/news-events/cancer-currents-blog/2018/fda-olaparib-breast-brca-mutations";
 	private final String CRCHD_POST = "	/about-nci/organization/crchd/blog/2017/celebrating-cure";
+	private final String CANCER_CURRENTS_EN = "/news-events/cancer-currents-blog";
+	private final String CANCER_CURRENTS_ES = "/espanol/noticias/temas-y-relatos-blog";
 
 	// ==================== Setup methods ==================== //
 
-	public void setupTestMethod() {
+	public void setupTestMethod(String path) {
 		try {
 			action = new Actions(driver);
-			driver.get(config.goHome() + CANCER_CURRENTS_POST);
+			driver.get(config.goHome() + path);
 			driver.navigate().refresh();
-			
+
 			this.blogPost = new BlogPost(driver);
 			this.rightRail = blogPost.getRightRail();
 			this.blogLinks = blogPost.getBlogLinks();
 			action.pause(1000).perform();
 		} catch (Exception e) {
+			Assert.fail("Error building Blog Series page object.");
 			e.printStackTrace();
-			System.out.println("Error building BlogPost page object.");
 		}
 	}
 
@@ -56,7 +50,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 5)
 	public void testBlogPostRailArchiveExpand() {
 		System.out.println("Test expand archive click: ");
-		setupTestMethod();
+		setupTestMethod(CANCER_CURRENTS_POST);
 
 		try {
 			rightRail.clickArchiveHeader();
@@ -73,7 +67,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 6)
 	public void testBlogPostRailArchiveCollapse() {
 		System.out.println("Test collapse archive click: ");
-		setupTestMethod();
+		setupTestMethod(CANCER_CURRENTS_POST);
 
 		try {
 			action.pause(1000).perform();
@@ -92,7 +86,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 7)
 	public void testBlogPostRailMonthClick() {
 		System.out.println("Test month click: ");
-		setupTestMethod();
+		setupTestMethod(CANCER_CURRENTS_POST);
 
 		try {
 			String currUrl = driver.getCurrentUrl();
@@ -114,7 +108,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 8)
 	public void testBlogPostRailFeaturedClick() {
 		System.out.println("Test featured click: ");
-		setupTestMethod();
+		setupTestMethod(CANCER_CURRENTS_POST);
 
 		try {
 			String currUrl = driver.getCurrentUrl();
@@ -135,7 +129,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 9)
 	public void testBlogPostRailCategoryClick() {
 		System.out.println("Test category click: ");
-		setupTestMethod();
+		setupTestMethod(CANCER_CURRENTS_POST);
 
 		try {
 
@@ -159,8 +153,8 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 10)
 	public void testBlogPostSubscribeClick() {
 		System.out.println("Test subscribe click: ");
-		setupTestMethod();
-		
+		setupTestMethod(CANCER_CURRENTS_POST);
+
 		try {
 			String currUrl = driver.getCurrentUrl();
 			blogLinks.clickSubscribeNoNav();
@@ -177,8 +171,8 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 11)
 	public void testBlogPostNewerClick() {
 		System.out.println("Test 'newer' click: ");
-		setupTestMethod();
-		
+		setupTestMethod(CANCER_CURRENTS_POST);
+
 		try {
 			String currUrl = driver.getCurrentUrl();
 			blogLinks.clickNewerPost();
@@ -195,8 +189,8 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" }, priority = 11)
 	public void testBlogPostOlderClick() {
 		System.out.println("Test 'older' click: ");
-		setupTestMethod();
-		
+		setupTestMethod(CANCER_CURRENTS_POST);
+
 		try {
 			String currUrl = driver.getCurrentUrl();
 			blogLinks.clickOlderPost();
