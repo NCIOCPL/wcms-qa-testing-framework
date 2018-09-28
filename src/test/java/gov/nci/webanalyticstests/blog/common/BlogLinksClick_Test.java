@@ -12,19 +12,25 @@ import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
 public class BlogLinksClick_Test extends AnalyticsTestClickBase {
-	
+
 	private BlogSeries blogSeries;
 	private BlogRightRail rightRail;
 	private BlogLinks blogLinks;
 
 	private Beacon beacon;
 	private Actions action;
-	
+
 	// TODO: Spanish series
 	private final String CANCER_CURRENTS_EN = "/news-events/cancer-currents-blog";
 	private final String CANCER_CURRENTS_ES = "/espanol/noticias/temas-y-relatos-blog";
 
-	@BeforeMethod(groups = { "Analytics" }) 
+	// ==================== Setup methods ==================== //
+
+	// private setupClass() {}
+	//
+	// private setupTestMethod() {}
+
+	@BeforeMethod(groups = { "Analytics" })
 	public void setupBlogPost() {
 		try {
 			action = new Actions(driver);
@@ -39,8 +45,9 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
+	// ==================== Test methods ==================== //
 	/**************** Blog Series right rail tests *****************************/
-	
+
 	@Test(groups = { "Analytics" })
 	public void testBlogSeriesRailArchiveExpand() {
 		try {
@@ -51,11 +58,13 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			doCommonClassAssertions(driver.getCurrentUrl(), "BlogAccordionAction");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_Expand:Archive");
 		} catch (Exception e) {
-			Assert.fail("Error expanding archive on rail.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
+
 	}
-	
+
 	@Test(groups = { "Analytics" })
 	public void testBlogSeriesRailMonthClick() {
 		try {
@@ -81,7 +90,7 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 		try {
 			System.out.println("Test featured click: ");
 			String currUrl = driver.getCurrentUrl();
-			String featuredText = rightRail.getFeaturedItemText(0);			
+			String featuredText = rightRail.getFeaturedItemText(0);
 			rightRail.clickFeaturedItem(0);
 			beacon = getBeacon();
 
@@ -94,7 +103,7 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Test(groups = { "Analytics" })
 	public void testBlogSeriesRailCategoryClick() {
 		try {
@@ -113,9 +122,9 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**************** Blog common link tests *****************************/
-	
+
 	@Test(groups = { "Analytics" })
 	public void testBlogSeriesSubscribeClick() {
 		try {
@@ -123,7 +132,7 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			String currUrl = driver.getCurrentUrl();
 			blogLinks.clickSubscribeNoNav();
 			beacon = getBeacon();
-			
+
 			doCommonClassAssertions(currUrl, "BlogSubscribeClick");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_Subscribe");
 		} catch (Exception e) {
@@ -131,8 +140,8 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			e.printStackTrace();
 		}
 	}
-	
-	//@Test(groups = { "Analytics" })
+
+	// @Test(groups = { "Analytics" })
 	public void testBlogSeriesNewerClick() {
 		try {
 			System.out.println("Test 'newer' click: ");
@@ -149,7 +158,7 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	//@Test(groups = { "Analytics" })
+	// @Test(groups = { "Analytics" })
 	public void testBlogSeriesOlderClick() {
 		try {
 			System.out.println("Test 'older' click: ");
@@ -164,10 +173,11 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 			e.printStackTrace();
 		}
 	}
-	
 
+	// ==================== Common assertions ==================== //
 	/**
 	 * Shared Assert() calls for BlogSeries_Test class.
+	 * 
 	 * @param currentUrl
 	 * @param linkName
 	 */
@@ -176,5 +186,5 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 		Assert.assertEquals(beacon.linkName, linkName);
 		Assert.assertTrue(currentUrl.contains(beacon.props.get(67)));
 	}
-	
+
 }
