@@ -18,7 +18,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	private final String BLOG_SERIES_ES = "/espanol/noticias/temas-y-relatos-blog";
 
 	private BlogRightRail rightRail;
-	private String currUrl;
+	private String currentUrl;
 
 	// ==================== Setup methods ==================== //
 
@@ -29,7 +29,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 
 			BlogPost blogPost = new BlogPost(driver);
 			rightRail = blogPost.getRightRail();
-			currUrl = driver.getCurrentUrl();
+			currentUrl = driver.getCurrentUrl();
 		} catch (Exception e) {
 			Assert.fail("Error building Blog Series page object.");
 			e.printStackTrace();
@@ -45,12 +45,11 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BLOG_SERIES_EN);
 
 		try {
-			String currUrl = driver.getCurrentUrl();
 			String featuredText = rightRail.getFeaturedItemText(0);
 			rightRail.clickFeaturedItem(0);
 			Beacon beacon = getBeacon();
 
-			doCommonClassAssertions(beacon, currUrl, "FeaturedPostsClick");
+			doCommonClassAssertions(beacon, "FeaturedPostsClick");
 			Assert.assertTrue(beacon.hasEvent(54));
 			Assert.assertEquals(beacon.props.get(50), featuredText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_FeaturedPosts:1");
@@ -73,7 +72,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 			rightRail.clickFeaturedItem(0);
 			Beacon beacon = getBeacon();
 
-			doCommonClassAssertions(beacon, currUrl, "FeaturedPostsClick");
+			doCommonClassAssertions(beacon, "FeaturedPostsClick");
 			Assert.assertTrue(beacon.hasEvent(54));
 			Assert.assertEquals(beacon.props.get(50), featuredText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_FeaturedPosts:1");
@@ -92,12 +91,11 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BLOG_SERIES_EN);
 
 		try {
-			String currUrl = driver.getCurrentUrl();
 			String catText = rightRail.getCategoryItemText(1);
 			rightRail.clickCategoryItem(1);
 			Beacon beacon = getBeacon();
 
-			doCommonClassAssertions(beacon, currUrl, "CategoryClick");
+			doCommonClassAssertions(beacon, "CategoryClick");
 			Assert.assertTrue(beacon.hasEvent(55));
 			Assert.assertEquals(beacon.props.get(50), catText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_Category:2");
@@ -120,7 +118,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 			rightRail.clickCategoryItem(1);
 			Beacon beacon = getBeacon();
 
-			doCommonClassAssertions(beacon, currUrl, "CategoryClick");
+			doCommonClassAssertions(beacon, "CategoryClick");
 			Assert.assertTrue(beacon.hasEvent(55));
 			Assert.assertEquals(beacon.props.get(50), catText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Category:2");
@@ -142,7 +140,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 			rightRail.clickArchiveHeader();
 			Beacon beacon = getBeacon();
 
-			doCommonClassAssertions(beacon, currUrl, "BlogAccordionAction");
+			doCommonClassAssertions(beacon, "BlogAccordionAction");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrentsEsp_Series_Expand:Archive");
 			logger.log(LogStatus.PASS, "Test Blog Series Rail Archive Expand click passed.");
 		} catch (Exception e) {
@@ -156,14 +154,14 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" })
 	public void testBlogPostRailArchiveExpand() {
 		System.out.println("Test Blog Post Rail Archive expand click: ");
-		setupTestMethod(BLOG_POST_EN);
+		setupTestMethod(BLOG_POST_ES);
 
 		try {
 			rightRail.clickArchiveHeader();
 			Beacon beacon = getBeacon();
 
-			doCommonClassAssertions(beacon, currUrl, "BlogAccordionAction");
-			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Expand:Archive");
+			doCommonClassAssertions(beacon, "BlogAccordionAction");
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrentsEsp_Post_Expand:Archive");
 			logger.log(LogStatus.PASS, "Test Blog Post Rail Archive expand click passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
@@ -186,7 +184,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 			rightRail.clickArchiveMonth("May");
 			Beacon beacon = getBeacon();
 
-			doCommonClassAssertions(beacon, currUrl, "BlogArchiveDateClick");
+			doCommonClassAssertions(beacon, "BlogArchiveDateClick");
 			Assert.assertTrue(beacon.hasEvent(55));
 			Assert.assertEquals(beacon.props.get(50), "2017:5");
 			logger.log(LogStatus.PASS, "Test Blog Series Rail month click passed.");
@@ -211,7 +209,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 			rightRail.clickArchiveMonth("May");
 			Beacon beacon = getBeacon();
 
-			doCommonClassAssertions(beacon, currUrl, "BlogArchiveDateClick");
+			doCommonClassAssertions(beacon, "BlogArchiveDateClick");
 			Assert.assertTrue(beacon.hasEvent(55));
 			Assert.assertEquals(beacon.props.get(50), "2017:5");
 			logger.log(LogStatus.PASS, "Test Blog Post Rail Month click passed.");
@@ -229,11 +227,13 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BLOG_POST_EN);
 
 		try {
+			Actions action = new Actions(driver);
 			rightRail.clickArchiveHeader();
+			action.pause(500).perform();
 			rightRail.clickArchiveHeader();
 			Beacon beacon = getBeacon();
 
-			doCommonClassAssertions(beacon, currUrl, "BlogAccordionAction");
+			doCommonClassAssertions(beacon, "BlogAccordionAction");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Collapse:Archive");
 			logger.log(LogStatus.PASS, "Test Blog Post Rail Archive collapse passed.");
 		} catch (Exception e) {
@@ -246,12 +246,12 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	// ==================== Common assertions ==================== //
 
 	/**
-	 * Shared Assert() calls for BlogPost_Test class.
+	 * Shared Assert() calls for this class.
 	 * 
-	 * @param currentUrl
+	 * @param beacon
 	 * @param linkName
 	 */
-	private void doCommonClassAssertions(Beacon beacon, String currentUrl, String linkName) {
+	private void doCommonClassAssertions(Beacon beacon, String linkName) {
 		// Note: remove this once pageName value is fixed on CDE side
 		Assert.assertEquals(beacon.linkName, linkName);
 		Assert.assertTrue(currentUrl.contains(beacon.props.get(67)));
