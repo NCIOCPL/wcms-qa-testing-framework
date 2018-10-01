@@ -63,6 +63,7 @@ public class SwsResultsLoad_Test extends AnalyticsTestLoadBase {
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon, RESULTS_PATH_ES);
+			Assert.assertEquals(beacon.props.get(8), "spanish");
 			logger.log(LogStatus.PASS,
 					"Test Sitewide Search Results page (Spanish) load event for'" + SEARCH_TERM + "' passsed.");
 		} catch (Exception e) {
