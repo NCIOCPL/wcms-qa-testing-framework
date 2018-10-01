@@ -6,6 +6,9 @@ import java.util.Iterator;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import com.relevantcodes.extentreports.LogStatus;
+
 import org.testng.Assert;
 
 import gov.nci.error.pages.PageNotFound;
@@ -15,7 +18,7 @@ import gov.nci.Utilities.ExcelManager;
 
 public class ErrorClick_Test extends AnalyticsTestClickBase {
 
-	private final String TESTDATA_SHEET_NAME = "SitewideSearch";
+	private final String TESTDATA_SHEET_NAME = "ErrorPageSearch";
 
 	private PageNotFound pageNotFound;
 	private String testDataFilePath;
@@ -24,26 +27,53 @@ public class ErrorClick_Test extends AnalyticsTestClickBase {
 
 	@BeforeClass(groups = { "Analytics" })
 	private void setupClass() {
-		testDataFilePath = config.getProperty("AnalyticsSwsData");
+		testDataFilePath = config.getProperty("AnalyticsErrorPgData");
 	}
 
 	// ==================== Test methods ==================== //
 
-	// Verify analytics click values when searching from error page
-	@Test(dataProvider = "DefinitionTerms", groups = { "Analytics" })
-	public void testErrorPageSearch(String searchTerm) {
+	// Test Error Page English sitewide search click event
+	@Test(dataProvider = "SearchTerms", groups = { "Analytics" })
+	public void testErrorPageSearchEn(String searchTerm) {
+		System.out.println("Test Error Page English sitewide search click event (" + searchTerm + "):");
+		driver.get(config.goHome() + "/PageNotFound.html");
+
 		try {
-			driver.get(config.getPageURL("PageNotFound"));
 			pageNotFound = new PageNotFound(driver);
 			pageNotFound.setSitewideSearchKeyword(searchTerm);
 			pageNotFound.selectEnglish();
 			pageNotFound.clickSearchButton();
-			System.out.println("Sitewide search term: " + searchTerm);
+			Beacon beacon = getBeacon();
+
+			doCommonClickAssertions(beacon);
+
+			Assert.assertEquals(beacon.props.get(11), "pagenotfoundsearch");
+			logger.log(LogStatus.PASS,
+					"Test Error Page English sitewide search click event (" + searchTerm + ") passed.");
+		} catch (Exception e) {
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
+		}
+	}
+
+	// Test Error Page Spanish sitewide search click event
+	@Test(dataProvider = "SearchTerms", groups = { "Analytics" })
+	public void testErrorPageSearchEs(String searchTerm) {
+		System.out.println("Test Error Page Spanish sitewide search click event (" + searchTerm + "):");
+		driver.get(config.goHome() + "/hsinaps-dilavni");
+
+		try {
+			pageNotFound = new PageNotFound(driver);
+			pageNotFound.setSitewideSearchKeyword(searchTerm);
+			pageNotFound.selectSpanish();
+			pageNotFound.clickSearchButton();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon, searchTerm);
-			Assert.assertEquals(beacon.linkName, "PageNotFound");
-			Assert.assertEquals(beacon.props.get(11), "pagenotfoundsearch");
+			Assert.assertEquals(beacon.props.get(11), "pagenotfoundsearch_spanish");
+			logger.log(LogStatus.PASS,
+					"Test Error Page Spanish sitewide search click event (" + searchTerm + ") passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
 			}.getClass().getEnclosingMethod().getName();
@@ -53,28 +83,24 @@ public class ErrorClick_Test extends AnalyticsTestClickBase {
 
 	// ==================== Data providers ==================== //
 
-	@DataProvider(name = "DefinitionTerms")
-	public Iterator<Object[]> readDefinitionTerm_Data() {
-		return getFilteredSearchTerms("Definition", TESTDATA_SHEET_NAME);
-	}
-
 	/**
 	 * Get an iterable collection of test objects given a data sheet name and column
 	 * 
-	 * @param columnName
 	 * @param sheetName
+	 * @param filter
+	 * @return
 	 */
-	private Iterator<Object[]> getFilteredSearchTerms(String columnName, String sheetName) {
+	@DataProvider(name = "SearchTerms")
+	private Iterator<Object[]> getErrorPagedSearchTerms() {
 		ExcelManager excelReader = new ExcelManager(testDataFilePath);
 		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(sheetName); rowNum++) {
-			String searchTerm = excelReader.getCellData(sheetName, columnName, rowNum);
-			if (!searchTerm.isEmpty()) {
-				Object ob[] = { searchTerm };
-				myObjects.add(ob);
-			}
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
+			String searchTerm = excelReader.getCellData(TESTDATA_SHEET_NAME, "SearchTerm", rowNum);
+			Object ob[] = { searchTerm };
+			myObjects.add(ob);
 		}
 		return myObjects.iterator();
+
 	}
 
 	// ==================== Common assertions ==================== //
@@ -88,6 +114,8 @@ public class ErrorClick_Test extends AnalyticsTestClickBase {
 	private void doCommonClassAssertions(Beacon beacon, String searchTerm) {
 		doCommonClickAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(2));
+		Assert.assertEquals(beacon.linkName, "PageNotFound");
+		Assert.assertEquals(beacon.channels, "Error Pages");
 		Assert.assertEquals(beacon.props.get(14), searchTerm.toLowerCase());
 		Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));
 		Assert.assertTrue(beacon.eVars.get(13).matches("^\\+\\d{1,2}$"));
