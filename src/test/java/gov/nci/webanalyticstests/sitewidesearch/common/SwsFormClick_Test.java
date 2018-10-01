@@ -1,4 +1,4 @@
-package gov.nci.webanalyticstests.commonobjects;
+package gov.nci.webanalyticstests.sitewidesearch.common;
 
 import java.util.ArrayList;
 import java.util.Iterator;

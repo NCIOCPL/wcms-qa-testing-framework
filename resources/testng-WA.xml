@@ -48,6 +48,7 @@
 			<!-- Sitewide Search tracking -->
 			<class name="gov.nci.webanalyticstests.sitewidesearch.pages.SwsResultsLoad_Test" />
 			<class name="gov.nci.webanalyticstests.sitewidesearch.pages.SwsResultsClick_Test" />
+			<class name="gov.nci.webanalyticstests.sitewidesearch.common.SwsFormClick_Test" />
 
 			<!-- Dictionary tracking -->
 			<class name="gov.nci.webanalyticstests.dictionary.pages.DictDefinitionLoad_Test" />
@@ -73,7 +74,6 @@
 			<class name="gov.nci.webanalyticstests.commonobjects.OnThisPageClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.RelatedResourcesClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.ResizeClick_Test" />
-			<class name="gov.nci.webanalyticstests.commonobjects.SwsFormClick_Test" />
 
 			<!-- All other page load tracking -->
 			<class name="gov.nci.webanalyticstests.error.pages.ErrorLoad_Test" />
