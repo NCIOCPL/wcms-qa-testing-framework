@@ -1,12 +1,10 @@
 package gov.nci.webanalyticstests.cthp.common;
 
+import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import com.relevantcodes.extentreports.LogStatus;
-
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 	// ==================== Setup methods ==================== //
 
 	@BeforeClass(groups = { "Analytics" })
-	public void setupClass() {
+	private void setupClass() {
 		testDataFilePath = config.getProperty("AnalyticsCTHPData");
 	}
 
@@ -43,26 +41,16 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 			action.pause(1000).perform();
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error building Related Resources page object.");
+			System.out.println("Error building CTHP page object.");
 		}
 	}
 
 	// ==================== Test methods ==================== //
 
-	// @Test(dataProvider = "CthpHpCard", groups = { "Analytics" })
-	public void testCthpHpCardClick(String path, String audience, String cardTitle, String linkText, String cardPos) {
-		System.out.println("Test CTHP Patient hp click: ");
-		setupTestMethod(path);
-		card.clickCardText(linkText);
-		Beacon beacon = getBeacon();
-
-		doCommonClassAssertions(beacon, cardTitle, linkText, cardPos);
-	}
-
-	// Test CTHP Patient Card click event
-	@Test(dataProvider = "CthpPatientCard", groups = { "Analytics" })
-	public void testCthpPatientCardClick(String path, String cardTitle, String linkText, String cardPos) {
-		System.out.println("Test CTHP Patient Card click event (" + cardTitle + "):");
+	// Test CTHP HP Card click event
+	@Test(dataProvider = "CthpHpCard", groups = { "Analytics" })
+	public void testCthpHpCardClick(String path, String cardTitle, String linkText, String cardPos) {
+		System.out.println("Test CTHP HP " + cardTitle + " Card click event:");
 		setupTestMethod(path);
 
 		try {
@@ -70,7 +58,26 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon, cardTitle, linkText, cardPos);
-			logger.log(LogStatus.PASS, "Test CTHP Patient Card click event (" + cardTitle + ") passed.");
+			logger.log(LogStatus.PASS, "Test CTHP HP " + cardTitle + " Card click event passed.");
+		} catch (Exception e) {
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
+		}
+	}
+
+	// Test CTHP Patient Card click event
+	@Test(dataProvider = "CthpPatientCard", groups = { "Analytics" })
+	public void testCthpPatientCardClick(String path, String cardTitle, String linkText, String cardPos) {
+		System.out.println("Test CTHP Patient " + cardTitle + " Card click event:");
+		setupTestMethod(path);
+
+		try {
+			card.clickCardText(linkText);
+			Beacon beacon = getBeacon();
+
+			doCommonClassAssertions(beacon, cardTitle, linkText, cardPos);
+			logger.log(LogStatus.PASS, "Test CTHP Patient " + cardTitle + " Card click event passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
 			}.getClass().getEnclosingMethod().getName();
@@ -81,12 +88,12 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "CthpHpCard")
-	public Iterator<Object[]> getCthpHpCardData() {
+	private Iterator<Object[]> getCthpHpCardData() {
 		return getCthpCardData(TESTDATA_SHEET_HP);
 	}
 
 	@DataProvider(name = "CthpPatientCard")
-	public Iterator<Object[]> getCthpPatientCardData() {
+	private Iterator<Object[]> getCthpPatientCardData() {
 		return getCthpCardData(TESTDATA_SHEET_PATIENT);
 	}
 
@@ -96,7 +103,7 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 	 * @param sheetName
 	 * @return
 	 */
-	public Iterator<Object[]> getCthpCardData(String sheetName) {
+	private Iterator<Object[]> getCthpCardData(String sheetName) {
 		ExcelManager excelReader = new ExcelManager(testDataFilePath);
 		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
 		for (int rowNum = 2; rowNum <= excelReader.getRowCount(sheetName); rowNum++) {
