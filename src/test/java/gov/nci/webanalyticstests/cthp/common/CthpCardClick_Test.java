@@ -1,107 +1,128 @@
 package gov.nci.webanalyticstests.cthp.common;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import com.relevantcodes.extentreports.LogStatus;
+
 import org.testng.Assert;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import gov.nci.Utilities.ExcelManager;
 import gov.nci.commonobjects.Card;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
 public class CthpCardClick_Test extends AnalyticsTestClickBase {
 
-	private String CTHPPatient = "/types/bladder";
-	private String CTHPHP= "/types/breast/hp";
-	
+	private final String TESTDATA_SHEET_HP = "CTHPHPCard";
+	private final String TESTDATA_SHEET_PATIENT = "CTHPPatientCard";
+
+	private String testDataFilePath;
 	private Card card;
-	private Beacon beacon;
-	private Actions action;
 	private String currentUrl;
 
-	@BeforeMethod(groups = { "Analytics" })
-	public void setupClickTest() {
+	// ==================== Setup methods ==================== //
+
+	@BeforeClass(groups = { "Analytics" })
+	public void setupClass() {
+		testDataFilePath = config.getProperty("AnalyticsCTHPData");
+	}
+
+	private void setupTestMethod(String path) {
 		try {
+			driver.get(config.goHome() + path);
+			currentUrl = driver.getCurrentUrl();
 			card = new Card(driver);
-			action = new Actions(driver);
+
+			Actions action = new Actions(driver);
+			action.pause(1000).perform();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error building Related Resources page object.");
 		}
 	}
 
+	// ==================== Test methods ==================== //
 
-	/**
-	 * Do the card click action and get the beacon object, as well as the current
-	 * URL.
-	 * 
-	 * @param text - text string to find for the link.
-	 */
-	private void getCardClickBeacon(String text) {
+	// @Test(dataProvider = "CthpHpCard", groups = { "Analytics" })
+	public void testCthpHpCardClick(String path, String audience, String cardTitle, String linkText, String cardPos) {
+		System.out.println("Test CTHP Patient hp click: ");
+		setupTestMethod(path);
+		card.clickCardText(linkText);
+		Beacon beacon = getBeacon();
+
+		doCommonClassAssertions(beacon, cardTitle, linkText, cardPos);
+	}
+
+	// Test CTHP Patient Card click event
+	@Test(dataProvider = "CthpPatientCard", groups = { "Analytics" })
+	public void testCthpPatientCardClick(String path, String cardTitle, String linkText, String cardPos) {
+		System.out.println("Test CTHP Patient Card click event (" + cardTitle + "):");
+		setupTestMethod(path);
+
 		try {
-			this.currentUrl = driver.getCurrentUrl();
-			action.pause(1000).perform();
-			card.clickCardText(text);
-			beacon = getBeacon();
+			card.clickCardText(linkText);
+			Beacon beacon = getBeacon();
+
+			doCommonClassAssertions(beacon, cardTitle, linkText, cardPos);
+			logger.log(LogStatus.PASS, "Test CTHP Patient Card click event (" + cardTitle + ") passed.");
 		} catch (Exception e) {
-			Assert.fail("Error clicking CTHP card link");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
 
-	
-	@Test(groups = { "Analytics" })
-	public void testCthpPatientOverview() {
-		System.out.println("Test CTHP Patient Overview click: ");
-		driver.get(config.goHome() + CTHPPatient);
-		String cardTitle = "Overview";
-		String linkText = "Bladder Cancer Symptoms, Tests, Prognosis, and Stages";
-		getCardClickBeacon(linkText);
+	// ==================== Data providers ==================== //
 
-		doCommonClassAssertions(cardTitle, linkText, "CTHP:1");
+	@DataProvider(name = "CthpHpCard")
+	public Iterator<Object[]> getCthpHpCardData() {
+		return getCthpCardData(TESTDATA_SHEET_HP);
 	}
 
-	@Test(groups = { "Analytics" })
-	public void testCthpPatientScreening() {
-		System.out.println("Test CTHP Patient Screening Card click: ");
-		driver.get(config.goHome() + CTHPPatient);
-		String cardTitle = "Screening";
-		String linkText = "Bladder and Other Urothelial Cancers Screening";
-		getCardClickBeacon(linkText);
-
-		doCommonClassAssertions(cardTitle, linkText, "CTHP:4");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testCthpHpTreatment() {
-		System.out.println("Test CTHP HP Treatment Card click: ");
-		driver.get(config.goHome() + CTHPHP);
-		String cardTitle = "Treatment";
-		String linkText = "Male Breast Cancer Treatment";
-		getCardClickBeacon(linkText);
-
-		doCommonClassAssertions(cardTitle, linkText, "CTHP:1");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testCthpHpSupport() {
-		System.out.println("Test CTHP HP Supportive Care Card click: ");
-		driver.get(config.goHome() + CTHPHP);
-		String cardTitle = "Supportive & Palliative Care";
-		String linkText = "Nausea and Vomiting";
-		getCardClickBeacon(linkText);
-
-		doCommonClassAssertions(cardTitle, linkText, "CTHP:6");
+	@DataProvider(name = "CthpPatientCard")
+	public Iterator<Object[]> getCthpPatientCardData() {
+		return getCthpCardData(TESTDATA_SHEET_PATIENT);
 	}
 
 	/**
-	 * Shared Assert() calls for CardClick_Test
+	 * Get a testable data object, filtered by audience
 	 * 
+	 * @param sheetName
+	 * @return
+	 */
+	public Iterator<Object[]> getCthpCardData(String sheetName) {
+		ExcelManager excelReader = new ExcelManager(testDataFilePath);
+		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount(sheetName); rowNum++) {
+			String path = excelReader.getCellData(sheetName, "Path", rowNum);
+			String title = excelReader.getCellData(sheetName, "CardTitle", rowNum);
+			String text = excelReader.getCellData(sheetName, "LinkText", rowNum);
+			String index = excelReader.getCellData(sheetName, "CardPos", rowNum);
+
+			Object ob[] = { path, title, text, index };
+			myObjects.add(ob);
+		}
+		return myObjects.iterator();
+	}
+
+	// ==================== Common assertions ==================== //
+
+	/**
+	 * Shared Assert() calls for this class.
+	 * 
+	 * @param beacon
 	 * @param cardTitle
 	 * @param linkText
-	 * @param typePosition formatted as cardType:positionNumber
+	 * @param typePosition
+	 *            formatted as cardType:positionNumber
 	 */
-	private void doCommonClassAssertions(String cardTitle, String linkText, String typePosition) {
+	private void doCommonClassAssertions(Beacon beacon, String cardTitle, String linkText, String typePosition) {
 		String testPath = beacon.props.get(60);
 
 		doCommonClickAssertions(beacon);
