@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 
 import gov.nci.framework.PageObjectBase;
 
-public class AnalyticsPageLoad extends PageObjectBase {
+public class AnalyticsMetaData extends PageObjectBase {
 
 	public WebDriver driver;
 
@@ -31,7 +31,7 @@ public class AnalyticsPageLoad extends PageObjectBase {
 	WebElement meta_issued;
 
 	// Constructor to initialize the page object
-	public AnalyticsPageLoad(WebDriver driver) throws MalformedURLException, UnsupportedEncodingException {
+	public AnalyticsMetaData(WebDriver driver) throws MalformedURLException, UnsupportedEncodingException {
 		super(driver);
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
