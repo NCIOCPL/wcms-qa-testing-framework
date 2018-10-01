@@ -15,20 +15,23 @@ import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 import gov.nci.Utilities.ExcelManager;
 
 public class SwsFormClick_Test extends AnalyticsTestClickBase {
-	
+
+	private final String TESTDATA_SHEET_NAME = "SitewideSearch";
+	private final String TESTDATA_SHEET_NAME_ES = "SitewideSearchEs";
+
 	private SitewideSearchForm swSearchForm;
 	private PageNotFound pageNotFound;
-	private Beacon beacon;
-	
-	private final String TESTDATA_SHEET_NAME = "SitewideSearch";	
-	private final String TESTDATA_SHEET_NAME_ES = "SitewideSearchEs";	
 	private String testDataFilePath;
-	
-	@BeforeClass(groups = { "Analytics" }) 
-	public void setup() {
-		testDataFilePath = config.getProperty("SitewideSearchData");
+
+	// ==================== Setup methods ==================== //
+
+	@BeforeClass(groups = { "Analytics" })
+	private void setupClass() {
+		testDataFilePath = config.getProperty("AnalyticsSwsData");
 	}
-	
+
+	// ==================== Test methods ==================== //
+
 	// Verify analytics click values for sitewide cancer term search
 	@Test(dataProvider = "CancerTerms", groups = { "Analytics" })
 	public void testSitewideSearch(String searchTerm) {
@@ -37,17 +40,18 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 			swSearchForm = new SitewideSearchForm(driver);
 			swSearchForm.doSitewideSearch(searchTerm);
 			System.out.println("Sitewide search term: " + searchTerm);
-			beacon = getBeacon();
-			
+			Beacon beacon = getBeacon();
+
 			doCommonClassAssertions(beacon, searchTerm);
 			Assert.assertEquals(beacon.linkName, "SiteWideSearch");
 			Assert.assertEquals(beacon.props.get(11), "sitewide");
 		} catch (Exception e) {
-			Assert.fail("Error submitting sitewide search.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
-	
+
 	// Verify analytics click values for sitewide Spanish term search
 	@Test(dataProvider = "CancerTermsEs", groups = { "Analytics" })
 	public void testSitewideSearchEspanol(String searchTerm) {
@@ -56,15 +60,16 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 			swSearchForm = new SitewideSearchForm(driver);
 			swSearchForm.doSitewideSearch(searchTerm);
 			System.out.println("Sitewide search term: " + searchTerm);
-			beacon = getBeacon(); 
-			
+			Beacon beacon = getBeacon();
+
 			doCommonClassAssertions(beacon, searchTerm);
 			Assert.assertEquals(beacon.linkName, "SiteWideSearch");
 			Assert.assertEquals(beacon.props.get(8), "spanish");
 			Assert.assertEquals(beacon.props.get(11), "sitewide_spanish");
 		} catch (Exception e) {
-			Assert.fail("Error submitting sitewide search.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
 
@@ -76,17 +81,18 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 			swSearchForm = new SitewideSearchForm(driver);
 			swSearchForm.doSitewideSearch(searchTerm);
 			System.out.println("Sitewide search term: " + searchTerm);
-			beacon = getBeacon();
-			
+			Beacon beacon = getBeacon();
+
 			doCommonClassAssertions(beacon, searchTerm);
 			Assert.assertEquals(beacon.linkName, "SiteWideSearch");
 			Assert.assertEquals(beacon.props.get(11), "sitewide");
 		} catch (Exception e) {
-			Assert.fail("Error submitting sitewide search.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
-	
+
 	// Verify analytics click values for microsite-wide search
 	@Test(dataProvider = "CancerTerms", groups = { "Analytics" })
 	public void testMicroSitewideSearch(String searchTerm) {
@@ -95,17 +101,18 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 			swSearchForm = new SitewideSearchForm(driver);
 			swSearchForm.doSitewideSearch(searchTerm);
 			System.out.println("Sitewide search term: " + searchTerm);
-			beacon = getBeacon();
-			
+			Beacon beacon = getBeacon();
+
 			doCommonClassAssertions(beacon, searchTerm);
 			Assert.assertEquals(beacon.linkName, "SiteWideSearch");
 			Assert.assertEquals(beacon.props.get(11), "sitewide");
 		} catch (Exception e) {
-			Assert.fail("Error submitting sitewide search.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
-	
+
 	// Verify analytics click values when searching from error page
 	@Test(dataProvider = "DefinitionTerms", groups = { "Analytics" })
 	public void testErrorPageSearch(String searchTerm) {
@@ -116,68 +123,74 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 			pageNotFound.selectEnglish();
 			pageNotFound.clickSearchButton();
 			System.out.println("Sitewide search term: " + searchTerm);
-			beacon = getBeacon();
-			
+			Beacon beacon = getBeacon();
+
 			doCommonClassAssertions(beacon, searchTerm);
 			Assert.assertEquals(beacon.linkName, "PageNotFound");
 			Assert.assertEquals(beacon.props.get(11), "pagenotfoundsearch");
 		} catch (Exception e) {
-			Assert.fail("Error submitting sitewide search.");
-			e.printStackTrace();
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
 	}
-	
-	/******************** Data Providers ****************/
+
+	// ==================== Data providers ==================== //
+
 	@DataProvider(name = "CancerTerms")
 	public Iterator<Object[]> readCancerTerm_Data() {
-		return getDataIteratorObject("CancerTerm", TESTDATA_SHEET_NAME);
+		return getFilteredSearchTerms("CancerTerm", TESTDATA_SHEET_NAME);
 	}
 
 	@DataProvider(name = "CancerTermsEs")
 	public Iterator<Object[]> readCancerTermEs_Data() {
-		return getDataIteratorObject("CancerTerm", TESTDATA_SHEET_NAME_ES);
+		return getFilteredSearchTerms("CancerTerm", TESTDATA_SHEET_NAME_ES);
 	}
 
 	@DataProvider(name = "DefinitionTerms")
 	public Iterator<Object[]> readDefinitionTerm_Data() {
-		return getDataIteratorObject("Definition", TESTDATA_SHEET_NAME);
+		return getFilteredSearchTerms("Definition", TESTDATA_SHEET_NAME);
 	}
-	
+
 	@DataProvider(name = "NoMatchTerms")
 	public Iterator<Object[]> readNoMatchTerm_Data() {
-		return getDataIteratorObject("NoMatch", TESTDATA_SHEET_NAME);
+		return getFilteredSearchTerms("NoMatch", TESTDATA_SHEET_NAME);
 	}
-	
+
 	/**
 	 * Get an iterable collection of test objects given a data sheet name and column
+	 * 
 	 * @param columnName
 	 * @param sheetName
-	 */	
-	private Iterator<Object[]> getDataIteratorObject(String columnName, String sheetName) {
+	 */
+	private Iterator<Object[]> getFilteredSearchTerms(String columnName, String sheetName) {
 		ExcelManager excelReader = new ExcelManager(testDataFilePath);
 		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
 		for (int rowNum = 2; rowNum <= excelReader.getRowCount(sheetName); rowNum++) {
 			String searchTerm = excelReader.getCellData(sheetName, columnName, rowNum);
-			if(!searchTerm.isEmpty()) {
+			if (!searchTerm.isEmpty()) {
 				Object ob[] = { searchTerm };
 				myObjects.add(ob);
 			}
 		}
 		return myObjects.iterator();
 	}
-	
+
+	// ==================== Common assertions ==================== //
+
 	/**
-	 * Shared Assert() calls for SitewideSearch_Test
+	 * Shared Assert() calls for this class.
+	 * 
+	 * @param beacon
 	 * @param searchTerm
 	 */
 	private void doCommonClassAssertions(Beacon beacon, String searchTerm) {
 		doCommonClickAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(2));
 		Assert.assertEquals(beacon.props.get(14), searchTerm.toLowerCase());
-		Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));		
+		Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));
 		Assert.assertTrue(beacon.eVars.get(13).matches("^\\+\\d{1,2}$"));
 		Assert.assertEquals(beacon.eVars.get(14), beacon.props.get(14));
-		
 	}
-	
+
 }
