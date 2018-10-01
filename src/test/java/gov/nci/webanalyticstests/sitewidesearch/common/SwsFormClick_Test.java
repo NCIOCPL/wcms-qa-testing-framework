@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 
 import gov.nci.commonobjects.SitewideSearchForm;
-import gov.nci.error.pages.PageNotFound;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 import gov.nci.Utilities.ExcelManager;
@@ -20,7 +19,6 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 	private final String TESTDATA_SHEET_NAME_ES = "SitewideSearchEs";
 
 	private SitewideSearchForm swSearchForm;
-	private PageNotFound pageNotFound;
 	private String testDataFilePath;
 
 	// ==================== Setup methods ==================== //
@@ -113,28 +111,6 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	// Verify analytics click values when searching from error page
-	@Test(dataProvider = "DefinitionTerms", groups = { "Analytics" })
-	public void testErrorPageSearch(String searchTerm) {
-		try {
-			driver.get(config.getPageURL("PageNotFound"));
-			pageNotFound = new PageNotFound(driver);
-			pageNotFound.setSitewideSearchKeyword(searchTerm);
-			pageNotFound.selectEnglish();
-			pageNotFound.clickSearchButton();
-			System.out.println("Sitewide search term: " + searchTerm);
-			Beacon beacon = getBeacon();
-
-			doCommonClassAssertions(beacon, searchTerm);
-			Assert.assertEquals(beacon.linkName, "PageNotFound");
-			Assert.assertEquals(beacon.props.get(11), "pagenotfoundsearch");
-		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
-		}
-	}
-
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "CancerTerms")
@@ -145,11 +121,6 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 	@DataProvider(name = "CancerTermsEs")
 	public Iterator<Object[]> readCancerTermEs_Data() {
 		return getFilteredSearchTerms("CancerTerm", TESTDATA_SHEET_NAME_ES);
-	}
-
-	@DataProvider(name = "DefinitionTerms")
-	public Iterator<Object[]> readDefinitionTerm_Data() {
-		return getFilteredSearchTerms("Definition", TESTDATA_SHEET_NAME);
 	}
 
 	@DataProvider(name = "NoMatchTerms")
