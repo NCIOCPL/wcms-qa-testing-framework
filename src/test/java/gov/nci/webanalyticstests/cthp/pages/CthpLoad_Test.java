@@ -23,7 +23,7 @@ public class CthpLoad_Test extends AnalyticsTestLoadBase {
 
 	@BeforeClass(groups = { "Analytics" })
 	public void setupClass() {
-		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
+		testDataFilePath = config.getProperty("AnalyticsCTHPData");
 	}
 
 	// ==================== Test methods ==================== //

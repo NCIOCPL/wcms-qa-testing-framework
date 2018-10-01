@@ -11,6 +11,9 @@ import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
 public class CthpCardClick_Test extends AnalyticsTestClickBase {
 
+	private String CTHPPatient = "/types/bladder";
+	private String CTHPHP= "/types/breast/hp";
+	
 	private Card card;
 	private Beacon beacon;
 	private Actions action;
@@ -27,49 +30,6 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	@Test(groups = { "Analytics" })
-	public void testCthpPatientOverview() {
-		System.out.println("Test CTHP Patient Overview click: ");
-		driver.get(config.getPageURL("CTHPPatient"));
-		String cardTitle = "Overview";
-		String linkText = "Bladder Cancer Symptoms, Tests, Prognosis, and Stages";
-		getCardClickBeacon(linkText);
-
-		doCommonClassAssertions(cardTitle, linkText, "CTHP:1");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testCthpPatientScreening() {
-		System.out.println("Test CTHP Patient Screening Card click: ");
-		driver.get(config.getPageURL("CTHPPatient"));
-		String cardTitle = "Screening";
-		String linkText = "Bladder and Other Urothelial Cancers Screening";
-		getCardClickBeacon(linkText);
-
-		doCommonClassAssertions(cardTitle, linkText, "CTHP:4");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testCthpHpTreatment() {
-		System.out.println("Test CTHP HP Treatment Card click: ");
-		driver.get(config.getPageURL("CTHPHP"));
-		String cardTitle = "Treatment";
-		String linkText = "Male Breast Cancer Treatment";
-		getCardClickBeacon(linkText);
-
-		doCommonClassAssertions(cardTitle, linkText, "CTHP:1");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testCthpHpSupport() {
-		System.out.println("Test CTHP HP Supportive Care Card click: ");
-		driver.get(config.getPageURL("CTHPHP"));
-		String cardTitle = "Supportive & Palliative Care";
-		String linkText = "Nausea and Vomiting";
-		getCardClickBeacon(linkText);
-
-		doCommonClassAssertions(cardTitle, linkText, "CTHP:6");
-	}
 
 	/**
 	 * Do the card click action and get the beacon object, as well as the current
@@ -87,6 +47,51 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 			Assert.fail("Error clicking CTHP card link");
 			e.printStackTrace();
 		}
+	}
+
+	
+	@Test(groups = { "Analytics" })
+	public void testCthpPatientOverview() {
+		System.out.println("Test CTHP Patient Overview click: ");
+		driver.get(config.goHome() + CTHPPatient);
+		String cardTitle = "Overview";
+		String linkText = "Bladder Cancer Symptoms, Tests, Prognosis, and Stages";
+		getCardClickBeacon(linkText);
+
+		doCommonClassAssertions(cardTitle, linkText, "CTHP:1");
+	}
+
+	@Test(groups = { "Analytics" })
+	public void testCthpPatientScreening() {
+		System.out.println("Test CTHP Patient Screening Card click: ");
+		driver.get(config.goHome() + CTHPPatient);
+		String cardTitle = "Screening";
+		String linkText = "Bladder and Other Urothelial Cancers Screening";
+		getCardClickBeacon(linkText);
+
+		doCommonClassAssertions(cardTitle, linkText, "CTHP:4");
+	}
+
+	@Test(groups = { "Analytics" })
+	public void testCthpHpTreatment() {
+		System.out.println("Test CTHP HP Treatment Card click: ");
+		driver.get(config.goHome() + CTHPHP);
+		String cardTitle = "Treatment";
+		String linkText = "Male Breast Cancer Treatment";
+		getCardClickBeacon(linkText);
+
+		doCommonClassAssertions(cardTitle, linkText, "CTHP:1");
+	}
+
+	@Test(groups = { "Analytics" })
+	public void testCthpHpSupport() {
+		System.out.println("Test CTHP HP Supportive Care Card click: ");
+		driver.get(config.goHome() + CTHPHP);
+		String cardTitle = "Supportive & Palliative Care";
+		String linkText = "Nausea and Vomiting";
+		getCardClickBeacon(linkText);
+
+		doCommonClassAssertions(cardTitle, linkText, "CTHP:6");
 	}
 
 	/**
