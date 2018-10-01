@@ -3,12 +3,10 @@ package gov.nci.webanalyticstests.error.common;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import com.relevantcodes.extentreports.LogStatus;
-
 import org.testng.Assert;
 
 import gov.nci.error.pages.PageNotFound;
