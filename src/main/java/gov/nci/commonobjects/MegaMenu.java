@@ -3,6 +3,7 @@ package gov.nci.commonobjects;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import gov.nci.Utilities.ScrollUtil;
 import gov.nci.framework.PageObjectBase;
 
 public class MegaMenu extends PageObjectBase {
@@ -51,11 +53,7 @@ public class MegaMenu extends PageObjectBase {
 	 * not tests, but things that we do to fire off analytics events. These actions
 	 * will populate our list of har objects, which will then be tested.
 	 */
-	public void clickMMBarEn() {
-		mm_bar_link.click();
-	}
-
-	public void clickMMBarEs() {
+	public void clickMMBar() {
 		mm_bar_link.click();
 	}
 
@@ -70,6 +68,16 @@ public class MegaMenu extends PageObjectBase {
 		wait.until(ExpectedConditions.visibilityOf(mm_subnav_li_text));
 		mm_subnav_li_text.click();
 	}
+	
+	/**
+	 * Click on a given text value.
+	 * @param text
+	 */
+	public void clickMMItemByText(String text) {
+		WebElement element = getMegaMenuElementByText(text);
+		ScrollUtil.scrollIntoview(driver, element);
+		element.click();
+	}
 
 	public void revealMegaMenuDesktop() {
 		action.moveToElement(mm_bar_link).perform();
@@ -82,4 +90,16 @@ public class MegaMenu extends PageObjectBase {
 		mm_reveal_mobile.click();
 	}
 
+
+	/**
+	 * Using XPATH, return an element based on the contained text.
+	 * @param text
+	 * @return
+	 */
+	// TODO: make this a reusable utility function
+	private WebElement getMegaMenuElementByText(String text) {
+		WebElement element = driver.findElement(By.xpath("//*[contains(text(), '" + text + "')]"));
+		return element;
+	}
+	
 }
