@@ -1,10 +1,18 @@
 package gov.nci.webanalyticstests.commonobjects;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.testng.Assert;
 
+import gov.nci.Utilities.ExcelManager;
 import gov.nci.commonobjects.Card;
+import gov.nci.webanalytics.AnalyticsMetaData;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
@@ -15,6 +23,7 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 	private String titleText;
 	private String linkText;
 	private String currentUrl;
+	private String testDataFilePath;
 
 	private final String SELECTOR_PRIMARY_FEATURE = ".feature-primary .feature-card";
 	private final String SELECTOR_SECONDARY_FEATURE = ".feature-secondary .feature-card";
@@ -24,106 +33,22 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 	private final String SELECTOR_INLINE = "#cgvBody .feature-card";
 	private final String SELECTOR_TOPIC_FEATURE = ".topic-feature .feature-card";
 	private final String PATH_CRCHD = "/about-nci/organization/crchd";
+	private final String TESTDATA_SHEET_NAME = "HomeLandingCards";
 
-	@BeforeMethod(groups = { "Analytics" })
-	public void setupClickTest() {
+	// ==================== Setup methods ==================== //
+
+	@BeforeClass(groups = { "Analytics" })
+	private void setupClass() {
+		testDataFilePath = config.getProperty("AnalyticsCommonData");
+	}
+
+	public void setupTestMethod() {
 		try {
 			this.card = new Card(driver);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error building Related Resources page object.");
 		}
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testHomePrimaryFeatureClick() {
-		System.out.println("Test home Primary Feature Card click: ");
-		driver.get(config.goHome());
-		String linkAndTitle = SELECTOR_PRIMARY_FEATURE + " h3";
-		getCardClickBeacon(linkAndTitle, linkAndTitle);
-
-		doCommonClassAssertions("Feature:1");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testHomeGuideCardClick() {
-		System.out.println("Test home guide card click: ");
-		driver.get(config.goHome());
-		String title = SELECTOR_GUIDE + " h2";
-		String link = title + " + ul li a";
-		getCardClickBeacon(title, link);
-
-		doCommonClassAssertions("Guide:1");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testHomeMultimediaCardClick() {
-		System.out.println("Test home multimedia card click: ");
-		driver.get(config.goHome());
-		String linkAndTitle = SELECTOR_MULTIMEDIA + " h3";
-		getCardClickBeacon(linkAndTitle, linkAndTitle, 0);
-
-		doCommonClassAssertions("Multimedia:1");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testHomeThumbnailCardClick() {
-		System.out.println("Test home Thumbnail card click: ");
-		driver.get(config.goHome());
-		String linkAndTitle = SELECTOR_THUMB + " h3 a";
-		getCardClickBeacon(linkAndTitle, linkAndTitle);
-
-		doCommonClassAssertions("Thumbnail:1");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testLandingPrimaryFeatureClick() {
-		System.out.println("Test Landing page primary feature card click: ");
-		driver.get(config.getPageURL("LandingPage"));
-		String linkAndTitle = SELECTOR_PRIMARY_FEATURE + " h3";
-		getCardClickBeacon(linkAndTitle, linkAndTitle);
-
-		doCommonClassAssertions("Feature:1");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testLandingSecFeatureClick() {
-		System.out.println("Test Landing page secondary feature card click: ");
-		driver.get(config.getPageURL("LandingPage"));
-		String linkAndTitle = SELECTOR_SECONDARY_FEATURE + " h3";
-		getCardClickBeacon(linkAndTitle, linkAndTitle, 1);
-
-		doCommonClassAssertions("SecondaryFeature:2");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testTopicInlineFeatureCardClick() {
-		System.out.println("Test Topic Page inline Feature card click: ");
-		driver.get(config.getPageURL("TopicPage"));
-		String linkAndTitle = SELECTOR_INLINE + " a h3";
-		getCardClickBeacon(linkAndTitle, linkAndTitle);
-
-		doCommonClassAssertions("InlineCard:1");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testTopicSlottedFeatureCardClick() {
-		System.out.println("Test Topic Page slotted Feature card click: ");
-		driver.get(config.goHome() + PATH_CRCHD);
-		String linkAndTitle = SELECTOR_TOPIC_FEATURE + " a h3";
-		getCardClickBeacon(linkAndTitle, linkAndTitle, 1);
-
-		doCommonClassAssertions("SlottedTopicCard:2");
-	}
-
-	@Test(groups = { "Analytics" })
-	public void testTopicThumbnailCardClick() {
-		System.out.println("Test Topic Page Thumbnail card click: ");
-		driver.get(config.getPageURL("TopicPage"));
-		String linkAndTitle = SELECTOR_THUMB + " h3 a";
-		getCardClickBeacon(linkAndTitle, linkAndTitle, 2);
-
-		doCommonClassAssertions("Thumbnail:3");
 	}
 
 	/**
@@ -146,20 +71,160 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	/**
-	 * Go to the results page and retrieve the beacon request object.
-	 * 
-	 * @param titleSelector
-	 * @param linkSelector
-	 */
-	private void getCardClickBeacon(String titleSelector, String linkSelector) {
-		getCardClickBeacon(titleSelector, linkSelector, 0);
+	// ==================== Test methods ==================== //
+
+	@Test(dataProvider = "CardClickData", groups = { "Analytics" })
+	public void testAllCardClicks(String path, String contentType, String cardType, String titleSel, String linkSel) {
+		System.out.println("Test home Primary Feature Card click: ");
+		setupTestMethod();
+
+		driver.get(config.goHome());
+		getCardClickBeacon(titleSel, linkSel, 0);
+
+		doCommonClassAssertions("Feature:1");
 	}
+
+	//@Test(groups = { "Analytics" })
+	public void testHomePrimaryFeatureClick() {
+		System.out.println("Test home Primary Feature Card click: ");
+		setupTestMethod();
+
+		driver.get(config.goHome());
+		String linkAndTitle = SELECTOR_PRIMARY_FEATURE + " h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 0);
+
+		doCommonClassAssertions("Feature:1");
+	}
+
+
+	// @Test(groups = { "Analytics" })
+	public void testHomeGuideCardClick() {
+		System.out.println("Test home guide card click: ");
+		setupTestMethod();
+
+		driver.get(config.goHome());
+		String title = SELECTOR_GUIDE + " h2";
+		String link = title + " + ul li a";
+		getCardClickBeacon(title, link, 0);
+
+		doCommonClassAssertions("Guide:1");
+	}
+
+	// @Test(groups = { "Analytics" })
+	public void testHomeMultimediaCardClick() {
+		System.out.println("Test home multimedia card click: ");
+		setupTestMethod();
+
+		driver.get(config.goHome());
+		String linkAndTitle = SELECTOR_MULTIMEDIA + " h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 0);
+
+		doCommonClassAssertions("Multimedia:1");
+	}
+
+	// @Test(groups = { "Analytics" })
+	public void testHomeThumbnailCardClick() {
+		System.out.println("Test home Thumbnail card click: ");
+		setupTestMethod();
+
+		driver.get(config.goHome());
+		String linkAndTitle = SELECTOR_THUMB + " h3 a";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 0);
+
+		doCommonClassAssertions("Thumbnail:1");
+	}
+
+	// @Test(groups = { "Analytics" })
+	public void testLandingPrimaryFeatureClick() {
+		System.out.println("Test Landing page primary feature card click: ");
+		setupTestMethod();
+
+		driver.get(config.getPageURL("LandingPage"));
+		String linkAndTitle = SELECTOR_PRIMARY_FEATURE + " h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 0);
+
+		doCommonClassAssertions("Feature:1");
+	}
+
+	// @Test(groups = { "Analytics" })
+	public void testLandingSecFeatureClick() {
+		System.out.println("Test Landing page secondary feature card click: ");
+		setupTestMethod();
+
+		driver.get(config.getPageURL("LandingPage"));
+		String linkAndTitle = SELECTOR_SECONDARY_FEATURE + " h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 1);
+
+		doCommonClassAssertions("SecondaryFeature:2");
+	}
+
+	// @Test(groups = { "Analytics" })
+	public void testTopicInlineFeatureCardClick() {
+		System.out.println("Test Topic Page inline Feature card click: ");
+		setupTestMethod();
+
+		driver.get(config.getPageURL("TopicPage"));
+		String linkAndTitle = SELECTOR_INLINE + " a h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 0);
+
+		doCommonClassAssertions("InlineCard:1");
+	}
+
+	// @Test(groups = { "Analytics" })
+	public void testTopicSlottedFeatureCardClick() {
+		System.out.println("Test Topic Page slotted Feature card click: ");
+		setupTestMethod();
+
+		driver.get(config.goHome() + PATH_CRCHD);
+		String linkAndTitle = SELECTOR_TOPIC_FEATURE + " a h3";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 1);
+
+		doCommonClassAssertions("SlottedTopicCard:2");
+	}
+
+	// @Test(groups = { "Analytics" })
+	public void testTopicThumbnailCardClick() {
+		System.out.println("Test Topic Page Thumbnail card click: ");
+		setupTestMethod();
+
+		driver.get(config.getPageURL("TopicPage"));
+		String linkAndTitle = SELECTOR_THUMB + " h3 a";
+		getCardClickBeacon(linkAndTitle, linkAndTitle, 2);
+
+		doCommonClassAssertions("Thumbnail:3");
+	}
+
+	// ==================== Data providers ==================== //
+
+	/**
+	 * Get an iterator data object with path and content type Strings, filtered by a
+	 * given value and column.
+	 * 
+	 * @return expected strings
+	 */
+	@DataProvider(name = "CardClickData")
+	private Iterator<Object[]> getCardClickData() {
+		ExcelManager excelReader = new ExcelManager(testDataFilePath);
+		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
+
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
+			String path = excelReader.getCellData(TESTDATA_SHEET_NAME, "Path", rowNum);
+			String contentType = excelReader.getCellData(TESTDATA_SHEET_NAME, "ContentType", rowNum);
+			String cardType = excelReader.getCellData(TESTDATA_SHEET_NAME, "CardType", rowNum);
+			String titleSel = excelReader.getCellData(TESTDATA_SHEET_NAME, "TitleSelector", rowNum);
+			String linkSel = excelReader.getCellData(TESTDATA_SHEET_NAME, "LinkSelector", rowNum);
+			Object ob[] = { path, contentType, cardType, titleSel, linkSel };
+			myObjects.add(ob);
+		}
+		return myObjects.iterator();
+	}
+	// ==================== Common assertions ==================== //
 
 	/**
 	 * Shared Assert() calls for CardClick_Test
 	 * 
-	 * @param typePosition [Card Type]:[position number]
+	 * @param typePosition
+	 *            [Card Type]:[position number]
 	 */
 	private void doCommonClassAssertions(String typePosition) {
 		String testPath = beacon.props.get(60);
