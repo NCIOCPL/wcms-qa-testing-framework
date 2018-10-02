@@ -38,11 +38,14 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			driver.get(config.goHome() + path);
 			megaMenu = new MegaMenu(driver, "");
 		} catch (Exception e) {
-			Assert.fail("Error creating MegaMenu object at " + driver.getCurrentUrl());
+			Assert.fail("Error creating MegaMenu object at path: " + path);
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Overload setupTestMethod() without a passed path.
+	 */
 	private void setupTestMethod() {
 		setupTestMethod("");
 	}
@@ -58,7 +61,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			megaMenu.clickMMBarEn();
 			Beacon beacon = getBeacon();
 
-			doCommonClassAssertions(beacon);
+			doCommonClickAssertions(beacon);
 			logger.log(LogStatus.PASS, "MegaMenu gen value test passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
@@ -76,6 +79,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			megaMenu.clickMMBarEn();
 			Beacon beacon = getBeacon();
 
+			doCommonClickAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(26));
 			Assert.assertEquals(beacon.props.get(8), "english");
 			logger.log(LogStatus.PASS, "MegaMenu top level click passed.");
@@ -95,6 +99,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			megaMenu.clickMMBarEs();
 			Beacon beacon = getBeacon();
 
+			doCommonClickAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(26));
 			Assert.assertEquals(beacon.props.get(8), "spanish");
 			logger.log(LogStatus.PASS, "MegaMenu Spanish top level click passed.");
@@ -114,6 +119,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			megaMenu.clickMMSubnavHeader();
 			Beacon beacon = getBeacon();
 
+			doCommonClickAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(26));
 			Assert.assertEquals(beacon.linkName, "MegaMenuClick");
 			logger.log(LogStatus.PASS, "Subnav header click passed.");
@@ -133,7 +139,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			megaMenu.clickMMSubnavLi();
 			Beacon beacon = getBeacon();
 
-			doCommonClassAssertions(beacon);
+			doCommonClickAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(26));
 			Assert.assertEquals(beacon.props.get(53), "About Cancer");
 			Assert.assertEquals(beacon.props.get(54), "Understanding Cancer");
@@ -156,6 +162,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			megaMenu.revealMegaMenuMobile();
 			Beacon beacon = getBeacon();
 
+			doCommonClickAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(28));
 			logger.log(LogStatus.PASS, "Expaned mobile mega menu passed");
 		} catch (Exception e) {
@@ -174,6 +181,8 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			megaMenu.revealMegaMenuDesktop();
 			Beacon beacon = getBeacon();
 
+			doCommonClickAssertions(beacon);
+			Assert.assertEquals(beacon.linkName, "MegaMenuMobileReveal");
 			Assert.assertTrue(beacon.hasEvent(28));
 			Assert.assertFalse(beacon.hasEvent(26));
 			logger.log(LogStatus.PASS, "MegaMenu expansion passed.");
@@ -184,7 +193,6 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	// ==================== Data providers ==================== //
 	// ==================== Data providers ==================== //
 
 	/**
@@ -214,20 +222,19 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		}
 		return myObjects.iterator();
 	}
+	
 	// ==================== Common assertions ==================== //
 
 	/**
-	 * Shared Assert() calls for CtsBasicSearch_Test
+	 * Shared Assert() calls for this class.
 	 * 
 	 * @param beacon
 	 */
 	private void doCommonClassAssertions(Beacon beacon) {
-		Assert.assertTrue(beacon.suites.length > 0);
-		Assert.assertTrue(beacon.channels.length() > 0);
-		Assert.assertEquals(beacon.props.get(4), "D=pev1");
-		Assert.assertEquals(beacon.props.get(8), beacon.eVars.get(2));
-		Assert.assertEquals(beacon.props.get(67), "D=pageName");
+		doCommonClickAssertions(beacon);
+
 		Assert.assertEquals(beacon.linkName, "MegaMenuClick");
+		Assert.assertTrue(beacon.channels.length() > 0);
 	}
 
 }
