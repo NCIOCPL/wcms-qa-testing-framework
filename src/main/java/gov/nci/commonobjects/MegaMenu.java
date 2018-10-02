@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -69,16 +70,6 @@ public class MegaMenu extends PageObjectBase {
 		mm_subnav_li_text.click();
 	}
 	
-	/**
-	 * Click on a given text value.
-	 * @param text
-	 */
-	public void clickMMItemByText(String text) {
-		WebElement element = getMegaMenuElementByText(text);
-		ScrollUtil.scrollIntoview(driver, element);
-		element.click();
-	}
-
 	public void revealMegaMenuDesktop() {
 		action.moveToElement(mm_bar_link).perform();
 		action.pause(2000).perform();
@@ -99,7 +90,27 @@ public class MegaMenu extends PageObjectBase {
 	// TODO: make this a reusable utility function
 	private WebElement getMegaMenuElementByText(String text) {
 		WebElement element = driver.findElement(By.xpath("//*[contains(text(), '" + text + "')]"));
+
 		return element;
 	}
+	
+	public void clickMegaMenuLink(String text) {
+		WebElement element = getMegaMenuElementByText(text);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", element);
+	}
+
+
+	/**
+	 * Click on a given text value.
+	 * @param text
+	 */
+	public void clickMMItemByText(String text) {
+		WebElement element = getMegaMenuElementByText(text);
+		ScrollUtil.scrollIntoview(driver, element);
+		element.click();
+	}
+
+
 	
 }

@@ -80,15 +80,16 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 
 	/// Test MegaMenu Nav Group click event
-	// @Test(dataProvider = "SubNavGroupData", groups = { "Analytics" })
+	@Test(dataProvider = "SubNavGroupData", groups = { "Analytics" })
 	public void testMegaMenuSubNavGroup(String path, String navGroup, String subNavGroup, String lang) {
-		System.out.println("Test MegaMenu Nav Group click event at " + path + " (" + lang + "):");
+		System.out.println("Test MegaMenu SubNav Group click event at " + path + " (" + lang + "):");
 		setupTestMethod(path);
 
 		try {
 			//megaMenu.clickMMBar();
 			megaMenu.revealMegaMenuDesktop();
-			megaMenu.clickMMItemByText(subNavGroup);
+			megaMenu.clickMegaMenuLink(subNavGroup);
+		//	megaMenu.clickMMItemByText(subNavGroup);
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
@@ -99,7 +100,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(54), subNavGroup);
 			Assert.assertEquals(beacon.props.get(55), subNavGroup);
 
-			logger.log(LogStatus.PASS, "Test MegaMenu Nav Group click event at " + path + " (" + lang + ") passed.");
+			logger.log(LogStatus.PASS, "Test MegaMenu SubNav Group click event at " + path + " (" + lang + ") passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
 			}.getClass().getEnclosingMethod().getName();
