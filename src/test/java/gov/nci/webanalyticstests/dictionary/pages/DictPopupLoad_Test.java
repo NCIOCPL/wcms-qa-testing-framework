@@ -11,7 +11,7 @@ import org.testng.Assert;
 import gov.nci.webanalytics.AnalyticsMetaData;
 import gov.nci.webanalytics.Beacon;
 
-public class DictPopupLoad_Test extends DictionaryBase {
+public class DictPopupLoad_Test extends DictionaryLoadBase {
 
 	private final String TESTDATA_SHEET_NAME = "DictionaryPopup";
 

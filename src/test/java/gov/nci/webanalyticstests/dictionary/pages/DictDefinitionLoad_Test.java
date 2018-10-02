@@ -13,7 +13,7 @@ import gov.nci.Utilities.ExcelManager;
 import gov.nci.webanalytics.AnalyticsMetaData;
 import gov.nci.webanalytics.Beacon;
 
-public class DictDefinitionLoad_Test extends DictionaryBase {
+public class DictDefinitionLoad_Test extends DictionaryLoadBase {
 
 	private final String TESTDATA_SHEET_NAME = "Definitions";
 
