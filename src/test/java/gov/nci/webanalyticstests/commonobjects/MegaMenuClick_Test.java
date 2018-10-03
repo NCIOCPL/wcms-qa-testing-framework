@@ -62,7 +62,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 	/// MegaMenu subnav header click returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMMSubnavHeaderClick() {		
-		megaMenu.clickMMSubnavHeader();
+		megaMenu.clickMegaMenuSubNavHeader();
 		beacon = getBeacon();
 		
 		Assert.assertTrue(beacon.hasEvent(26));
@@ -73,7 +73,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 	/// MegaMenu subnav link click returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMMSubnavLiClick() {
-		megaMenu.clickMMSubnavLi();
+		megaMenu.clickMegaMenuListItem();
 		beacon = getBeacon();
 		
 		doCommonClassAssertions(beacon);
