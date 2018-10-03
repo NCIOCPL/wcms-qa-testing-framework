@@ -92,7 +92,7 @@ public class MegaMenu extends PageObjectBase {
 	public void revealMegaMenuDesktop() {
 		action.moveToElement(mm_bar_link).perform();
 		action.pause(2000).perform();
-		wait.until(ExpectedConditions.visibilityOf(mm_subnav_li_text));
+		wait.until(ExpectedConditions.visibilityOf(mm_subnav_li));
 	}
 
 	public void revealMegaMenuMobile() {

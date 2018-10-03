@@ -141,7 +141,6 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.linkName, "MegaMenuMobileReveal");
 			Assert.assertEquals(beacon.eVars.get(43), "Hamburger Menu");
 			logger.log(LogStatus.PASS, "Test Hamburger click at \"" + path + "\" passed.");
-
 		} catch (Exception e) {
 			String currMethod = new Object() {
 			}.getClass().getEnclosingMethod().getName();
@@ -149,18 +148,28 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
+	/// Test Mega Menu Desktop Reveal
+	@Test(dataProvider = "PathData", groups = { "Analytics" })
+	public void testMegaMenuDesktopReveal(String path, String lang) {
+		System.out.println("Test MM desktop reveal event at \"" + path + "\" :");
+		setupTestMethod(path);
 
-	/// Expanding the desktop megamenu returns the expected values
-	/// @Test(groups = { "Analytics" })
-	public void testMegaMenuDesktopReveal() {
-		megaMenu.revealMegaMenuDesktop();
-		Beacon beacon = getBeacon();
-		
-		Assert.assertTrue(beacon.hasEvent(28));
-		Assert.assertFalse(beacon.hasEvent(26));
-		logger.log(LogStatus.PASS, "MegaMenu expansion passed.");
+		try {
+			megaMenu.revealMegaMenuDesktop();
+			Beacon beacon = getBeacon();
+
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(28));
+			Assert.assertEquals(beacon.linkName, "MegaMenuDesktopReveal");
+			Assert.assertEquals(beacon.eVars.get(43), "Mega Menu");
+			logger.log(LogStatus.PASS, "Test MM desktop reveal event at \"" + path + "\" :");
+		} catch (Exception e) {
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error hovering on component in " + currMethod + "()");
+		}
 	}
-	
+
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "PathData")
