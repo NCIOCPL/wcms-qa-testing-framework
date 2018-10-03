@@ -45,6 +45,13 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
+	/**
+	 * No-arg overload for setupTestMethod(); just go to the homepage.
+	 */
+	private void setupTestMethod() {
+		setupTestMethod("");
+	}
+
 	// ==================== Test methods ==================== //
 
 	/// Test MegaMenu Nav Group click event
@@ -126,28 +133,6 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	/// Test MegaMenu Mobile Reveal
-	@Test(dataProvider = "PathData", groups = { "Analytics" })
-	public void testMegaMenuMobileReveal(String path, String lang) {
-		System.out.println("Test Hamburger click at \"" + path + "\" :");
-		setupTestMethod(path);
-
-		try {
-			megaMenu.revealMegaMenuMobile();
-			Beacon beacon = getBeacon();
-
-			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(28));
-			Assert.assertEquals(beacon.linkName, "MegaMenuMobileReveal");
-			Assert.assertEquals(beacon.eVars.get(43), "Hamburger Menu");
-			logger.log(LogStatus.PASS, "Test Hamburger click at \"" + path + "\" passed.");
-		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
-		}
-	}
-
 	/// Test Mega Menu Desktop Reveal
 	@Test(dataProvider = "PathData", groups = { "Analytics" })
 	public void testMegaMenuDesktopReveal(String path, String lang) {
@@ -170,6 +155,75 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
+	/// Test MegaMenu Mobile Reveal
+	@Test(dataProvider = "PathData", groups = { "Analytics" })
+	public void testMegaMenuMobileReveal(String path, String lang) {
+		System.out.println("Test Hamburger click at \"" + path + "\" :");
+		setupTestMethod(path);
+
+		try {
+			megaMenu.revealMegaMenuMobile();
+			Beacon beacon = getBeacon();
+
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(28));
+			Assert.assertEquals(beacon.linkName, "MegaMenuMobileReveal");
+			Assert.assertEquals(beacon.eVars.get(43), "Hamburger Menu");
+			logger.log(LogStatus.PASS, "Test Hamburger click at \"" + path + "\" passed.");
+		} catch (Exception e) {
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
+		}
+	}
+
+	/// Test MegaMenu Mobile Expand
+	@Test(groups = { "Analytics" })
+	public void testMegaMenuMobileExpand() {
+		System.out.println("Test MM mobile expand:");
+		setupTestMethod();
+
+		try {
+			megaMenu.revealMegaMenuMobile();
+			megaMenu.clickMegaMenuMobileButton();
+			Beacon beacon = getBeacon();
+
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(34));
+			Assert.assertEquals(beacon.linkName, "MegaMenuMobileAccordionClick");
+			Assert.assertTrue(beacon.props.get(73).contains("Expand"), "'Expand' value missing on evemt.");
+			logger.log(LogStatus.PASS, "Test MM mobile expand passed.");
+		} catch (Exception e) {
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
+		}
+	}
+
+	/// Test MegaMenu Mobile Collapse
+	@Test(groups = { "Analytics" })
+	public void testMegaMenuMobileCollapse() {
+		System.out.println("Test MM mobile collapse:");
+		setupTestMethod();
+
+		try {
+			megaMenu.revealMegaMenuMobile();
+			megaMenu.clickMegaMenuMobileButton();
+			megaMenu.clickMegaMenuMobileButton();
+			Beacon beacon = getBeacon();
+
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(35));
+			Assert.assertEquals(beacon.linkName, "MegaMenuMobileAccordionClick");
+			Assert.assertTrue(beacon.props.get(73).contains("Collapse"), "'Collapse' value missing on evemt.");
+			logger.log(LogStatus.PASS, "Test MM mobile collapse passed.");
+		} catch (Exception e) {
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
+		}
+	}
+	
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "PathData")

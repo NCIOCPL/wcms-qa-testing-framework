@@ -46,10 +46,12 @@ public class MegaMenu extends PageObjectBase {
 	WebElement mm_subnav_li;
 	@FindBy(linkText = "What Is Cancer")
 	WebElement mm_subnav_li_text;
-	@FindBy(css = ".mobile-menu-bar button.menu-btn")
-	WebElement mm_reveal_mobile;
 	@FindBy(css = "#mega-nav .mega-menu-scroll.open")
 	WebElement mm_reveal_desktop;
+	@FindBy(css = ".mobile-menu-bar button.menu-btn")
+	WebElement mm_reveal_mobile;
+	@FindBy(css = "#mega-nav button.toggle span")
+	WebElement mm_btn_mobile;
 
 	/**
 	 * Browser actions -- all of the proxy browser 'actions' go in here. These are
@@ -98,6 +100,11 @@ public class MegaMenu extends PageObjectBase {
 	public void revealMegaMenuMobile() {
 		driver.manage().window().setSize(Resize.small);
 		mm_reveal_mobile.click();
+	}
+
+	public void clickMegaMenuMobileButton() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", mm_btn_mobile);
 	}
 
 	/**
