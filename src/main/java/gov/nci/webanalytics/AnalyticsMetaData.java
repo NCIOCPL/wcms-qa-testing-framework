@@ -16,7 +16,9 @@ public class AnalyticsMetaData extends PageObjectBase {
 
 	public WebDriver driver;
 
-	/***************** Common meta and data elements for all CancerGov pages *****************************/
+	/*****************
+	 * Common meta and data elements for all CancerGov pages
+	 *****************************/
 	@FindBy(how = How.XPATH, using = "//meta[@property='og:title']")
 	WebElement meta_title;
 	@FindBy(how = How.XPATH, using = "//meta[@name='content-language']")
@@ -38,27 +40,27 @@ public class AnalyticsMetaData extends PageObjectBase {
 	}
 
 	public String getMetaTitle() {
-		return meta_title.getAttribute("content");
+		return meta_title.getAttribute("content").trim();
 	}
 
 	public String getMetaLanguage() {
-		return meta_language.getAttribute("content");
+		return meta_language.getAttribute("content").trim();
 	}
 
 	public String getMetaCoverage() {
-		return meta_coverage.getAttribute("content");
+		return meta_coverage.getAttribute("content").trim();
 	}
 
 	public String getMetaSubject() {
-		return meta_subject.getAttribute("content");
+		return meta_subject.getAttribute("content").trim();
 	}
 
 	public String getMetaIsPartOf() {
-		return meta_is_part_of.getAttribute("content");
+		return meta_is_part_of.getAttribute("content").trim();
 	}
 
 	public String getMetaIssued() {
-		return meta_issued.getAttribute("content");
+		return meta_issued.getAttribute("content").trim();
 	}
 
 	public WebElement getElementFromCss(String selector) {
@@ -67,7 +69,7 @@ public class AnalyticsMetaData extends PageObjectBase {
 	}
 
 	public String getElementTextFromCss(String selector) {
-		return getElementFromCss(selector).getText();
+		return getElementFromCss(selector).getText().trim();
 	}
 
 	public WebElement getElementFromXpath(String expression) {
@@ -76,7 +78,7 @@ public class AnalyticsMetaData extends PageObjectBase {
 	}
 
 	public String getElementTextFromXpath(String expression) {
-		return getElementFromXpath(expression).getText();
+		return getElementFromXpath(expression).getText().trim();
 	}
 
 	/**
