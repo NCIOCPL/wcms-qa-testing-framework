@@ -1,114 +1,64 @@
 package gov.nci.webanalyticstests.commonobjects;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+
 import com.relevantcodes.extentreports.LogStatus;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import gov.nci.Utilities.ExcelManager;
 import gov.nci.commonobjects.MegaMenu;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
 public class MegaMenuClick_Test extends AnalyticsTestClickBase {
-
-	private final String TESTDATA_SHEET_NAME = "MegaMenuInfo";
-
+	
 	private MegaMenu megaMenu;
-	private String testDataFilePath;
-	private String currentUrl;
+	private Beacon beacon;
 
-	// ==================== Setup methods ==================== //
-
-	@BeforeClass(groups = { "Analytics" })
-	private void setupClass() {
-		testDataFilePath = config.getProperty("AnalyticsCommonData");
-	}
-
-	/**
-	 * Navigate to a page and create a new MegaMenu object.
-	 * 
-	 * @param path
-	 */
-	private void setupTestMethod(String path) {
-		try {
-			driver.get(config.goHome() + path);
-			currentUrl = driver.getCurrentUrl();
-			megaMenu = new MegaMenu(driver, "");
-		} catch (Exception e) {
-			Assert.fail("Error creating MegaMenu object at path: " + path);
-			e.printStackTrace();
-		}
-	}
-
-	// Path NavGroup SubNavGroup ListItem Language
-	// / About Cancer | Understanding Cancer | Cancer Statistics | english
-	// /espanol/investigacion | Tipos de cáncer | Tipos comunes de cáncer Linfoma | spanish
-
-	// ==================== Test methods ==================== //
-
-	/// Test MegaMenu Nav Group click event
-	@Test(dataProvider = "NavGroupData", groups = { "Analytics" })
-	public void testMegaMenuNavGroup(String path, String navGroup, String lang) {
-		System.out.println("Test MegaMenu Nav Group click event at " + path + " (" + lang + "):");
-		setupTestMethod(path);
-
-		try {
-			//megaMenu.clickMMBar();
-			megaMenu.clickMMItemByText(navGroup);
-			Beacon beacon = getBeacon();
-
-			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(26));
-			Assert.assertEquals(beacon.linkName, "MegaMenuClick");
-			Assert.assertEquals(beacon.props.get(8), lang);
-			Assert.assertEquals(beacon.props.get(53), navGroup);
-			Assert.assertEquals(beacon.props.get(54), navGroup);
-			Assert.assertEquals(beacon.props.get(55), navGroup);
-
-			logger.log(LogStatus.PASS, "Test MegaMenu Nav Group click event at " + path + " (" + lang + ") passed.");
-		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
-		}
-	}
-
-
-	/// Test MegaMenu Nav Group click event
-	@Test(dataProvider = "SubNavGroupData", groups = { "Analytics" })
-	public void testMegaMenuSubNavGroup(String path, String navGroup, String subNavGroup, String lang) {
-		System.out.println("Test MegaMenu SubNav Group click event at " + path + " (" + lang + "):");
-		setupTestMethod(path);
-
-		try {
-			//megaMenu.clickMMBar();
-			megaMenu.revealMegaMenuDesktop();
-			megaMenu.clickMegaMenuLink(subNavGroup);
-		//	megaMenu.clickMMItemByText(subNavGroup);
-			Beacon beacon = getBeacon();
-
-			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(26));
-			Assert.assertEquals(beacon.linkName, "MegaMenuClick");
-			Assert.assertEquals(beacon.props.get(8), lang);
-			Assert.assertEquals(beacon.props.get(53), navGroup);
-			Assert.assertEquals(beacon.props.get(54), subNavGroup);
-			Assert.assertEquals(beacon.props.get(55), subNavGroup);
-
-			logger.log(LogStatus.PASS, "Test MegaMenu SubNav Group click event at " + path + " (" + lang + ") passed.");
-		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
-		}
+	@BeforeMethod(groups = { "Analytics" }) 
+	@Parameters({ "environment" })
+	public void setupMegaMenu(String environment) throws UnsupportedEncodingException, MalformedURLException {
+		megaMenu = new MegaMenu(driver, environment);
+		driver.get(config.goHome());
 	}
 	
-	/**
+	/// Megamenu click returns the expected general/shared values
+	@Test(groups = { "Analytics" })
+	public void testMMGeneral() {
+		megaMenu.clickMMBarEn();
+		beacon = getBeacon();
+		
+		doCommonClassAssertions(beacon);
+		logger.log(LogStatus.PASS, "MegaMenu gen value test passed.");
+	}	
+	
+	/// Menu bar click returns the expected values
+	@Test(groups = { "Analytics" })
+	public void testMMBarEn() {
+		megaMenu.clickMMBarEn();
+		beacon = getBeacon();
+		
+		Assert.assertTrue(beacon.hasEvent(26));
+		Assert.assertEquals(beacon.props.get(8), "english");
+		logger.log(LogStatus.PASS, "MegaMenu top level click passed.");
+	}
+	
+	/// Spanish menu bar click returns the expected values
+	@Test(groups = { "Analytics" })
+	public void testMMBarEs() {
+		driver.get(config.getPageURL("SpanishHome"));		
+		megaMenu.clickMMBarEs();
+		beacon = getBeacon();
+
+		Assert.assertTrue(beacon.hasEvent(26));
+		Assert.assertEquals(beacon.props.get(8), "spanish");
+		logger.log(LogStatus.PASS, "MegaMenu Spanish top level click passed.");
+	}
+	
+
 	/// MegaMenu subnav header click returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMMSubnavHeaderClick() {		
@@ -146,7 +96,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 	}
 	
 	/// Expanding the desktop megamenu returns the expected values
-	@Test(groups = { "Analytics" })
+	/// @Test(groups = { "Analytics" })
 	public void testMegaMenuDesktopReveal() {
 		megaMenu.revealMegaMenuDesktop();
 		beacon = getBeacon();
@@ -155,72 +105,18 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		Assert.assertFalse(beacon.hasEvent(26));
 		logger.log(LogStatus.PASS, "MegaMenu expansion passed.");
 	}
-	**/
 	
-	// ==================== Data providers ==================== //
-
-	@DataProvider(name = "NavGroupData")
-	private Iterator<Object[]> getMMNavData() {
-		return getMegaMenuData("NavGroup");
-	}
-
-	@DataProvider(name = "SubNavGroupData")
-	private Iterator<Object[]> getMMSubNavData() {
-		return getMegaMenuData("SubNavGroup");
-	}
-
 	/**
-	 * Get an iterator data object with path, types, selectors, and position for
-	 * Card objects, filtered by content type.
-	 * 
-	 * @param returnValues
-	 *            specifies which collection of values we need for testing.
-	 * @return
-	 */
-	private Iterator<Object[]> getMegaMenuData(String returnValues) {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
-
-			String path = excelReader.getCellData(TESTDATA_SHEET_NAME, "Path", rowNum);
-			String navGroup = excelReader.getCellData(TESTDATA_SHEET_NAME, "NavGroup", rowNum);
-			String subNavGroup = excelReader.getCellData(TESTDATA_SHEET_NAME, "SubNavGroup", rowNum);
-			String listItem = excelReader.getCellData(TESTDATA_SHEET_NAME, "ListItem", rowNum);
-			String language = excelReader.getCellData(TESTDATA_SHEET_NAME, "Language", rowNum);
-
-			if (returnValues == "Path") {
-				Object obj[] = { path, language };
-				myObjects.add(obj);
-			} else if (returnValues == "NavGroup") {
-				Object obj[] = { path, navGroup, language };
-				myObjects.add(obj);
-			} else if (returnValues == "SubNavGroup") {
-				Object obj[] = { path, navGroup, subNavGroup, language };
-				myObjects.add(obj);
-			} else {
-				Object obj[] = { path, navGroup, subNavGroup, listItem, language };
-				myObjects.add(obj);
-			}
-
-		}
-		return myObjects.iterator();
-
-	}
-
-	// ==================== Common assertions ==================== //
-
-	/**
-	 * Shared Assert() calls for this class.
-	 * 
+	 * Shared Assert() calls for CtsBasicSearch_Test
 	 * @param beacon
 	 */
 	private void doCommonClassAssertions(Beacon beacon) {
-		doCommonClickAssertions(beacon);
-		Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));
-		Assert.assertTrue(currentUrl.contains(beacon.props.get(56)));
-		Assert.assertEquals(beacon.eVars.get(53), beacon.props.get(53));
-
+		Assert.assertTrue(beacon.suites.length > 0);
+		Assert.assertTrue(beacon.channels.length() > 0);
+		Assert.assertEquals(beacon.props.get(4), "D=pev1");
+		Assert.assertEquals(beacon.props.get(8), beacon.eVars.get(2));
+		Assert.assertEquals(beacon.props.get(67), "D=pageName");
+		Assert.assertEquals(beacon.linkName, "MegaMenuClick");		
 	}
-
+	
 }
