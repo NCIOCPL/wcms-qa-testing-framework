@@ -28,7 +28,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 	/// Megamenu click returns the expected general/shared values
 	@Test(groups = { "Analytics" })
 	public void testMMGeneral() {
-		megaMenu.clickMMBarEn();
+		megaMenu.clickMegaMenuBar();
 		beacon = getBeacon();
 		
 		doCommonClassAssertions(beacon);
@@ -38,7 +38,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 	/// Menu bar click returns the expected values
 	@Test(groups = { "Analytics" })
 	public void testMMBarEn() {
-		megaMenu.clickMMBarEn();
+		megaMenu.clickMegaMenuBar();
 		beacon = getBeacon();
 		
 		Assert.assertTrue(beacon.hasEvent(26));
@@ -50,7 +50,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 	@Test(groups = { "Analytics" })
 	public void testMMBarEs() {
 		driver.get(config.getPageURL("SpanishHome"));		
-		megaMenu.clickMMBarEs();
+		megaMenu.clickMegaMenuBar();
 		beacon = getBeacon();
 
 		Assert.assertTrue(beacon.hasEvent(26));
