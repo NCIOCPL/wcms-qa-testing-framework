@@ -45,11 +45,6 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		}
 	}
 
-	// Path NavGroup SubNavGroup ListItem Language
-	// / About Cancer | Understanding Cancer | Cancer Statistics | english
-	// /espanol/investigacion | Tipos de cáncer | Tipos comunes de cáncer Linfoma |
-	// spanish
-
 	// ==================== Test methods ==================== //
 
 	/// Test MegaMenu Nav Group click event
@@ -69,6 +64,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(53), navGroup);
 			Assert.assertEquals(beacon.props.get(54), navGroup);
 			Assert.assertEquals(beacon.props.get(55), navGroup);
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)));
 			logger.log(LogStatus.PASS, "Test MegaMenu Nav Group click event at \"" + path + "\" passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
@@ -94,7 +90,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(53), navGroup);
 			Assert.assertEquals(beacon.props.get(54), subNavGroup);
 			Assert.assertEquals(beacon.props.get(55), subNavGroup);
-
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)));
 			logger.log(LogStatus.PASS, "Test MegaMenu SubNav Group click event at \"" + path + "\" passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
@@ -105,7 +101,8 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 	/// Test MegaMenu SubNav Link click event
 	@Test(dataProvider = "SubNavLinkData", groups = { "Analytics" })
-	public void testMegaMenuSubNavLink(String path, String navGroup, String subNavGroup, String subNavLink, String lang) {
+	public void testMegaMenuSubNavLink(String path, String navGroup, String subNavGroup, String subNavLink,
+			String lang) {
 		System.out.println("Test MegaMenu SubNav Link click event at \"" + path + "\" :");
 		setupTestMethod(path);
 
@@ -120,13 +117,48 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(53), navGroup);
 			Assert.assertEquals(beacon.props.get(54), subNavGroup);
 			Assert.assertEquals(beacon.props.get(55), subNavLink);
-
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)));
 			logger.log(LogStatus.PASS, "Test MegaMenu SubNav Link click event at \"" + path + "\" passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
 			}.getClass().getEnclosingMethod().getName();
 			Assert.fail("Error clicking component in " + currMethod + "()");
 		}
+	}
+
+	/// Test MegaMenu Mobile Reveal
+	@Test(dataProvider = "PathData", groups = { "Analytics" })
+	public void testMegaMenuMobileReveal(String path, String lang) {
+		System.out.println("Test Hamburger click at \"" + path + "\" :");
+		setupTestMethod(path);
+
+		try {
+			megaMenu.revealMegaMenuMobile();
+			Beacon beacon = getBeacon();
+
+			doCommonClassAssertions(beacon);
+			Assert.assertTrue(beacon.hasEvent(28));
+			Assert.assertEquals(beacon.linkName, "MegaMenuMobileReveal");
+			Assert.assertEquals(beacon.eVars.get(43), "Hamburger Menu");
+			logger.log(LogStatus.PASS, "Test Hamburger click at \"" + path + "\" passed.");
+
+		} catch (Exception e) {
+			String currMethod = new Object() {
+			}.getClass().getEnclosingMethod().getName();
+			Assert.fail("Error clicking component in " + currMethod + "()");
+		}
+	}
+
+
+	/// Expanding the desktop megamenu returns the expected values
+	/// @Test(groups = { "Analytics" })
+	public void testMegaMenuDesktopReveal() {
+		megaMenu.revealMegaMenuDesktop();
+		Beacon beacon = getBeacon();
+		
+		Assert.assertTrue(beacon.hasEvent(28));
+		Assert.assertFalse(beacon.hasEvent(26));
+		logger.log(LogStatus.PASS, "MegaMenu expansion passed.");
 	}
 	
 	// ==================== Data providers ==================== //
@@ -135,7 +167,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 	private Iterator<Object[]> getMMPathData() {
 		return getMegaMenuData("Path");
 	}
-	
+
 	@DataProvider(name = "NavGroupData")
 	private Iterator<Object[]> getMMNavGroupData() {
 		return getMegaMenuData("NavGroup");
@@ -199,10 +231,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 	 */
 	private void doCommonClassAssertions(Beacon beacon) {
 		doCommonClickAssertions(beacon);
-		Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));
-		Assert.assertTrue(currentUrl.contains(beacon.props.get(56)));
 		Assert.assertEquals(beacon.eVars.get(53), beacon.props.get(53));
-
 	}
 
 }
