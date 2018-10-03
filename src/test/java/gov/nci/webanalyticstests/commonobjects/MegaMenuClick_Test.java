@@ -110,7 +110,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(path);
 
 		try {
-			megaMenu.clickMegaMenuListItem();
+			megaMenu.clickMegaMenuListItem(subNavLink);
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);

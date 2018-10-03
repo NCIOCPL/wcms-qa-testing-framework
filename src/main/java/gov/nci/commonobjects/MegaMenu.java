@@ -18,6 +18,8 @@ import gov.nci.framework.PageObjectBase;
 
 public class MegaMenu extends PageObjectBase {
 
+	// TODO: fix issues with element visibility on By.linktext()
+
 	// Local driver object and actions
 	private WebDriver driver;
 	private Actions action;
@@ -77,9 +79,14 @@ public class MegaMenu extends PageObjectBase {
 	}
 
 	public void clickMegaMenuListItem(String text) {
-		WebElement element = getMegaMenuElementByText(text);
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].click();", element);
+		// WebElement element = mm_subnav_li_text;
+		// WebElement element = getMegaMenuElementByText(text);
+		// JavascriptExecutor js = (JavascriptExecutor) driver;
+		// js.executeScript("arguments[0].click();", element);
+
+		action.moveToElement(mm_bar_link).perform();
+		wait.until(ExpectedConditions.visibilityOf(mm_subnav_li));
+		mm_subnav_li.click();
 	}
 
 	public void revealMegaMenuDesktop() {
