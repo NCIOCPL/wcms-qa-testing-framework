@@ -7,7 +7,6 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 import gov.nci.Utilities.ExcelManager;
@@ -22,7 +21,6 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 
 	private PdqPage pdqPage;
 	private PdqRightNav pdqRightNav;
-	private Actions action;
 	private String testDataFilePath;
 
 	// ==================== Setup methods ==================== //
@@ -39,9 +37,6 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 			driver.get(config.goHome() + path);
 			pdqPage = new PdqPage(driver);
 			pdqRightNav = pdqPage.getRightNav();
-
-			action = new Actions(driver);
-			/// action.pause(500).perform();
 		} catch (Exception e) {
 			Assert.fail("Error building PDQ page object.");
 			e.printStackTrace();
@@ -58,7 +53,6 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			pdqRightNav.clickSection(linkName);
-			/// action.pause(500).perform(); // Wait until loaded, then click again
 			pdqRightNav.clickSection(linkName);
 			Beacon beacon = getBeacon();
 
@@ -85,7 +79,7 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 		try {
 			driver.get(config.goHome() + path);
 			pdqRightNav.clickSection(linkName);
-			/// action.pause(500).perform(); // Make sure the second click event has fired off
+			driver.navigate().refresh();
 			Beacon beacon = getBeacon();
 
 			doCommonClickAssertions(beacon);
