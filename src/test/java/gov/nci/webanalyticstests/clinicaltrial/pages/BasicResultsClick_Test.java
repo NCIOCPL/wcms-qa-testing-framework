@@ -2,11 +2,9 @@ package gov.nci.webanalyticstests.clinicaltrial.pages;
 
 import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
+import org.testng.Assert;
 
 import java.util.List;
-
-import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
 
 import gov.nci.clinicalTrial.common.Checkbox;
 import gov.nci.clinicalTrial.pages.AdvanceSearchResults;
@@ -24,7 +22,6 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 	// There is no "BasicSearchResults" page object class; so we're reusing
 	// AdvanceSearchResults for now
 	private AdvanceSearchResults searchResults;
-	private Actions action;
 
 	// ==================== Setup methods ==================== //
 
@@ -44,9 +41,6 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Checkbox.uncheckAll(driver);
 			driver.manage().deleteAllCookies();
 			driver.navigate().refresh();
-
-			action = new Actions(driver);
-			/// action.pause(1000);
 		} catch (Exception ex) {
 			Assert.fail("Error loading Basic CTS results url: " + PATH + queryParams);
 			ex.printStackTrace();
@@ -83,8 +77,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BASIC_PAGE_1ST);
 
 		try {
-			/// action.pause(2000);
-			searchResults.clickPrintButton();
+			searchResults.clickPrintButtonNoUrlChange();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
