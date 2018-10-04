@@ -89,26 +89,6 @@ public class HomeLoad_Test extends AnalyticsTestLoadBase {
 		}
 	}
 
-	/// Test engagement tracking on page load
-	// @Test(groups = { "Analytics" })
-	public void testEngagement() {
-		System.out.println("Test engagement tracking on page load:");
-		driver.get(config.goHome());
-
-		try {
-			// TODO
-			// Click and scroll around page
-			// Refresh
-			Beacon beacon = getBeacon();
-			doCommonLoadAssertions(beacon, analyticsMetaData, SITEHOME_PATH);
-			logger.log(LogStatus.PASS, "Test engagement tracking on page load passed.");
-		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
-		}
-	}
-
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "HomePageLoad")
