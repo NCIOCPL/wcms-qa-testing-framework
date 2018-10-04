@@ -43,7 +43,7 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 			driver.navigate().refresh();
 			Actions action = new Actions(driver);
-			action.pause(500).perform();
+			/// action.pause(500).perform();
 		} catch (Exception ex) {
 			Assert.fail("Error loading CTS Trial Detail View: " + path);
 			ex.printStackTrace();
@@ -163,7 +163,7 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 		try {
 			trialView.clickPrintLink();
 			Actions action = new Actions(driver);
-			action.pause(500).perform();
+			/// action.pause(500).perform();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
@@ -186,7 +186,7 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 		try {
 			trialView.clickEmailLink();
 			Actions action = new Actions(driver);
-			action.pause(500).perform();
+			/// action.pause(500).perform();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);

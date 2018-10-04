@@ -24,7 +24,7 @@ public class BlogPostClick_Test extends AnalyticsTestClickBase {
 			action = new Actions(driver);
 			driver.get(config.goHome() + CANCER_CURRENTS_POST);
 			this.blogPost = new BlogPost(driver);
-			action.pause(2000);
+			/// action.pause(2000);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error building BlogPost page object.");

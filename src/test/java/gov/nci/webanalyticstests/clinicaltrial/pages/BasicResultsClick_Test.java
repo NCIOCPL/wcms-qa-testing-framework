@@ -46,7 +46,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			driver.navigate().refresh();
 
 			action = new Actions(driver);
-			action.pause(1000);
+			/// action.pause(1000);
 		} catch (Exception ex) {
 			Assert.fail("Error loading Basic CTS results url: " + PATH + queryParams);
 			ex.printStackTrace();
@@ -83,7 +83,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BASIC_PAGE_1ST);
 
 		try {
-			action.pause(2000);
+			/// action.pause(2000);
 			searchResults.clickPrintButton();
 			Beacon beacon = getBeacon();
 

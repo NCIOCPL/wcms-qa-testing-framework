@@ -65,7 +65,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			advancedSearch.getCancerType("lung");
 			Actions action = new Actions(driver);
-			action.pause(1000).perform();
+			/// action.pause(1000).perform();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
@@ -179,7 +179,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			advancedSearch.setAge(55);
 			Actions action = new Actions(driver);
-			action.pause(1000).perform();
+			/// action.pause(1000).perform();
 			driver.get(config.goHome());
 			Beacon beacon = getBeacon();
 
@@ -203,7 +203,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			advancedSearch.setLeadOrganization("mayo");
 			Actions action = new Actions(driver);
-			action.pause(1000).perform();
+			/// action.pause(1000).perform();
 			driver.get(config.goHome());
 			Beacon beacon = getBeacon();
 

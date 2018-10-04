@@ -65,7 +65,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			basicSearch.setSearchKeyword("canc");
 			Actions action = new Actions(driver);
-			action.pause(1000).perform();
+			/// action.pause(1000).perform();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
@@ -133,7 +133,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			basicSearch.setSearchKeyword("Liver");
 			Actions action = new Actions(driver);
-			action.pause(1000).perform();
+			/// action.pause(1000).perform();
 			driver.get(config.goHome());
 			Beacon beacon = getBeacon();
 
@@ -157,7 +157,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			basicSearch.setSearchAge("55");
 			Actions action = new Actions(driver);
-			action.pause(1000).perform();
+			/// action.pause(1000).perform();
 			driver.get(config.goHome());
 			Beacon beacon = getBeacon();
 
@@ -183,7 +183,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 			System.out.println("CTS \"Abandon\" click event for zip:");
 			basicSearch.setSearchZip("20001");
 			Actions action = new Actions(driver);
-			action.pause(1000).perform();
+			/// action.pause(1000).perform();
 			driver.get(config.goHome());
 			Beacon beacon = getBeacon();
 

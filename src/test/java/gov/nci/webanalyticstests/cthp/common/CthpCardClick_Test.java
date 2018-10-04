@@ -38,7 +38,7 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 			card = new Card(driver);
 
 			Actions action = new Actions(driver);
-			action.pause(1000).perform();
+			/// action.pause(1000).perform();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error building CTHP page object.");

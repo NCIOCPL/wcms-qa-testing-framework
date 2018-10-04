@@ -41,7 +41,7 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 			pdqRightNav = pdqPage.getRightNav();
 
 			action = new Actions(driver);
-			action.pause(500).perform();
+			/// action.pause(500).perform();
 		} catch (Exception e) {
 			Assert.fail("Error building PDQ page object.");
 			e.printStackTrace();
@@ -58,7 +58,7 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			pdqRightNav.clickSection(linkName);
-			action.pause(500).perform(); // Wait until loaded, then click again
+			/// action.pause(500).perform(); // Wait until loaded, then click again
 			pdqRightNav.clickSection(linkName);
 			Beacon beacon = getBeacon();
 
@@ -85,7 +85,7 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 		try {
 			driver.get(config.goHome() + path);
 			pdqRightNav.clickSection(linkName);
-			action.pause(500).perform(); // Make sure the second click event has fired off
+			/// action.pause(500).perform(); // Make sure the second click event has fired off
 			Beacon beacon = getBeacon();
 
 			doCommonClickAssertions(beacon);

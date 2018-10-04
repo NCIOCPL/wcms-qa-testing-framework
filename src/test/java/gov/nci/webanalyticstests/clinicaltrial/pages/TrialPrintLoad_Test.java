@@ -56,7 +56,7 @@ public class TrialPrintLoad_Test extends AnalyticsTestLoadBase {
 
 			// Give the print page time to load, then refresh
 			Actions action = new Actions(driver);
-			action.pause(2000).perform();
+			/// action.pause(2000).perform();
 			driver.navigate().refresh();
 
 			Beacon beacon = getBeacon();

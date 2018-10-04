@@ -25,7 +25,7 @@ public class BlogSeriesClick_Test extends AnalyticsTestClickBase {
 			action = new Actions(driver);
 			driver.get(config.goHome() + CANCER_CURRENTS_EN);
 			this.blogSeries = new BlogSeries(driver);
-			action.pause(5000);
+			/// action.pause(5000);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error building Blog Series page object.");

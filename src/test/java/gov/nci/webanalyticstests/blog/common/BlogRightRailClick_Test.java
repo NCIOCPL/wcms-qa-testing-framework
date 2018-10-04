@@ -179,7 +179,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 		try {
 			Actions action = new Actions(driver);
 			rightRail.clickArchiveHeader();
-			action.pause(500).perform();
+			/// action.pause(500).perform();
 			rightRail.clickArchiveYear("2017");
 			rightRail.clickArchiveMonth("May");
 			Beacon beacon = getBeacon();
@@ -204,7 +204,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 		try {
 			Actions action = new Actions(driver);
 			rightRail.clickArchiveHeader();
-			action.pause(500).perform();
+			/// action.pause(500).perform();
 			rightRail.clickArchiveYear("2017");
 			rightRail.clickArchiveMonth("May");
 			Beacon beacon = getBeacon();
@@ -229,7 +229,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 		try {
 			Actions action = new Actions(driver);
 			rightRail.clickArchiveHeader();
-			action.pause(500).perform();
+			/// action.pause(500).perform();
 			rightRail.clickArchiveHeader();
 			Beacon beacon = getBeacon();
 
