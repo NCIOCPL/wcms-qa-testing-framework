@@ -1,7 +1,6 @@
 package gov.nci.webanalyticstests.clinicaltrial.pages;
 
 import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -64,8 +63,6 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			basicSearch.setSearchKeyword("canc");
-			Actions action = new Actions(driver);
-			/// action.pause(1000).perform();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
@@ -132,9 +129,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			basicSearch.setSearchKeyword("Liver");
-			Actions action = new Actions(driver);
-			/// action.pause(1000).perform();
-			driver.get(config.goHome());
+			basicSearch.abandon(config.goHome());
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
@@ -156,9 +151,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			basicSearch.setSearchAge("55");
-			Actions action = new Actions(driver);
-			/// action.pause(1000).perform();
-			driver.get(config.goHome());
+			basicSearch.abandon(config.goHome());
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
@@ -180,11 +173,8 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod();
 
 		try {
-			System.out.println("CTS \"Abandon\" click event for zip:");
 			basicSearch.setSearchZip("20001");
-			Actions action = new Actions(driver);
-			/// action.pause(1000).perform();
-			driver.get(config.goHome());
+			basicSearch.abandon(config.goHome());
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);

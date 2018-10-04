@@ -1,7 +1,6 @@
 package gov.nci.webanalyticstests.clinicaltrial.pages;
 
 import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -64,8 +63,6 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			advancedSearch.getCancerType("lung");
-			Actions action = new Actions(driver);
-			/// action.pause(1000).perform();
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
@@ -103,7 +100,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 
 	/// Test Advanced CTS zip submit click event
 	@Test(groups = { "Analytics" })
-	public void testAdvancedZipCompletet() {
+	public void testAdvancedZipComplete() {
 		System.out.println("Advanced CTS zip submit click event:");
 		setupTestMethod();
 
@@ -178,9 +175,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			advancedSearch.setAge(55);
-			Actions action = new Actions(driver);
-			/// action.pause(1000).perform();
-			driver.get(config.goHome());
+			advancedSearch.abandon(config.goHome());
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
@@ -201,10 +196,8 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod();
 
 		try {
-			advancedSearch.setLeadOrganization("mayo");
-			Actions action = new Actions(driver);
-			/// action.pause(1000).perform();
-			driver.get(config.goHome());
+			advancedSearch.setLeadOrganization("mayo clinic cancer center lao");
+			advancedSearch.abandon(config.goHome());
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
@@ -227,7 +220,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			advancedSearch.getCancerType("Lung Cancer");
 			advancedSearch.getCancerSubType("Adenosquamous Lung Cancer");
-			driver.get(config.goHome());
+			advancedSearch.abandon(config.goHome());
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
