@@ -31,7 +31,7 @@ public class PdqCisLoad_Test extends AnalyticsTestLoadBase {
 	/// Test PDQ Cancer Info Summary Page load event
 	@Test(dataProvider = "PDQPageLoad", groups = { "Analytics" })
 	public void testPdqCisPageLoad(String path, String contentType) {
-		System.out.println("Test PDQ Cancer Info Summary Page load event (" + contentType + "):");
+		System.out.println("Test PDQ Cancer Info Summary Page load event (" + path + "):");
 		driver.get(config.goHome() + path);
 		driver.navigate().refresh();
 
@@ -41,7 +41,7 @@ public class PdqCisLoad_Test extends AnalyticsTestLoadBase {
 
 			String[] pathNoId = path.split("#");
 			doCommonLoadAssertions(beacon, analyticsMetaData, pathNoId[0]);
-			logger.log(LogStatus.PASS, "Test PDQ Cancer Info Summary Page load event (" + contentType + ") passed.");
+			logger.log(LogStatus.PASS, "Test PDQ Cancer Info Summary Page load event (" + path + ") passed.");
 		} catch (Exception e) {
 			String currMethod = new Object() {
 			}.getClass().getEnclosingMethod().getName();
