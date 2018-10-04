@@ -190,43 +190,15 @@ public abstract class AnalyticsTestBase {
 		return harUrlList;
 	}
 
-	/**
-	 * Utility function to get the last element in a list of AnalyticsRequest
-	 * objects
-	 * 
-	 * @param list of analytics request objects
-	 * @return the last analytics request object
-	 */
-	protected static Beacon getLastReq(List<Beacon> requests) {
-		int index = requests.size() - 1;
-		Beacon request = (index >= 0) ? requests.get(index) : null;
-		return request;
-	}
-
-	/**
-	 * Utility function to get an element from a given index in a list of
-	 * AnalyticsRequest objects.
-	 * 
-	 * @param list of analytics request objects
-	 * @param index 
-	 * @return analytics request object at that position
-	 */
-	protected static Beacon getReqFromPosition(List<Beacon> requests, int index) {
-		try {
-			return requests.get(index);
-		} catch (IndexOutOfBoundsException e) {
-			return null;
-		}
-	}
-
 	/****************************** Abstract methods ******************************/
 
 	/**
 	 * Get a single Beacon object for testing.
 	 * 
+	 * @param index - optional int value
 	 * @return beacon (Beacon)
 	 */
-	protected abstract Beacon getBeacon();
+	protected abstract Beacon getBeacon(int... index);
 
 	/**
 	 * Get a list of Beacon objects.

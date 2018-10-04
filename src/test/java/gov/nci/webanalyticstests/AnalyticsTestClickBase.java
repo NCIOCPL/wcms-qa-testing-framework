@@ -10,17 +10,38 @@ import gov.nci.webanalytics.Beacon;
 public class AnalyticsTestClickBase extends AnalyticsTestBase {
 
 	/**
-	 * Get the 'click' beacon for testing.
+	 * Get the 'click' beacon for testing. If no index is specified, get the last
+	 * item in the list. 
 	 * 
 	 * @return Beacon
 	 */
-	protected Beacon getBeacon() {
+	protected Beacon getBeacon(int... index) {
 		List<String> harList = getHarUrlList(proxy);
 		List<Beacon> beaconList = getBeaconList(harList);
-		Beacon beacon = getLastReq(beaconList);
+
+		// Optional index value... if index is present, get the beacon at that index.
+		// Otherwise, get the last item in the list.
+		int i = index.length > 0 ? index[0] : (beaconList.size() - 1);
+		Beacon beacon = getBeaconAtIndex(beaconList, i);
+
 		System.out.println("Click beacon to test: ");
 		System.out.println(beacon.url + "\n");
 		return beacon;
+	}
+
+	/**
+	 * Get a Beacon object at a given index.
+	 * 
+	 * @param requests list of request objects
+	 * @param index
+	 * @return analytics request object at that position
+	 */
+	private Beacon getBeaconAtIndex(List<Beacon> requests, int index) {
+		try {
+			return requests.get(index);
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}
 	}
 
 	/**

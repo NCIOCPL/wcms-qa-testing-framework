@@ -25,10 +25,10 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	 * 
 	 * @return Beacon
 	 */
-	protected Beacon getBeacon() {
+	protected Beacon getBeacon(int... index) {
 		List<String> harList = getHarUrlList(proxy);
 		List<Beacon> beaconList = getBeaconList(harList);
-		Beacon beacon = getLastReq(beaconList);
+		Beacon beacon = beaconList.get(beaconList.size() - 1);
 		System.out.println("Load beacon to test: ");
 		System.out.println(beacon.url + "\n");
 		return beacon;
