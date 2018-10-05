@@ -45,9 +45,7 @@ public class DictDefinitionLoad_Test extends DictionaryLoadBase {
 			Assert.assertEquals(beacon.eVars.get(16), beacon.props.get(16));
 			logger.log(LogStatus.PASS, "Test Definition Page load event at " + path + " passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 

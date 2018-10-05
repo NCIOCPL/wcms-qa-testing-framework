@@ -41,9 +41,7 @@ public class LandingLoad_Test extends AnalyticsTestLoadBase {
 			doCommonLoadAssertions(beacon, analyticsMetaData, path);
 			logger.log(LogStatus.PASS, "Test Landing Page load event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 

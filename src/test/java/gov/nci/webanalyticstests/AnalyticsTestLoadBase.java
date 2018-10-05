@@ -171,5 +171,21 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 			return "";
 		}
 	}
+	
+
+	/**
+	 * Common method to log any non-assert exceptions in test methods.
+	 * 
+	 * @param Object representing the test class
+	 * @param Exception 
+	 */
+	protected void handleTestErrors(Object obj, Exception ex) {
+		String testMethod = obj.getClass().getEnclosingMethod().getName();
+		String msg = ex.toString();
+		msg = (msg.length() > 255) ? msg.substring(0, 255) : msg;
+
+		System.out.println("Exception: " + msg + "\n");
+		Assert.fail("Load event exception in " + testMethod + "(): " + msg);
+	}
 
 }

@@ -41,9 +41,7 @@ public class DictDrugsLoad_Test extends DictionaryLoadBase {
 			doCommonLoadAssertions(beacon, analyticsMetaData, dictPath);
 			logger.log(LogStatus.PASS, "Test Drug Dictionary Page load event at " + path + " passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 

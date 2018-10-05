@@ -63,9 +63,7 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.eVars.get(49), beacon.props.get(27));
 			logger.log(LogStatus.PASS, "Test Right Nav section click (" + linkName + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 
 	}
@@ -85,9 +83,7 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(28), "www.cancer.gov" + path);
 			logger.log(LogStatus.PASS, "Test Toggle Link details click (" + linkName + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 

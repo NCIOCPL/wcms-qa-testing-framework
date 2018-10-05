@@ -38,9 +38,7 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(13), "1");
 			logger.log(LogStatus.PASS, "Test Best Bets click event for '" + SEARCH_TERM + "' passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -62,9 +60,7 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(13), "1");
 			logger.log(LogStatus.PASS, "Test result item click event for '" + SEARCH_TERM + "' passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -88,9 +84,7 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.eVars.get(13).matches(REGEX_RESULT_RANK));
 			logger.log(LogStatus.PASS, "Test \"Search Within Results\" click event for '" + SEARCH_TERM + "' passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -113,9 +107,7 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.eVars.get(13).matches(REGEX_RESULT_RANK));
 			logger.log(LogStatus.PASS, "Test \"New Search\" click event for '" + SEARCH_TERM + "' passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 

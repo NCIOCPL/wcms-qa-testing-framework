@@ -41,9 +41,7 @@ public class SwsResultsLoad_Test extends AnalyticsTestLoadBase {
 			logger.log(LogStatus.PASS,
 					"Test Sitewide Search Results page (English) load event for'" + SEARCH_TERM + "' passsed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -67,9 +65,7 @@ public class SwsResultsLoad_Test extends AnalyticsTestLoadBase {
 			logger.log(LogStatus.PASS,
 					"Test Sitewide Search Results page (Spanish) load event for'" + SEARCH_TERM + "' passsed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -86,9 +82,7 @@ public class SwsResultsLoad_Test extends AnalyticsTestLoadBase {
 			doCommonClassAssertions(beacon, RESULTS_PATH_EN);
 			logger.log(LogStatus.PASS, "Test Sitewide Search Results page load event - no results passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 

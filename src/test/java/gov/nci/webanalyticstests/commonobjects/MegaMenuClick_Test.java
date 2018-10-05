@@ -74,9 +74,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)));
 			logger.log(LogStatus.PASS, "Test MegaMenu Nav Group click event at \"" + path + "\" passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -100,9 +98,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)));
 			logger.log(LogStatus.PASS, "Test MegaMenu SubNav Group click event at \"" + path + "\" passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -127,9 +123,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)));
 			logger.log(LogStatus.PASS, "Test MegaMenu SubNav Link click event at \"" + path + "\" passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -149,9 +143,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.eVars.get(43), "Mega Menu");
 			logger.log(LogStatus.PASS, "Test MM desktop reveal event at \"" + path + "\" :");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error hovering on component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -171,9 +163,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.eVars.get(43), "Hamburger Menu");
 			logger.log(LogStatus.PASS, "Test Hamburger click at \"" + path + "\" passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -194,9 +184,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.props.get(73).contains("Expand"), "'Expand' value missing on evemt.");
 			logger.log(LogStatus.PASS, "Test MM mobile expand passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -218,9 +206,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.props.get(73).contains("Collapse"), "'Collapse' value missing on evemt.");
 			logger.log(LogStatus.PASS, "Test MM mobile collapse passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 	

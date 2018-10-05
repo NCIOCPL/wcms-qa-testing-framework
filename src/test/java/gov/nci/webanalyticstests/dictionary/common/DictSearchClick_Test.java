@@ -63,9 +63,7 @@ public class DictSearchClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.eVars.get(13).matches("^[+]\\d$"), "eVar13 regex mismatch");
 			logger.log(LogStatus.PASS, "Test Term Search starts with \"" + term + "\" click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 
 	}
@@ -89,9 +87,7 @@ public class DictSearchClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.eVars.get(13).matches("^[+]\\d$"), "eVar13 regex mismatch");
 			logger.log(LogStatus.PASS, "Test Term Search contains \"" + term + "\" click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 
 	}
@@ -110,9 +106,7 @@ public class DictSearchClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(13), "3");
 			logger.log(LogStatus.PASS, "Test Ranked Result click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 
 	}

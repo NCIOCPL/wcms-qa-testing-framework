@@ -1,6 +1,5 @@
 package gov.nci.webanalyticstests.commonobjects;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.Assert;
@@ -29,14 +28,11 @@ public class ResizeClick_Test extends AnalyticsTestClickBase {
 			Resize resize = new Resize(driver);
 			resize.toXlarge();
 			resize.toSmall();
+			
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon, "Mobile");
-			logger.log(LogStatus.PASS, "'Test resize to small' passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error resizing component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -49,14 +45,11 @@ public class ResizeClick_Test extends AnalyticsTestClickBase {
 			Resize resize = new Resize(driver);
 			resize.toXlarge();
 			resize.toMed();
+			
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon, "Tablet");
-			logger.log(LogStatus.PASS, "'Test resize to medium' passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error resizing component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -69,14 +62,11 @@ public class ResizeClick_Test extends AnalyticsTestClickBase {
 			Resize resize = new Resize(driver);
 			resize.toSmall();
 			resize.toLarge();
+			
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon, "Desktop");
-			logger.log(LogStatus.PASS, "'Test resize to large' passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error resizing component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -89,14 +79,11 @@ public class ResizeClick_Test extends AnalyticsTestClickBase {
 			Resize resize = new Resize(driver);
 			resize.toSmall();
 			resize.toXlarge();
+			
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon, "Extra wide");
-			logger.log(LogStatus.PASS, "'Test resize to x-large' passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error resizing component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -109,15 +96,12 @@ public class ResizeClick_Test extends AnalyticsTestClickBase {
 			Resize resize = new Resize(driver);
 			resize.toSmall();
 			resize.maximize();
+			
 			Beacon beacon = getBeacon();
-
 			doCommonClickAssertions(beacon);
 			Assert.assertFalse(beacon.hasEvent(1));
-			logger.log(LogStatus.PASS, "'Test maximize' passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error resizing component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 

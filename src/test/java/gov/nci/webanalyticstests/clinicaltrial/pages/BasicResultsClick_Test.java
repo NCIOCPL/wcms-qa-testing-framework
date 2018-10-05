@@ -64,9 +64,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|start over");
 			logger.log(LogStatus.PASS, "Test Basic 'Start Over' click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -86,9 +84,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(75), "printselected|noneselected");
 			logger.log(LogStatus.PASS, "Test Basic print error click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -112,9 +108,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
 			logger.log(LogStatus.PASS, "Test Basic 'print one item' click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -138,9 +132,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
 			logger.log(LogStatus.PASS, "Test Basic 'print multiple items' click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -163,9 +155,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
 			logger.log(LogStatus.PASS, "Test Basic 'select all' print click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
@@ -186,9 +176,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(12), beacon.eVars.get(12));
 			logger.log(LogStatus.PASS, "Test Basic result ranking click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {}, e);
 		}
 	}
 
