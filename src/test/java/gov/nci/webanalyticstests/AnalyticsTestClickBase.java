@@ -83,7 +83,7 @@ public class AnalyticsTestClickBase extends AnalyticsTestBase {
 
 		// Suites
 		String currUrl = driver.getCurrentUrl();
-		Assert.assertTrue(beacon.hasSuite("nciglobal", currUrl));
+		Assert.assertTrue(beacon.hasSuite("nciglobal", currUrl), "Missing global suite");
 
 		// Props
 		Assert.assertEquals(beacon.props.get(4), "D=pev1");
