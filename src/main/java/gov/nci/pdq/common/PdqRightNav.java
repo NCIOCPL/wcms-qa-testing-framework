@@ -2,7 +2,6 @@ package gov.nci.pdq.common;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
