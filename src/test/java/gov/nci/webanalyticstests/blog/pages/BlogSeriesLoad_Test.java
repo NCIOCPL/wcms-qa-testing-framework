@@ -36,14 +36,13 @@ public class BlogSeriesLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
+			
 			Beacon beacon = getBeacon();
-
 			doCommonLoadAssertions(beacon, analyticsMetaData, path);
 			logger.log(LogStatus.PASS, "Test Blog Series Page load event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
