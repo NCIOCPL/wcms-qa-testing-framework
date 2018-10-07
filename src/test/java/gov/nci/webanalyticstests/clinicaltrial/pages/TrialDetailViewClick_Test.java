@@ -4,7 +4,6 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -40,10 +39,7 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 			driver.get(config.goHome() + path);
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			trialView = new TrialDetailView(driver, chatPrompt);
-
 			driver.navigate().refresh();
-			Actions action = new Actions(driver);
-			/// action.pause(500).perform();
 		} catch (Exception ex) {
 			Assert.fail("Error loading CTS Trial Detail View: " + path);
 			ex.printStackTrace();
@@ -60,17 +56,15 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			trialView.clickStartOverNoNav();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(49));
 			Assert.assertEquals(beacon.linkName, "CTStartOverClick");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|start over");
-			logger.log(LogStatus.PASS, "Test Trial View - start over click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -82,15 +76,13 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			trialView.clickOpenAll();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertEquals(beacon.props.get(41), "clinical_trial|none|none|open-all");
-			logger.log(LogStatus.PASS, "Test Trial View - open all sections click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -102,15 +94,13 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			trialView.clickCloseAll();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertEquals(beacon.props.get(41), "clinical_trial|none|none|close-all");
-			logger.log(LogStatus.PASS, "Test Trial View - close all sections click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -122,15 +112,13 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			trialView.clickComponent("#trial-ids h2");
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertEquals(beacon.props.get(41), "clinical_trial|trial-ids|Trial IDs|expand");
-			logger.log(LogStatus.PASS, "Test Trial View - expand section click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -142,15 +130,13 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			trialView.clickSection("description");
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertEquals(beacon.props.get(41), "clinical_trial|trial-description|Description|collapse");
-			logger.log(LogStatus.PASS, "Test Trial View - collapse section click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -162,18 +148,16 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			trialView.clickPrintLink();
-			Actions action = new Actions(driver);
-			/// action.pause(500).perform();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertEquals(beacon.linkName, "CTSLink");
-			Assert.assertEquals(beacon.props.get(5), "print|" + beacon.pageName);
-			logger.log(LogStatus.PASS, "Test Trial View - 'Print' click event passed.");
+			Assert.assertEquals(beacon.linkName, "PrintLink");
+			Assert.assertTrue(beacon.hasEvent(17), "Missing event");
+			Assert.assertEquals(beacon.props.get(43), "Print");
+			Assert.assertEquals(beacon.props.get(66), "print");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -185,35 +169,33 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			trialView.clickEmailLink();
-			Actions action = new Actions(driver);
-			/// action.pause(500).perform();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertEquals(beacon.linkName, "CTSLink");
-			Assert.assertEquals(beacon.props.get(5), "email|" + beacon.pageName);
-			logger.log(LogStatus.PASS, "Test Trial View - 'email' click event passed.");
+			Assert.assertEquals(beacon.linkName, "eMailLink");
+			Assert.assertTrue(beacon.hasEvent(17), "Missing event");
+			Assert.assertEquals(beacon.props.get(43), "Email");
+			Assert.assertEquals(beacon.props.get(66), "email");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "AdvancedViewFullPath")
-	public Iterator<Object[]> getAdvancedViewFullPath() {
+	private Iterator<Object[]> getAdvancedViewFullPath() {
 		return getTrialViewClickData("Advanced");
 	}
 
 	@DataProvider(name = "BasicViewFullPath")
-	public Iterator<Object[]> getBasicViewFullPath() {
+	private Iterator<Object[]> getBasicViewFullPath() {
 		return getTrialViewClickData("Basic");
 	}
 
 	@DataProvider(name = "CustomViewFullPath")
-	public Iterator<Object[]> getCustomViewFullPath() {
+	private Iterator<Object[]> getCustomViewFullPath() {
 		return getTrialViewClickData("Custom");
 	}
 
