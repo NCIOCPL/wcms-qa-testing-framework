@@ -65,16 +65,17 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(26));
+			Assert.assertTrue(beacon.hasEvent(26), "Missing event");
 			Assert.assertEquals(beacon.linkName, "MegaMenuClick");
 			Assert.assertEquals(beacon.props.get(8), lang);
 			Assert.assertEquals(beacon.props.get(53), navGroup);
 			Assert.assertEquals(beacon.props.get(54), navGroup);
 			Assert.assertEquals(beacon.props.get(55), navGroup);
-			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)));
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), "Incorrect prop56");
 			logger.log(LogStatus.PASS, "Test MegaMenu Nav Group click event at \"" + path + "\" passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -86,19 +87,19 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			megaMenu.clickMegaMenuSubNavHeader();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(26));
+			Assert.assertTrue(beacon.hasEvent(26), "Missing event");
 			Assert.assertEquals(beacon.linkName, "MegaMenuClick");
 			Assert.assertEquals(beacon.props.get(8), lang);
 			Assert.assertEquals(beacon.props.get(53), navGroup);
 			Assert.assertEquals(beacon.props.get(54), subNavGroup);
 			Assert.assertEquals(beacon.props.get(55), subNavGroup);
-			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)));
-			logger.log(LogStatus.PASS, "Test MegaMenu SubNav Group click event at \"" + path + "\" passed.");
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), "Incorrect prop value");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -111,19 +112,19 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			megaMenu.clickMegaMenuListItem(subNavLink);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(26));
+			Assert.assertTrue(beacon.hasEvent(26), "Missing event");
 			Assert.assertEquals(beacon.linkName, "MegaMenuClick");
 			Assert.assertEquals(beacon.props.get(8), lang);
 			Assert.assertEquals(beacon.props.get(53), navGroup);
 			Assert.assertEquals(beacon.props.get(54), subNavGroup);
 			Assert.assertEquals(beacon.props.get(55), subNavLink);
-			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)));
-			logger.log(LogStatus.PASS, "Test MegaMenu SubNav Link click event at \"" + path + "\" passed.");
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), "Incorrect prop value");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -135,15 +136,15 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			megaMenu.revealMegaMenuDesktop();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(28));
+			Assert.assertTrue(beacon.hasEvent(28), "Missing event28");
 			Assert.assertEquals(beacon.linkName, "MegaMenuDesktopReveal");
 			Assert.assertEquals(beacon.eVars.get(43), "Mega Menu");
-			logger.log(LogStatus.PASS, "Test MM desktop reveal event at \"" + path + "\" :");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -155,15 +156,15 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			megaMenu.revealMegaMenuMobile();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(28));
+			Assert.assertTrue(beacon.hasEvent(28), "Missing event28");
 			Assert.assertEquals(beacon.linkName, "MegaMenuMobileReveal");
 			Assert.assertEquals(beacon.eVars.get(43), "Hamburger Menu");
-			logger.log(LogStatus.PASS, "Test Hamburger click at \"" + path + "\" passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -176,15 +177,15 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		try {
 			megaMenu.revealMegaMenuMobile();
 			megaMenu.clickMegaMenuMobileButton();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(34));
+			Assert.assertTrue(beacon.hasEvent(34), "Missing event34");
 			Assert.assertEquals(beacon.linkName, "MegaMenuMobileAccordionClick");
-			Assert.assertTrue(beacon.props.get(73).contains("Expand"), "'Expand' value missing on evemt.");
-			logger.log(LogStatus.PASS, "Test MM mobile expand passed.");
+			Assert.assertTrue(beacon.props.get(73).startsWith("Expand"), "Invalid prop73");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -198,18 +199,18 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			megaMenu.revealMegaMenuMobile();
 			megaMenu.clickMegaMenuMobileButton();
 			megaMenu.clickMegaMenuMobileButton();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(35));
+			Assert.assertTrue(beacon.hasEvent(35), "Missing event35");
 			Assert.assertEquals(beacon.linkName, "MegaMenuMobileAccordionClick");
-			Assert.assertTrue(beacon.props.get(73).contains("Collapse"), "'Collapse' value missing on evemt.");
-			logger.log(LogStatus.PASS, "Test MM mobile collapse passed.");
+			Assert.assertTrue(beacon.props.get(73).startsWith("Collapse"), "Invalid prop73");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
-	
+
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "PathData")
