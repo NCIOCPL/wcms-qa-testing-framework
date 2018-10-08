@@ -172,7 +172,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 		try {
 			rightRail.clickArchiveHeader();
 			rightRail.clickArchiveYear("2017");
-			rightRail.clickArchiveMonth("May");
+			rightRail.clickArchiveMonth("5", "2017");
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "BlogArchiveDateClick");
@@ -194,7 +194,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 		try {
 			rightRail.clickArchiveHeader();
 			rightRail.clickArchiveYear("2017");
-			rightRail.clickArchiveMonth("May");
+			rightRail.clickArchiveMonth("5", "2017");
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "BlogArchiveDateClick");
