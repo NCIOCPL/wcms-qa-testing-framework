@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -81,11 +82,6 @@ public class MegaMenu extends PageObjectBase {
 	}
 
 	public void clickMegaMenuListItem(String text) {
-		// WebElement element = mm_subnav_li_text;
-		// WebElement element = getMegaMenuElementByText(text);
-		// JavascriptExecutor js = (JavascriptExecutor) driver;
-		// js.executeScript("arguments[0].click();", element);
-
 		action.moveToElement(mm_bar_link).perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_subnav_li));
 		mm_subnav_li.click();
@@ -93,8 +89,14 @@ public class MegaMenu extends PageObjectBase {
 
 	public void revealMegaMenuDesktop() {
 		action.moveToElement(mm_bar_link).perform();
-		/// action.pause(2000).perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_subnav_li));
+
+		// *Lifts piano cover*
+		// They hate this.
+		for (int i = 0; i <= 10; i++) {
+			mm_subnav_li.sendKeys(Keys.ARROW_DOWN);
+			mm_subnav_li.sendKeys(Keys.ARROW_UP);
+		}
 	}
 
 	public void revealMegaMenuMobile() {
