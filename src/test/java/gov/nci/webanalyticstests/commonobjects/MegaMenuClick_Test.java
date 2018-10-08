@@ -149,10 +149,10 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test MegaMenu Mobile Reveal
-	@Test(dataProvider = "PathData", groups = { "Analytics" })
-	public void testMegaMenuMobileReveal(String path, String lang) {
-		System.out.println("Test Hamburger click at \"" + path + "\" :");
-		setupTestMethod(path);
+	@Test(groups = { "Analytics" })
+	public void testMegaMenuMobileReveal() {
+		System.out.println("Test Hamburger click:");
+		setupTestMethod();
 
 		try {
 			megaMenu.revealMegaMenuMobile();
