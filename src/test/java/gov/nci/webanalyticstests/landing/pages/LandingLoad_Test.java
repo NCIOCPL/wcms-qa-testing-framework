@@ -36,12 +36,12 @@ public class LandingLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonLoadAssertions(beacon, analyticsMetaData, path);
-			logger.log(LogStatus.PASS, "Test Landing Page load event passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

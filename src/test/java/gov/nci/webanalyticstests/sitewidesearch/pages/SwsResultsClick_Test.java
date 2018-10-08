@@ -36,9 +36,9 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 			doCommonClassAssertions(beacon, "");
 			Assert.assertEquals(beacon.props.get(12), "best_bets");
 			Assert.assertEquals(beacon.props.get(13), "1");
-			logger.log(LogStatus.PASS, "Test Best Bets click event for '" + SEARCH_TERM + "' passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -58,9 +58,9 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 			doCommonClassAssertions(beacon, "");
 			Assert.assertEquals(beacon.props.get(12), "generic");
 			Assert.assertEquals(beacon.props.get(13), "1");
-			logger.log(LogStatus.PASS, "Test result item click event for '" + SEARCH_TERM + "' passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -75,16 +75,16 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 			swSearchResults.selectWithinResults();
 			swSearchResults.setSitewideSearchKeyword(SEARCH_TERM);
 			swSearchResults.clickSearchButton();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "Search");
 			Assert.assertTrue(beacon.hasEvent(2));
 			Assert.assertEquals(beacon.props.get(11), "sitewide_bottom_withinresults");
 			Assert.assertEquals(beacon.props.get(14), SEARCH_TERM.toLowerCase());
 			Assert.assertTrue(beacon.eVars.get(13).matches(REGEX_RESULT_RANK));
-			logger.log(LogStatus.PASS, "Test \"Search Within Results\" click event for '" + SEARCH_TERM + "' passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -98,16 +98,16 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 			swSearchResults = new SitewideSearchResults(driver);
 			swSearchResults.setSitewideSearchKeyword(SEARCH_TERM);
 			swSearchResults.clickSearchButton();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "Search");
 			Assert.assertTrue(beacon.hasEvent(2));
 			Assert.assertEquals(beacon.props.get(11), "sitewide_bottom_new");
 			Assert.assertEquals(beacon.props.get(14), SEARCH_TERM.toLowerCase());
 			Assert.assertTrue(beacon.eVars.get(13).matches(REGEX_RESULT_RANK));
-			logger.log(LogStatus.PASS, "Test \"New Search\" click event for '" + SEARCH_TERM + "' passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

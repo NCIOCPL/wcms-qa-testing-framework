@@ -35,15 +35,13 @@ public class DictTermsEsLoad_Test extends DictionaryLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			String dictPath = getDictionaryPath(path);
 			doCommonLoadAssertions(beacon, analyticsMetaData, dictPath);
-			logger.log(LogStatus.PASS, "Test Spanish Dictionary Page load event at " + path + " passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

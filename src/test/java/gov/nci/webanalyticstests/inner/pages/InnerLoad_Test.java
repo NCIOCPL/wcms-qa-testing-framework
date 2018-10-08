@@ -36,14 +36,12 @@ public class InnerLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonLoadAssertions(beacon, analyticsMetaData, path);
-			logger.log(LogStatus.PASS, "Test Inner Page load event (" + contentType + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

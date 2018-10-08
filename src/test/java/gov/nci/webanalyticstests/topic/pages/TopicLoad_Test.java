@@ -39,9 +39,9 @@ public class TopicLoad_Test extends AnalyticsTestLoadBase {
 			Beacon beacon = getBeacon();
 
 			doCommonLoadAssertions(beacon, analyticsMetaData, path);
-			logger.log(LogStatus.PASS, "Test Topic Page load event passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

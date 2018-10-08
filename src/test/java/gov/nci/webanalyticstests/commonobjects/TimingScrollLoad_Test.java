@@ -44,13 +44,9 @@ public class TimingScrollLoad_Test extends AnalyticsTestLoadBase {
 			Beacon beacon = getBeacon();
 
 			doCommonClassAssertions(beacon, analyticsMetaData, path);
-			String[] pctViewed = beacon.props.get(64).split("|");
-			// Assert.assertEquals(pctViewed[1], 0);
-			logger.log(LogStatus.PASS, "Test Page Load event after no scrolling (" + contentType + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -66,12 +62,10 @@ public class TimingScrollLoad_Test extends AnalyticsTestLoadBase {
 			analyticsMetaData = new AnalyticsMetaData(driver);
 			Beacon beacon = getBeacon();
 
-			//doCommonClassAssertions(beacon, analyticsMetaData);
-			logger.log(LogStatus.PASS, "Test Page Load event after scrolling to bottom passed.");
+			// doCommonClassAssertions(beacon, analyticsMetaData);
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -86,12 +80,10 @@ public class TimingScrollLoad_Test extends AnalyticsTestLoadBase {
 			// Click and scroll around page
 			// Refresh
 			Beacon beacon = getBeacon();
-			//doCommonClassAssertions(beacon, analyticsMetaData);
-			logger.log(LogStatus.PASS, "Test engagement tracking on page load passed.");
+			// doCommonClassAssertions(beacon, analyticsMetaData);
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

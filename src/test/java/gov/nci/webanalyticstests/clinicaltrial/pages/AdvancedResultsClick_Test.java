@@ -51,11 +51,9 @@ public class AdvancedResultsClick_Test extends AnalyticsTestClickBase {
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(49));
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|start over");
-			logger.log(LogStatus.PASS, "Advanced 'Start Over' click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -67,18 +65,16 @@ public class AdvancedResultsClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			searchResults.clickResultLinkByIndex(1);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(42));
 			Assert.assertEquals(beacon.props.get(12), "clinicaltrials_advanced");
 			Assert.assertEquals(beacon.props.get(13), "2|page 2");
 			Assert.assertEquals(beacon.props.get(12), beacon.eVars.get(12));
-			logger.log(LogStatus.PASS, "Test Advanced ranked result click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

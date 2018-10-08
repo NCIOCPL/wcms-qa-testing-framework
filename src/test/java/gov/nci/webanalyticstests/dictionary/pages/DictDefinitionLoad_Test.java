@@ -37,8 +37,8 @@ public class DictDefinitionLoad_Test extends DictionaryLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			String dictPath = getDictionaryPath(path);
 			doCommonLoadAssertions(beacon, analyticsMetaData, dictPath);
 			Assert.assertEquals(beacon.props.get(16), cdrData);

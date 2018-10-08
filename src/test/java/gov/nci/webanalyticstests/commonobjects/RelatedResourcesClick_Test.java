@@ -38,17 +38,16 @@ public class RelatedResourcesClick_Test extends AnalyticsTestClickBase {
 			String linkText = relatedResources.getRelatedResourcesLinkText(0);
 			String currentUrl = driver.getCurrentUrl();
 			relatedResources.clickRelatedResourcesLink(0);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			Assert.assertTrue(beacon.hasEvent(57));
 			Assert.assertEquals(beacon.linkName, "BlogRelatedLinkClick");
 			Assert.assertEquals(beacon.props.get(50), linkText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CRCHDDialogueDisparities_Post_RelatedResource:1");
 			Assert.assertTrue(currentUrl.contains(beacon.props.get(67)));
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -61,16 +60,15 @@ public class RelatedResourcesClick_Test extends AnalyticsTestClickBase {
 			String linkText = relatedResources.getRelatedResourcesLinkText(1);
 			String currentUrl = driver.getCurrentUrl();
 			relatedResources.clickRelatedResourcesLink(1);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			Assert.assertTrue(beacon.hasEvent(59));
 			Assert.assertEquals(beacon.props.get(50), linkText);
 			Assert.assertEquals(beacon.props.get(66), "Understanding Cancer_RelatedResource:2");
 			Assert.assertTrue(currentUrl.contains(beacon.props.get(67)));
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

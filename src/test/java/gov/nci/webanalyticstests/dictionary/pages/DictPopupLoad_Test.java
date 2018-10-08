@@ -35,8 +35,8 @@ public class DictPopupLoad_Test extends DictionaryLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			Assert.assertTrue(beacon.hasEvent(1), "Expected event1");
 			Assert.assertEquals(beacon.props.get(7), "patient");
 			Assert.assertTrue(beacon.hasEvent(11), "Expected event11");
@@ -44,11 +44,9 @@ public class DictPopupLoad_Test extends DictionaryLoadBase {
 			Assert.assertEquals(beacon.props.get(8), analyticsMetaData.getLanguageName());
 			Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));
 			Assert.assertEquals(beacon.eVars.get(7), beacon.props.get(7));
-			logger.log(LogStatus.PASS, "Test Dictionary Popup Page load event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

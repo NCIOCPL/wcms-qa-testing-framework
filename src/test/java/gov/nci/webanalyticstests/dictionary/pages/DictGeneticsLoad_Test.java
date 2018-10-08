@@ -35,13 +35,13 @@ public class DictGeneticsLoad_Test extends DictionaryLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			String dictPath = getDictionaryPath(path);
 			doCommonLoadAssertions(beacon, analyticsMetaData, dictPath);
-			logger.log(LogStatus.PASS, "Test Genetics Dictionary Page load event at " + path + " passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

@@ -41,17 +41,13 @@ public class ErrorClick_Test extends AnalyticsTestClickBase {
 			pageNotFound.setSitewideSearchKeyword(searchTerm);
 			pageNotFound.selectEnglish();
 			pageNotFound.clickSearchButton();
+
 			Beacon beacon = getBeacon();
-
 			doCommonClickAssertions(beacon);
-
 			Assert.assertEquals(beacon.props.get(11), "pagenotfoundsearch");
-			logger.log(LogStatus.PASS,
-					"Test Error Page English sitewide search click event (" + searchTerm + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -66,16 +62,13 @@ public class ErrorClick_Test extends AnalyticsTestClickBase {
 			pageNotFound.setSitewideSearchKeyword(searchTerm);
 			pageNotFound.selectSpanish();
 			pageNotFound.clickSearchButton();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, searchTerm);
 			Assert.assertEquals(beacon.props.get(11), "pagenotfoundsearch_spanish");
-			logger.log(LogStatus.PASS,
-					"Test Error Page Spanish sitewide search click event (" + searchTerm + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

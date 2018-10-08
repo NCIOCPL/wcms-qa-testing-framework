@@ -62,8 +62,8 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			megaMenu.clickMegaMenuBar(navGroup);
+			
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(26), "Missing event");
 			Assert.assertEquals(beacon.linkName, "MegaMenuClick");
@@ -72,7 +72,6 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(54), navGroup);
 			Assert.assertEquals(beacon.props.get(55), navGroup);
 			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), "Incorrect prop56");
-			logger.log(LogStatus.PASS, "Test MegaMenu Nav Group click event at \"" + path + "\" passed.");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);

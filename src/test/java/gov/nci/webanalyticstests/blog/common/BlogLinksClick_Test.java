@@ -49,11 +49,9 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 
 			doCommonClassAssertions(beacon, "BlogSubscribeClick");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_Subscribe");
-			logger.log(LogStatus.PASS, "Test Blog Series Subscribe click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -69,11 +67,9 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 
 			doCommonClassAssertions(beacon, "BlogSubscribeClick");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Subscribe");
-			logger.log(LogStatus.PASS, "Test Blog Post Subscribe click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -89,11 +85,9 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 
 			doCommonClassAssertions(beacon, "OlderNewerClick");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrentsEsp_Series_Newer");
-			logger.log(LogStatus.PASS, "Test Blog Series Older click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -109,11 +103,9 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 
 			doCommonClassAssertions(beacon, "OlderNewerClick");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_Older");
-			logger.log(LogStatus.PASS, "Test Blog Series Older click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -129,11 +121,9 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 
 			doCommonClassAssertions(beacon, "OlderNewerClick");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrentsEsp_Post_Newer");
-			logger.log(LogStatus.PASS, "Test Blog Post Newer click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -149,11 +139,9 @@ public class BlogLinksClick_Test extends AnalyticsTestClickBase {
 
 			doCommonClassAssertions(beacon, "OlderNewerClick");
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrentsEsp_Post_Older");
-			logger.log(LogStatus.PASS, "Test Blog Post Newer click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

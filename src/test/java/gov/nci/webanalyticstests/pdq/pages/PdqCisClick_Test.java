@@ -54,18 +54,17 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 			// old GlobalLinkTrack beacon.
 			pdqRightNav.clickSection(linkName);
 			pdqRightNav.clickSection(linkName);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClickAssertions(beacon);
 			Assert.assertEquals(beacon.linkName, "RightNavLink-");
 			Assert.assertEquals(beacon.props.get(27), linkName);
 			Assert.assertEquals(beacon.props.get(66), "pdq_" + linkName.toLowerCase());
 			Assert.assertEquals(beacon.eVars.get(49), beacon.props.get(27));
-			logger.log(LogStatus.PASS, "Test Right Nav section click (" + linkName + ") passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
-
 	}
 
 	// Test Toggle Link details click
@@ -81,9 +80,9 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 			doCommonClickAssertions(beacon);
 			Assert.assertEquals(beacon.linkName, "GlobalLinkTrack");
 			Assert.assertEquals(beacon.props.get(28), "www.cancer.gov" + path);
-			logger.log(LogStatus.PASS, "Test Toggle Link details click (" + linkName + ") passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

@@ -59,15 +59,12 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon, searchTerm);
 			Assert.assertEquals(beacon.props.get(8), "english");
 			Assert.assertEquals(beacon.props.get(11), "sitewide");
-			logger.log(LogStatus.PASS, "Test Sitewide Search from Home Page (" + searchTerm + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -79,15 +76,12 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon, searchTerm);
 			Assert.assertEquals(beacon.props.get(8), "spanish");
 			Assert.assertEquals(beacon.props.get(11), "sitewide_spanish");
-			logger.log(LogStatus.PASS, "Test Sitewide Search from Spanish Home Page (" + searchTerm + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -99,15 +93,12 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon, searchTerm);
 			Assert.assertEquals(beacon.props.get(8), "english");
 			Assert.assertEquals(beacon.props.get(11), "sitewide");
-			logger.log(LogStatus.PASS, "Test Sitewide Search from Inner Page (" + searchTerm + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -119,14 +110,11 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon, searchTerm);
 			Assert.assertEquals(beacon.props.get(11), "sitewide");
-			logger.log(LogStatus.PASS, "Test Sitewide Search unmatched term (" + searchTerm + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -138,41 +126,38 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon, searchTerm);
 			Assert.assertEquals(beacon.props.get(11), "sitewide");
-			logger.log(LogStatus.PASS, "Test Microsite Search for term (" + searchTerm + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "CancerTermsEn")
-	public Iterator<Object[]> getCancerTermsEn() {
+	private Iterator<Object[]> getCancerTermsEn() {
 		return getFilteredSearchTerms(TESTDATA_SHEET_NAME_EN, "Generic");
 	}
 
 	@DataProvider(name = "CancerTermsEs")
-	public Iterator<Object[]> getCancerTermsEs() {
+	private Iterator<Object[]> getCancerTermsEs() {
 		return getFilteredSearchTerms(TESTDATA_SHEET_NAME_ES, "Generic");
 	}
 
 	@DataProvider(name = "BestBetTerms")
-	public Iterator<Object[]> getBestBetTerms() {
+	private Iterator<Object[]> getBestBetTerms() {
 		return getFilteredSearchTerms(TESTDATA_SHEET_NAME_EN, "BestBet");
 	}
 
 	@DataProvider(name = "DefinitionTerms")
-	public Iterator<Object[]> getDefinitionTerms() {
+	private Iterator<Object[]> getDefinitionTerms() {
 		return getFilteredSearchTerms(TESTDATA_SHEET_NAME_EN, "BestBet");
 	}
 
 	@DataProvider(name = "NoMatchTerms")
-	public Iterator<Object[]> getNoMatchTerms() {
+	private Iterator<Object[]> getNoMatchTerms() {
 		return getFilteredSearchTerms(TESTDATA_SHEET_NAME_EN, "NoMatch");
 	}
 

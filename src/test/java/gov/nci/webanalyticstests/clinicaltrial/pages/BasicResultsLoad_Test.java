@@ -60,11 +60,9 @@ public class BasicResultsLoad_Test extends AnalyticsTestLoadBase {
 			Assert.assertEquals(beacon.props.get(15), fieldsUsed);
 			Assert.assertEquals(beacon.props.get(17), cancerInfo);
 			Assert.assertEquals(beacon.props.get(18), location);
-			logger.log(LogStatus.PASS, "Test CTS Basic Results page load event (" + searchType + ") passed");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

@@ -37,14 +37,12 @@ public class HomeLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonLoadAssertions(beacon, analyticsMetaData, path);
-			logger.log(LogStatus.PASS, "Test Home Page load event (" + contentType + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -57,14 +55,12 @@ public class HomeLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonLoadAssertions(beacon, analyticsMetaData, SITEHOME_PATH);
-			logger.log(LogStatus.PASS, "Test Home-refresh load event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -78,14 +74,12 @@ public class HomeLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonLoadAssertions(beacon, analyticsMetaData, SITEHOME_PATH);
-			logger.log(LogStatus.PASS, "Test Home-and-back load event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

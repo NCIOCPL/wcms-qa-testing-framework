@@ -44,14 +44,12 @@ public class OnThisPageClick_Test extends AnalyticsTestClickBase {
 			String linkText = otp.getOnThisPageLinkText(0);
 			String linkHref = otp.getOnThisPageHref(0);
 			otp.clickOnThisPageLink(0);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, linkText, linkHref);
-			logger.log(LogStatus.PASS, "Test Article On This Page link click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -65,14 +63,12 @@ public class OnThisPageClick_Test extends AnalyticsTestClickBase {
 			String linkText = otp.getOnThisPageLinkText(1);
 			String linkHref = otp.getOnThisPageHref(1);
 			otp.clickOnThisPageLink(1);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, linkText, linkHref);
-			logger.log(LogStatus.PASS, "Test Factsheet On This Page link click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -86,14 +82,12 @@ public class OnThisPageClick_Test extends AnalyticsTestClickBase {
 			String linkText = otp.getOnThisPageLinkText(2);
 			String linkHref = otp.getOnThisPageHref(2);
 			otp.clickOnThisPageLink(2);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, linkText, linkHref);
-			logger.log(LogStatus.PASS, "Test PDQ On This Page link click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

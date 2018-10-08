@@ -36,9 +36,6 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 			driver.get(config.goHome() + path);
 			currentUrl = driver.getCurrentUrl();
 			card = new Card(driver);
-
-			Actions action = new Actions(driver);
-			/// action.pause(1000).perform();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Error building CTHP page object.");
@@ -55,14 +52,12 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			card.clickCardText(linkText);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, cardTitle, linkText, cardPos);
-			logger.log(LogStatus.PASS, "Test CTHP HP " + cardTitle + " Card click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -74,14 +69,12 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			card.clickCardText(linkText);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, cardTitle, linkText, cardPos);
-			logger.log(LogStatus.PASS, "Test CTHP Patient " + cardTitle + " Card click event passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

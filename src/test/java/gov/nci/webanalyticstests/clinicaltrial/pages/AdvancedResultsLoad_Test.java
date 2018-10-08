@@ -62,11 +62,9 @@ public class AdvancedResultsLoad_Test extends AnalyticsTestLoadBase {
 			Assert.assertEquals(beacon.props.get(18), location);
 			Assert.assertEquals(beacon.props.get(19), treatment);
 			Assert.assertEquals(beacon.props.get(20), custom);
-			logger.log(LogStatus.PASS, "Test CTS Advanced Results page load event (" + searchType + ") passed");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

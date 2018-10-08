@@ -41,11 +41,9 @@ public class ErrorLoad_Test extends AnalyticsTestLoadBase {
 			Assert.assertEquals(beacon.channels, "Error Pages");
 			Assert.assertEquals(beacon.getPageType(), "errorPage");
 			Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));
-			logger.log(LogStatus.PASS, "Test Error Page load event (" + contentType + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

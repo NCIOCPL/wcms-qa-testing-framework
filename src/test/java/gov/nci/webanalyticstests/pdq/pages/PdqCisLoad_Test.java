@@ -41,11 +41,9 @@ public class PdqCisLoad_Test extends AnalyticsTestLoadBase {
 
 			String[] pathNoId = path.split("#");
 			doCommonLoadAssertions(beacon, analyticsMetaData, pathNoId[0]);
-			logger.log(LogStatus.PASS, "Test PDQ Cancer Info Summary Page load event (" + path + ") passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

@@ -58,14 +58,12 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 			String linkText = card.getCardText(linkSel, index);
 			String cardPos = cardType + ":" + (index + 1);
 			card.clickCardLink(linkSel, index);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, titleText, linkText, cardPos);
-			logger.log(LogStatus.PASS, "Test Home Page " + cardType + " Card click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -80,14 +78,12 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 			String linkText = card.getCardText(linkSel, index);
 			String cardPos = cardType + ":" + (index + 1);
 			card.clickCardLink(linkSel, index);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, titleText, linkText, cardPos);
-			logger.log(LogStatus.PASS, "Test Landing Page " + cardType + " Card click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -102,14 +98,12 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 			String linkText = card.getCardText(linkSel, index);
 			String cardPos = cardType + ":" + (index + 1);
 			card.clickCardLink(linkSel, index);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, titleText, linkText, cardPos);
-			logger.log(LogStatus.PASS, "Test Topic Page " + cardType + " Card click passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error clicking component in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

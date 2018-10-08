@@ -28,11 +28,12 @@ public class ResizeClick_Test extends AnalyticsTestClickBase {
 			Resize resize = new Resize(driver);
 			resize.toXlarge();
 			resize.toSmall();
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "Mobile");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -45,11 +46,12 @@ public class ResizeClick_Test extends AnalyticsTestClickBase {
 			Resize resize = new Resize(driver);
 			resize.toXlarge();
 			resize.toMed();
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "Tablet");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -62,11 +64,12 @@ public class ResizeClick_Test extends AnalyticsTestClickBase {
 			Resize resize = new Resize(driver);
 			resize.toSmall();
 			resize.toLarge();
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "Desktop");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -79,11 +82,12 @@ public class ResizeClick_Test extends AnalyticsTestClickBase {
 			Resize resize = new Resize(driver);
 			resize.toSmall();
 			resize.toXlarge();
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "Extra wide");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -96,12 +100,13 @@ public class ResizeClick_Test extends AnalyticsTestClickBase {
 			Resize resize = new Resize(driver);
 			resize.toSmall();
 			resize.maximize();
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClickAssertions(beacon);
 			Assert.assertFalse(beacon.hasEvent(1));
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

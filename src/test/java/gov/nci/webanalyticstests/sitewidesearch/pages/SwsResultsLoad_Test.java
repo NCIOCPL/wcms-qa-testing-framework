@@ -34,11 +34,12 @@ public class SwsResultsLoad_Test extends AnalyticsTestLoadBase {
 			swSearchForm.clickSearchButton();
 			swSearchResults = new SitewideSearchResults(driver);
 			analyticsMetaData.setPageTitle("NCI Search Results - National Cancer Institute");
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, RESULTS_PATH_EN);
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -60,7 +61,8 @@ public class SwsResultsLoad_Test extends AnalyticsTestLoadBase {
 			doCommonClassAssertions(beacon, RESULTS_PATH_ES);
 			Assert.assertEquals(beacon.props.get(8), "spanish");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -72,11 +74,12 @@ public class SwsResultsLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			analyticsMetaData.setPageTitle("NCI Search Results - National Cancer Institute");
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, RESULTS_PATH_EN);
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

@@ -53,19 +53,13 @@ public class TrialPrintLoad_Test extends AnalyticsTestLoadBase {
 			Checkbox checkbox = new Checkbox(driver, CHECKBOX_ITEM_SELECTOR);
 			checkbox.checkCheckbox(checkboxId);
 			searchResults.clickPrintButton();
-
-			// Give the print page time to load, then refresh
-			Actions action = new Actions(driver);
-			/// action.pause(2000).perform();
 			driver.navigate().refresh();
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, driver.getCurrentUrl());
-			logger.log(LogStatus.PASS, "Test CTS Trial(s) print page load passed.");
 		} catch (Exception e) {
-			String currMethod = new Object() {
-			}.getClass().getEnclosingMethod().getName();
-			Assert.fail("Error loading page in " + currMethod + "()");
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
