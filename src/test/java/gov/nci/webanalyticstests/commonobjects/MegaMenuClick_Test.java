@@ -1,6 +1,5 @@
 package gov.nci.webanalyticstests.commonobjects;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -62,7 +61,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			megaMenu.clickMegaMenuBar(navGroup);
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(26), "Missing event");
@@ -174,7 +173,6 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod();
 
 		try {
-			megaMenu.revealMegaMenuMobile();
 			megaMenu.clickMegaMenuMobileButton();
 
 			Beacon beacon = getBeacon();
@@ -195,7 +193,6 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod();
 
 		try {
-			megaMenu.revealMegaMenuMobile();
 			megaMenu.clickMegaMenuMobileButton();
 			megaMenu.clickMegaMenuMobileButton();
 

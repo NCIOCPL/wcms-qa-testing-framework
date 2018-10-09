@@ -14,6 +14,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import gov.nci.Utilities.ClickUtil;
 import gov.nci.Utilities.ScrollUtil;
 import gov.nci.framework.PageObjectBase;
 
@@ -102,8 +103,7 @@ public class MegaMenu extends PageObjectBase {
 	}
 
 	public void clickMegaMenuMobileButton() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].click();", mm_btn_mobile);
+		ClickUtil.forceClick(driver, ".nav-item-title button.toggle");
 	}
 
 	/**
@@ -112,10 +112,8 @@ public class MegaMenu extends PageObjectBase {
 	 * @param text
 	 * @return
 	 */
-	// TODO: make this a reusable utility function
 	private WebElement getMegaMenuElementByText(String text) {
 		WebElement element = driver.findElement(By.xpath("//*[contains(text(), '" + text + "')]"));
-
 		return element;
 	}
 
@@ -127,7 +125,7 @@ public class MegaMenu extends PageObjectBase {
 	private void stallForAnalytics(WebElement webElement) {
 		// *Lifts piano cover*
 		// They hate this.
-		for (int i = 0; i <= 10; i++) {
+		for (int i = 0; i <= 5; i++) {
 			webElement.sendKeys(Keys.ARROW_DOWN);
 			webElement.sendKeys(Keys.ARROW_UP);
 		}
