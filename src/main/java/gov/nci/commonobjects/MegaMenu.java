@@ -91,7 +91,7 @@ public class MegaMenu extends PageObjectBase {
 	public void revealMegaMenuDesktop() {
 		action.moveToElement(mm_bar_link).perform();
 		wait.until(ExpectedConditions.visibilityOf(mm_subnav_li));
-		stallForAnalytics(mm_subnav_li);
+		ClickUtil.stall(mm_subnav_li);
 	}
 
 	public void revealMegaMenuMobile() {
@@ -99,7 +99,7 @@ public class MegaMenu extends PageObjectBase {
 		mm_reveal_mobile.click();
 		
 		WebElement element = driver.findElement(By.cssSelector("button.toggle"));
-		stallForAnalytics(element);
+		ClickUtil.stall(element);
 	}
 
 	public void clickMegaMenuMobileButton() {
@@ -115,20 +115,6 @@ public class MegaMenu extends PageObjectBase {
 	private WebElement getMegaMenuElementByText(String text) {
 		WebElement element = driver.findElement(By.xpath("//*[contains(text(), '" + text + "')]"));
 		return element;
-	}
-
-	/**
-	 * Press up and down keys to keep elment focused but not doing any other actions. 
-	 * 
-	 * @param webElement
-	 */
-	private void stallForAnalytics(WebElement webElement) {
-		// *Lifts piano cover*
-		// They hate this.
-		for (int i = 0; i <= 5; i++) {
-			webElement.sendKeys(Keys.ARROW_DOWN);
-			webElement.sendKeys(Keys.ARROW_UP);
-		}
 	}
 	
 }
