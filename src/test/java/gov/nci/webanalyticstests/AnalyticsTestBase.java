@@ -189,48 +189,65 @@ public abstract class AnalyticsTestBase {
 	}
 	
 	// ==================== Excel data retrieval methods ==================== //
-	
+
 	/**
 	 * Get an iterator data object with path and content type Strings.
 	 * 
 	 * @param testDataFilePath
 	 * @param sheetName
-	 * @param cols
-	 * @return
+	 * @param columns
+	 * @return collection of spreadsheet data rows from a given sheet and columns.
 	 */
-	protected Iterator<Object[]> getSpreadsheetData(String testDataFilePath, String sheetName, String[] cols) {
+	protected Iterator<Object[]> getSpreadsheetData(String testDataFilePath, String sheetName, String[] columns) {
 		ExcelManager excelReader = new ExcelManager(testDataFilePath);
 		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
 		int rowCount = excelReader.getRowCount(sheetName);
-		int colCount = cols.length;
+		int colCount = columns.length;
 
 		// Stop if the search column array is more than ten items
 		if (colCount > 10) {
-			System.out.println("Trying to retrieve too many columns in data sheet; check test data and data provider method."); 
+			System.out.println(
+					"Trying to retrieve too many columns in data sheet; check test data and data provider method.");
 			return null;
 		}
 
 		// Stop if our test data is more than 300 cells
 		if (colCount * rowCount > 300) {
-			System.out.println("Number of data rows and columns may be getting out of control. Split out test data as needed."); 
+			System.out.println(
+					"Number of data rows and columns may be getting out of control. Split out test data as needed.");
 			return null;
 		}
-		
-		// IF we have a manageable amount of data, dynamically 
+
+		// IF we have a manageable amount of data, dynamically generate an array (rows)
+		// of arrays (columns).
 		for (int rowNum = 2; rowNum <= rowCount; rowNum++) {
-			ArrayList<String> tempList = new ArrayList<String>();
-
-			for (int i = 0; i <= colCount - 1; i++) {
-				String myItem = excelReader.getCellData(sheetName, cols[i], rowNum);
-				tempList.add(myItem);
-			}
-
+			ArrayList<String> tempList = getCellDataList(excelReader, sheetName, columns, rowNum);
 			myObjects.add(tempList.toArray());
 		}
+
 		return myObjects.iterator();
 	}
 
-	
+	/**
+	 * Get a list of column values for a single row.
+	 * 
+	 * @param excelReader
+	 * @param sheetName
+	 * @param cols
+	 * @param rowNum
+	 * @return List of column values.
+	 */
+	private ArrayList<String> getCellDataList(ExcelManager excelReader, String sheetName, String[] cols, int rowNum) {
+		ArrayList<String> tempList = new ArrayList<String>();
+
+		for (int i = 0; i <= cols.length - 1; i++) {
+			String myItem = excelReader.getCellData(sheetName, cols[i], rowNum);
+			tempList.add(myItem);
+		}
+
+		return tempList;
+	}
+
 	// ==================== Abstract methods ==================== //
 
 	/**
