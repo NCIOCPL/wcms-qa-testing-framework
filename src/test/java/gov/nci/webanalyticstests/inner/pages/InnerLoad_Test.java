@@ -2,11 +2,9 @@ package gov.nci.webanalyticstests.inner.pages;
 
 import java.util.Iterator;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.Assert;
 
 import gov.nci.webanalytics.AnalyticsMetaData;
 import gov.nci.webanalytics.Beacon;

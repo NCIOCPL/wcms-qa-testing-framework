@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import com.relevantcodes.extentreports.ExtentReports;
@@ -26,6 +27,7 @@ import org.testng.annotations.Parameters;
 
 import gov.nci.Utilities.BrowserManager;
 import gov.nci.Utilities.ConfigReader;
+import gov.nci.Utilities.ExcelManager;
 import gov.nci.webanalytics.Beacon;
 
 public abstract class AnalyticsTestBase {
@@ -36,10 +38,8 @@ public abstract class AnalyticsTestBase {
 	protected static ExtentTest logger;
 	protected ConfigReader config;
 
-	/**************************************
-	 * Section: TextNG Befores & Afters *
-	 **************************************/
-
+	// ==================== TextNG Befores & After methods ==================== //
+	
 	/**
 	* Configuration information for a TestNG class (http://testng.org/doc/documentation-main.html):
 	* @BeforeSuite: The annotated method will be run before all tests in this suite have run.
@@ -120,10 +120,8 @@ public abstract class AnalyticsTestBase {
 		proxy.stop();
 	}
 
-	/*************************
-	 * Initialize BMP and request beacon objects
-	 *************************/
-
+	// ==================== BMP and request beacon Initialization methods ==================== //
+	
 	/**
 	 * Start and configure BrowserMob Proxy for Selenium.<br/>
 	 * Modified from
@@ -189,8 +187,51 @@ public abstract class AnalyticsTestBase {
 
 		return harUrlList;
 	}
+	
+	// ==================== Excel data retrieval methods ==================== //
+	
+	/**
+	 * Get an iterator data object with path and content type Strings.
+	 * 
+	 * @param testDataFilePath
+	 * @param sheetName
+	 * @param cols
+	 * @return
+	 */
+	protected Iterator<Object[]> getSpreadsheetData(String testDataFilePath, String sheetName, String[] cols) {
+		ExcelManager excelReader = new ExcelManager(testDataFilePath);
+		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
+		int rowCount = excelReader.getRowCount(sheetName);
+		int colCount = cols.length;
 
-	/****************************** Abstract methods ******************************/
+		// Stop if the search column array is more than ten items
+		if (colCount > 10) {
+			System.out.println("Trying to retrieve too many columns in data sheet; check test data and data provider method."); 
+			return null;
+		}
+
+		// Stop if our test data is more than 300 cells
+		if (colCount * rowCount > 300) {
+			System.out.println("Number of data rows and columns may be getting out of control. Split out test data as needed."); 
+			return null;
+		}
+		
+		// IF we have a manageable amount of data, dynamically 
+		for (int rowNum = 2; rowNum <= rowCount; rowNum++) {
+			ArrayList<String> tempList = new ArrayList<String>();
+
+			for (int i = 0; i <= colCount - 1; i++) {
+				String myItem = excelReader.getCellData(sheetName, cols[i], rowNum);
+				tempList.add(myItem);
+			}
+
+			myObjects.add(tempList.toArray());
+		}
+		return myObjects.iterator();
+	}
+
+	
+	// ==================== Abstract methods ==================== //
 
 	/**
 	 * Get a single Beacon object for testing.

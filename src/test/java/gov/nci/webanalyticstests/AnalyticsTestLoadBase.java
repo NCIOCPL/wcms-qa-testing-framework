@@ -116,15 +116,8 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	 * @return Iterator<Object[]> myObjects
 	 */
 	public Iterator<Object[]> getPathContentTypeData(String testDataFilePath, String sheetName) {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(sheetName); rowNum++) {
-			String path = excelReader.getCellData(sheetName, "Path", rowNum);
-			String contentType = excelReader.getCellData(sheetName, "ContentType", rowNum);
-			Object ob[] = { path, contentType };
-			myObjects.add(ob);
-		}
-		return myObjects.iterator();
+		String[] columnsToReturn = { "Path", "ContentType" };
+		return getSpreadsheetData(testDataFilePath, sheetName, columnsToReturn);
 	}
 
 	/**
