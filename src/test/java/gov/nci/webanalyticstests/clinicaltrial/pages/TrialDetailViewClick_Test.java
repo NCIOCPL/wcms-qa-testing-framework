@@ -1,6 +1,5 @@
 package gov.nci.webanalyticstests.clinicaltrial.pages;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -149,7 +148,7 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 		try {
 			trialView.clickPrintLink();
 
-			Beacon beacon = getBeacon();
+			Beacon beacon = getBeacon(0);
 			doCommonClassAssertions(beacon);
 			Assert.assertEquals(beacon.linkName, "PrintLink");
 			Assert.assertTrue(beacon.hasEvent(17), "Missing event");
@@ -170,7 +169,7 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 		try {
 			trialView.clickEmailLink();
 
-			Beacon beacon = getBeacon();
+			Beacon beacon = getBeacon(0);
 			doCommonClassAssertions(beacon);
 			Assert.assertEquals(beacon.linkName, "eMailLink");
 			Assert.assertTrue(beacon.hasEvent(17), "Missing event");

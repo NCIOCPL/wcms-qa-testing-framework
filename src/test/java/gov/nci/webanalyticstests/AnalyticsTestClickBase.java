@@ -3,6 +3,7 @@ package gov.nci.webanalyticstests;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.relevantcodes.extentreports.LogStatus;
 import org.testng.Assert;
 
 import gov.nci.webanalytics.Beacon;
@@ -106,6 +107,7 @@ public class AnalyticsTestClickBase extends AnalyticsTestBase {
 		msg = (msg.length() > 255) ? msg.substring(0, 255) : msg;
 
 		System.out.println("Exception: " + msg + "\n");
+		logger.log(LogStatus.FAIL, "Failure: " + msg);
 		Assert.fail("Click event exception in " + testMethod + "(): " + msg);
 	}
 	
