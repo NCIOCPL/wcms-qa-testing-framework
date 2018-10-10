@@ -2,11 +2,9 @@ package gov.nci.webanalyticstests.dictionary.pages;
 
 import java.util.Iterator;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.Assert;
 
 import gov.nci.webanalytics.AnalyticsMetaData;
 import gov.nci.webanalytics.Beacon;
@@ -48,7 +46,7 @@ public class DictGeneticsLoad_Test extends DictionaryLoadBase {
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "DictionaryGeneticsLoad")
-	public Iterator<Object[]> getDictionaryPageLoadData() {
+	private Iterator<Object[]> getDictionaryPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
 

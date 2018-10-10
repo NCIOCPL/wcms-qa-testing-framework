@@ -1,24 +1,22 @@
 package gov.nci.webanalyticstests.dictionary.common;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import gov.nci.Utilities.ExcelManager;
 import gov.nci.dictionary.DictObjectBase;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
 public class DictSearchClick_Test extends AnalyticsTestClickBase {
 
+	private final String TESTDATA_SHEET_NAME = "SearchTerms";
 	private final String SEARCH_SELECTOR = ".dictionary-search-input";
 
-	DictObjectBase dict;
+	private DictObjectBase dict;
 	private String testDataFilePath;
 
 	// ==================== Setup methods ==================== //
@@ -77,15 +75,14 @@ public class DictSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			dict.selectContains();
 			dict.SubmitSearchTerm(SEARCH_SELECTOR, term);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, linkName);
 			Assert.assertTrue(beacon.hasEvent(2));
 			Assert.assertEquals(beacon.props.get(11), searchType);
 			Assert.assertEquals(beacon.props.get(22), term);
 			Assert.assertEquals(beacon.props.get(24), "contains");
 			Assert.assertTrue(beacon.eVars.get(13).matches("^[+]\\d$"), "eVar13 regex mismatch");
-			logger.log(LogStatus.PASS, "Test Term Search contains \"" + term + "\" click event passed.");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -101,11 +98,10 @@ public class DictSearchClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			dict.clickSearchResult("dfn a", 2);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "DictionaryResults");
 			Assert.assertEquals(beacon.props.get(13), "3");
-			logger.log(LogStatus.PASS, "Test Ranked Result click event passed.");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -121,18 +117,9 @@ public class DictSearchClick_Test extends AnalyticsTestClickBase {
 	 * @return path, search term, search type, linkname
 	 */
 	@DataProvider(name = "SearchClickData")
-	public Iterator<Object[]> getSearchClickData() {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount("SearchTerms"); rowNum++) {
-			String path = excelReader.getCellData("SearchTerms", "Path", rowNum);
-			String term = excelReader.getCellData("SearchTerms", "SearchTerm", rowNum);
-			String type = excelReader.getCellData("SearchTerms", "SearchType", rowNum);
-			String name = excelReader.getCellData("SearchTerms", "LinkName", rowNum);
-			Object ob[] = { path, term, type, name };
-			myObjects.add(ob);
-		}
-		return myObjects.iterator();
+	private Iterator<Object[]> getSearchClickData() {
+		String[] columnsToReturn = { "Path", "SearchTerm", "SearchType", "LinkName" };
+		return getSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn);
 	}
 
 	// ==================== Common assertions ==================== //

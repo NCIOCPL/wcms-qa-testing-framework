@@ -2,7 +2,6 @@ package gov.nci.webanalyticstests.dictionary.pages;
 
 import java.util.Iterator;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

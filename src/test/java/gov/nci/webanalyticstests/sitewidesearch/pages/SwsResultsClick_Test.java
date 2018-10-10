@@ -1,6 +1,5 @@
 package gov.nci.webanalyticstests.sitewidesearch.pages;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -31,8 +30,8 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 			swSearchForm.doSitewideSearch(SEARCH_TERM);
 			swSearchResults = new SitewideSearchResults(driver);
 			swSearchResults.clickBestBets();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "");
 			Assert.assertEquals(beacon.props.get(12), "best_bets");
 			Assert.assertEquals(beacon.props.get(13), "1");
@@ -53,8 +52,8 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 			swSearchForm.doSitewideSearch(SEARCH_TERM);
 			swSearchResults = new SitewideSearchResults(driver);
 			swSearchResults.clickResultLinkNoNav(".sitewide-results .sitewide-list li a");
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "");
 			Assert.assertEquals(beacon.props.get(12), "generic");
 			Assert.assertEquals(beacon.props.get(13), "1");

@@ -3,7 +3,6 @@ package gov.nci.webanalyticstests.sitewidesearch.common;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
