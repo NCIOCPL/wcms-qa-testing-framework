@@ -120,7 +120,7 @@ public class ResizeClick_Test extends AnalyticsTestClickBase {
 	 */
 	private void doCommonClassAssertions(Beacon beacon, String linkName) {
 		doCommonClickAssertions(beacon);
-		Assert.assertTrue(beacon.hasEvent(7));
+		Assert.assertTrue(beacon.hasEvent(7), "Missing event7");
 		Assert.assertEquals(beacon.linkName, "ResizedTo" + linkName);
 		Assert.assertEquals(beacon.props.get(8), "english");
 		Assert.assertEquals(beacon.eVars.get(5), linkName);

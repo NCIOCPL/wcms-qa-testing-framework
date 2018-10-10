@@ -59,7 +59,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(49));
+			Assert.assertTrue(beacon.hasEvent(49), "Missing event49");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|start over");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
@@ -78,7 +78,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(41));
+			Assert.assertTrue(beacon.hasEvent(41), "Missing event41");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
 			Assert.assertEquals(beacon.props.get(75), "printselected|noneselected");
 		} catch (Exception e) {
@@ -101,7 +101,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(48));
+			Assert.assertTrue(beacon.hasEvent(48), "Missing event48");
 			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_noselectall_1_1");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
 		} catch (Exception e) {
@@ -125,7 +125,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(48));
+			Assert.assertTrue(beacon.hasEvent(48), "Missing event48");
 			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_noselectall_2_1");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
 		} catch (Exception e) {
@@ -148,7 +148,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(48));
+			Assert.assertTrue(beacon.hasEvent(48), "Missing event48");
 			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_2");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
 		} catch (Exception e) {
@@ -168,7 +168,7 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(42));
+			Assert.assertTrue(beacon.hasEvent(42), "Missing event42");
 			Assert.assertEquals(beacon.props.get(12), "clinicaltrials_basic");
 			Assert.assertEquals(beacon.props.get(13), "1|page 2");
 			Assert.assertEquals(beacon.props.get(12), beacon.eVars.get(12));

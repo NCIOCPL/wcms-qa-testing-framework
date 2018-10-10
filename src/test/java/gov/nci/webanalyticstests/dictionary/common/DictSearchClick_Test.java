@@ -54,11 +54,11 @@ public class DictSearchClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, linkName);
-			Assert.assertTrue(beacon.hasEvent(2));
+			Assert.assertTrue(beacon.hasEvent(2), "Missing event2");
 			Assert.assertEquals(beacon.props.get(11), searchType);
 			Assert.assertEquals(beacon.props.get(22), term);
 			Assert.assertEquals(beacon.props.get(24), "starts with");
-			Assert.assertTrue(beacon.eVars.get(13).matches("^[+]\\d$"), "eVar13 regex mismatch");
+			Assert.assertTrue(beacon.eVars.get(13).matches("^[+]\\d$"), "eVar13 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -78,11 +78,11 @@ public class DictSearchClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, linkName);
-			Assert.assertTrue(beacon.hasEvent(2));
+			Assert.assertTrue(beacon.hasEvent(2), "Missing event2");
 			Assert.assertEquals(beacon.props.get(11), searchType);
 			Assert.assertEquals(beacon.props.get(22), term);
 			Assert.assertEquals(beacon.props.get(24), "contains");
-			Assert.assertTrue(beacon.eVars.get(13).matches("^[+]\\d$"), "eVar13 regex mismatch");
+			Assert.assertTrue(beacon.eVars.get(13).matches("^[+]\\d$"), "eVar13 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -133,8 +133,8 @@ public class DictSearchClick_Test extends AnalyticsTestClickBase {
 	private void doCommonClassAssertions(Beacon beacon, String linkName) {
 		doCommonClickAssertions(beacon);
 
-		Assert.assertTrue(beacon.channels.contains("Publications"));
-		Assert.assertTrue(beacon.linkName.contains(linkName));
+		Assert.assertTrue(beacon.channels.contains("Publications"), "Incorrect channel");
+		Assert.assertTrue(beacon.linkName.contains(linkName), "Incorrect linkName");
 		Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));
 		Assert.assertEquals(beacon.eVars.get(26), beacon.props.get(24));
 	}

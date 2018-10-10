@@ -118,12 +118,12 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 		String testPath = beacon.props.get(60);
 
 		doCommonClickAssertions(beacon);
-		Assert.assertTrue(beacon.hasEvent(27));
+		Assert.assertTrue(beacon.hasEvent(27), "Missing event27");
 		Assert.assertEquals(beacon.linkName, "FeatureCardClick");
 		Assert.assertEquals(beacon.props.get(57), cardTitle.trim());
 		Assert.assertEquals(beacon.props.get(58), linkText.trim());
 		Assert.assertEquals(beacon.props.get(59), typePosition);
-		Assert.assertTrue(currentUrl.contains(testPath.substring(testPath.indexOf("cancer.gov"))));
+		Assert.assertTrue(currentUrl.contains(testPath.substring(testPath.indexOf("cancer.gov"))), "prop60 incorrect");
 	}
 
 }

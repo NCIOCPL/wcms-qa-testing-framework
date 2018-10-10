@@ -90,7 +90,7 @@ public class TrialPrintLoad_Test extends AnalyticsTestLoadBase {
 	 */
 	private void doCommonClassAssertions(Beacon beacon, String url) {
 
-		Assert.assertTrue(beacon.hasEvent(1));
+		Assert.assertTrue(beacon.hasEvent(1), "Missing event1");
 		Assert.assertEquals(beacon.channels, "Clinical Trials Print Results Page");
 		Assert.assertEquals(beacon.props.get(3), "/");
 		Assert.assertEquals(beacon.props.get(6), "Comprehensive Cancer Information");

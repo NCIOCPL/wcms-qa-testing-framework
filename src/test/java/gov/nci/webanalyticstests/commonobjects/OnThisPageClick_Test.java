@@ -96,13 +96,13 @@ public class OnThisPageClick_Test extends AnalyticsTestClickBase {
 	 * @param beacon
 	 */
 	private void doCommonClassAssertions(Beacon beacon, String linkText, String linkHref) {
-
 		String testPath = beacon.props.get(67);
-		Assert.assertTrue(beacon.hasEvent(29));
+		
+		Assert.assertTrue(beacon.hasEvent(29), "Missing event29");
 		Assert.assertEquals(beacon.linkName, "OnThisPageClick");
 		Assert.assertEquals(beacon.props.get(4), linkHref);
 		Assert.assertEquals(beacon.props.get(66), "OnThisPage_" + linkText);
-		Assert.assertTrue(currentUrl.contains(testPath.substring(testPath.indexOf("cancer.gov"))));
+		Assert.assertTrue(currentUrl.contains(testPath.substring(testPath.indexOf("cancer.gov"))), "prop67 incorrect");
 		Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));
 	}
 

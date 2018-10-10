@@ -40,10 +40,10 @@ public class BlogPostClick_Test extends AnalyticsTestClickBase {
 			
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, currUrl, "BlogBodyLinkClick");
-			Assert.assertTrue(beacon.hasEvent(56), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(56), "Missing event56");
 			Assert.assertEquals(beacon.props.get(50), firstLinkText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_BodyLink");
-			Assert.assertTrue(currUrl.contains(beacon.props.get(67)));
+			Assert.assertTrue(currUrl.contains(beacon.props.get(67)), "prop67 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -63,7 +63,7 @@ public class BlogPostClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, currUrl, "BlogBodyLinkClick");
-			Assert.assertTrue(beacon.hasEvent(56), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(56), "Missing event56");
 			Assert.assertEquals(beacon.props.get(50), firstLinkText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_BodyGlossifiedTerm");
 		} catch (Exception e) {
@@ -85,7 +85,7 @@ public class BlogPostClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, currUrl, "BlogFeatureCardClick");
-			Assert.assertTrue(beacon.hasEvent(54), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(54), "Missing event56");
 			Assert.assertEquals(beacon.props.get(50), recommended);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_BlogCard:1");
 		} catch (Exception e) {
@@ -106,7 +106,7 @@ public class BlogPostClick_Test extends AnalyticsTestClickBase {
 	private void doCommonClassAssertions(Beacon beacon, String currentUrl, String linkName) {
 		// Note: remove this once pageName value is fixed on CDE side
 		Assert.assertEquals(beacon.linkName, linkName);
-		Assert.assertTrue(currentUrl.contains(beacon.props.get(67)), "Incorrect pagename value");
+		Assert.assertTrue(currentUrl.contains(beacon.props.get(67)), "prop67 incorrect");
 	}
 
 }

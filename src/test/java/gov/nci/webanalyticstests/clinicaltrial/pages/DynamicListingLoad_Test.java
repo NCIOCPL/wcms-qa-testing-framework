@@ -125,12 +125,12 @@ public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 		String itemsTotal = analyticsMetaData.getElementTextFromXpath(itemCountXpath);
 
 		doCommonLoadAssertions(beacon, analyticsMetaData, path);
-		Assert.assertTrue(beacon.hasEvent(2));
+		Assert.assertTrue(beacon.hasEvent(2), "Missing event2");
 		Assert.assertEquals(beacon.channels, "About Cancer");
 		Assert.assertEquals(beacon.props.get(11), "clinicaltrials_custom");
 		Assert.assertEquals(beacon.props.get(20), filter + itemsTotal);
 		Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Custom");
-		Assert.assertTrue(beacon.eVars.get(10).matches(itemsPerPageRegex));
+		Assert.assertTrue(beacon.eVars.get(10).matches(itemsPerPageRegex), "eVar10 incorrect");
 		Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));
 		Assert.assertEquals(beacon.eVars.get(20), beacon.props.get(20));
 		Assert.assertEquals(beacon.eVars.get(47), beacon.props.get(11));

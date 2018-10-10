@@ -48,7 +48,7 @@ public class AdvancedResultsClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(49));
+			Assert.assertTrue(beacon.hasEvent(49), "Missing event49");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|start over");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
@@ -67,7 +67,7 @@ public class AdvancedResultsClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(42));
+			Assert.assertTrue(beacon.hasEvent(42), "Missing event42");
 			Assert.assertEquals(beacon.props.get(12), "clinicaltrials_advanced");
 			Assert.assertEquals(beacon.props.get(13), "2|page 2");
 			Assert.assertEquals(beacon.props.get(12), beacon.eVars.get(12));

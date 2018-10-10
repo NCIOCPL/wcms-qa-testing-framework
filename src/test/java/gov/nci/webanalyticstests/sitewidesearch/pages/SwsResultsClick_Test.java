@@ -77,10 +77,10 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "Search");
-			Assert.assertTrue(beacon.hasEvent(2));
+			Assert.assertTrue(beacon.hasEvent(2), "Missing event2");
 			Assert.assertEquals(beacon.props.get(11), "sitewide_bottom_withinresults");
 			Assert.assertEquals(beacon.props.get(14), SEARCH_TERM.toLowerCase());
-			Assert.assertTrue(beacon.eVars.get(13).matches(REGEX_RESULT_RANK));
+			Assert.assertTrue(beacon.eVars.get(13).matches(REGEX_RESULT_RANK), "eVar13 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -100,10 +100,10 @@ public class SwsResultsClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "Search");
-			Assert.assertTrue(beacon.hasEvent(2));
+			Assert.assertTrue(beacon.hasEvent(2), "Missing event2");
 			Assert.assertEquals(beacon.props.get(11), "sitewide_bottom_new");
 			Assert.assertEquals(beacon.props.get(14), SEARCH_TERM.toLowerCase());
-			Assert.assertTrue(beacon.eVars.get(13).matches(REGEX_RESULT_RANK));
+			Assert.assertTrue(beacon.eVars.get(13).matches(REGEX_RESULT_RANK), "eVar13 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);

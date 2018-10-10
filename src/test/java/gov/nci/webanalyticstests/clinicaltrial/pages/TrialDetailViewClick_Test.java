@@ -57,7 +57,7 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(49));
+			Assert.assertTrue(beacon.hasEvent(49), "Missing event49");
 			Assert.assertEquals(beacon.linkName, "CTStartOverClick");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|start over");
 		} catch (Exception e) {
@@ -150,7 +150,7 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 			Beacon beacon = getBeacon(0);
 			doCommonClassAssertions(beacon);
 			Assert.assertEquals(beacon.linkName, "PrintLink");
-			Assert.assertTrue(beacon.hasEvent(17), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(17), "Missing event17");
 			Assert.assertEquals(beacon.props.get(43), "Print");
 			Assert.assertEquals(beacon.props.get(66), "print");
 		} catch (Exception e) {
@@ -171,7 +171,7 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 			Beacon beacon = getBeacon(0);
 			doCommonClassAssertions(beacon);
 			Assert.assertEquals(beacon.linkName, "eMailLink");
-			Assert.assertTrue(beacon.hasEvent(17), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(17), "Missing event17");
 			Assert.assertEquals(beacon.props.get(43), "Email");
 			Assert.assertEquals(beacon.props.get(66), "email");
 		} catch (Exception e) {
@@ -214,8 +214,8 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 		String currentUrl = driver.getCurrentUrl();
 		doCommonClickAssertions(beacon);
 
-		Assert.assertTrue(beacon.hasSuite("nciclinicaltrials", currentUrl));
-		Assert.assertTrue(beacon.suites.length > 1);
+		Assert.assertTrue(beacon.hasSuite("nciclinicaltrials", currentUrl), "Missing CT suite");
+		Assert.assertTrue(beacon.suites.length > 1, "Missing suite");
 		Assert.assertEquals(beacon.channels, "About Cancer");
 		Assert.assertEquals(beacon.props.get(8), "english");
 		Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));

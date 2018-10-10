@@ -40,11 +40,11 @@ public class RelatedResourcesClick_Test extends AnalyticsTestClickBase {
 			relatedResources.clickRelatedResourcesLink(0);
 
 			Beacon beacon = getBeacon();
-			Assert.assertTrue(beacon.hasEvent(57));
+			Assert.assertTrue(beacon.hasEvent(57), "Missing event57");
 			Assert.assertEquals(beacon.linkName, "BlogRelatedLinkClick");
 			Assert.assertEquals(beacon.props.get(50), linkText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CRCHDDialogueDisparities_Post_RelatedResource:1");
-			Assert.assertTrue(currentUrl.contains(beacon.props.get(67)));
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(67)), "prop67 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -62,10 +62,10 @@ public class RelatedResourcesClick_Test extends AnalyticsTestClickBase {
 			relatedResources.clickRelatedResourcesLink(1);
 
 			Beacon beacon = getBeacon();
-			Assert.assertTrue(beacon.hasEvent(59));
+			Assert.assertTrue(beacon.hasEvent(59), "Missing event59");
 			Assert.assertEquals(beacon.props.get(50), linkText);
 			Assert.assertEquals(beacon.props.get(66), "Understanding Cancer_RelatedResource:2");
-			Assert.assertTrue(currentUrl.contains(beacon.props.get(67)));
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(67)), "prop67 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);

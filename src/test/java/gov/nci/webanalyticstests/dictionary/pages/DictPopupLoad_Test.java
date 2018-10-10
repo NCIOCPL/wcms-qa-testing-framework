@@ -36,10 +36,10 @@ public class DictPopupLoad_Test extends DictionaryLoadBase {
 			analyticsMetaData = new AnalyticsMetaData(driver);
 
 			Beacon beacon = getBeacon();
-			Assert.assertTrue(beacon.hasEvent(1), "Expected event1");
+			Assert.assertTrue(beacon.hasEvent(1), "Missing event1");
 			Assert.assertEquals(beacon.props.get(7), "patient");
-			Assert.assertTrue(beacon.hasEvent(11), "Expected event11");
-			Assert.assertTrue(beacon.hasEvent(47), "Expected event47=");
+			Assert.assertTrue(beacon.hasEvent(11), "Missing event11");
+			Assert.assertTrue(beacon.hasEvent(47), "Missing event47");
 			Assert.assertEquals(beacon.props.get(8), analyticsMetaData.getLanguageName());
 			Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));
 			Assert.assertEquals(beacon.eVars.get(7), beacon.props.get(7));

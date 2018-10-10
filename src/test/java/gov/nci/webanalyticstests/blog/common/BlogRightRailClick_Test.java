@@ -49,7 +49,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "FeaturedPostsClick");
-			Assert.assertTrue(beacon.hasEvent(54));
+			Assert.assertTrue(beacon.hasEvent(54), "Missing event54");
 			Assert.assertEquals(beacon.props.get(50), featuredText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_FeaturedPosts:1");
 			logger.log(LogStatus.PASS, "Test Blog Series Rail Featured click passed.");
@@ -71,7 +71,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "FeaturedPostsClick");
-			Assert.assertTrue(beacon.hasEvent(54));
+			Assert.assertTrue(beacon.hasEvent(54), "Missing event54");
 			Assert.assertEquals(beacon.props.get(50), featuredText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_FeaturedPosts:1");
 			logger.log(LogStatus.PASS, "Test Blog Post Rail Featured click passed.");
@@ -93,7 +93,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "CategoryClick");
-			Assert.assertTrue(beacon.hasEvent(55));
+			Assert.assertTrue(beacon.hasEvent(55), "Missing event55");
 			Assert.assertEquals(beacon.props.get(50), catText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Series_Category:2");
 			logger.log(LogStatus.PASS, "Test Blog Series Rail Category click passed.");
@@ -115,7 +115,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "CategoryClick");
-			Assert.assertTrue(beacon.hasEvent(55));
+			Assert.assertTrue(beacon.hasEvent(55), "Missing event55");
 			Assert.assertEquals(beacon.props.get(50), catText);
 			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Category:2");
 			logger.log(LogStatus.PASS, "Test Blog Post Rail Category click passed.");
@@ -176,7 +176,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "BlogArchiveDateClick");
-			Assert.assertTrue(beacon.hasEvent(55));
+			Assert.assertTrue(beacon.hasEvent(55), "Missing event55");
 			Assert.assertEquals(beacon.props.get(50), "2017:5");
 			logger.log(LogStatus.PASS, "Test Blog Series Rail month click passed.");
 		} catch (Exception e) {
@@ -198,7 +198,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "BlogArchiveDateClick");
-			Assert.assertTrue(beacon.hasEvent(55));
+			Assert.assertTrue(beacon.hasEvent(55), "Missing event55");
 			Assert.assertEquals(beacon.props.get(50), "2017:5");
 			logger.log(LogStatus.PASS, "Test Blog Post Rail Month click passed.");
 		} catch (Exception e) {
@@ -238,7 +238,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	private void doCommonClassAssertions(Beacon beacon, String linkName) {
 		// Note: remove this once pageName value is fixed on CDE side
 		Assert.assertEquals(beacon.linkName, linkName);
-		Assert.assertTrue(currentUrl.contains(beacon.props.get(67)));
+		Assert.assertTrue(currentUrl.contains(beacon.props.get(67)), "prop67 incorrect");
 	}
 
 }

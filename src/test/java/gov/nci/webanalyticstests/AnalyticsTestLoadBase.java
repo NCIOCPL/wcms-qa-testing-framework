@@ -118,11 +118,11 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		String currUrlMax = currUrl.substring(0, Math.min(currUrl.length(), 100));
 
 		// Common Suites
-		Assert.assertTrue(beacon.hasSuite("nciglobal", currUrl), "Missing Global Suite");
+		Assert.assertTrue(beacon.hasSuite("nciglobal", currUrl), "Common missing Global Suite");
 
 		// Common events
-		Assert.assertTrue(beacon.hasEvent(1), "Missing event");
-		Assert.assertTrue(beacon.hasEvent(47), "Missing event");
+		Assert.assertTrue(beacon.hasEvent(1), "Common missing event1");
+		Assert.assertTrue(beacon.hasEvent(47), "Common missing event47");
 
 		// Props
 		Assert.assertEquals(beacon.props.get(1), currUrlMax);
@@ -130,17 +130,17 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		Assert.assertEquals(beacon.props.get(6), analyticsMetaData.getMetaTitle());
 		Assert.assertEquals(beacon.props.get(8), analyticsMetaData.getLanguageName());
 		Assert.assertEquals(beacon.props.get(10), analyticsMetaData.getPageTitle());
-		Assert.assertTrue(beacon.props.get(25).matches(REGEX_MMDDYY), "Invalid date");
-		Assert.assertTrue(beacon.props.get(26).matches(REGEX_TIMESTAMP_PIPE), "Invalid timestamp");
-		Assert.assertTrue(beacon.props.get(29).matches(REGEX_TIME_PARTING), "Invalid time parting value");
+		Assert.assertTrue(beacon.props.get(25).matches(REGEX_MMDDYY), "Common invalid date");
+		Assert.assertTrue(beacon.props.get(26).matches(REGEX_TIMESTAMP_PIPE), "Common invalid timestamp");
+		Assert.assertTrue(beacon.props.get(29).matches(REGEX_TIME_PARTING), "Common invalid time parting value");
 		Assert.assertEquals(beacon.props.get(42), "Normal");
 		Assert.assertEquals(beacon.props.get(44), analyticsMetaData.getMetaIsPartOf());
-		Assert.assertTrue(beacon.props.get(65).matches(REGEX_PAGELOAD_TIME), "Invalid pageload time value");
+		Assert.assertTrue(beacon.props.get(65).matches(REGEX_PAGELOAD_TIME), "Common invalid pageload time value");
 
 		// Evars
-		Assert.assertTrue(beacon.eVars.get(1).contains("www.cancer.gov"), "Pagename error");
+		Assert.assertTrue(beacon.eVars.get(1).contains("www.cancer.gov"), "Common pageName error");
 		Assert.assertEquals(beacon.eVars.get(2), analyticsMetaData.getLanguageName());
-		Assert.assertTrue(beacon.eVars.get(5).matches(REGEX_BROWSER_SIZE), "Invalid browser width");
+		Assert.assertTrue(beacon.eVars.get(5).matches(REGEX_BROWSER_SIZE), "Common invalid browser width");
 		Assert.assertEquals(beacon.eVars.get(44), analyticsMetaData.getMetaIsPartOf());
 
 		// HIer

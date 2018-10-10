@@ -86,7 +86,7 @@ public class BasicResultsLoad_Test extends AnalyticsTestLoadBase {
 	 */
 	private void doCommonClassAssertions(Beacon beacon, AnalyticsMetaData analyticsMetaData) {
 		doCommonLoadAssertions(beacon, analyticsMetaData, PATH);
-		Assert.assertTrue(beacon.hasEvent(2));
+		Assert.assertTrue(beacon.hasEvent(2), "Missing event2");
 		Assert.assertEquals(beacon.channels, "About Cancer");
 		Assert.assertEquals(beacon.props.get(11), "clinicaltrials_basic");
 		Assert.assertEquals(beacon.props.get(62), "Clinical Trials: Basic");

@@ -62,13 +62,13 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(26), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(26), "Missing event26");
 			Assert.assertEquals(beacon.linkName, "MegaMenuClick");
 			Assert.assertEquals(beacon.props.get(8), lang);
 			Assert.assertEquals(beacon.props.get(53), navGroup);
 			Assert.assertEquals(beacon.props.get(54), navGroup);
 			Assert.assertEquals(beacon.props.get(55), navGroup);
-			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), "Incorrect prop56");
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), "prop56 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -86,13 +86,13 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(26), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(26), "Missing event26");
 			Assert.assertEquals(beacon.linkName, "MegaMenuClick");
 			Assert.assertEquals(beacon.props.get(8), lang);
 			Assert.assertEquals(beacon.props.get(53), navGroup);
 			Assert.assertEquals(beacon.props.get(54), subNavGroup);
 			Assert.assertEquals(beacon.props.get(55), subNavGroup);
-			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), "Incorrect prop value");
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), , "prop56 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -111,13 +111,13 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(26), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(26), "Missing event26");
 			Assert.assertEquals(beacon.linkName, "MegaMenuClick");
 			Assert.assertEquals(beacon.props.get(8), lang);
 			Assert.assertEquals(beacon.props.get(53), navGroup);
 			Assert.assertEquals(beacon.props.get(54), subNavGroup);
 			Assert.assertEquals(beacon.props.get(55), subNavLink);
-			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), "Incorrect prop value");
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), "prop56 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -177,7 +177,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(34), "Missing event34");
 			Assert.assertEquals(beacon.linkName, "MegaMenuMobileAccordionClick");
-			Assert.assertTrue(beacon.props.get(73).startsWith("Expand"), "Invalid prop73");
+			Assert.assertTrue(beacon.props.get(73).startsWith("Expand"), "prop73 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -198,7 +198,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(35), "Missing event35");
 			Assert.assertEquals(beacon.linkName, "MegaMenuMobileAccordionClick");
-			Assert.assertTrue(beacon.props.get(73).startsWith("Collapse"), "Invalid prop73");
+			Assert.assertTrue(beacon.props.get(73).startsWith("Collapse"), "prop73 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);

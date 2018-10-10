@@ -35,8 +35,8 @@ public class ErrorLoad_Test extends AnalyticsTestLoadBase {
 			Beacon beacon = getBeacon();
 
 			// Error pages do not share the rest of the common pageload valules
-			Assert.assertTrue(beacon.hasSuite("nciglobal", driver.getCurrentUrl()), "Incorrect suite value.");
-			Assert.assertTrue(beacon.hasEvent(47), "event47 is missing.");
+			Assert.assertTrue(beacon.hasSuite("nciglobal", driver.getCurrentUrl()), "Incorrect suite value");
+			Assert.assertTrue(beacon.hasEvent(47), "Missing event47");
 			Assert.assertEquals(beacon.channels, "Error Pages");
 			Assert.assertEquals(beacon.getPageType(), "errorPage");
 			Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));

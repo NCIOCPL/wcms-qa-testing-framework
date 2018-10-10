@@ -92,12 +92,12 @@ public class ErrorClick_Test extends AnalyticsTestClickBase {
 	 */
 	private void doCommonClassAssertions(Beacon beacon, String searchTerm) {
 		doCommonClickAssertions(beacon);
-		Assert.assertTrue(beacon.hasEvent(2));
+		Assert.assertTrue(beacon.hasEvent(2), "Missing event2");
 		Assert.assertEquals(beacon.linkName, "PageNotFound");
 		Assert.assertEquals(beacon.channels, "Error Pages");
 		Assert.assertEquals(beacon.props.get(14), searchTerm.toLowerCase());
 		Assert.assertEquals(beacon.eVars.get(11), beacon.props.get(11));
-		Assert.assertTrue(beacon.eVars.get(13).matches("^\\+\\d{1,2}$"));
+		Assert.assertTrue(beacon.eVars.get(13).matches("^\\+\\d{1,2}$"), "eVar13 incorrect");
 		Assert.assertEquals(beacon.eVars.get(14), beacon.props.get(14));
 	}
 

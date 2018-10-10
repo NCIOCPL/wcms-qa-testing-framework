@@ -43,7 +43,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(37), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(37), "Missing event37");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|display");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
@@ -62,7 +62,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(38), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(38), "Missing event38");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|start");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
@@ -81,7 +81,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(39), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(39), "Missing event39");
 			Assert.assertFalse(beacon.hasEvent(46), "Unexpected event");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|complete");
 		} catch (Exception e) {
@@ -102,8 +102,8 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(39), "Missing event");
-			Assert.assertTrue(beacon.hasEvent(46), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(39), "Missing event39");
+			Assert.assertTrue(beacon.hasEvent(46), "Missing event46");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|complete");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
@@ -123,7 +123,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(40), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(40), "Missing event40");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|q");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
@@ -143,7 +143,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(40), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(40), "Missing event40");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|a");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
@@ -163,7 +163,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(40), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(40), "Missing event40");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|abandon|z");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
@@ -183,7 +183,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(41), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(41), "Missing event41");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
 			Assert.assertEquals(beacon.props.get(75), "a|Please enter a number between 1 and 120.");
 		} catch (Exception e) {
@@ -204,7 +204,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(41), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(41), "Missing event41");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
 			Assert.assertEquals(beacon.props.get(75), "z|Please enter a valid 5 digit ZIP code.");
 		} catch (Exception e) {
@@ -225,7 +225,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
-			Assert.assertTrue(beacon.hasEvent(41), "Missing event");
+			Assert.assertTrue(beacon.hasEvent(41), "Missing event41");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
 			Assert.assertEquals(beacon.props.get(75), "submit|attempted form submit with errors");
 		} catch (Exception e) {
@@ -244,7 +244,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 	private void doCommonClassAssertions(Beacon beacon) {
 		doCommonClickAssertions(beacon);
 
-		Assert.assertTrue(beacon.hasSuite("nciclinicaltrials", currentUrl));
+		Assert.assertTrue(beacon.hasSuite("nciclinicaltrials", currentUrl), "Missing NCT suite");
 		Assert.assertEquals(beacon.channels, "About Cancer");
 		Assert.assertEquals(beacon.props.get(8), "english");
 		Assert.assertEquals(beacon.eVars.get(47), "clinicaltrials_basic");
