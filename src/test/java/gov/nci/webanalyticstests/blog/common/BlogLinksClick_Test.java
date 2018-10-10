@@ -1,6 +1,5 @@
 package gov.nci.webanalyticstests.blog.common;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 

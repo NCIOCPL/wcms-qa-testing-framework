@@ -238,14 +238,13 @@ public abstract class AnalyticsTestBase {
 	 * @return List of column values.
 	 */
 	private ArrayList<String> getCellDataList(ExcelManager excelReader, String sheetName, String[] cols, int rowNum) {
-		ArrayList<String> tempList = new ArrayList<String>();
+		ArrayList<String> cdl = new ArrayList<String>();
 
 		for (int i = 0; i <= cols.length - 1; i++) {
 			String myItem = excelReader.getCellData(sheetName, cols[i], rowNum);
-			tempList.add(myItem);
+			cdl.add(myItem);
 		}
-
-		return tempList;
+		return cdl;
 	}
 
 	// ==================== Abstract methods ==================== //

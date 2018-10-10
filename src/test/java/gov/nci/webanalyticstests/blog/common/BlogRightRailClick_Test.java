@@ -21,7 +21,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 
 	// ==================== Setup methods ==================== //
 
-	public void setupTestMethod(String path) {
+	private void setupTestMethod(String path) {
 		try {
 			driver.get(config.goHome() + path);
 			driver.navigate().refresh();

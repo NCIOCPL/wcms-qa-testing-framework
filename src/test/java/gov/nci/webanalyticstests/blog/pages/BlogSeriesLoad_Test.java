@@ -6,7 +6,6 @@ import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.Assert;
 
 import gov.nci.webanalytics.AnalyticsMetaData;
 import gov.nci.webanalytics.Beacon;
@@ -49,7 +48,7 @@ public class BlogSeriesLoad_Test extends AnalyticsTestLoadBase {
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "BlogSeriesPageLoad")
-	public Iterator<Object[]> getBlogSeriesPageLoadData() {
+	private Iterator<Object[]> getBlogSeriesPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
 

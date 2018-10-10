@@ -50,7 +50,7 @@ public class BlogPostLoad_Test extends AnalyticsTestLoadBase {
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "BlogPostPageLoad")
-	public Iterator<Object[]> getBlogPostPageLoadData() {
+	private Iterator<Object[]> getBlogPostPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
 
