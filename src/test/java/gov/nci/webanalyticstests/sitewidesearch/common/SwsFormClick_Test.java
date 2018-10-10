@@ -137,49 +137,37 @@ public class SwsFormClick_Test extends AnalyticsTestClickBase {
 
 	@DataProvider(name = "CancerTermsEn")
 	private Iterator<Object[]> getCancerTermsEn() {
-		return getFilteredSearchTerms(TESTDATA_SHEET_NAME_EN, "Generic");
+		String[] columnsToReturn = { "SearchTerm" };
+		String[] filterInfo = { "ResultType", "Generic" };
+		return getFilteredSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME_EN, columnsToReturn, filterInfo);
 	}
 
 	@DataProvider(name = "CancerTermsEs")
 	private Iterator<Object[]> getCancerTermsEs() {
-		return getFilteredSearchTerms(TESTDATA_SHEET_NAME_ES, "Generic");
+		String[] columnsToReturn = { "SearchTerm" };
+		String[] filterInfo = { "ResultType", "Generic" };
+		return getFilteredSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME_ES, columnsToReturn, filterInfo);
 	}
 
 	@DataProvider(name = "BestBetTerms")
 	private Iterator<Object[]> getBestBetTerms() {
-		return getFilteredSearchTerms(TESTDATA_SHEET_NAME_EN, "BestBet");
+		String[] columnsToReturn = { "SearchTerm" };
+		String[] filterInfo = { "ResultType", "BestBet" };
+		return getFilteredSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME_EN, columnsToReturn, filterInfo);
 	}
 
 	@DataProvider(name = "DefinitionTerms")
 	private Iterator<Object[]> getDefinitionTerms() {
-		return getFilteredSearchTerms(TESTDATA_SHEET_NAME_EN, "BestBet");
+		String[] columnsToReturn = { "SearchTerm" };
+		String[] filterInfo = { "ResultType", "Definition" };
+		return getFilteredSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME_EN, columnsToReturn, filterInfo);
 	}
 
 	@DataProvider(name = "NoMatchTerms")
 	private Iterator<Object[]> getNoMatchTerms() {
-		return getFilteredSearchTerms(TESTDATA_SHEET_NAME_EN, "NoMatch");
-	}
-
-	/**
-	 * Get an iterable collection of test objects given a data sheet name and column
-	 * 
-	 * @param sheetName
-	 * @param filter
-	 * @return
-	 */
-	private Iterator<Object[]> getFilteredSearchTerms(String sheetName, String filter) {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(sheetName); rowNum++) {
-			String searchTerm = excelReader.getCellData(sheetName, "SearchTerm", rowNum);
-			String resultType = excelReader.getCellData(sheetName, "ResultType", rowNum);
-			if (resultType.equalsIgnoreCase(filter)) {
-				Object ob[] = { searchTerm };
-				myObjects.add(ob);
-			}
-		}
-		return myObjects.iterator();
-
+		String[] columnsToReturn = { "SearchTerm" };
+		String[] filterInfo = { "ResultType", "NoMatch" };
+		return getFilteredSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME_EN, columnsToReturn, filterInfo);
 	}
 
 	// ==================== Common assertions ==================== //
