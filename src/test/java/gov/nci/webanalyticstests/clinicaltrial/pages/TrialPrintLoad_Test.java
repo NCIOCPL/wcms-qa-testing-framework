@@ -3,8 +3,6 @@ package gov.nci.webanalyticstests.clinicaltrial.pages;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
-import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 

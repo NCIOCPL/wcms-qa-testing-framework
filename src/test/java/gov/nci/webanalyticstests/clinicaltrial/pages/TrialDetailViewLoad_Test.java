@@ -1,14 +1,11 @@
 package gov.nci.webanalyticstests.clinicaltrial.pages;
 
-import com.relevantcodes.extentreports.LogStatus;
-
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.Assert;
 
 import java.util.Iterator;
-
-import org.testng.Assert;
 
 import gov.nci.webanalytics.AnalyticsMetaData;
 import gov.nci.webanalytics.Beacon;
@@ -54,7 +51,6 @@ public class TrialDetailViewLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon, analyticsMetaData, type);
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
