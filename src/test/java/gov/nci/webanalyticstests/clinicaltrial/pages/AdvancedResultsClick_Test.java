@@ -1,6 +1,5 @@
 package gov.nci.webanalyticstests.clinicaltrial.pages;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -46,8 +45,8 @@ public class AdvancedResultsClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			searchResults.clickStartOverNoNav();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(49));
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|start over");

@@ -46,7 +46,8 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.hasEvent(37), "Missing event");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|display");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -64,7 +65,8 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.hasEvent(38), "Missing event");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|start");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -76,14 +78,15 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			advancedSearch.getAge(55);
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(39), "Missing event");
 			Assert.assertFalse(beacon.hasEvent(46), "Unexpected event");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|complete");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -102,7 +105,8 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.linkName, "formAnalysis|clinicaltrials_advanced|complete");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|complete");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -121,7 +125,8 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 			Assert.assertFalse(beacon.hasEvent(46), "Unexpected event");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|complete");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -135,14 +140,15 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 			advancedSearch.getCancerType("Lung Cancer");
 			advancedSearch.getCancerSubType("Adenosquamous Lung Cancer");
 			advancedSearch.defaultSearch();
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(39));
 			Assert.assertEquals(beacon.linkName, "formAnalysis|clinicaltrials_advanced|complete");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|complete");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -155,13 +161,14 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			advancedSearch.setAge(55);
 			advancedSearch.abandon(config.goHome());
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(40));
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|abandon|a");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -180,7 +187,8 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.hasEvent(40), "Missing event");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|abandon|lo");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -194,13 +202,14 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 			advancedSearch.getCancerType("Lung Cancer");
 			advancedSearch.getCancerSubType("Adenosquamous Lung Cancer");
 			advancedSearch.abandon(config.goHome());
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(40), "Missing event");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|abandon|st-multiselect");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -213,14 +222,15 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			advancedSearch.setAge(999);
 			advancedSearch.setKeywordPhrase("foo");
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(41), "Missing event");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|error");
 			Assert.assertEquals(beacon.props.get(75), "a|Please enter a number between 1 and 120.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -233,14 +243,15 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 		try {
 			advancedSearch.enterZipCode("blahh");
 			advancedSearch.clickSelectedField("#cts-submit-floater");
-			
+
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(41), "Missing event");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_advanced|error");
 			Assert.assertEquals(beacon.props.get(75), "submit|attempted form submit with errors");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
