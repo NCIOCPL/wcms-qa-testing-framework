@@ -2,7 +2,6 @@ package gov.nci.webanalyticstests.error.pages;
 
 import java.util.Iterator;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -20,7 +19,7 @@ public class ErrorLoad_Test extends AnalyticsTestLoadBase {
 	// ==================== Setup methods ==================== //
 
 	@BeforeClass(groups = { "Analytics" })
-	public void setupClass() {
+	private void setupClass() {
 		testDataFilePath = config.getProperty("AnalyticsErrorPgData");
 	}
 
@@ -50,7 +49,7 @@ public class ErrorLoad_Test extends AnalyticsTestLoadBase {
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "ErrorPageLoad")
-	public Iterator<Object[]> getTopicPageLoadData() {
+	private Iterator<Object[]> getTopicPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
 

@@ -20,7 +20,7 @@ public class InnerLoad_Test extends AnalyticsTestLoadBase {
 	// ==================== Setup methods ==================== //
 
 	@BeforeClass(groups = { "Analytics" })
-	public void setupClass() {
+	private void setupClass() {
 		testDataFilePath = config.getProperty("AnalyticsPageLoadData");
 	}
 
@@ -46,7 +46,7 @@ public class InnerLoad_Test extends AnalyticsTestLoadBase {
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "InnerPageLoad")
-	public Iterator<Object[]> getInnerPageLoadData() {
+	private Iterator<Object[]> getInnerPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
 

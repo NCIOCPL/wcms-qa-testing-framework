@@ -1,9 +1,7 @@
 package gov.nci.webanalyticstests.error.common;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -12,7 +10,6 @@ import org.testng.Assert;
 import gov.nci.error.pages.PageNotFound;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
-import gov.nci.Utilities.ExcelManager;
 
 public class ErrorClick_Test extends AnalyticsTestClickBase {
 
@@ -75,23 +72,14 @@ public class ErrorClick_Test extends AnalyticsTestClickBase {
 	// ==================== Data providers ==================== //
 
 	/**
-	 * Get an iterable collection of test objects given a data sheet name and column
+	 * Get a list of search terms from the error data spreadsheet.
 	 * 
-	 * @param sheetName
-	 * @param filter
 	 * @return
 	 */
 	@DataProvider(name = "SearchTerms")
 	private Iterator<Object[]> getErrorPagedSearchTerms() {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
-			String searchTerm = excelReader.getCellData(TESTDATA_SHEET_NAME, "SearchTerm", rowNum);
-			Object ob[] = { searchTerm };
-			myObjects.add(ob);
-		}
-		return myObjects.iterator();
-
+		String[] columnsToReturn = { "SearchTerm" };
+		return getSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn);
 	}
 
 	// ==================== Common assertions ==================== //
