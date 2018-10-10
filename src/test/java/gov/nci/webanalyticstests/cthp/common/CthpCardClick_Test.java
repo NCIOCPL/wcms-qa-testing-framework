@@ -1,16 +1,12 @@
 package gov.nci.webanalyticstests.cthp.common;
 
-import com.relevantcodes.extentreports.LogStatus;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import gov.nci.Utilities.ExcelManager;
 import gov.nci.commonobjects.Card;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
@@ -31,14 +27,20 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 		testDataFilePath = config.getProperty("AnalyticsCTHPData");
 	}
 
+	/**
+	 * Create new card object and go to
+	 * 
+	 * @param path
+	 */
 	private void setupTestMethod(String path) {
 		try {
 			driver.get(config.goHome() + path);
 			currentUrl = driver.getCurrentUrl();
 			card = new Card(driver);
+			System.out.print(card.getPageUrl().toString());
 		} catch (Exception e) {
+			Assert.fail("Error loading CTHP Card object at: " + driver.getCurrentUrl());
 			e.printStackTrace();
-			System.out.println("Error building CTHP page object.");
 		}
 	}
 
@@ -91,24 +93,14 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/**
-	 * Get a testable data object, filtered by audience
+	 * Get a testable data object based on audience sheet.
 	 * 
 	 * @param sheetName
-	 * @return
+	 * @return object containing path, card title, linktext, position data
 	 */
 	private Iterator<Object[]> getCthpCardData(String sheetName) {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(sheetName); rowNum++) {
-			String path = excelReader.getCellData(sheetName, "Path", rowNum);
-			String title = excelReader.getCellData(sheetName, "CardTitle", rowNum);
-			String text = excelReader.getCellData(sheetName, "LinkText", rowNum);
-			String index = excelReader.getCellData(sheetName, "CardPos", rowNum);
-
-			Object ob[] = { path, title, text, index };
-			myObjects.add(ob);
-		}
-		return myObjects.iterator();
+		String[] columnsToReturn = { "Path", "CardTitle", "LinkText", "CardPos" };
+		return getSpreadsheetData(testDataFilePath, sheetName, columnsToReturn);
 	}
 
 	// ==================== Common assertions ==================== //

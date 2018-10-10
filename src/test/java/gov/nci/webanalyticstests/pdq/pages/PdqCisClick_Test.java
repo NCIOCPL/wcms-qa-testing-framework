@@ -1,15 +1,12 @@
 package gov.nci.webanalyticstests.pdq.pages;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-import gov.nci.Utilities.ExcelManager;
 import gov.nci.pdq.common.PdqRightNav;
 import gov.nci.pdq.pages.PdqPage;
 import gov.nci.webanalytics.Beacon;
@@ -75,8 +72,8 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			pdqPage.clickPatientHPToggle();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClickAssertions(beacon);
 			Assert.assertEquals(beacon.linkName, "GlobalLinkTrack");
 			Assert.assertEquals(beacon.props.get(28), "www.cancer.gov" + path);
@@ -99,22 +96,15 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/**
-	 * Get an iterator data object with path and link text values.*
+	 * Get an iterator data object with path and link text values.
 	 * 
-	 * @param dataSheet
+	 * @param sheet
 	 *            to use
 	 * @return path and link text strings
 	 */
 	private Iterator<Object[]> getPdqPageData(String dataSheet) {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(dataSheet); rowNum++) {
-			String path = excelReader.getCellData(dataSheet, "Path", rowNum);
-			String sectionName = excelReader.getCellData(dataSheet, "LinkText", rowNum);
-			Object ob[] = { path, sectionName };
-			myObjects.add(ob);
-		}
-		return myObjects.iterator();
+		String[] columnsToReturn = { "Path", "LinkText" };
+		return getSpreadsheetData(testDataFilePath, dataSheet, columnsToReturn);
 	}
 
 }

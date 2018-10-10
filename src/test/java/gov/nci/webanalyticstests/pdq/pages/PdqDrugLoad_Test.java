@@ -2,11 +2,9 @@ package gov.nci.webanalyticstests.pdq.pages;
 
 import java.util.Iterator;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.Assert;
 
 import gov.nci.webanalytics.AnalyticsMetaData;
 import gov.nci.webanalytics.Beacon;
@@ -22,7 +20,7 @@ public class PdqDrugLoad_Test extends AnalyticsTestLoadBase {
 	// ==================== Setup methods ==================== //
 
 	@BeforeClass(groups = { "Analytics" })
-	public void setupClass() {
+	private void setupClass() {
 		testDataFilePath = config.getProperty("AnalyticsPDQData");
 	}
 
@@ -37,8 +35,8 @@ public class PdqDrugLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			String[] pathNoId = path.split("#");
 			doCommonLoadAssertions(beacon, analyticsMetaData, pathNoId[0]);
 		} catch (Exception e) {
@@ -50,7 +48,7 @@ public class PdqDrugLoad_Test extends AnalyticsTestLoadBase {
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "PDQPageLoad")
-	public Iterator<Object[]> getPDQPageLoadData() {
+	private Iterator<Object[]> getPDQPageLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
 
