@@ -1,6 +1,5 @@
 package gov.nci.webanalyticstests.clinicaltrial.pages;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
@@ -57,14 +56,14 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			searchResults.clickStartOverNoNav();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(49));
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|start over");
-			logger.log(LogStatus.PASS, "Test Basic 'Start Over' click event passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -76,15 +75,15 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			searchResults.clickPrintButtonNoUrlChange();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(41));
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|error");
 			Assert.assertEquals(beacon.props.get(75), "printselected|noneselected");
-			logger.log(LogStatus.PASS, "Test Basic print error click event passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -97,18 +96,17 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 		try {
 			List<String> attrList = searchResults.getFieldAttributeCollection(CHECKBOX_ITEM_SELECTOR, "id");
 			Checkbox checkbox = new Checkbox(driver, CHECKBOX_ITEM_SELECTOR);
-			;
 			checkbox.checkCheckbox(attrList.get(1));
 			searchResults.clickPrintButton();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(48));
 			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_noselectall_1_1");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
-			logger.log(LogStatus.PASS, "Test Basic 'print one item' click event passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -124,15 +122,15 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			checkbox.checkCheckbox(attrList.get(1));
 			checkbox.checkCheckbox(attrList.get(2));
 			searchResults.clickPrintButton();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(48));
 			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_noselectall_2_1");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
-			logger.log(LogStatus.PASS, "Test Basic 'print multiple items' click event passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -147,15 +145,15 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 			Checkbox checkbox = new Checkbox(driver, CHECKBOX_ITEM_SELECTOR);
 			searchResults.clickOnSelectAllCheckBox();
 			searchResults.clickPrintButton();
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(48));
 			Assert.assertEquals(beacon.props.get(21), "ctsprintselected_top_selectall_10_2");
 			Assert.assertEquals(beacon.props.get(74), "clinicaltrials_basic|print selected");
-			logger.log(LogStatus.PASS, "Test Basic 'select all' print click event passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 
@@ -167,16 +165,16 @@ public class BasicResultsClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			searchResults.clickResultLinkByIndex(0);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
 			Assert.assertTrue(beacon.hasEvent(42));
 			Assert.assertEquals(beacon.props.get(12), "clinicaltrials_basic");
 			Assert.assertEquals(beacon.props.get(13), "1|page 2");
 			Assert.assertEquals(beacon.props.get(12), beacon.eVars.get(12));
-			logger.log(LogStatus.PASS, "Test Basic result ranking click event passed.");
 		} catch (Exception e) {
-			handleTestErrors(new Object() {}, e);
+			handleTestErrors(new Object() {
+			}, e);
 		}
 	}
 

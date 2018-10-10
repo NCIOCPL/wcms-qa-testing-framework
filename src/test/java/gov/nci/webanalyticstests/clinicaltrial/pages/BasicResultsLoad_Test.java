@@ -1,15 +1,12 @@
 package gov.nci.webanalyticstests.clinicaltrial.pages;
 
-import com.relevantcodes.extentreports.LogStatus;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import gov.nci.Utilities.ExcelManager;
 import gov.nci.webanalytics.AnalyticsMetaData;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
@@ -55,7 +52,6 @@ public class BasicResultsLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			Beacon beacon = getBeacon();
-
 			doCommonClassAssertions(beacon, analyticsMetaData);
 			Assert.assertEquals(beacon.props.get(15), fieldsUsed);
 			Assert.assertEquals(beacon.props.get(17), cancerInfo);
@@ -76,18 +72,8 @@ public class BasicResultsLoad_Test extends AnalyticsTestLoadBase {
 	 */
 	@DataProvider(name = "BasicResultsLoadData")
 	public Iterator<Object[]> getBasicResultsLoadData() {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
-			String params = excelReader.getCellData(TESTDATA_SHEET_NAME, "Params", rowNum);
-			String searchType = excelReader.getCellData(TESTDATA_SHEET_NAME, "SearchType", rowNum);
-			String fieldsUsed = excelReader.getCellData(TESTDATA_SHEET_NAME, "CtsFieldsUsed", rowNum);
-			String cancerInfo = excelReader.getCellData(TESTDATA_SHEET_NAME, "CtsCancerInfo", rowNum);
-			String location = excelReader.getCellData(TESTDATA_SHEET_NAME, "CtsLocation", rowNum);
-			Object ob[] = { params, searchType, fieldsUsed, cancerInfo, location };
-			myObjects.add(ob);
-		}
-		return myObjects.iterator();
+		String[] columnsToReturn = { "Params", "SearchType", "CtsFieldsUsed", "CtsCancerInfo", "CtsLocation" };
+		return getSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn);
 	}
 
 	// ==================== Common assertions ==================== //

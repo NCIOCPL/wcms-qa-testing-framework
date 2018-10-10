@@ -38,7 +38,6 @@ public class BlogSeriesLoad_Test extends AnalyticsTestLoadBase {
 			
 			Beacon beacon = getBeacon();
 			doCommonLoadAssertions(beacon, analyticsMetaData, path);
-			logger.log(LogStatus.PASS, "Test Blog Series Page load event passed.");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
