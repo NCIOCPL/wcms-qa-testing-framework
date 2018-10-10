@@ -1,9 +1,6 @@
 package gov.nci.webanalyticstests.commonobjects;
 
 import org.testng.annotations.Test;
-
-import com.relevantcodes.extentreports.LogStatus;
-
 import org.testng.Assert;
 
 import gov.nci.commonobjects.OnThisPage;

@@ -5,10 +5,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import gov.nci.Utilities.ExcelManager;
 import gov.nci.commonobjects.MegaMenu;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
@@ -211,61 +209,26 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 
 	@DataProvider(name = "PathData")
 	private Iterator<Object[]> getMMPathData() {
-		return getMegaMenuData("Path");
+		String[] columnsToReturn = { "Path", "Language" };
+		return getSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn);
 	}
 
 	@DataProvider(name = "NavGroupData")
 	private Iterator<Object[]> getMMNavGroupData() {
-		return getMegaMenuData("NavGroup");
+		String[] columnsToReturn = { "Path", "NavGroup", "Language" };
+		return getSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn);
 	}
 
 	@DataProvider(name = "SubNavGroupData")
 	private Iterator<Object[]> getMMSubNavGroupData() {
-		return getMegaMenuData("SubNavGroup");
+		String[] columnsToReturn = { "Path", "NavGroup", "SubNavGroup", "Language" };
+		return getSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn);
 	}
 
 	@DataProvider(name = "SubNavLinkData")
 	private Iterator<Object[]> getMMSubNavLinkData() {
-		return getMegaMenuData("");
-	}
-
-	/**
-	 * Get an iterator data object with path, types, selectors, and position for
-	 * Card objects, filtered by content type.
-	 * 
-	 * @param returnValues
-	 *            specifies which collection of values we need for testing.
-	 * @return
-	 */
-	private Iterator<Object[]> getMegaMenuData(String returnValues) {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
-
-			String path = excelReader.getCellData(TESTDATA_SHEET_NAME, "Path", rowNum);
-			String navGroup = excelReader.getCellData(TESTDATA_SHEET_NAME, "NavGroup", rowNum);
-			String subNavGroup = excelReader.getCellData(TESTDATA_SHEET_NAME, "SubNavGroup", rowNum);
-			String listItem = excelReader.getCellData(TESTDATA_SHEET_NAME, "ListItem", rowNum);
-			String language = excelReader.getCellData(TESTDATA_SHEET_NAME, "Language", rowNum);
-
-			if (returnValues == "Path") {
-				Object obj[] = { path, language };
-				myObjects.add(obj);
-			} else if (returnValues == "NavGroup") {
-				Object obj[] = { path, navGroup, language };
-				myObjects.add(obj);
-			} else if (returnValues == "SubNavGroup") {
-				Object obj[] = { path, navGroup, subNavGroup, language };
-				myObjects.add(obj);
-			} else {
-				Object obj[] = { path, navGroup, subNavGroup, listItem, language };
-				myObjects.add(obj);
-			}
-
-		}
-		return myObjects.iterator();
-
+		String[] columnsToReturn = { "Path", "NavGroup", "SubNavGroup", "ListItem", "Language" };
+		return getSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn);
 	}
 
 	// ==================== Common assertions ==================== //

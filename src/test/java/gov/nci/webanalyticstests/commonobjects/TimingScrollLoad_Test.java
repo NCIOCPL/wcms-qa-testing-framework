@@ -1,14 +1,11 @@
 package gov.nci.webanalyticstests.commonobjects;
 
-import com.relevantcodes.extentreports.LogStatus;
-
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import org.testng.Assert;
 
 import java.util.Iterator;
-
-import org.testng.Assert;
 
 import gov.nci.webanalytics.AnalyticsMetaData;
 import gov.nci.webanalytics.Beacon;
@@ -41,8 +38,8 @@ public class TimingScrollLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
+			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, analyticsMetaData, path);
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
@@ -60,9 +57,9 @@ public class TimingScrollLoad_Test extends AnalyticsTestLoadBase {
 
 		try {
 			analyticsMetaData = new AnalyticsMetaData(driver);
-			Beacon beacon = getBeacon();
 
-			// doCommonClassAssertions(beacon, analyticsMetaData);
+//			Beacon beacon = getBeacon();
+//			doCommonClassAssertions(beacon, analyticsMetaData, "");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -79,8 +76,9 @@ public class TimingScrollLoad_Test extends AnalyticsTestLoadBase {
 			// TODO
 			// Click and scroll around page
 			// Refresh
-			Beacon beacon = getBeacon();
-			// doCommonClassAssertions(beacon, analyticsMetaData);
+
+			// Beacon beacon = getBeacon();
+			// doCommonClassAssertions(beacon, analyticsMetaData, "");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -105,7 +103,7 @@ public class TimingScrollLoad_Test extends AnalyticsTestLoadBase {
 	// ==================== Data providers ==================== //
 
 	@DataProvider(name = "TimingScrollLoad")
-	public Iterator<Object[]> getTimingAndScrollLoadData() {
+	private Iterator<Object[]> getTimingAndScrollLoadData() {
 		return getPathContentTypeData(testDataFilePath, TESTDATA_SHEET_NAME);
 	}
 
