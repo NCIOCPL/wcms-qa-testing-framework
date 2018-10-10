@@ -21,10 +21,12 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	private final String REGEX_TIME_PARTING = "^\\d{1,2}:\\d{2} (AM|PM)\\|[a-zA-z]+day$"; // 2:35 PM|Tuesday
 	private final String REGEX_TIMESTAMP_PIPE = "^\\d{4}\\|\\d{1,2}\\|\\d{1,2}\\|\\d{1,2}$"; // 05/06/2018
 
+	// ==================== Required get() methods ==================== //
+
 	/**
 	 * Get the 'load' beacon for testing.
 	 * 
-	 * @return Beacon
+	 * @return Beacon object
 	 */
 	protected Beacon getBeacon(int... index) {
 		List<String> harList = getHarUrlList(proxy);
@@ -40,6 +42,7 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 	 * request URLs fired off by an analytics load event, ie s.tl()
 	 * 
 	 * @param urlList
+	 * @return collection of Beacon objects
 	 */
 	protected List<Beacon> getBeaconList(List<String> urlList) {
 
@@ -61,9 +64,46 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		// Debug analytics beacon counts
 		System.out.println("Total analytics requests: " + urlList.size() + " (load: " + loadBeacons.size() + ", click: "
 				+ clickBeacons + ")");
-
 		return loadBeacons;
 	}
+
+	// ==================== Data methods ==================== //
+
+	/**
+	 * Get an iterator data object with path and content type Strings.
+	 * 
+	 * @param testDataFilePath
+	 * @param sheetName
+	 * @return Iterator<Object[]> myObjects
+	 */
+	public Iterator<Object[]> getPathContentTypeData(String testDataFilePath, String sheetName) {
+		String[] columnsToReturn = { "Path", "ContentType" };
+		return getSpreadsheetData(testDataFilePath, sheetName, columnsToReturn);
+	}
+
+	// ==================== Utility methods ==================== //
+
+	/**
+	 * Recreate the "Hierarchy 1" variable from a URL.
+	 * 
+	 * @param myUrl
+	 * @return formatted hier1 string
+	 */
+	private String buildHier1(String myUrl) {
+		try {
+			URL url = new URL(myUrl);
+			String hier = url.getHost() + url.getPath();
+			if (hier.charAt(hier.length() - 1) == '/') {
+				hier = hier.substring(0, hier.length() - 1);
+			}
+			return hier.replaceAll("/", "|");
+		} catch (MalformedURLException ex) {
+			ex.printStackTrace();
+			return "";
+		}
+	}
+
+	// ==================== Common assertions and exceptions ==================== //
 
 	/**
 	 * Shared Assert() calls for all pageLoad tracking beacons.
@@ -105,73 +145,14 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 
 		// HIer
 		Assert.assertEquals(beacon.hiers.get(1), buildHier1(currUrl));
-
 	}
-
-	/**
-	 * Get an iterator data object with path and content type Strings.
-	 * 
-	 * @param testDataFilePath
-	 * @param sheetName
-	 * @return Iterator<Object[]> myObjects
-	 */
-	public Iterator<Object[]> getPathContentTypeData(String testDataFilePath, String sheetName) {
-		String[] columnsToReturn = { "Path", "ContentType" };
-		return getSpreadsheetData(testDataFilePath, sheetName, columnsToReturn);
-	}
-
-	/**
-	 * Get an iterator data object with path and content type Strings, filtered by a
-	 * given value and column.
-	 * 
-	 * @param testDataFilePath
-	 * @param sheetName
-	 * @param filterColumn
-	 * @param myFilter
-	 * @return
-	 */
-	public Iterator<Object[]> getFilteredPathContentTypeData(String testDataFilePath, String sheetName,
-			String filterColumn, String myFilter) {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(sheetName); rowNum++) {
-			String path = excelReader.getCellData(sheetName, "Path", rowNum);
-			String contentType = excelReader.getCellData(sheetName, "ContentType", rowNum);
-			String filter = excelReader.getCellData(sheetName, filterColumn, rowNum);
-			if (filter.equalsIgnoreCase(myFilter)) {
-				Object ob[] = { path, contentType };
-				myObjects.add(ob);
-			}
-		}
-		return myObjects.iterator();
-	}
-
-	/**
-	 * Recreate the "Hierarchy 1" variable from a URL.
-	 * 
-	 * @param myUrl
-	 * @return formatted hier1 string
-	 */
-	private String buildHier1(String myUrl) {
-		try {
-			URL url = new URL(myUrl);
-			String hier = url.getHost() + url.getPath();
-			if (hier.charAt(hier.length() - 1) == '/') {
-				hier = hier.substring(0, hier.length() - 1);
-			}
-			return hier.replaceAll("/", "|");
-		} catch (MalformedURLException ex) {
-			ex.printStackTrace();
-			return "";
-		}
-	}
-	
 
 	/**
 	 * Common method to log any non-assert exceptions in test methods.
 	 * 
-	 * @param Object representing the test class
-	 * @param Exception 
+	 * @param Object
+	 *            representing the test class
+	 * @param Exception
 	 */
 	protected void handleTestErrors(Object obj, Exception ex) {
 		String testMethod = obj.getClass().getEnclosingMethod().getName();

@@ -10,9 +10,11 @@ import gov.nci.webanalytics.Beacon;
 
 public class AnalyticsTestClickBase extends AnalyticsTestBase {
 
+	// ==================== Required get() methods ==================== //
+
 	/**
 	 * Get the 'click' beacon for testing. If no index is specified, get the last
-	 * item in the list. 
+	 * item in the list.
 	 * 
 	 * @return Beacon
 	 */
@@ -33,7 +35,8 @@ public class AnalyticsTestClickBase extends AnalyticsTestBase {
 	/**
 	 * Get a Beacon object at a given index.
 	 * 
-	 * @param requests list of request objects
+	 * @param requests
+	 *            list of request objects
 	 * @param index
 	 * @return analytics request object at that position
 	 */
@@ -50,6 +53,7 @@ public class AnalyticsTestClickBase extends AnalyticsTestBase {
 	 * request URLs fired off by an analytics load event, ie s.t()
 	 * 
 	 * @param urlList
+	 * @return collection of Beacon objects
 	 */
 	protected List<Beacon> getBeaconList(List<String> urlList) {
 
@@ -71,9 +75,10 @@ public class AnalyticsTestClickBase extends AnalyticsTestBase {
 		// Debug analytics beacon counts
 		System.out.println("Total analytics requests: " + urlList.size() + " (load: " + loadBeacons + ", click: "
 				+ clickBeacons.size() + ")");
-
 		return clickBeacons;
 	}
+
+	// ==================== Common assertions and exceptions ==================== //
 
 	/**
 	 * Shared Assert() calls for all click tracking beacons.
@@ -94,12 +99,12 @@ public class AnalyticsTestClickBase extends AnalyticsTestBase {
 		Assert.assertEquals(beacon.eVars.get(2), beacon.props.get(8));
 	}
 
-
 	/**
 	 * Common method to log any non-assert exceptions in test methods.
 	 * 
-	 * @param Object representing the test class
-	 * @param Exception 
+	 * @param Object
+	 *            representing the test class
+	 * @param Exception
 	 */
 	protected void handleTestErrors(Object obj, Exception ex) {
 		String testMethod = obj.getClass().getEnclosingMethod().getName();
@@ -110,5 +115,5 @@ public class AnalyticsTestClickBase extends AnalyticsTestBase {
 		logger.log(LogStatus.FAIL, "Failure: " + msg);
 		Assert.fail("Click event exception in " + testMethod + "(): " + msg);
 	}
-	
+
 }

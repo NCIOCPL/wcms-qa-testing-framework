@@ -5,10 +5,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
-import gov.nci.Utilities.ExcelManager;
 import gov.nci.clinicalTrial.pages.SuppressChatPromptPageObject;
 import gov.nci.clinicalTrial.pages.TrialDetailView;
 import gov.nci.webanalytics.Beacon;
@@ -17,6 +15,7 @@ import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 	private final String TESTDATA_SHEET_NAME = "TrialDetailView";
+	private final String VIEW_TRIAL_PATH = "/about-cancer/treatment/clinical-trials/search/v";
 
 	private TrialDetailView trialView;
 	private String testDataFilePath;
@@ -33,14 +32,14 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 	 * 
 	 * @param queryParams
 	 */
-	private void setupTestMethod(String path) {
+	private void setupTestMethod(String params) {
 		try {
-			driver.get(config.goHome() + path);
+			driver.get(config.goHome() + VIEW_TRIAL_PATH + params);
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			trialView = new TrialDetailView(driver, chatPrompt);
 			driver.navigate().refresh();
 		} catch (Exception ex) {
-			Assert.fail("Error loading CTS Trial Detail View: " + path);
+			Assert.fail("Error loading CTS Trial Detail View: " + VIEW_TRIAL_PATH + params);
 			ex.printStackTrace();
 		}
 	}
@@ -48,10 +47,10 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 	// ==================== Test methods ==================== //
 
 	/// Test Trial View - start over click event
-	@Test(dataProvider = "AdvancedViewFullPath", groups = { "Analytics" })
-	public void testTrialViewStartOverClick(String fullPath) {
+	@Test(dataProvider = "AdvancedViewFullParams", groups = { "Analytics" })
+	public void testTrialViewStartOverClick(String params) {
 		System.out.println("Test Trial View - start over click event: ");
-		setupTestMethod(fullPath);
+		setupTestMethod(params);
 
 		try {
 			trialView.clickStartOverNoNav();
@@ -68,10 +67,10 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Trial View - open all sections click event
-	@Test(dataProvider = "AdvancedViewFullPath", groups = { "Analytics" })
-	public void testTrialViewOpenAllClick(String fullPath) {
+	@Test(dataProvider = "AdvancedViewFullParams", groups = { "Analytics" })
+	public void testTrialViewOpenAllClick(String params) {
 		System.out.println("Test Trial View - open all sections click event:");
-		setupTestMethod(fullPath);
+		setupTestMethod(params);
 
 		try {
 			trialView.clickOpenAll();
@@ -86,10 +85,10 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Trial View - close all sections click event
-	@Test(dataProvider = "AdvancedViewFullPath", groups = { "Analytics" })
-	public void testTrialViewCloseAllClick(String fullPath) {
+	@Test(dataProvider = "AdvancedViewFullParams", groups = { "Analytics" })
+	public void testTrialViewCloseAllClick(String params) {
 		System.out.println("Test Trial View - close all sections click event: ");
-		setupTestMethod(fullPath);
+		setupTestMethod(params);
 
 		try {
 			trialView.clickCloseAll();
@@ -104,10 +103,10 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Trial View - expand section click event
-	@Test(dataProvider = "BasicViewFullPath", groups = { "Analytics" })
-	public void testTrialViewSectionExpandClick(String fullPath) {
+	@Test(dataProvider = "BasicViewFullParams", groups = { "Analytics" })
+	public void testTrialViewSectionExpandClick(String params) {
 		System.out.println("Test Trial View - expand section click event: ");
-		setupTestMethod(fullPath);
+		setupTestMethod(params);
 
 		try {
 			trialView.clickComponent("#trial-ids h2");
@@ -122,10 +121,10 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Trial View - collapse section click event
-	@Test(dataProvider = "BasicViewFullPath", groups = { "Analytics" })
-	public void testTrialViewSectionCollapseClick(String fullPath) {
+	@Test(dataProvider = "BasicViewFullParams", groups = { "Analytics" })
+	public void testTrialViewSectionCollapseClick(String params) {
 		System.out.println("Test Trial View - collapse section click event:");
-		setupTestMethod(fullPath);
+		setupTestMethod(params);
 
 		try {
 			trialView.clickSection("description");
@@ -140,10 +139,10 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Trial View - 'Print' click event
-	@Test(dataProvider = "CustomViewFullPath", groups = { "Analytics" })
-	public void testTrialViewPrintClick(String fullPath) {
+	@Test(dataProvider = "CustomViewFullParams", groups = { "Analytics" })
+	public void testTrialViewPrintClick(String params) {
 		System.out.println("Test Trial View - 'Print' click event:");
-		setupTestMethod(fullPath);
+		setupTestMethod(params);
 
 		try {
 			trialView.clickPrintLink();
@@ -161,10 +160,10 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Trial View - 'email' click event
-	@Test(dataProvider = "CustomViewFullPath", groups = { "Analytics" })
-	public void testTrialViewEmailClick(String fullPath) {
+	@Test(dataProvider = "CustomViewFullParams", groups = { "Analytics" })
+	public void testTrialViewEmailClick(String params) {
 		System.out.println("Test Trial View - 'email' click event:");
-		setupTestMethod(fullPath);
+		setupTestMethod(params);
 
 		try {
 			trialView.clickEmailLink();
@@ -183,41 +182,25 @@ public class TrialDetailViewClick_Test extends AnalyticsTestClickBase {
 
 	// ==================== Data providers ==================== //
 
-	@DataProvider(name = "AdvancedViewFullPath")
-	private Iterator<Object[]> getAdvancedViewFullPath() {
-		return getTrialViewClickData("Advanced");
+	@DataProvider(name = "AdvancedViewFullParams")
+	private Iterator<Object[]> getAdvancedViewParams() {
+		String[] columnsToReturn = { "Path" };
+		String[] filterInfo = { "ContentType", "Advanced" };
+		return getFilteredSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn, filterInfo);
 	}
 
-	@DataProvider(name = "BasicViewFullPath")
-	private Iterator<Object[]> getBasicViewFullPath() {
-		return getTrialViewClickData("Basic");
+	@DataProvider(name = "BasicViewFullParams")
+	private Iterator<Object[]> getBasicViewParams() {
+		String[] columnsToReturn = { "Path" };
+		String[] filterInfo = { "ContentType", "Basic" };
+		return getFilteredSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn, filterInfo);
 	}
 
-	@DataProvider(name = "CustomViewFullPath")
-	private Iterator<Object[]> getCustomViewFullPath() {
-		return getTrialViewClickData("Custom");
-	}
-
-	/**
-	 * Get a URL data object, filtered by search type.
-	 * 
-	 * @param myType
-	 * @return
-	 */
-	private Iterator<Object[]> getTrialViewClickData(String myType) {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		String path = "/about-cancer/treatment/clinical-trials/search/v";
-
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
-			String parms = excelReader.getCellData(TESTDATA_SHEET_NAME, "Path", rowNum);
-			String type = excelReader.getCellData(TESTDATA_SHEET_NAME, "ContentType", rowNum);
-			if (type.equalsIgnoreCase(myType)) {
-				Object ob[] = { path + parms };
-				myObjects.add(ob);
-			}
-		}
-		return myObjects.iterator();
+	@DataProvider(name = "CustomViewFullParams")
+	private Iterator<Object[]> getCustomViewParams() {
+		String[] columnsToReturn = { "Path" };
+		String[] filterInfo = { "ContentType", "Custom" };
+		return getFilteredSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn, filterInfo);
 	}
 
 	// ==================== Common assertions ==================== //

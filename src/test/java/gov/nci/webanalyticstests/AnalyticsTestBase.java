@@ -187,18 +187,46 @@ public abstract class AnalyticsTestBase {
 
 		return harUrlList;
 	}
-	
+
 	// ==================== Excel data retrieval methods ==================== //
 
 	/**
-	 * Get an iterator data object with path and content type Strings.
+	 * Get a collection of spreadsheet data from a given sheet and column(s). 
+	 *
+	 * @param File path for the data
+	 * @param Spreadsheet name
+	 * @param Column values to return
+	 * @return a collection of test data
+	 */
+	protected Iterator<Object[]> getSpreadsheetData(String testDataFilePath, String sheetName, String[] columns) {
+		return getSpreadsheetData(testDataFilePath, sheetName, columns, null);
+	}
+
+	/**
+	 * Get a filtered collection of spreadsheet data from a given sheet and
+	 * column(s).
+	 * 
+	 * @param File path for the data
+	 * @param Spreadsheet name
+	 * @param Column values to return
+	 * @param FilterParams - pair of values representing the column to filter and the expected value.
+	 * @return a collection of test data
+	 */
+	protected Iterator<Object[]> getFilteredSpreadsheetData(String testDataFilePath, String sheetName, String[] columns,
+			String[] filterParams) {
+		return getSpreadsheetData(testDataFilePath, sheetName, columns, filterParams);
+	}
+	
+	/**
+	 * Get a collection of spreadsheet data from given sheet, column, and filter values.
 	 * 
 	 * @param testDataFilePath
 	 * @param sheetName
 	 * @param columns
 	 * @return collection of spreadsheet data rows from a given sheet and columns.
 	 */
-	protected Iterator<Object[]> getSpreadsheetData(String testDataFilePath, String sheetName, String[] columns) {
+	private Iterator<Object[]> getSpreadsheetData(String testDataFilePath, String sheetName, String[] columns,
+			String[] filterParams) {
 		ExcelManager excelReader = new ExcelManager(testDataFilePath);
 		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
 		int rowCount = excelReader.getRowCount(sheetName);
@@ -221,8 +249,10 @@ public abstract class AnalyticsTestBase {
 		// IF we have a manageable amount of data, dynamically generate an array (rows)
 		// of arrays (columns).
 		for (int rowNum = 2; rowNum <= rowCount; rowNum++) {
-			ArrayList<String> tempList = getCellDataList(excelReader, sheetName, columns, rowNum);
-			myObjects.add(tempList.toArray());
+			if (meetsFilterCriteria(excelReader, sheetName, filterParams, rowNum) == true) {
+				ArrayList<String> tempList = getCellDataList(excelReader, sheetName, columns, rowNum);
+				myObjects.add(tempList.toArray());
+			}
 		}
 
 		return myObjects.iterator();
@@ -247,6 +277,34 @@ public abstract class AnalyticsTestBase {
 		return cdl;
 	}
 
+	/**
+	 * Check if 1) filter parameters have been passed in or 2) the cell value
+	 * matches our filter value. If so, return true.
+	 * 
+	 * @param ExcelManager object
+	 * @param Sheet name
+	 * @param filterParams
+	 * @param rowNum
+	 * @return
+	 */
+	private boolean meetsFilterCriteria(ExcelManager excelReader, String sheetName, String[] filterParams, int rowNum) {
+		try {
+			String filterColumn = filterParams[0];
+			String filterValue = filterParams[1];
+
+			if (filterColumn.isEmpty() || filterValue.isEmpty()) {
+				return true;
+			} else if (excelReader.getCellData(sheetName, filterColumn, rowNum).contains(filterValue)) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception ex) {
+			System.out.println("Invalid filter parameters; filter will not be applied.");
+			return true;
+		}
+	}
+	
 	// ==================== Abstract methods ==================== //
 
 	/**

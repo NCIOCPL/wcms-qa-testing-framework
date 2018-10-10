@@ -1,6 +1,5 @@
 package gov.nci.webanalyticstests.clinicaltrial.pages;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.testng.annotations.BeforeClass;
@@ -8,7 +7,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
 
-import gov.nci.Utilities.ExcelManager;
 import gov.nci.webanalytics.AnalyticsMetaData;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
@@ -45,7 +43,22 @@ public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 	// ==================== Test methods ==================== //
 
 	/// Test Dynamic Listing Page load event
-	@Test(dataProvider = "DynamicListingPage", groups = { "Analytics" })
+	@Test(dataProvider = "DiseaseListingPage", groups = { "Analytics" })
+	public void testDiseaseListingPageLoad(String path, String listingType, String filterInfo) {
+		System.out.println("Test '" + listingType + "' Dynamic Listing Page load event:");
+		setupTestMethod(path);
+
+		try {
+			Beacon beacon = getBeacon();
+			doCommonClassAssertions(beacon, path, filterInfo);
+		} catch (Exception e) {
+			handleTestErrors(new Object() {
+			}, e);
+		}
+	}
+
+	/// Test Dynamic Listing Page load event
+	@Test(dataProvider = "InterventionListingPage", groups = { "Analytics" })
 	public void testInterventionListingPageLoad(String path, String listingType, String filterInfo) {
 		System.out.println("Test '" + listingType + "' Dynamic Listing Page load event:");
 		setupTestMethod(path);
@@ -76,42 +89,25 @@ public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 
 	// ==================== Data providers ==================== //
 
-	@DataProvider(name = "DynamicListingPage")
-	private Iterator<Object[]> getDynamicListingPageLoadData() {
-		ArrayList<Object[]> dynamicObj = new ArrayList<Object[]>();
-		dynamicObj.addAll(getFilteredDataForDlp("ListingType", "Disease"));
-		dynamicObj.addAll(getFilteredDataForDlp("ListingType", "Intervention"));
-		return dynamicObj.iterator();
+	@DataProvider(name = "DiseaseListingPage")
+	private Iterator<Object[]> getDynamicListingDiseaseData() {
+		String[] columnsToReturn = { "Path", "ListingType", "ExpectedFilterInfo" };
+		String[] filterInfo = { "ListingType", "Disease" };
+		return getFilteredSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn, filterInfo);
+	}
+
+	@DataProvider(name = "InterventionListingPage")
+	private Iterator<Object[]> getDynamicListingInterventionData() {
+		String[] columnsToReturn = { "Path", "ListingType", "ExpectedFilterInfo" };
+		String[] filterInfo = { "ListingType", "Intervention" };
+		return getFilteredSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn, filterInfo);
 	}
 
 	@DataProvider(name = "ManualListingPage")
-	private Iterator<Object[]> getManualListingPageLoadData() {
-		ArrayList<Object[]> manualObj = getFilteredDataForDlp("ListingType", "Manual");
-		return manualObj.iterator();
-	}
-
-	/**
-	 * Get a data object with path and content type Strings, filtered by a given
-	 * value and column.
-	 * 
-	 * @param filterColumn
-	 * @param myFilter
-	 * @return
-	 */
-	private ArrayList<Object[]> getFilteredDataForDlp(String filterColumn, String myFilter) {
-		ExcelManager excelReader = new ExcelManager(testDataFilePath);
-		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
-		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
-			String path = excelReader.getCellData(TESTDATA_SHEET_NAME, "Path", rowNum);
-			String type = excelReader.getCellData(TESTDATA_SHEET_NAME, "ListingType", rowNum);
-			String expectedFilterInfo = excelReader.getCellData(TESTDATA_SHEET_NAME, "ExpectedFilterInfo", rowNum);
-			String filter = excelReader.getCellData(TESTDATA_SHEET_NAME, filterColumn, rowNum);
-			if (filter.equalsIgnoreCase(myFilter)) {
-				Object ob[] = { path, type, expectedFilterInfo };
-				myObjects.add(ob);
-			}
-		}
-		return myObjects;
+	private Iterator<Object[]> getManualListingData() {
+		String[] columnsToReturn = { "Path", "ListingType", "ExpectedFilterInfo" };
+		String[] filterInfo = { "ListingType", "Manual" };
+		return getFilteredSpreadsheetData(testDataFilePath, TESTDATA_SHEET_NAME, columnsToReturn, filterInfo);
 	}
 
 	// ==================== Common assertions ==================== //
