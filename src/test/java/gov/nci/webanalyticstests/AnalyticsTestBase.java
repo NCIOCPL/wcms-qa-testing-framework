@@ -99,7 +99,6 @@ public abstract class AnalyticsTestBase {
 	@BeforeMethod(groups = { "Analytics" })
 	public void beforeMethod(Method method) throws RuntimeException {
 		String message = method.getName() + "(): ";
-		logger.log(LogStatus.INFO, message);
 		System.out.println(message);
 
 		// Reset our browser to full screen before each method
@@ -109,14 +108,14 @@ public abstract class AnalyticsTestBase {
 	@AfterMethod(groups = { "Analytics" })
 	public void afterMethod(ITestResult result) {
 		if (result.getStatus() == ITestResult.FAILURE) {
-			logger.log(LogStatus.FAIL, "Fail => " + result.getName() + ":" + result.getThrowable().getMessage());
-			System.out.println("\tFailed: " + result.getThrowable().getMessage() + "\n");
+			logger.log(LogStatus.FAIL, "FAILED => " + result.getName() + ": " + result.getThrowable().getMessage());
+			System.out.println("  Failed: " + result.getThrowable().getMessage() + ".\n");
 		} else if (result.getStatus() == ITestResult.SKIP) {
-			logger.log(LogStatus.SKIP, "Skipped => " + result.getName());
-			System.out.println("\tSkipped.\n");
+			logger.log(LogStatus.SKIP, "SKIPPED => " + result.getName());
+			System.out.println("  Skipped.\n");
 		} else {
-			logger.log(LogStatus.PASS, "Pass => " + result.getName());
-			System.out.println("\tPassed!\n");
+			logger.log(LogStatus.PASS, "PASSED => " + result.getName());
+			System.out.println("  Passed!\n");
 		}
 	}
 
