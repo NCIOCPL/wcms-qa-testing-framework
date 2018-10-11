@@ -37,7 +37,6 @@ public class CthpCardClick_Test extends AnalyticsTestClickBase {
 			driver.get(config.goHome() + path);
 			currentUrl = driver.getCurrentUrl();
 			card = new Card(driver);
-			System.out.print(card.getPageUrl().toString());
 		} catch (Exception e) {
 			Assert.fail("Error loading CTHP Card object at: " + driver.getCurrentUrl());
 			e.printStackTrace();

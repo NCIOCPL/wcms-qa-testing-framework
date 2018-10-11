@@ -32,8 +32,12 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		List<String> harList = getHarUrlList(proxy);
 		List<Beacon> beaconList = getBeaconList(harList);
 		Beacon beacon = beaconList.get(beaconList.size() - 1);
-		System.out.println("Load beacon to test: ");
-		System.out.println(beacon.url + "\n");
+		
+		if (debug) {
+			System.out.println("Load beacon to test: ");
+			System.out.println(beacon.url + "\n");
+		}
+		
 		return beacon;
 	}
 
@@ -62,8 +66,11 @@ public class AnalyticsTestLoadBase extends AnalyticsTestBase {
 		}
 
 		// Debug analytics beacon counts
-		System.out.println("Total analytics requests: " + urlList.size() + " (load: " + loadBeacons.size() + ", click: "
-				+ clickBeacons + ")");
+		if (debug) {
+			System.out.println("Total analytics requests: " + urlList.size() + " (load: " + loadBeacons.size()
+					+ ", click: " + clickBeacons + ")");
+		}
+		
 		return loadBeacons;
 	}
 

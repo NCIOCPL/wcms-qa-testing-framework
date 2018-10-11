@@ -38,7 +38,7 @@ public abstract class AnalyticsTestBase {
 	protected static ExtentTest logger;
 	protected ConfigReader config;
 	protected boolean debug;
-
+	
 	// ==================== TextNG Befores & After methods ==================== //
 	
 	/**
@@ -61,7 +61,7 @@ public abstract class AnalyticsTestBase {
 	@Parameters({ "browser", "environment" })
 	public void beforeTest(String browser, String environment) throws MalformedURLException {
 		config = new ConfigReader(environment);
-
+		
 		// Start the BrowserMob proxy on the site homepage
 		String initUrl = config.goHome();
 		System.out.println("=== Starting BrowserMobProxy ===");
@@ -82,11 +82,13 @@ public abstract class AnalyticsTestBase {
 	}
 
 	@BeforeClass(groups = { "Analytics" })
-	@Parameters({ "environment" })
-	public void beforeClass(String environment) {
+	@Parameters({ "environment", "debug" })
+	public void beforeClass(String environment, boolean debug) {
 		config = new ConfigReader(environment);
+		this.debug = debug;
+		
 		String testClass = this.getClass().getSimpleName();
-		System.out.println("~~ " + testClass + " ~~\n");
+		System.out.println("\n~~ " + testClass + " ~~\n");
 		logger = report.startTest(testClass);
 	}
 
@@ -180,9 +182,10 @@ public abstract class AnalyticsTestBase {
 		}
 
 		// Debug size of HAR list
-		if (debug)
+		if (debug) {
 			System.out.println("Total HAR entries: " + entries.size());
-
+		}
+		
 		// The HAR list has been created; clear the log for next pass
 		har.getLog().getEntries().clear();
 		// For further reading, see https://en.wiktionary.org/wiki/hardy_har_har

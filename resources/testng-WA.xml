@@ -16,6 +16,7 @@
 			<parameter name="browser" value="iPhone6" />
 			<parameter name="browser" value="iPad" />
 			<parameter name="environment" value="qa" />
+			<parameter name="debug" value="false" />
 		-->
 		<groups>
 			<run>

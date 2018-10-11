@@ -27,8 +27,11 @@ public class AnalyticsTestClickBase extends AnalyticsTestBase {
 		int i = index.length > 0 ? index[0] : (beaconList.size() - 1);
 		Beacon beacon = getBeaconAtIndex(beaconList, i);
 
-		System.out.println("Click beacon to test: ");
-		System.out.println(beacon.url + "\n");
+		if (debug) {
+			System.out.println("Click beacon to test: ");
+			System.out.println(beacon.url + "\n");
+		}
+		
 		return beacon;
 	}
 
@@ -73,8 +76,11 @@ public class AnalyticsTestClickBase extends AnalyticsTestBase {
 		}
 
 		// Debug analytics beacon counts
-		System.out.println("Total analytics requests: " + urlList.size() + " (load: " + loadBeacons + ", click: "
-				+ clickBeacons.size() + ")");
+		if (debug) {
+			System.out.println("Total analytics requests: " + urlList.size() + " (load: " + loadBeacons + ", click: "
+					+ clickBeacons.size() + ")");
+		}
+		
 		return clickBeacons;
 	}
 
