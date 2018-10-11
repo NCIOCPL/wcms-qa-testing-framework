@@ -1,5 +1,6 @@
 package gov.nci.webanalyticstests;
 
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -96,7 +97,11 @@ public abstract class AnalyticsTestBase {
 	}
 
 	@BeforeMethod(groups = { "Analytics" })
-	public void beforeMethod() throws RuntimeException {
+	public void beforeMethod(Method method) throws RuntimeException {
+		String message = method.getName() + "(): ";
+		logger.log(LogStatus.INFO, message);
+		System.out.println(message);
+
 		// Reset our browser to full screen before each method
 		driver.manage().window().maximize();
 	}
@@ -125,6 +130,7 @@ public abstract class AnalyticsTestBase {
 		System.out.println("=== Quitting Driver ===");
 		report.flush();
 		driver.quit();
+		
 		System.out.println("=== Stopping BrowserMobProxy ===");
 		proxy.stop();
 	}
