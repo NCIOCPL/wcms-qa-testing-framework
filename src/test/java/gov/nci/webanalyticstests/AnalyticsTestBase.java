@@ -38,7 +38,7 @@ public abstract class AnalyticsTestBase {
 	protected static ExtentTest logger;
 	protected static String trackingServer;
 
-	protected ConfigReader config;	
+	protected ConfigReader config;
 	protected boolean debug;
 	
 	// ==================== TextNG Befores & After methods ==================== //
@@ -104,11 +104,14 @@ public abstract class AnalyticsTestBase {
 	@AfterMethod(groups = { "Analytics" })
 	public void afterMethod(ITestResult result) {
 		if (result.getStatus() == ITestResult.FAILURE) {
-			logger.log(LogStatus.FAIL, "Fail => " + result.getName());
+			logger.log(LogStatus.FAIL, "Fail => " + result.getName() + ":" + result.getThrowable().getMessage());
+			System.out.println(" Failed: " + result.getThrowable().getMessage());
 		} else if (result.getStatus() == ITestResult.SKIP) {
 			logger.log(LogStatus.SKIP, "Skipped => " + result.getName());
+			System.out.println(" Skipped.");
 		} else {
 			logger.log(LogStatus.PASS, "Pass => " + result.getName());
+			System.out.println(" Passed!");
 		}
 	}
 
