@@ -110,13 +110,13 @@ public abstract class AnalyticsTestBase {
 	public void afterMethod(ITestResult result) {
 		if (result.getStatus() == ITestResult.FAILURE) {
 			logger.log(LogStatus.FAIL, "Fail => " + result.getName() + ":" + result.getThrowable().getMessage());
-			System.out.println(" Failed: " + result.getThrowable().getMessage());
+			System.out.println("\tFailed: " + result.getThrowable().getMessage() + "\n");
 		} else if (result.getStatus() == ITestResult.SKIP) {
 			logger.log(LogStatus.SKIP, "Skipped => " + result.getName());
-			System.out.println(" Skipped.");
+			System.out.println("\tSkipped.\n");
 		} else {
 			logger.log(LogStatus.PASS, "Pass => " + result.getName());
-			System.out.println(" Passed!");
+			System.out.println("\tPassed!\n");
 		}
 	}
 
