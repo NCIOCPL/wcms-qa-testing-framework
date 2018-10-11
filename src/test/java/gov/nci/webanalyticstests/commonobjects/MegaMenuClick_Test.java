@@ -92,7 +92,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			Assert.assertEquals(beacon.props.get(53), navGroup);
 			Assert.assertEquals(beacon.props.get(54), subNavGroup);
 			Assert.assertEquals(beacon.props.get(55), subNavGroup);
-			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), , "prop56 incorrect");
+			Assert.assertTrue(currentUrl.contains(beacon.props.get(56)), "prop56 incorrect");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);

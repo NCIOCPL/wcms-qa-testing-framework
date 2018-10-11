@@ -37,6 +37,7 @@ public abstract class AnalyticsTestBase {
 	protected static ExtentReports report;
 	protected static ExtentTest logger;
 	protected ConfigReader config;
+	protected boolean debug;
 
 	// ==================== TextNG Befores & After methods ==================== //
 	
@@ -179,7 +180,8 @@ public abstract class AnalyticsTestBase {
 		}
 
 		// Debug size of HAR list
-		System.out.println("Total HAR entries: " + entries.size());
+		if (debug)
+			System.out.println("Total HAR entries: " + entries.size());
 
 		// The HAR list has been created; clear the log for next pass
 		har.getLog().getEntries().clear();
@@ -288,6 +290,10 @@ public abstract class AnalyticsTestBase {
 	 * @return
 	 */
 	private boolean meetsFilterCriteria(ExcelManager excelReader, String sheetName, String[] filterParams, int rowNum) {
+		if (filterParams == null) {
+			return true;
+		}
+
 		try {
 			String filterColumn = filterParams[0];
 			String filterValue = filterParams[1];
@@ -304,7 +310,7 @@ public abstract class AnalyticsTestBase {
 			return true;
 		}
 	}
-	
+
 	// ==================== Abstract methods ==================== //
 
 	/**
