@@ -12,7 +12,7 @@ import gov.nci.dictionary.DictObjectBase;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 
-public class R4RClick_Test extends AnalyticsTestClickBase {
+public class R4RComponentClick_Test extends AnalyticsTestClickBase {
 
 	private final String TESTDATA_SHEET_NAME = "SearchTerms";
 	private final String SEARCH_SELECTOR = ".dictionary-search-input";
