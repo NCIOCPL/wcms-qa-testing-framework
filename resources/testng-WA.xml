@@ -75,8 +75,9 @@
 			<class name="gov.nci.webanalyticstests.error.common.ErrorClick_Test" />
 
 			<!-- R4R tracking -->
-			<class name="gov.nci.webanalyticstests.r4r.pages.R4RPageLoad_Test" />
-			<class name="gov.nci.webanalyticstests.r4r.pages.R4RPageClick_Test" />
+			<class name="gov.nci.webanalyticstests.r4r.pages.R4RAllPagesLoad_Test" />
+			<class name="gov.nci.webanalyticstests.r4r.pages.R4RHomePageClick_Test" />
+			<class name="gov.nci.webanalyticstests.r4r.pages.R4RResultsClick_Test" />
 			<class name="gov.nci.webanalyticstests.r4r.common.R4RComponentClick_Test" />
 
 			<!-- Common component tracking -->
