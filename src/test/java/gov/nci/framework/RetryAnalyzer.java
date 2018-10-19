@@ -3,10 +3,13 @@ package gov.nci.framework;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
+/**
+* Implementation of the RetryAnalyzer interface.
+*/
 public class RetryAnalyzer implements IRetryAnalyzer {
 
 	int counter = 0;
-	int retryLimit = 4;
+	int retryLimit = 3;
 
 	/*
 	 * (non-Javadoc)
