@@ -67,6 +67,9 @@
 
 			<!-- PDQ tracking -->
 			<class name="gov.nci.webanalyticstests.pdq.pages.PdqCisClick_Test" />
+				<methods>
+					<exclude name="testRightNavClick" />
+				</methods>
 			<class name="gov.nci.webanalyticstests.pdq.pages.PdqCisLoad_Test" />
 			<class name="gov.nci.webanalyticstests.pdq.pages.PdqDrugLoad_Test" />
 
@@ -80,6 +83,12 @@
 			<class name="gov.nci.webanalyticstests.commonobjects.OnThisPageClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.RelatedResourcesClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.ResizeClick_Test" />
+				<methods>
+					<exclude name="testResizeToExtraWide" />
+					<exclude name="testResizeToLarge" />
+					<exclude name="testResizeToMedium" />
+					<exclude name="testResizeToMobile" />
+				</methods>
 			<class name="gov.nci.webanalyticstests.commonobjects.TimingScrollLoad_Test" />
 
 			<!-- All other page load tracking -->
