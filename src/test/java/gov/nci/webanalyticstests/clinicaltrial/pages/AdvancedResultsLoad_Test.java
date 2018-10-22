@@ -35,6 +35,7 @@ public class AdvancedResultsLoad_Test extends AnalyticsTestLoadBase {
 		try {
 			driver.get(config.goHome() + PATH + queryParams);
 			analyticsMetaData = new AnalyticsMetaData(driver);
+			System.out.println("Path: " + PATH + queryParams);
 		} catch (Exception ex) {
 			Assert.fail("Error loading Advanced CTS results url: " + PATH + queryParams);
 			ex.printStackTrace();

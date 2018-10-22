@@ -17,6 +17,7 @@ public class BasicSearchLoad_Test extends AnalyticsTestLoadBase {
 	/// Test CTS Advanced Search page load
 	@Test(groups = { "Analytics" })
 	public void testCTSAdvancedSearchPageLoad() {
+		System.out.println("Path: " + PATH);
 		driver.get(config.goHome() + PATH);
 
 		try {

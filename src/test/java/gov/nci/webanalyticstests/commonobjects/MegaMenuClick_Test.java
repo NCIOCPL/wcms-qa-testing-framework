@@ -36,6 +36,7 @@ public class MegaMenuClick_Test extends AnalyticsTestClickBase {
 			driver.get(config.goHome() + path);
 			currentUrl = driver.getCurrentUrl();
 			megaMenu = new MegaMenu(driver, "");
+			System.out.println("Path: " + path);
 		} catch (Exception e) {
 			Assert.fail("Error creating MegaMenu object at path: " + path);
 			e.printStackTrace();

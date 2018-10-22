@@ -34,6 +34,7 @@ public class DynamicListingLoad_Test extends AnalyticsTestLoadBase {
 		try {
 			driver.get(config.goHome() + path);
 			analyticsMetaData = new AnalyticsMetaData(driver);
+			System.out.println("Path: " + path);
 		} catch (Exception ex) {
 			Assert.fail("Error loading listing page path: " + path);
 			ex.printStackTrace();
