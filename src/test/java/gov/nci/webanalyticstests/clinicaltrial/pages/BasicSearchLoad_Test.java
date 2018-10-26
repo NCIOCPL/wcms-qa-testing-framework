@@ -25,6 +25,7 @@ public class BasicSearchLoad_Test extends AnalyticsTestLoadBase {
 
 			Beacon beacon = getBeacon();
 			doCommonLoadAssertions(beacon, analyticsMetaData, PATH);
+			Assert.assertTrue(beacon.hasSuite("nciclinicaltrials", driver.getCurrentUrl()), "Missing NCT suite");
 			Assert.assertEquals(beacon.props.get(62), SEARCH_TYPE);
 			Assert.assertEquals(beacon.eVars.get(62), beacon.props.get(62));
 		} catch (Exception e) {

@@ -90,6 +90,8 @@ public class AdvancedResultsLoad_Test extends AnalyticsTestLoadBase {
 	 */
 	private void doCommonClassAssertions(Beacon beacon, AnalyticsMetaData analyticsMetaData) {
 		doCommonLoadAssertions(beacon, analyticsMetaData, PATH);
+		
+		Assert.assertTrue(beacon.hasSuite("nciclinicaltrials", driver.getCurrentUrl()), "Missing NCT suite");
 		Assert.assertTrue(beacon.hasEvent(2), "Missing event2");
 		Assert.assertEquals(beacon.channels, "About Cancer");
 		Assert.assertEquals(beacon.props.get(11), "clinicaltrials_advanced");
