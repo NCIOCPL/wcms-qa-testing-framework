@@ -212,7 +212,9 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 
 		try {
 			basicSearch.setSearchZip("abcde");
-			basicSearch.clickSelectedField(".btn-group input.submit");
+			basicSearch.setSearchAge("55");
+			basicSearch.clickSelectedField("input.submit.button");
+			basicSearch.clickSelectedField("input.submit.button"); // Second call to set 'submit' error
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);
