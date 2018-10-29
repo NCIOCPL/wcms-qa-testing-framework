@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
 
-public class R4RAllPagesLoad_Test extends AnalyticsTestLoadBase {
+public class R4RResourcePageLoad_Test extends AnalyticsTestLoadBase {
 
 	private final String TESTDATA_SHEET_NAME = "R4RPageLoad";
 
