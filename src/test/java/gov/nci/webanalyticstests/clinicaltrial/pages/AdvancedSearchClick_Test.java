@@ -26,6 +26,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 			// Create search page with chat prompt suppressed.
 			SuppressChatPromptPageObject chatPrompt = new SuppressChatPromptPageObject(driver, null);
 			advancedSearch = new AdvanceSearch(driver, chatPrompt);
+			System.out.println("Path: " + currentUrl);
 		} catch (Exception e) {
 			Assert.fail("Error loading Advanced CTS results url: " + currentUrl);
 			e.printStackTrace();

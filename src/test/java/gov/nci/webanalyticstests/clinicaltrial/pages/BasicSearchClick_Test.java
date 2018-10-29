@@ -21,6 +21,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 	private void setupTestMethod() {
 		driver.get(config.getPageURL("BasicClinicalTrialSearchURL"));
 		currentUrl = driver.getCurrentUrl();
+		System.out.println("Path: " + currentUrl);
 
 		try {
 			// Create search page with chat prompt suppressed.
