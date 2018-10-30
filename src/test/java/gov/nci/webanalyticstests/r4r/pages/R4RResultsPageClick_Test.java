@@ -5,13 +5,13 @@ import org.testng.Assert;
 
 import gov.nci.Resources4Researchers.Resources4ResearchersSearchResult;
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.AnalyticsTestClickBase;
+import gov.nci.webanalyticstests.r4r.R4RClickBase;
 
-public class R4RResultsClick_Test extends AnalyticsTestClickBase {
+public class R4RResultsPageClick_Test extends R4RClickBase {
 
 	// TODO: data method and more test cases
 	// TODO: detail tests
-	
+
 	private final String ROOT_PATH = "/research/resources";
 	private final String SEARCH_ALL = "/search";
 	private final String SEARCH_TOOLS = "/search?from=0&toolTypes=analysis_tools";
@@ -38,27 +38,19 @@ public class R4RResultsClick_Test extends AnalyticsTestClickBase {
 	}
 
 	// ==================== Test methods ==================== //
-
-	/// Test the click event that fires off after the page has loaded
+	
+	/// Test R4R Pages Load event
 	@Test(groups = { "Analytics" })
-	public void testResultsLoadClickEvent() {
-		setupTestMethod(ROOT_PATH + SEARCH_ALL);
+	public void testR4RResultsViewClick() {
+		driver.get(config.goHome());
 
 		try {
-			String total = r4rResult.getResultsCount();
-			
 			Beacon beacon = getBeacon();
-			doCommonClassAssertions(beacon);
-			Assert.assertEquals(beacon.channels, "Research", "Channel");
-			Assert.assertTrue(beacon.hasEvent(65), "Missing event65");
-			Assert.assertEquals(beacon.linkName, "R4R Data Load", "Link name");
-			Assert.assertEquals(beacon.props.get(39), "r4r_results|view|none|ra=0;tt=0;rt=0;tst=0|1|" + total);
-			Assert.assertEquals(beacon.props.get(40), "none");
+			Assert.assertEquals(beacon, getBeacon());
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
 		}
-
 	}
 
 	// ==================== Common assertions ==================== //

@@ -11,8 +11,9 @@ import gov.nci.Resources4Researchers.Resources4ResearchersHome;
 import gov.nci.dictionary.DictObjectBase;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
+import gov.nci.webanalyticstests.r4r.R4RClickBase;
 
-public class R4RComponentClick_Test extends AnalyticsTestClickBase {
+public class R4RComponentClick_Test extends R4RClickBase {
 
 	private final String TESTDATA_SHEET_NAME = "SearchTerms";
 	private final String SEARCH_SELECTOR = ".dictionary-search-input";
@@ -53,7 +54,7 @@ public class R4RComponentClick_Test extends AnalyticsTestClickBase {
 		try {
 			Beacon beacon = getBeacon();
 			//doCommonClassAssertions(beacon);
-			Assert.assertEquals(beacon,  beacon);
+			Assert.assertEquals(beacon, beacon);
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);

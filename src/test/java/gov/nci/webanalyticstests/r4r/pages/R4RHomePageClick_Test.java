@@ -7,9 +7,9 @@ import org.testng.Assert;
 
 import gov.nci.Resources4Researchers.Resources4ResearchersHome;
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.AnalyticsTestClickBase;
+import gov.nci.webanalyticstests.r4r.R4RClickBase;
 
-public class R4RHomePageClick_Test extends AnalyticsTestClickBase {
+public class R4RHomePageClick_Test extends R4RClickBase {
 
 	private final String ROOT_PATH = "/research/resources";
 
