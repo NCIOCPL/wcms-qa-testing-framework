@@ -3,7 +3,6 @@ package gov.nci.webanalyticstests.r4r.pages;
 import java.util.Iterator;
 
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -13,15 +12,6 @@ import gov.nci.webanalyticstests.r4r.R4RLoadBase;
 public class R4RResourcePageLoad_Test extends R4RLoadBase {
 
 	private final String TESTDATA_SHEET_NAME = "R4RResourceLoad";
-
-	private String testDataFilePath;
-
-	// ==================== Setup methods ==================== //
-
-	@BeforeClass(groups = { "Analytics" })
-	private void setupClass() {
-		testDataFilePath = config.getProperty("AnalyticsR4RData");
-	}
 
 	// ==================== Test methods ==================== //
 
