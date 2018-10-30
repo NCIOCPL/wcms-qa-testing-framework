@@ -50,7 +50,7 @@ public class R4RHomePageClick_Test extends AnalyticsTestClickBase {
 			Assert.assertTrue(beacon.hasEvent(37), "Missing event37");
 			Assert.assertEquals(beacon.linkName, "R4R Data Load", "Link name");
 			Assert.assertEquals(beacon.props.get(39), "r4r_home|view");
-			Assert.assertEquals(beacon.props.get(40), "Resource View");
+			Assert.assertEquals(beacon.props.get(40), "Home View");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
