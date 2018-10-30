@@ -8,9 +8,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
+import gov.nci.webanalyticstests.r4r.R4RLoadBase;
 
-public class R4RResourcePageLoad_Test extends AnalyticsTestLoadBase {
+public class R4RResourcePageLoad_Test extends R4RLoadBase {
 
 	private final String TESTDATA_SHEET_NAME = "R4RResourceLoad";
 

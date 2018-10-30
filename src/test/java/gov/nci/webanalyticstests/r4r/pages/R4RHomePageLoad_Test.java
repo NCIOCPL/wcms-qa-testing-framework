@@ -4,9 +4,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import gov.nci.webanalytics.Beacon;
-import gov.nci.webanalyticstests.AnalyticsTestLoadBase;
+import gov.nci.webanalyticstests.r4r.R4RLoadBase;
 
-public class R4RHomePageLoad_Test extends AnalyticsTestLoadBase {
+public class R4RHomePageLoad_Test extends R4RLoadBase {
 
 	private final String PATH = "/research/resources";
 
