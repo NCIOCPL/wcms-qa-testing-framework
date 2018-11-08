@@ -25,8 +25,8 @@ public class DictionarySearch extends PageObjectBase {
         PageFactory.initElements(browser, this);
     }
 
-	/**************** Sitewide Search Results Page Elements *****************************/
-	@FindBy(css = "h1")
+    /**************** Sitewide Search Results Page Elements *****************************/
+    @FindBy(css = "h1")
     WebElement txt_header;
     @FindBy(css = "div span.radio")
     WebElement contains_toggle;
@@ -46,7 +46,7 @@ public class DictionarySearch extends PageObjectBase {
     List<WebElement> az_list_letters;
     @FindBy(css = "div.results dfn span")
     WebElement defHeader;
-	/**************** Sitewide Search Results Page Elements *****************************/
+    /**************** Sitewide Search Results Page Elements *****************************/
 
 
     //* Testing if the H1 header element exists on the page
@@ -294,8 +294,8 @@ public class DictionarySearch extends PageObjectBase {
     // Test Content
     // ---------------------------------------------------------------------
     public boolean submitSearchTerm(WebDriver driver) {
-	String term = "becatecarin";
-	String searchTerm = term.substring(0, 5);
+    String term = "becatecarin";
+    String searchTerm = term.substring(0, 5);
 
         selectStartsWith();
         search_input.sendKeys(searchTerm);
@@ -312,11 +312,11 @@ public class DictionarySearch extends PageObjectBase {
     // Test URL
     // ---------------------------------------------------------------------
     public boolean submitSearchTermUrl(WebDriver driver) {
-	String term = "becatecarin";
-	String searchTerm = term.substring(0, 5);
+    String term = "becatecarin";
+    String searchTerm = term.substring(0, 5);
         String[] urlParts;
-	String[] path = { "https:", "", "www-qa.cancer.gov", "publications", "dictionaries", 
-		          "cancer-drug", "def", term};
+    String[] path = { "https:", "", "www-qa.cancer.gov", "publications", "dictionaries", 
+    "cancer-drug", "def", term};
 
         selectStartsWith();
         search_input.sendKeys(searchTerm);
@@ -324,18 +324,18 @@ public class DictionarySearch extends PageObjectBase {
 
         // System.out.println(driver.getCurrentUrl());
         urlParts = driver.getCurrentUrl().split("[/]");  // '/' is special character
-	// System.out.println(urlParts.length);
-	// System.out.println(path.length);
+    // System.out.println(urlParts.length);
+    // System.out.println(path.length);
         System.out.println("LiLi");
 
-	for (int i = 3; i < path.length; i++) {
-	    System.out.println(urlParts[i] + " = " + path[i]);
-	    if (!urlParts[i].equals(path[i])) {
-		    System.out.println(urlParts[i]);
-		    System.out.println(path[i]);
-		    return false;
-	    }
-	}
+    for (int i = 3; i < path.length; i++) {
+    System.out.println(urlParts[i] + " = " + path[i]);
+        if (!urlParts[i].equals(path[i])) {
+            System.out.println(urlParts[i]);
+            System.out.println(path[i]);
+            return false;
+        }
+    }
 
         // List<WebElement> letter = driver.findElements(By.cssSelector("div.az-list ul li a"));
         // System.out.println(az_list_letters.size());
@@ -345,21 +345,21 @@ public class DictionarySearch extends PageObjectBase {
     }
 
 //    private void defPath(String term) {
-//	System.out.println("In defPath");
-//	path = new String[10];
+//    System.out.println("In defPath");
+//    path = new String[10];
 //
-//	path[0] = "https:";
-//	path[1] = "server";
-//	path[2] = "publications";
-//	path[3] = "dictionaries";
-//	path[4] = "cancer-drug";
-//	path[5] = "def";
-//	path[6] = term;
+//    path[0] = "https:";
+//    path[1] = "server";
+//    path[2] = "publications";
+//    path[3] = "dictionaries";
+//    path[4] = "cancer-drug";
+//    path[5] = "def";
+//    path[6] = term;
  //   }
 
     public boolean submitSearchTerm2() {
-		String term = "bevacizumab";
-		String searchTerm = term.substring(0, 8);
+        String term = "bevacizumab";
+        String searchTerm = term.substring(0, 8);
         // ExpectedConditions.urlContains("/publications/dictionaries/cancer-drug/search")
         // List<WebElement> searchField = getElementControl(inputSelector);
 
@@ -375,8 +375,8 @@ public class DictionarySearch extends PageObjectBase {
     }
 
     public boolean submitSearchTerm3() {
-		String term = "lenapenem";
-		String searchTerm = term.substring(2, 8);
+        String term = "lenapenem";
+        String searchTerm = term.substring(2, 8);
         // ExpectedConditions.urlContains("/publications/dictionaries/cancer-drug/def/" + term)
         // List<WebElement> searchField = getElementControl(inputSelector);
 
@@ -392,8 +392,8 @@ public class DictionarySearch extends PageObjectBase {
     }
 
     public boolean submitSearchTerm4() {
-		String term = "bevacizumab";
-		String searchTerm = term.substring(2, 7);
+        String term = "bevacizumab";
+        String searchTerm = term.substring(2, 7);
         // ExpectedConditions.urlContains("/publications/dictionaries/cancer-drug/search")
         // List<WebElement> searchField = getElementControl(inputSelector);
 
@@ -409,8 +409,8 @@ public class DictionarySearch extends PageObjectBase {
     }
 
     public boolean submitSearchTerm5() {
-		String term = "bevacizumab";
-		String searchTerm = term.substring(2, 6);
+        String term = "bevacizumab";
+        String searchTerm = term.substring(2, 6);
         // ExpectedConditions.urlContains("/publications/dictionaries/cancer-drug/search")
         // List<WebElement> searchField = getElementControl(inputSelector);
         this.selectContains();
@@ -427,8 +427,8 @@ public class DictionarySearch extends PageObjectBase {
     }
 
     public boolean submitSearchTerm6() {
-		String term = "bevacizumab";
-		String searchTerm = term.substring(0, 4);
+        String term = "bevacizumab";
+        String searchTerm = term.substring(0, 4);
         // ExpectedConditions.urlContains("/publications/dictionaries/cancer-drug/search")
         // List<WebElement> searchField = getElementControl(inputSelector);
         this.selectContains();
@@ -445,8 +445,8 @@ public class DictionarySearch extends PageObjectBase {
     }
 
     public boolean submitSearchTerm7() {
-		String term = "alectinib";
-		String searchTerm = term.substring(1, 7);
+        String term = "alectinib";
+        String searchTerm = term.substring(1, 7);
         // ExpectedConditions.urlContains("/publications/dictionaries/cancer-drug/def/")
         // List<WebElement> searchField = getElementControl(inputSelector);
         this.selectContains();
@@ -456,8 +456,8 @@ public class DictionarySearch extends PageObjectBase {
         // List<WebElement> letter = driver.findElements(By.cssSelector("div.az-list ul li a"));
         System.out.println(az_list_letters.size());
 
-        			// Click a link on the results page
-			// dict.ClickElement("dt dfn a", term, driver);
+                    // Click a link on the results page
+            // dict.ClickElement("dt dfn a", term, driver);
 
         if (az_list_letters.size() == 0) {
             return false;
@@ -466,8 +466,8 @@ public class DictionarySearch extends PageObjectBase {
     }
 
     public boolean submitSearchTerm8() {
-		String term = "bevacizumab";
-		String searchTerm = term.substring(1, 5);
+        String term = "bevacizumab";
+        String searchTerm = term.substring(1, 5);
         // ExpectedConditions.urlContains("/publications/dictionaries/cancer-drug/def/" + term)
         // List<WebElement> searchField = getElementControl(inputSelector);
         this.selectContains();
@@ -477,8 +477,8 @@ public class DictionarySearch extends PageObjectBase {
         // List<WebElement> letter = driver.findElements(By.cssSelector("div.az-list ul li a"));
         System.out.println(az_list_letters.size());
 
-			// Click a link on the results page
-			// dict.ClickElement("dt dfn a", term, driver);
+            // Click a link on the results page
+            // dict.ClickElement("dt dfn a", term, driver);
 
             if (az_list_letters.size() == 0) {
             return false;
@@ -559,14 +559,14 @@ public class DictionarySearch extends PageObjectBase {
             searchType.get(0).click();
     }
 
-	public void clickSearchResult(String selector, int index) {
-		WebElement result = SearchResultList(selector).get(index);
-		ScrollUtil.scrollIntoview(getBrowser(), result);
-		result.click();
-	}
+    public void clickSearchResult(String selector, int index) {
+        WebElement result = SearchResultList(selector).get(index);
+        ScrollUtil.scrollIntoview(getBrowser(), result);
+        result.click();
+    }
 
-	public void clickSearchResult(String selector) {
-		clickSearchResult(selector, 0);
-	}
+    public void clickSearchResult(String selector) {
+        clickSearchResult(selector, 0);
+    }
 
 }

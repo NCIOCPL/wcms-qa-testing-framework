@@ -11,32 +11,39 @@
     <parameter name="browser" value="Chrome" />
   -->
    <classes>
+  <!--
     <class name="gov.nci.dictionary.DictDrugs_Test" />
     <class name="gov.nci.dictionary.DictGenetics_Test" />
     <class name="gov.nci.dictionary.DictTerms_Test" />
-    <class name="gov.nci.dictionary.DictTermsES_Test">
-      <methods>
-        <include name="TitleVisible" />
-      </methods>
-    </class>
+    <class name="gov.nci.dictionary.DictTermsES_Test" />
+  -->
 
     <class name="gov.nci.dictionary.NewDrugs_Test">
       <methods>
-        <include name="HeaderVisible"/>
-        <include name="HeaderDisplay"/>
-        <include name="TitleVisible"/>
-        <include name="TitleDisplay"/>
-        <include name="RadioVisible"/>
-        <include name="RadioStartsWithSelected"/>
-        <include name="SearchInputVisible"/>
-        <include name="SearchBtnVisible"/>
-        <include name="AZListVisible"/>
-        <include name="AZListHome"/>
-        <include name="AZListHomeUrl"/>
-        <include name="AZListSelectLetter"/>
-        <include name="AZListSelectLetterTestUrl"/>
-        <include name="SubmitSearchStartsWith"/>
-        <include name="SubmitSearchStartsWithUrl"/>
+        <!-- include name="HeaderVisible"/ -->
+        <exclude name="HeaderDisplay"/>
+        <exclude name="TitleVisible"/>
+        <exclude name="TitleDisplay"/>
+        <exclude name="RadioVisible"/>
+        <exclude name="RadioStartsWithSelected"/>
+        <exclude name="SearchInputVisible"/>
+        <exclude name="SearchBtnVisible"/>
+        <exclude name="AZListVisible"/>
+        <exclude name="AZListHome"/>
+        <exclude name="AZListHomeUrl"/>
+        <exclude name="AZListSelectLetter"/>
+        <exclude name="AZListSelectLetterTestUrl"/>
+        <exclude name="SubmitSearchStartsWith"/>
+        <exclude name="DictionarySearch"/>
+        <exclude name="SearchAndClick"/>
+        <exclude name="SearchButtonContains"/>
+        <exclude name="SearchButtonStartsWith"/>
+        <exclude name="SearchEnterContains"/>
+        <exclude name="SearchEnterContainsMulti"/>
+        <exclude name="SearchReturnsDefinition"/>
+        <exclude name="SearchReturnsHeader"/>
+        <exclude name="SubmitSearchStartsWithMulti"/>
+        <exclude name="SubmitSearchStartsWithUrl"/>
       </methods>
     </class>
     <!--
