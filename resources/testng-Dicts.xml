@@ -11,13 +11,6 @@
     <parameter name="browser" value="Chrome" />
   -->
    <classes>
-  <!--
-    <class name="gov.nci.dictionary.DictDrugs_Test" />
-    <class name="gov.nci.dictionary.DictGenetics_Test" />
-    <class name="gov.nci.dictionary.DictTerms_Test" />
-    <class name="gov.nci.dictionary.DictTermsES_Test" />
-  -->
-
     <class name="gov.nci.dictionary.NewDrugs_Test">
       <methods>
         <!-- include name="HeaderVisible"/ -->
@@ -99,9 +92,33 @@
         <exclude name="SubmitSearchStartsWithUrl"/>
       </methods>
     </class>
-    <!--
-        <class name="gov.nci.dictionary.NewGenetics_Test" />
-    -->
+    <class name="gov.nci.dictionary.NewGenetics_Test">
+      <methods>
+        <exclude name="HeaderDisplay"/>
+        <exclude name="AZListLetterUrl"/>
+        <exclude name="AZListSelect"/>
+        <exclude name="AZListSelectLetter"/>
+        <exclude name="AZListVisible"/>
+        <exclude name="ClickWidgetLink"/>
+        <exclude name="InputFieldVisible"/>
+        <exclude name="RadioStartsWithSelected"/>
+        <exclude name="RadioVisible"/>
+        <exclude name="SearchAndClick"/>
+        <exclude name="SearchBtnVisible"/>
+        <exclude name="SearchButtonContains"/>
+        <exclude name="SearchButtonStartsWith"/>
+        <exclude name="SearchEnterContains"/>
+        <exclude name="SearchEnterContainsMulti"/>
+        <exclude name="SearchEnterStartsWith"/>
+        <exclude name="SearchEnterStartsWithMulti"/>
+        <exclude name="SearchReturnsDefinition"/>
+        <exclude name="SearchReturnsHeader"/>
+        <exclude name="SearchReturnsList"/>
+        <exclude name="TitleVisible"/>
+        <exclude name="WidgetLinkVisible"/>
+        <exclude name="SubmitSearchStartsWithUrl"/>
+      </methods>
+    </class>
 
    </classes>
   </test>

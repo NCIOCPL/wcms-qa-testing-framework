@@ -22,7 +22,7 @@ public class NewDrugs_Test extends NewDictionaryCommon {
 
 /* ***************************** Test Methods ****************************************** */
     // Testing to confirm the page header (H1 element) is visible
-    // ------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------
     @Test(dataProvider = "DrugDictionary", groups = { "dictionary" })
     public void HeaderVisible(String url) {
         DictionarySearch dict;
