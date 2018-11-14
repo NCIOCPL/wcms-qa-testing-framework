@@ -16,7 +16,6 @@
         <exclude name="Dada"/>
       </methods>
     </class>
-  <!--
     <class name="gov.nci.dictionary.NewTerms_Test">
       <methods>
         <exclude name="Dada"/>
@@ -27,7 +26,6 @@
         <exclude name="Dada"/>
       </methods>
     </class>
-  -->
     <class name="gov.nci.dictionary.NewGenetics_Test">
       <methods>
         <exclude name="Dada"/>
@@ -37,4 +35,3 @@
    </classes>
   </test>
 </suite>
-
