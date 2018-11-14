@@ -16,13 +16,11 @@
         <exclude name="Dada"/>
       </methods>
     </class>
-  <!--
     <class name="gov.nci.dictionary.NewTerms_Test">
       <methods>
         <exclude name="Dada"/>
       </methods>
     </class>
-  -->
     <class name="gov.nci.dictionary.NewTermsES_Test">
       <methods>
         <exclude name="Dada"/>
