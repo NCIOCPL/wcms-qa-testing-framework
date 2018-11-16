@@ -99,7 +99,7 @@ public class NewDrugs_Test extends NewDictionaryCommon {
 
         try {
             dict = new DictionarySearch(driver);
-            boolean radioStartsWith = dict.isStartsWithDefault();
+            boolean radioStartsWith = dict.isStartsWithSelected();
             String radioErrorTxt = "*** Error: Drug Dictionary Radio Button "
                                  + "Default Not Found ***";
             Assert.assertTrue(radioStartsWith, radioErrorTxt);
