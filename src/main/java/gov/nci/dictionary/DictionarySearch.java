@@ -69,4 +69,10 @@ public class DictionarySearch extends PageObjectBase {
         return contains_toggle.isDisplayed();
     }
 
+
+    // Testing if the "Starts with" radio button is selected by default
+    // -----------------------------------------------------------------
+    public boolean isStartsWithSelected() {
+        return btn_startswith.isSelected();
+    }
 }
