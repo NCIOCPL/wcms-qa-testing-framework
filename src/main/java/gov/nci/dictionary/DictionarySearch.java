@@ -69,4 +69,10 @@ public class DictionarySearch extends PageObjectBase {
         return contains_toggle.isDisplayed();
     }
 
+
+    // Testing if the search input field is visible
+    // ---------------------------------------------------
+    public boolean isSearchInputVisible() {
+        return search_input.isDisplayed();
+    }
 }
