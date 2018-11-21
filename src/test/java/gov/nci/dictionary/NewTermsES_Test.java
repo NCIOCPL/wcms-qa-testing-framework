@@ -66,6 +66,29 @@ public class NewTermsES_Test extends NewDictionaryCommon {
         }
     }
 
+
+    // Finding the link for the Glossary Widget in the header paragraph and
+    // test that the widget page exists by checking the resulting page title.
+    // -------------------------------------------------------------------------
+    @Test(dataProvider = "GlossaryES", groups = { "dictionary" })
+    public void ClickWidgetLink(String url) {
+        DictionarySearch dict;
+        String language = "ES";
+        String curMethod = new Object(){}.getClass().getEnclosingMethod().getName();
+
+        logger.log(LogStatus.INFO, "Testing link to glossary widget goes to correct page");
+        driver.get(url);
+
+        try {
+            dict = new DictionarySearch(driver);
+            boolean foundWidgetPage = dict.linksToWidgetPage(driver, language);
+            String wrongWidgetPageTxt = "*** Error: Glossary (ES) Click Widget Page "
+                                      + "Link Not Found ***";
+            Assert.assertTrue(foundWidgetPage, wrongWidgetPageTxt);
+        } catch (MalformedURLException | UnsupportedEncodingException e) {
+            Assert.fail("*** Error loading page in " + curMethod + " ***");
+        }
+    }
 /*  ***************************** Data Provider ***************************************** */
 
     // DataProvider to read the Excel spreadsheet with data containing URLs to be checked

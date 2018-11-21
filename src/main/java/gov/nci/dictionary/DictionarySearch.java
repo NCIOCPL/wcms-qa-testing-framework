@@ -46,6 +46,8 @@ public class DictionarySearch extends PageObjectBase {
     List<WebElement> az_list_letters;
     @FindBy(css = "div.results dfn span")
     WebElement defHeader;
+    @FindBy(css = "div.last-SI p > a")
+    WebElement widgetLink;
     /**************** Sitewide Search Results Page Elements *****************************/
 
 
@@ -63,10 +65,31 @@ public class DictionarySearch extends PageObjectBase {
     }
 
 
-    //* Testing if the radio button for the StartsWith/Contains selection is displayed
+    // Testing if the radio button for the StartsWith/Contains selection is displayed
     // ------------------------------------------------------------------------------
     public boolean isRadioBtnVisible() {
         return contains_toggle.isDisplayed();
     }
 
+
+    // Find the anchor link for the dictionary widget and click the link
+    // Ensure we're seeing the correct page
+    // -----------------------------------------------------------------
+    public boolean linksToWidgetPage(WebDriver driver, String lang) {
+        String widgetTitle;
+        widgetLink.click();
+
+        if (lang.equals("ES")){
+            widgetTitle = "Widget del Diccionario del NCI - National Cancer Institute";
+        } else {
+            widgetTitle = "NCI Dictionary Widget - National Cancer Institute";
+        }
+
+        if ( driver.getTitle().equals(widgetTitle) ) {
+            System.out.println("    Widget " + lang + " Found");
+            return true;
+        }
+
+        return false;
+    }
 }
