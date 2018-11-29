@@ -53,7 +53,15 @@ public class SitewideSearch_Test extends BaseClass {
 		logger.log(LogStatus.PASS, "Verify that Search button are displayed");
 	}
 
-	@Test(dataProvider = "Search", groups = { "Smoke" })
+	// Testing if correct placeholder is displayed in the Search Box
+	@Test(groups = { "Smoke" })
+	public void verifySearchBoxPlaceholder() {
+		Assert.assertEquals(search.getSearchBox().getAttribute("placeholder"), "search");
+		logger.log(LogStatus.PASS, "Verify that correct placeholder is displayed in the Search box");
+
+	}
+
+	// @Test(dataProvider = "Search", groups = { "Smoke" })
 	public void verifySitewideSearch(String keyword) {
 
 		System.out.println("Search Keyword: " + keyword);
@@ -86,7 +94,7 @@ public class SitewideSearch_Test extends BaseClass {
 						+ "Page Title, H1 Title, URL ending with 'results', results text");
 	}
 
-	@Test(groups = { "Smoke" })
+	// @Test(groups = { "Smoke" })
 	public void verifyEmptySitewideSearch() {
 
 		String keyword = "";
@@ -122,7 +130,7 @@ public class SitewideSearch_Test extends BaseClass {
 						+ "Page Title, H1 Title, URL ending with 'results', error message");
 	}
 
-	@Test(dataProvider = "SearchWithinSearch", groups = { "Smoke" })
+	// @Test(dataProvider = "SearchWithinSearch", groups = { "Smoke" })
 	public void verifySearchWithinSearch(String keyword1, String keyword2) {
 
 		// Perform Search
