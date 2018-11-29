@@ -63,10 +63,25 @@ public class DictionarySearch extends PageObjectBase {
     }
 
 
-    //* Testing if the radio button for the StartsWith/Contains selection is displayed
+    // Testing if the radio button for the StartsWith/Contains selection is displayed
     // ------------------------------------------------------------------------------
     public boolean isRadioBtnVisible() {
         return contains_toggle.isDisplayed();
     }
 
+
+    // Testing if the A-Z List home page displays the results for letter "A"
+    // ----------------------------------------------------------------------
+    public boolean isAZListHomeLetterA() {
+        String resultHome = results_home.getText();
+        String[] resultTokens = resultHome.trim().split("\\s+");
+        Boolean isNumber = StringUtils.isNumeric(resultTokens[0]);
+
+        // The result count lists an integer number and the letter "A"
+        // i.e.:  'NNN results found for: A'
+        if (isNumber && resultTokens[4].equals("A")) {
+            return true;
+        }
+        return false;
+    }
 }
