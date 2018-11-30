@@ -63,10 +63,31 @@ public class DictionarySearch extends PageObjectBase {
     }
 
 
-    //* Testing if the radio button for the StartsWith/Contains selection is displayed
+    // Testing if the radio button for the StartsWith/Contains selection is displayed
     // ------------------------------------------------------------------------------
     public boolean isRadioBtnVisible() {
         return contains_toggle.isDisplayed();
     }
 
+
+    // Testing if all of the elements of the A-Z list can be clicked and
+    // returning a non-zero result  J9 O14 Q16 Y24 #26
+    // -----------------------------------------------------------------
+    public boolean azListSelectLetter(WebDriver driver, String dictionary,
+                                                        String language) {
+        int countLetters = az_list_letters.size();
+        int curCount = 0;
+        for (int i = curCount; i < countLetters; i++) {
+            System.out.print(az_list_letters.get(i).getText() + " ");
+            az_list_letters.get(i).click();
+            List<WebElement> letterResults = driver.findElements(By.cssSelector("dt dfn"));
+
+            if (letterResults.size() == 0) {
+                System.out.println(az_list_letters.get(i).getText() + " letter is empty!!!");
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

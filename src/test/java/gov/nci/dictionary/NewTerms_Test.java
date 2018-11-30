@@ -65,6 +65,28 @@ public class NewTerms_Test extends NewDictionaryCommon {
     }
 
 
+    // Confirming each letter from the  A-Z list can be selected and shows results
+    // -------------------------------------------------------------------------
+    @Test(dataProvider = "Glossary", groups = { "dictionary" })
+    public void AZListSelectLetter(String url) {
+        DictionarySearch dict;
+        String curMethod = new Object(){}.getClass().getEnclosingMethod().getName();
+
+        logger.log(LogStatus.INFO, "Testing A-Z list. Selecting each letter");
+        driver.get(url);
+
+        try {
+            dict = new DictionarySearch(driver);
+            boolean AZLetterResultOK = dict.azListSelectLetter(driver,
+                                                               dictionary, language);
+            String AZLetterResultNotOkTxt = "*** Error: Glossary Dictionary Result for "
+                                          + "specified letter incorrect ***";
+            Assert.assertTrue(AZLetterResultOK, AZLetterResultNotOkTxt);
+        } catch (MalformedURLException | UnsupportedEncodingException e) {
+            Assert.fail("*** Error loading page in " + curMethod + " ***");
+        }
+    }
+
 /*  ***************************** Data Provider ***************************************** */
 
     // DataProvider to read the Excel spreadsheet with data containing URLs to be checked
