@@ -63,10 +63,42 @@ public class DictionarySearch extends PageObjectBase {
     }
 
 
-    //* Testing if the radio button for the StartsWith/Contains selection is displayed
+    // Testing if the radio button for the StartsWith/Contains selection is displayed
     // ------------------------------------------------------------------------------
     public boolean isRadioBtnVisible() {
         return contains_toggle.isDisplayed();
     }
 
+
+    // Testing if the dictionary home page URL is correct
+    // ----------------------------------------------------------------------
+    public boolean isHomePageUrl(String dictionary) {
+        String pagePath = this.getPageUrl().getPath();
+        String dictPath = "/publications/dictionaries/";
+        String dictPathES = "/espanol/publicaciones/";
+
+        // Setting the URL based on the dictionary input
+        // ---------------------------------------------
+        switch (dictionary) {
+           case "drug":
+               dictPath += "cancer-drug";
+               break;
+           case "glossary":
+               dictPath += "cancer-terms";
+               break;
+           case "glossary-es":
+               dictPath = dictPathES + "diccionario";
+               break;
+           case "genetics":
+               dictPath += "genetics-dictionary";
+               break;
+           default:
+               dictPath = "notFound";
+        }
+
+        if (pagePath.equals(dictPath)) {
+            return true;
+        }
+        return false;
+    }
 }
