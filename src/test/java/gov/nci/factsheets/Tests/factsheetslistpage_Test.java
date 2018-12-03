@@ -52,7 +52,7 @@ public class factsheetslistpage_Test extends BaseClass {
 	
 	
 		
-	//@Test(groups = { "Smoke" })
+	@Test(groups = { "Smoke" })
 	public void verifyFSlistPageH1Title() {
 		Assert.assertEquals(fslp.getPageH1Title().getText(), fslp.FACTSHEETLISTPAGE_PAGE_TITLE);
 		logger.log(LogStatus.PASS, "Verify that H1 Title of the page is *NCI Fact Sheets* | Actual Result: "
