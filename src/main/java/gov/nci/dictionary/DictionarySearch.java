@@ -74,6 +74,4 @@ public class DictionarySearch extends PageObjectBase {
     public boolean isStartsWithSelected() {
         return btn_startswith.isSelected();
     }
-
-
 }
