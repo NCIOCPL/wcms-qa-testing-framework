@@ -38,8 +38,18 @@ public class FactSheetsListPage {
 	    public WebElement getPageH1Title() {
 			return factsheetslist_PageTitle;
 		}
+
+// Verifying the Description Text
+// ---------------------------------------------------
+	   
+		public WebElement getPageIntroText() {
+			return text_FSListIntroText;
+		}
+
 }
 
+	    
+		
 	    
 		
 			

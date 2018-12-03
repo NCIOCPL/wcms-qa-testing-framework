@@ -59,4 +59,11 @@ public class factsheetslistpage_Test extends BaseClass {
 		logger.log(LogStatus.PASS, "Verify that H1 Title of the page is *NCI Fact Sheets* | Actual Result: "
 				+ fslp.getPageH1Title());
 	}
+	
+	
+	@Test(groups = { "Smoke" })
+	public void verifyfactsheetDesciptionText() {
+		Assert.assertTrue(fslp.getPageIntroText().getText().contains(FACTSHEETSLISTPAGE_INTRO_TEXT));
+		logger.log(LogStatus.PASS, "Verify that intro text is displayed below the title of the page");
+    }
 }
