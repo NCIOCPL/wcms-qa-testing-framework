@@ -39,7 +39,7 @@ FactSheetsListPage fslp;
 	
 	@Test(groups = { "Smoke" })
 	public void verifyFSlistPageBrowserTitle() {
-		//System.out.println(driver.getTitle());
+		System.out.println(driver.getTitle());
 		Assert.assertEquals(driver.getTitle(), fslp.FACTSHEETLISTPAGE_Browser_TITLE);
 	logger.log(LogStatus.PASS, "Verify that Browser Title of the page is *Fact Sheets - National Cancer Institute* | Actual Result: "
 				+ driver.getTitle());
@@ -56,7 +56,10 @@ FactSheetsListPage fslp;
 	}
 
 	
+	@Test(groups = { "Smoke" })
+	public void verifyfactsheetDesciptionText() {
+		Assert.assertTrue(fslp.getPageIntroText().getText().contains(fslp.FACTSHEETSLISTPAGE_INTRO_TEXT));
+		logger.log(LogStatus.PASS, "Verify that intro text is displayed below the title of the page");
 	
-	
-	
+	}
 }

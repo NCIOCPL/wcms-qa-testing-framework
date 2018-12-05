@@ -20,7 +20,7 @@ public class FactSheetsListPage {
 	public static final String FACTSHEETLISTPAGE_PAGE_TITLE = "NCI Fact Sheets";
 	public static final String FACTSHEETSLISTPAGE_INTRO_TEXT = "The NCI fact sheet collection addresses a variety of cancer topics. Fact sheets are updated and revised based on the latest cancer research.";
 	public final String BREAD_CRUMB = "Home\nPublications";
-	public static final List<String> FACTSHEETLISTS_ON_FACTSHEETSLISTPAGE= Lists.newArrayList("Cancer Therapy","Cancer Types",
+	public static final List<String> FACTSHEETSUBJECTLISTS_ON_FACTSHEETSLISTPAGE= Lists.newArrayList("Cancer Therapy","Cancer Types",
 			"Detection and Diagnosis", "Diet and Nutrition", "Prevention", "Risk Factors and Possible Causes", "Support, Coping, and Resources",
 			"Tobacco and Smoking Cessation", "En Español");
 	
@@ -51,6 +51,15 @@ public class FactSheetsListPage {
 			return factsheetslist_PageTitle;
 		}
 	    
+
+	 // Verifying the Description Text
+	    // ---------------------------------------------------
+	   
+		public WebElement getPageIntroText() {
+			return text_FSListIntroText;
+		}
+
+
 }
 
 	    
