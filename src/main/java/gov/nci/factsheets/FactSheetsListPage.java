@@ -17,7 +17,7 @@ public class FactSheetsListPage {
 
 
 	
-/**************** FactSheets Page WebElements *****************************/
+	/**************** FactSheets Page WebElements *****************************/
 	@FindBy(how = How.CSS, using = "div.resize-content>h1>span")   
 	   WebElement factsheetslist_PageTitle;
 	@FindBy(how = How.CSS, using = "#cgvBody>div.slot-item.first-SI>p")
@@ -41,11 +41,9 @@ public class FactSheetsListPage {
 
 // Verifying the Description Text
 // ---------------------------------------------------
-	   
-		public WebElement getPageIntroText() {
+        public WebElement getPageIntroText() {
 			return text_FSListIntroText;
 		}
-
 }
 
 	    

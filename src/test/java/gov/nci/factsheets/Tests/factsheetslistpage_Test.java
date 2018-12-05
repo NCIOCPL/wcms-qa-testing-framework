@@ -46,11 +46,8 @@ public class factsheetslistpage_Test extends BaseClass {
 		Assert.assertEquals(driver.getTitle(), FACTSHEETLISTPAGE_Browser_TITLE);
 	logger.log(LogStatus.PASS, "Verify that Browser Title of the page is *Fact Sheets - National Cancer Institute* | Actual Result: "
 				+ driver.getTitle());
-	
 	}
 	
-	
-		
 	@Test
 	public void verifyFSlistPageH1Title() {
 		driver.get(pageURL);
@@ -59,8 +56,7 @@ public class factsheetslistpage_Test extends BaseClass {
 		logger.log(LogStatus.PASS, "Verify that H1 Title of the page is *NCI Fact Sheets* | Actual Result: "
 				+ fslp.getPageH1Title());
 	}
-	
-	
+
 	@Test(groups = { "Smoke" })
 	public void verifyfactsheetDesciptionText() {
 		Assert.assertTrue(fslp.getPageIntroText().getText().contains(FACTSHEETSLISTPAGE_INTRO_TEXT));
