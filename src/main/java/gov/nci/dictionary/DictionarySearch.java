@@ -20,7 +20,8 @@ public class DictionarySearch extends PageObjectBase {
     // static String tier = "DT";
 
 
-    public DictionarySearch (WebDriver browser) throws MalformedURLException, UnsupportedEncodingException {
+    public DictionarySearch (WebDriver browser) throws MalformedURLException, 
+                                                       UnsupportedEncodingException {
         super(browser);
         PageFactory.initElements(browser, this);
     }
@@ -48,7 +49,8 @@ public class DictionarySearch extends PageObjectBase {
     List<WebElement> az_list_letters;
     @FindBy(css = "div.results dfn span")
     WebElement defHeader;
-    @FindBy(css = "div.last-SI p > a")
+    // @FindBy(css = "div.last-SI p > a")
+    @FindBy(css = "#cgvBody p > a")
     WebElement widgetLink;
     /**************** Sitewide Search Results Page Elements *****************************/
 
@@ -79,6 +81,8 @@ public class DictionarySearch extends PageObjectBase {
     public boolean isStartsWithSelected() {
         return btn_startswith.isSelected();
     }
+
+
     // Testing if the search input field is visible
     // ---------------------------------------------------
     public boolean isSearchInputVisible() {
@@ -86,7 +90,7 @@ public class DictionarySearch extends PageObjectBase {
     }
 
 
-    //* Testing if the search button is visible
+    // Testing if the search button is visible
     // ---------------------------------------------------
     public boolean isSearchBtnVisible() {
         return search_btn.isDisplayed();
@@ -115,24 +119,14 @@ public class DictionarySearch extends PageObjectBase {
         return widgetLink.isDisplayed();
     }
 
+
     // Find the anchor link for the dictionary widget and click the link
-    // Ensure we're seeing the correct page
+    // Returning a page object for the result page
     // -----------------------------------------------------------------
-    public boolean linksToWidgetPage(WebDriver driver, String lang) {
-        String widgetTitle;
+    public ResultPage clickWidgetLink() throws MalformedURLException,
+                                               UnsupportedEncodingException {
         widgetLink.click();
 
-        if (lang.equals("ES")){
-            widgetTitle = "Widget del Diccionario del NCI - National Cancer Institute";
-        } else {
-            widgetTitle = "NCI Dictionary Widget - National Cancer Institute";
-        }
-
-        if ( driver.getTitle().equals(widgetTitle) ) {
-            System.out.println("    Widget " + lang + " Found");
-            return true;
-        }
-
-        return false;
+        return new ResultPage(getBrowser());
     }
 }
