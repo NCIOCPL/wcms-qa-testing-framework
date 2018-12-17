@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -51,107 +49,6 @@ public class SitewideSearch_Test extends BaseClass {
 	public void verifySearchButtonUI() {
 		Assert.assertTrue(search.getSearchButton().isDisplayed(), "Search Button is not displayed");
 		logger.log(LogStatus.PASS, "Verify that Search button are displayed");
-	}
-
-	@Test(dataProvider = "Search", groups = { "Smoke" })
-	public void verifySitewideSearch(String keyword) {
-
-		System.out.println("Search Keyword: " + keyword);
-		search.search(keyword);
-
-		// Verify Search Results page common validation
-		verifySearchResultsPage();
-
-		// Verify that the Result Text contains search keyword
-		WebElement ele = driver.findElement(By.xpath("//h3[@id='ui-id-2']"));
-		System.out.println("Element Value ***********: " + ele.getText());
-		Assert.assertTrue(ele.getText().equals("Results for: " + keyword));
-
-		// Verify that the Top Search Result Text contains search keyword
-		WebElement topResultText = driver.findElement(By.xpath("(//h4)[1]"));
-		System.out.println("Top Result Text Value ***********: " + topResultText.getText());
-		Assert.assertTrue(topResultText.getText().contains("Results 1\u201310 of"));
-		Assert.assertTrue(topResultText.getText().contains("for: " + keyword));
-
-		// Verify that the bottom Search Result Text contains search keyword
-		WebElement bottomResultText = driver.findElement(By.xpath("(//h4)[2]"));
-		System.out.println("Bottom Result Text Value ***********: " + bottomResultText.getText());
-		Assert.assertTrue(bottomResultText.getText().contains("results found for: " + keyword));
-
-		// Verify best bet box is displayed
-		Assert.assertTrue(search.getBestBetBox().isDisplayed());
-
-		logger.log(LogStatus.PASS,
-				"Verify that when a keyword is searched, Search Result page is displayed with following validations: "
-						+ "Page Title, H1 Title, URL ending with 'results', results text");
-	}
-
-	@Test(groups = { "Smoke" })
-	public void verifyEmptySitewideSearch() {
-
-		String keyword = "";
-
-		System.out.println("Search Keyword: Empty");
-		search.search(keyword);
-
-		// Verify Search Results page common validation
-		verifySearchResultsPage();
-
-		// Verify that the Result Text contains search keyword
-		WebElement ele = driver.findElement(By.xpath("//h3[@id='ui-id-2']"));
-		System.out.println("Element Value ***********: " + ele.getText());
-		Assert.assertTrue(ele.getText().equals("Results for:"));
-
-		// Verify that the Top Search Result Text contains search keyword
-		WebElement topResultText = driver.findElement(By.xpath("(//h4)[1]"));
-		System.out.println("Top Result Text Value ***********: " + topResultText.getText());
-		Assert.assertTrue(topResultText.getText().contains("Results 0\u20130 of 0 for:"));
-
-		// Verify that the error message is displayed for empty search
-		WebElement errorMsg = driver.findElement(By.xpath("(//h4)[1]/following-sibling::div[1]"));
-		System.out.println("Error Message for empty search ***********: " + errorMsg.getText());
-		Assert.assertTrue(errorMsg.getText().contains("Please enter a search phrase."));
-
-		// Verify that the bottom Search Result Text contains search keyword
-		WebElement bottomResultText = driver.findElement(By.xpath("(//h4)[2]"));
-		System.out.println("Bottom Result Text Value ***********: " + bottomResultText.getText());
-		Assert.assertTrue(bottomResultText.getText().contains("0 results found for:"));
-
-		logger.log(LogStatus.PASS,
-				"Verify that when a search is performed with empty keyword, Search Result page is displayed with following validations: "
-						+ "Page Title, H1 Title, URL ending with 'results', error message");
-	}
-
-	@Test(dataProvider = "SearchWithinSearch", groups = { "Smoke" })
-	public void verifySearchWithinSearch(String keyword1, String keyword2) {
-
-		// Perform Search
-		search.SearchWithinSearch(keyword1, keyword2);
-		System.out.println("SearchWithinSearch function executed");
-
-		// Verify Search Results page common validation
-		verifySearchResultsPage();
-
-		// Verify that the Result Text contains search keywords
-		WebElement ele = driver.findElement(By.xpath("//h3[@id='ui-id-2']"));
-		System.out.println("Element Value ***********: " + ele.getText());
-		Assert.assertTrue(ele.getText().equals("Results for: " + keyword1 + " : " + keyword2));
-
-		// Verify that the Top Search Result Text contains search keywords
-		WebElement topResultText = driver.findElement(By.xpath("(//h4)[1]"));
-		System.out.println("Top Result Text Value ***********: " + topResultText.getText());
-		// "\u2013" is an endash
-		Assert.assertTrue(topResultText.getText().contains("Results 1\u201310 of"));
-		Assert.assertTrue(topResultText.getText().contains("for: " + keyword1 + " : " + keyword2));
-
-		// Verify that the bottom Search Result Text contains search keyword
-		WebElement bottomResultText = driver.findElement(By.xpath("(//h4)[2]"));
-		System.out.println("Bottom Result Text Value ***********: " + bottomResultText.getText());
-		Assert.assertTrue(bottomResultText.getText().contains("results found for: " + keyword1 + " : " + keyword2));
-
-		logger.log(LogStatus.PASS,
-				"Verify that when a two keywords are searched via Search Within Search, Search Result page is displayed with following validations: "
-						+ "Page Title, H1 Title, URL ending with 'results', results text");
 	}
 
 	/********************** Data Providers **********************/
