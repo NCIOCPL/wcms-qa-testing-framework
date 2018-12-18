@@ -16,10 +16,11 @@ public class FactSheetsListPage {
 	ExtentTest logger;
 
 
-	    /**************** FactSheets Page WebElements *****************************/
+	
+/**************** FactSheets Page WebElements *****************************/
 	@FindBy(how = How.CSS, using = "div.resize-content>h1>span")   
 	   WebElement factsheetslist_PageTitle;
-	@FindBy(how = How.CSS, using = "#cgvBody>div.contentid-909853.slot-item.first-SI>p")
+	@FindBy(how = How.CSS, using = "#cgvBody>div.slot-item.first-SI>p")
 	    WebElement text_FSListIntroText;
 	@FindBy(how = How.CSS, using = "head#header>title")
 		WebElement factsheetslist_BrowserTitle;
@@ -37,10 +38,6 @@ public class FactSheetsListPage {
 	    public WebElement getPageH1Title() {
 			return factsheetslist_PageTitle;
 		}
-	    
-       
-
-
 }
 
 	    
