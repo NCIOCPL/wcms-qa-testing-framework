@@ -25,7 +25,9 @@ public class SitewideSearch {
 	@FindBy(how = How.XPATH, using = "//button[@id='sitesearch']")
 	WebElement btn_Search;
 
-	/*************** Site-wide Search Results Page WebElements **********************/
+	/***************
+	 * Site-wide Search Results Page WebElements
+	 **********************/
 	@FindBy(how = How.XPATH, using = "//label[@for='ctl34_rblSWRSearchType_0']")
 	WebElement rbtn_NewSearch;
 	@FindBy(how = How.XPATH, using = "//label[@for='ctl34_rblSWRSearchType_1']")
@@ -54,7 +56,7 @@ public class SitewideSearch {
 		return btn_Search;
 	}
 
-	//Site-wide Search based on any keyword
+	// Site-wide Search based on any keyword
 	public void search(String keyword) {
 		getSearchBox().click();
 		getSearchBox().clear();
@@ -77,16 +79,21 @@ public class SitewideSearch {
 		return box_BestBet;
 	}
 
+	// Get New Search button at bottom of Search Results page
+	public WebElement getNewSearchButton() {
+		return rbtn_NewSearch;
+	}
+
 	// Get Search Results page Search Within Search Box
 	public WebElement getSearchWithinSearchBox() {
 		return txt_SearchWithinSearchBox;
 	}
 
 	public WebElement getSearchWithinSearchButton() {
-		return btn_SearchWithinSearch;
+		return rbtn_SearchWithinSearch;
 	}
 
-	//Search Within Search based on any two keyword
+	// Search Within Search based on any two keyword
 	public void SearchWithinSearch(String keyword1, String keyword2) {
 
 		search(keyword1);

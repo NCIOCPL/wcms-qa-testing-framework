@@ -54,6 +54,30 @@ public class SitewideSearch_Test extends BaseClass {
 	}
 
 	@Test(dataProvider = "Search", groups = { "Smoke" })
+	public void verifySitewideSearchBottomSearchBar(String keyword) {
+
+		System.out.println("Search Keyword: " + keyword);
+		search.search(keyword);
+
+		// Verify that the New Search Button is present
+		Assert.assertTrue(search.getNewSearchButton().isDisplayed());
+
+		// Verify that the New Search label is correct
+		Assert.assertTrue(search.getNewSearchButton().getText().contains("New Search"));
+		// System.out.println(search.getNewSearchButton().getText());
+
+		// Verify that the Search Within Search Button is present
+		Assert.assertTrue(search.getSearchWithinSearchButton().isDisplayed());
+
+		// Verify that the Search Within Search label is correct
+		Assert.assertEquals(search.getSearchWithinSearchButton().getText(), "Search Within Results");
+		// System.out.println(search.getSearchWithinSearchButton().getText());
+
+		// Verify that the Search Button is present
+		Assert.assertTrue(search.getSearchWithinSearchButton().isDisplayed());
+	}
+
+	@Test(dataProvider = "Search", groups = { "Smoke" })
 	public void verifySitewideSearch(String keyword) {
 
 		System.out.println("Search Keyword: " + keyword);
@@ -210,6 +234,7 @@ public class SitewideSearch_Test extends BaseClass {
 		Assert.assertTrue(search.getSearchWithinSearchBox().isDisplayed(), "Search Within Search Box is not displayed");
 		Assert.assertTrue(search.getSearchWithinSearchButton().isDisplayed(),
 				"Search Within Search Button is not displayed");
+
 	}
 
 }
