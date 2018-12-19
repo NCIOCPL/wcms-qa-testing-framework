@@ -14,7 +14,7 @@ public class FactSheetsListPage {
 	WebDriver driver;
 	ExtentTest logger;
 
-	/**************** FactSheets Page WebElements *****************************/
+/**************** FactSheets Page WebElements *****************************/
 	@FindBy(how = How.CSS, using = "div.resize-content>h1>span")   
 	   WebElement factsheetslist_PageTitle;
 	@FindBy(how = How.CSS, using = "#cgvBody>div.slot-item.first-SI>p")
@@ -29,13 +29,9 @@ public class FactSheetsListPage {
 			PageFactory.initElements(driver, this);
 		}
 
-
-	   
-	    
 // Testing if the H1 header element exists on the page
 // ---------------------------------------------------
-
-	     public WebElement getPageH1Title() {
+        public WebElement getPageH1Title() {
 			return factsheetslist_PageTitle;
 		}
 
