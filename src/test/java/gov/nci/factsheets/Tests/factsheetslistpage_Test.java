@@ -37,8 +37,6 @@ public class factsheetslistpage_Test extends BaseClass {
 		System.out.println("FactSheetsList Page setup done");
 	}
 	
-	
-	
 	@Test
 	public void verifyFSlistPageBrowserTitle() {
 		driver.get(pageURL);
@@ -53,10 +51,8 @@ public class factsheetslistpage_Test extends BaseClass {
 		driver.get(pageURL);
 		fslp = new FactSheetsListPage(driver, logger);
 		Assert.assertEquals(fslp.getPageH1Title().getText(),FACTSHEETLISTPAGE_PAGE_TITLE);
-		logger.log(LogStatus.PASS, "Verify that H1 Title of the page is *NCI Fact Sheets* | Actual Result: "
-				+ fslp.getPageH1Title());
 	}
-
+	
 	@Test(groups = { "Smoke" })
 	public void verifyfactsheetDesciptionText() {
 		Assert.assertTrue(fslp.getPageIntroText().getText().contains(FACTSHEETSLISTPAGE_INTRO_TEXT));
