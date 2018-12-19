@@ -29,8 +29,11 @@ public class factsheetslistpage_Test extends BaseClass {
 	
 
 	@BeforeClass
-	public void setup() throws MalformedURLException {
+	@Parameters({ "browser" })
+	public void setup(String browser) throws MalformedURLException {
 		logger = report.startTest(this.getClass().getSimpleName());
+		pageURL = config.getProperty("FactSheetsListPageURL");
+		driver = BrowserManager.startBrowser(browser, config, pageURL);
 		System.out.println("FactSheetsList Page setup done");
 	}
 	
@@ -39,8 +42,6 @@ public class factsheetslistpage_Test extends BaseClass {
 	@Test
 	@Parameters({ "browser" })
 	public void verifyFSlistPageBrowserTitle(String browser) {
-		pageURL = config.getProperty("FactSheetsListPageURL");
-		driver = BrowserManager.startBrowser(browser, config, pageURL);
 		driver.get(pageURL);
 		fslp = new FactSheetsListPage(driver, logger);
 		Assert.assertEquals(driver.getTitle(), FACTSHEETLISTPAGE_Browser_TITLE);
@@ -54,8 +55,6 @@ public class factsheetslistpage_Test extends BaseClass {
 	@Test
 	@Parameters({ "browser" })
 	public void verifyFSlistPageH1Title(String browser) {
-		pageURL = config.getProperty("FactSheetsListPageURL");
-		driver = BrowserManager.startBrowser(browser, config, pageURL);
 		driver.get(pageURL);
 		fslp = new FactSheetsListPage(driver, logger);
 		Assert.assertEquals(fslp.getPageH1Title().getText(),FACTSHEETLISTPAGE_PAGE_TITLE);
