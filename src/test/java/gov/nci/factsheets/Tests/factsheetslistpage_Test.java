@@ -55,8 +55,10 @@ public class factsheetslistpage_Test extends BaseClass {
 				+ fslp.getPageH1Title());
 	}
 	
-	@Test(groups = { "Smoke" })
+	@Test
 	public void verifyfactsheetDesciptionText() {
+		driver.get(pageURL);
+		fslp = new FactSheetsListPage(driver, logger);
 		Assert.assertTrue(fslp.getPageIntroText().getText().contains(FACTSHEETSLISTPAGE_INTRO_TEXT));
 		logger.log(LogStatus.PASS, "Verify that intro text is displayed below the title of the page");
     }
