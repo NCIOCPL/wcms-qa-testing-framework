@@ -51,6 +51,8 @@ public class factsheetslistpage_Test extends BaseClass {
 		driver.get(pageURL);
 		fslp = new FactSheetsListPage(driver, logger);
 		Assert.assertEquals(fslp.getPageH1Title().getText(),FACTSHEETLISTPAGE_PAGE_TITLE);
+		logger.log(LogStatus.PASS, "Verify that H1 Title of the page is *NCI Fact Sheets* | Actual Result: "
+				+ fslp.getPageH1Title());
 	}
 	
 	@Test(groups = { "Smoke" })
