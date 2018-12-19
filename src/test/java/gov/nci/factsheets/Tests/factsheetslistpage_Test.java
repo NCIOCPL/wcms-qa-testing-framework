@@ -40,8 +40,7 @@ public class factsheetslistpage_Test extends BaseClass {
 	
 	
 	@Test
-	@Parameters({ "browser" })
-	public void verifyFSlistPageBrowserTitle(String browser) {
+	public void verifyFSlistPageBrowserTitle() {
 		driver.get(pageURL);
 		fslp = new FactSheetsListPage(driver, logger);
 		Assert.assertEquals(driver.getTitle(), FACTSHEETLISTPAGE_Browser_TITLE);
@@ -53,8 +52,7 @@ public class factsheetslistpage_Test extends BaseClass {
 	
 		
 	@Test
-	@Parameters({ "browser" })
-	public void verifyFSlistPageH1Title(String browser) {
+	public void verifyFSlistPageH1Title() {
 		driver.get(pageURL);
 		fslp = new FactSheetsListPage(driver, logger);
 		Assert.assertEquals(fslp.getPageH1Title().getText(),FACTSHEETLISTPAGE_PAGE_TITLE);
