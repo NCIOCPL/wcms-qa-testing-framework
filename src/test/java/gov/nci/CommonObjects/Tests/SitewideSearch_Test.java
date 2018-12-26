@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
@@ -40,20 +42,21 @@ public class SitewideSearch_Test extends BaseClass {
 	}
 
 	// Testing if Search Text Box is visible
-	@Test(groups = { "Smoke" })
+	@Test(groups = { "Smoke" }, priority = 1)
 	public void verifySearchTextBoxUI() {
 		Assert.assertTrue(search.getSearchBox().isDisplayed(), "Search text box is not displayed");
 		logger.log(LogStatus.PASS, "Verify that Search text box is displayed");
 	}
 
 	// Testing if Search Button is visible
-	@Test(groups = { "Smoke" })
+	@Test(groups = { "Smoke" }, priority = 2)
 	public void verifySearchButtonUI() {
 		Assert.assertTrue(search.getSearchButton().isDisplayed(), "Search Button is not displayed");
 		logger.log(LogStatus.PASS, "Verify that Search button are displayed");
 	}
 
-	@Test(dataProvider = "Search", groups = { "Smoke" })
+	// Testing the Bottom search bar on Search results page
+	@Test(groups = { "Smoke" }, dataProvider = "Search", priority = 3)
 	public void verifySitewideSearchBottomSearchBar(String keyword) {
 
 		System.out.println("Search Keyword: " + keyword);
@@ -77,7 +80,15 @@ public class SitewideSearch_Test extends BaseClass {
 		Assert.assertTrue(search.getSearchWithinSearchButton().isDisplayed());
 	}
 
-	@Test(dataProvider = "Search", groups = { "Smoke" })
+	@AfterMethod
+	public void afterTest(ITestResult result) {
+		Throwable t = result.getThrowable();
+		// with the object of t you can get the stacktrace and log it into your
+		// reporter
+	}
+
+	// Testing the SiteWidesearch using the keyword
+	@Test(dataProvider = "Search", groups = { "Smoke" }, priority = 4)
 	public void verifySitewideSearch(String keyword) {
 
 		System.out.println("Search Keyword: " + keyword);
@@ -110,7 +121,8 @@ public class SitewideSearch_Test extends BaseClass {
 						+ "Page Title, H1 Title, URL ending with 'results', results text");
 	}
 
-	@Test(groups = { "Smoke" })
+	// Testing Empty search on sitewidesearch
+	@Test(groups = { "Smoke" }, priority = 5)
 	public void verifyEmptySitewideSearch() {
 
 		String keyword = "";
@@ -146,7 +158,8 @@ public class SitewideSearch_Test extends BaseClass {
 						+ "Page Title, H1 Title, URL ending with 'results', error message");
 	}
 
-	@Test(dataProvider = "SearchWithinSearch", groups = { "Smoke" })
+	// Testing search within search
+	@Test(dataProvider = "SearchWithinSearch", groups = { "Smoke" }, priority = 6)
 	public void verifySearchWithinSearch(String keyword1, String keyword2) {
 
 		// Perform Search
@@ -187,12 +200,31 @@ public class SitewideSearch_Test extends BaseClass {
 		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
 
 		for (int rowNum = 2; rowNum <= excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) {
-			String cancerType = excelReader.getCellData(TESTDATA_SHEET_NAME, "Keyword1", rowNum);
-			Object ob[] = { cancerType };
+			String keyword = excelReader.getCellData(TESTDATA_SHEET_NAME, "Keyword1", rowNum);
+			Object ob[] = { keyword };
 
 			myObjects.add(ob);
-
 		}
+		return myObjects.iterator();
+
+	}
+
+	@DataProvider(name = "Search1")
+	public Iterator<Object[]> readSearchData1() {
+		// ExcelManager excelReader = new ExcelManager(testDataFilePath);
+
+		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
+		/*
+		 * for (int rowNum = 2; rowNum <=
+		 * excelReader.getRowCount(TESTDATA_SHEET_NAME); rowNum++) { String
+		 * keyword = excelReader.getCellData(TESTDATA_SHEET_NAME, "Keyword1",
+		 * rowNum);
+		 * 
+		 */
+		Object ob[] = { "Cancer" };
+
+		myObjects.add(ob);
+
 		return myObjects.iterator();
 
 	}

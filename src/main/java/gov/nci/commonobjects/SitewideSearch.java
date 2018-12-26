@@ -2,6 +2,7 @@ package gov.nci.commonobjects;
 
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +11,8 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 import com.relevantcodes.extentreports.ExtentTest;
+
+import gov.nci.Utilities.ScrollUtil;
 
 public class SitewideSearch {
 	WebDriver driver;
@@ -20,9 +23,9 @@ public class SitewideSearch {
 
 	/*************** Site-wide Search Page WebElements **********************/
 
-	@FindBy(how = How.XPATH, using = "//input[@id='swKeyword']")
+	@FindBy(how = How.CSS, using = "#swKeyword")
 	WebElement txt_SearchBox;
-	@FindBy(how = How.XPATH, using = "//button[@id='sitesearch']")
+	@FindBy(how = How.CSS, using = "#sitesearch")
 	WebElement btn_Search;
 
 	/***************
@@ -81,15 +84,18 @@ public class SitewideSearch {
 
 	// Get New Search button at bottom of Search Results page
 	public WebElement getNewSearchButton() {
+		ScrollUtil.scrollIntoview(driver, driver.findElement(By.xpath("(//h4)[2]")));
 		return rbtn_NewSearch;
 	}
 
 	// Get Search Results page Search Within Search Box
 	public WebElement getSearchWithinSearchBox() {
+		ScrollUtil.scrollIntoview(driver, driver.findElement(By.xpath("(//h4)[2]")));
 		return txt_SearchWithinSearchBox;
 	}
 
 	public WebElement getSearchWithinSearchButton() {
+		ScrollUtil.scrollIntoview(driver, driver.findElement(By.xpath("(//h4)[2]")));
 		return rbtn_SearchWithinSearch;
 	}
 
