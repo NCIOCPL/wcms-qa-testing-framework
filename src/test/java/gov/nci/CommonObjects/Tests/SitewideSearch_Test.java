@@ -83,7 +83,7 @@ public class SitewideSearch_Test extends BaseClass {
 	@AfterMethod
 	public void afterTest(ITestResult result) {
 		Throwable t = result.getThrowable();
-		// with the object of t you can get the stacktrace and log it into your
+		// with the object of t you can get the stack trace and log it into your
 		// reporter
 	}
 
@@ -121,7 +121,7 @@ public class SitewideSearch_Test extends BaseClass {
 						+ "Page Title, H1 Title, URL ending with 'results', results text");
 	}
 
-	// Testing Empty search on sitewidesearch
+	// Testing Empty search on site wide search
 	@Test(groups = { "Smoke" }, priority = 5)
 	public void verifyEmptySitewideSearch() {
 
@@ -186,9 +186,8 @@ public class SitewideSearch_Test extends BaseClass {
 		System.out.println("Bottom Result Text Value ***********: " + bottomResultText.getText());
 		Assert.assertTrue(bottomResultText.getText().contains("results found for: " + keyword1 + " : " + keyword2));
 
-		logger.log(LogStatus.PASS,
-				"Verify that when a two keywords are searched via Search Within Search, Search Result page is displayed with following validations: "
-						+ "Page Title, H1 Title, URL ending with 'results', results text");
+		// Verify that the Search Button is present
+		Assert.assertTrue(search.getSearchWithinSearchButton().isDisplayed());
 	}
 
 	/********************** Data Providers **********************/

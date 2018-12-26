@@ -84,6 +84,7 @@ public class SitewideSearch {
 
 	// Get New Search button at bottom of Search Results page
 	public WebElement getNewSearchButton() {
+
 		ScrollUtil.scrollIntoview(driver, driver.findElement(By.xpath("(//h4)[2]")));
 		return rbtn_NewSearch;
 	}
@@ -95,6 +96,7 @@ public class SitewideSearch {
 	}
 
 	public WebElement getSearchWithinSearchButton() {
+
 		ScrollUtil.scrollIntoview(driver, driver.findElement(By.xpath("(//h4)[2]")));
 		return rbtn_SearchWithinSearch;
 	}
