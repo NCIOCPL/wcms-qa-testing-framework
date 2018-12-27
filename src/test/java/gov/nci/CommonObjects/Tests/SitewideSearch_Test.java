@@ -56,7 +56,7 @@ public class SitewideSearch_Test extends BaseClass {
 	// Testing if correct placeholder is displayed in the Search Box
 	@Test(groups = { "Smoke" })
 	public void verifySearchBoxPlaceholder() {
-		Assert.assertEquals(search.getSearchBox().getAttribute("placeholder"), "search");
+		Assert.assertEquals(search.getSearchboxPlaceholder(), "search");
 		logger.log(LogStatus.PASS, "Verify that correct placeholder is displayed in the Search box");
 
 	}
