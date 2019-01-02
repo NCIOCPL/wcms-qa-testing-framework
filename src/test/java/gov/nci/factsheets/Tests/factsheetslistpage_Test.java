@@ -13,6 +13,7 @@ import com.relevantcodes.extentreports.LogStatus;
 
 import gov.nci.Utilities.BrowserManager;
 import gov.nci.clinicaltrials.BaseClass;
+import gov.nci.commonobjects.Banner;
 import gov.nci.commonobjects.BreadCrumb;
 import gov.nci.factsheets.FactSheetsListPage;
 
@@ -29,8 +30,9 @@ public class factsheetslistpage_Test extends BaseClass {
 			"Tobacco and Smoking Cessation", "En Español");
 
 	FactSheetsListPage fslp;
-	BreadCrumb crumb;
 
+	BreadCrumb crumb;
+	Banner banner;
 
 	@BeforeClass
 	@Parameters({ "browser" })
@@ -68,10 +70,21 @@ public class factsheetslistpage_Test extends BaseClass {
     }
 
 	@Test
+
 	public void verifyBreadCrumb() {
 		driver.get(pageURL);
 		crumb = new BreadCrumb(driver);
 		Assert.assertEquals(crumb.getBreadCrumbText(), BREAD_CRUMB);
 		logger.log(LogStatus.PASS, "Pass => " + "Verifying the Breadcrumb of the page");
+	}
+    @Test
+	public void verifyBanner() {
+		driver.get(pageURL);
+		fslp = new FactSheetsListPage(driver, logger);
+		banner = new Banner(driver);
+		Assert.assertTrue(banner.isDisplayed());
+		Assert.assertEquals(banner.getAltText(), "National Cancer Institute");
+		logger.log(LogStatus.PASS, "Verifying the Banner of the page");
+
 	}
 }
