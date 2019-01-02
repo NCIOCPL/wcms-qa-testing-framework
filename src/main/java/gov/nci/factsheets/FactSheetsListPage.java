@@ -1,26 +1,32 @@
 package gov.nci.factsheets;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+
 import com.relevantcodes.extentreports.ExtentTest;
 
 
 
 public class FactSheetsListPage {
-    
+
 	WebDriver driver;
 	ExtentTest logger;
 
 /**************** FactSheets Page WebElements *****************************/
-	@FindBy(how = How.CSS, using = "div.resize-content>h1>span")   
+	@FindBy(how = How.CSS, using = "div.resize-content>h1>span")
 	   WebElement factsheetslist_PageTitle;
 	@FindBy(how = How.CSS, using = "#cgvBody>div.slot-item.first-SI>p")
 	    WebElement text_FSListIntroText;
 	@FindBy(how = How.CSS, using = "head#header>title")
 		WebElement factsheetslist_BrowserTitle;
+	@FindBy(how = How.CSS, using = "ul.generic-bullet>li>a")
+	List<WebElement> subjectListItems ;
 
 // Initializing the Page Objects
 	    public FactSheetsListPage(WebDriver driver, ExtentTest logger) {
@@ -41,9 +47,29 @@ public class FactSheetsListPage {
         public WebElement getPageIntroText() {
 			return text_FSListIntroText;
 		}
-}   
-		
 
-			
-		
-		
+
+//Testing the Subject Lists appear on the page
+// ---------------------------------------------------
+
+     	public List<WebElement> getSubjectLists() {
+     	    return subjectListItems;
+     		}
+     	public List<String> getSubjectListing() {
+     	    	List<WebElement> allElements = getSubjectLists();
+     	    	List<String> allElementsAsString = new ArrayList<>();
+     	    	for (WebElement element: allElements)
+     	    	{
+     	    	String listingName = element.getText();
+     	    	System.out.println(listingName);
+     	    	allElementsAsString.add(listingName.trim());
+     	    	System.out.println(allElementsAsString);
+     	    	}
+         	 return allElementsAsString;
+             }
+}
+
+
+
+
+
