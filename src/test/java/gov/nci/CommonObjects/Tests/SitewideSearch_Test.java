@@ -23,6 +23,7 @@ import gov.nci.commonobjects.SitewideSearch;
 public class SitewideSearch_Test extends BaseClass {
 
 	public static final String TESTDATA_SHEET_NAME = "SitewideSearch";
+	public static final String SITEWIDE_SEARCH_NOISEWORDS_SHEET_NAME = "NoiseWords";
 
 	SitewideSearch search;
 	String testDataFilePath;
@@ -84,6 +85,30 @@ public class SitewideSearch_Test extends BaseClass {
 		logger.log(LogStatus.PASS,
 				"Verify that when a keyword is searched, Search Result page is displayed with following validations: "
 						+ "Page Title, H1 Title, URL ending with 'results', results text");
+	}
+
+	// Verify that when a search is performed with noise words, Search Result
+	// page is displayed with no search results
+	// -------------------------------------------------------------------------
+	@Test(dataProvider = "NoiseWords", groups = { "Smoke" }, priority = 8)
+	public void verifySitewideSearch_NoiseWords(String keyword) {
+
+		// Perform Search with noise word
+		System.out.println("Search Keyword: " + keyword);
+		search.search(keyword);
+
+		// Verify that the Top Search Result Text contains search keyword
+		WebElement topResultText = driver.findElement(By.xpath("(//h4)[1]"));
+		System.out.println("Top Result Text Value ***********: " + topResultText.getText());
+		Assert.assertTrue(topResultText.getText().contains("Results 0\u20130 of 0 for: " + keyword));
+
+		// Verify that the bottom Search Result Text contains search keyword
+		WebElement bottomResultText = driver.findElement(By.xpath("(//h4)[2]"));
+		System.out.println("Bottom Result Text Value ***********: " + bottomResultText.getText());
+		Assert.assertTrue(bottomResultText.getText().contains("0 results found for: " + keyword));
+
+		logger.log(LogStatus.PASS,
+				"Verify that when a search is performed with noise words (the, a, to, at, etc), Search Result page is displayed with no results");
 	}
 
 	@Test(groups = { "Smoke" })
@@ -183,6 +208,23 @@ public class SitewideSearch_Test extends BaseClass {
 			String keyword1 = excelReader.getCellData(TESTDATA_SHEET_NAME, "Keyword1", rowNum);
 			String keyword2 = excelReader.getCellData(TESTDATA_SHEET_NAME, "Keyword2", rowNum);
 			Object ob[] = { keyword1, keyword2 };
+
+			myObjects.add(ob);
+
+		}
+		return myObjects.iterator();
+
+	}
+
+	@DataProvider(name = "NoiseWords")
+	public Iterator<Object[]> readSearchData_NoiseWords() {
+		ExcelManager excelReader = new ExcelManager(testDataFilePath);
+
+		ArrayList<Object[]> myObjects = new ArrayList<Object[]>();
+
+		for (int rowNum = 2; rowNum <= excelReader.getRowCount(SITEWIDE_SEARCH_NOISEWORDS_SHEET_NAME); rowNum++) {
+			String noiseWord = excelReader.getCellData(SITEWIDE_SEARCH_NOISEWORDS_SHEET_NAME, "NoiseWords", rowNum);
+			Object ob[] = { noiseWord };
 
 			myObjects.add(ob);
 
