@@ -95,17 +95,15 @@ public class SitewideSearch_Test extends BaseClass {
 	public void verifySitewideSearch_NoiseWords(String keyword) {
 
 		// Perform Search with noise word
-		System.out.println("Search Keyword: " + keyword);
 		search.search(keyword);
 
 		// Verify that the Top Search Result Text contains search keyword
-		WebElement topResultText = driver.findElement(By.xpath("(//h4)[1]"));
-		System.out.println("Top Result Text Value ***********: " + topResultText.getText());
+		WebElement topResultText = driver
+				.findElement(By.cssSelector("#cgvBody > div.contentid-16400.slot-item.last-SI > div > div > h4"));
 		Assert.assertTrue(topResultText.getText().contains("Results 0\u20130 of 0 for: " + keyword));
 
 		// Verify that the bottom Search Result Text contains search keyword
-		WebElement bottomResultText = driver.findElement(By.xpath("(//h4)[2]"));
-		System.out.println("Bottom Result Text Value ***********: " + bottomResultText.getText());
+		WebElement bottomResultText = driver.findElement(By.cssSelector("#aspnetForm > h4"));
 		Assert.assertTrue(bottomResultText.getText().contains("0 results found for: " + keyword));
 
 		logger.log(LogStatus.PASS,
