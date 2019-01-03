@@ -218,7 +218,7 @@ public class NewGenetics_Test extends NewDictionaryCommon {
             // Loop over each of the letters of the alpha list
             // -----------------------------------------------
             for (int i = curCount; i < countLetters; i++) {
-                System.out.print(alphaList.get(i).getText() + " ");
+                logger.log(LogStatus.INFO, alphaList.get(i).getText() + " ");
                 ResultPage azListPage = dict.clickAZListLetter(i);
 
                 // Check to see if there are results.  Some of the letters
@@ -233,8 +233,8 @@ public class NewGenetics_Test extends NewDictionaryCommon {
                         continue;
                     }
                     else {
-                        System.out.println(alphaList.get(i).getText()
-                                           + " letter is empty!!!");
+                        logger.log(LogStatus.INFO, alphaList.get(i).getText()
+                                           + " returns no results!!!");
                         AZLetterResultOK = false;
                     }
                 }
