@@ -61,9 +61,7 @@ public class FactSheetsListPage {
      	    	for (WebElement element: allElements)
      	    	{
      	    	String listingName = element.getText();
-     	    	System.out.println(listingName);
      	    	allElementsAsString.add(listingName.trim());
-     	    	System.out.println(allElementsAsString);
      	    	}
          	 return allElementsAsString;
              }
