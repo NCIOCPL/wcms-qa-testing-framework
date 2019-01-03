@@ -30,8 +30,7 @@ public class factsheetslistpage_Test extends BaseClass {
 			"Tobacco and Smoking Cessation", "En Español");
 
 	FactSheetsListPage fslp;
-
-	BreadCrumb crumb;
+    BreadCrumb crumb;
 	Banner banner;
 
 	@BeforeClass
@@ -70,13 +69,13 @@ public class factsheetslistpage_Test extends BaseClass {
     }
 
 	@Test
-
-	public void verifyBreadCrumb() {
+    public void verifyBreadCrumb() {
 		driver.get(pageURL);
 		crumb = new BreadCrumb(driver);
 		Assert.assertEquals(crumb.getBreadCrumbText(), BREAD_CRUMB);
 		logger.log(LogStatus.PASS, "Pass => " + "Verifying the Breadcrumb of the page");
 	}
+
     @Test
 	public void verifyBanner() {
 		driver.get(pageURL);
@@ -84,6 +83,5 @@ public class factsheetslistpage_Test extends BaseClass {
 		Assert.assertTrue(banner.isDisplayed());
 		Assert.assertEquals(banner.getAltText(), "National Cancer Institute");
 		logger.log(LogStatus.PASS, "Verifying the Banner of the page");
-
 	}
 }
