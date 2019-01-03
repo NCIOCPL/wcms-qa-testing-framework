@@ -93,7 +93,7 @@ public class SitewideSearch {
 		return txt_BestBet.getText();
 	}
 
-	// Get Search Results page best bet box
+	// Get Search box placeholder
 	public String getSearchboxPlaceholder() {
 		return getSearchBox().getAttribute("placeholder");
 	}
