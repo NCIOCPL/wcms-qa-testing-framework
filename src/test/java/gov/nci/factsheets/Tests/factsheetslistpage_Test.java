@@ -70,10 +70,8 @@ public class factsheetslistpage_Test extends BaseClass {
 	@Test
 	public void verifyBreadCrumb() {
 		driver.get(pageURL);
-		fslp = new FactSheetsListPage(driver, logger);
 		crumb = new BreadCrumb(driver);
 		Assert.assertEquals(crumb.getBreadCrumbText(), BREAD_CRUMB);
-		System.out.println("Breadcrumb is displaying correctly");
 		logger.log(LogStatus.PASS, "Pass => " + "Verifying the Breadcrumb of the page");
 	}
 }
