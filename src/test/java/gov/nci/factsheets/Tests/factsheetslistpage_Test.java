@@ -80,7 +80,6 @@ public class factsheetslistpage_Test extends BaseClass {
     @Test
 	public void verifyBanner() {
 		driver.get(pageURL);
-		fslp = new FactSheetsListPage(driver, logger);
 		banner = new Banner(driver);
 		Assert.assertTrue(banner.isDisplayed());
 		Assert.assertEquals(banner.getAltText(), "National Cancer Institute");
