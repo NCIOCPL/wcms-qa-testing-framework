@@ -34,7 +34,7 @@ public class SitewideSearch {
 	WebElement rbtn_SearchWithinSearch;
 	@FindBy(how = How.XPATH, using = "//input[@id='ctl34_txtSWRKeyword']")
 	WebElement txt_SearchWithinSearchBox;
-	@FindBy(how = How.XPATH, using = "//input[@type='submit']")
+	@FindBy(how = How.CSS, using = "#ctl34_btnSWRTxtSearch")
 	WebElement btn_SearchWithinSearch;
 	@FindBy(how = How.XPATH, using = "//span[@id='ctl34_lblSearchWithinResultsFound']")
 	WebElement lbl_SearchResult;
