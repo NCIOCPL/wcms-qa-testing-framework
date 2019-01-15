@@ -103,8 +103,9 @@ public class SitewideSearch {
 		return txt_SearchWithinSearchBox;
 	}
 
+	// Get Search Within Search radio button
 	public WebElement getSearchWithinSearchButton() {
-		return btn_SearchWithinSearch;
+		return rbtn_SearchWithinSearch;
 	}
 
 	// Search Within Search based on any two keyword

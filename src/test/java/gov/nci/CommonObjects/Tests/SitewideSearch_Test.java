@@ -63,6 +63,18 @@ public class SitewideSearch_Test extends BaseClass {
 
 	}
 
+	// Testing the Search Within Search label is correct on Search results page
+	@Test(groups = { "Smoke" }, dataProvider = "Search", priority = 3)
+	public void verifySearchWithinSearchLabel(String keyword) {
+
+		System.out.println("Search Keyword: " + keyword);
+		search.search(keyword);
+
+		Assert.assertEquals(search.getSearchWithinSearchButton().getText(), "Search Within Results");
+		logger.log(LogStatus.PASS, "Verify that the Search Within Search label is correct");
+
+	}
+
 	// Perform Site-wide search on English site and validate the results
 	// -------------------------------------------------------------------------
 	@Test(dataProvider = "Search", groups = { "Smoke" })
@@ -89,9 +101,6 @@ public class SitewideSearch_Test extends BaseClass {
 		WebElement bottomResultText = driver.findElement(By.xpath("(//h4)[2]"));
 		System.out.println("Bottom Result Text Value ***********: " + bottomResultText.getText());
 		Assert.assertTrue(bottomResultText.getText().contains("results found for: " + keyword));
-
-		// Verify best bet box is displayed
-		Assert.assertTrue(search.getBestBetBox().isDisplayed());
 
 		logger.log(LogStatus.PASS,
 				"Verify that when a keyword is searched, Search Result page is displayed with following validations: "
