@@ -168,7 +168,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Advanced CTS 'Abandon' click event (organization)
-	@Test(groups = { "Analytics" })
+	// @Test(groups = { "Analytics" })
 	public void testAdvancedAbandonOrg() {
 		setupTestMethod();
 
@@ -187,7 +187,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Advanced CTS 'Abandon' click event (subtype)
-	@Test(groups = { "Analytics" })
+	// @Test(groups = { "Analytics" })
 	public void testAdvancedAbandonMultiSelect() {
 		setupTestMethod();
 

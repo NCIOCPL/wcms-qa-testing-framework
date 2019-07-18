@@ -135,7 +135,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Blog Post Rail Archive expand click
-	@Test(groups = { "Analytics" })
+	// @Test(groups = { "Analytics" })
 	public void testBlogPostRailArchiveExpand() {
 		setupTestMethod(BLOG_POST_ES);
 
@@ -172,7 +172,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Blog Post Rail Month click
-	@Test(groups = { "Analytics" })
+	// @Test(groups = { "Analytics" })
 	public void testBlogPostRailMonthClick() {
 		setupTestMethod(BLOG_POST_EN);
 

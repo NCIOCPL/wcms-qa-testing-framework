@@ -109,7 +109,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Basic CTS 'Abandon' click event (keyword)
-	@Test(groups = { "Analytics" })
+	// @Test(groups = { "Analytics" })
 	public void testBasicAbandonKeyword() {
 		setupTestMethod();
 
@@ -147,7 +147,7 @@ public class BasicSearchClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Basic CTS 'Abandon' click event (zip)
-	@Test(groups = { "Analytics" })
+	// @Test(groups = { "Analytics" })
 	public void testBasicAbandonZip() {
 		setupTestMethod();
 
