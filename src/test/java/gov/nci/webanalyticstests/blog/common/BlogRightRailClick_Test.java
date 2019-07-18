@@ -118,12 +118,12 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Blog Series Rail Archive Expand click
-	@Test(groups = { "Analytics" })
+	/// @Test(groups = { "Analytics" })
 	public void testBlogSeriesRailArchiveExpand() {
 		setupTestMethod(BLOG_SERIES_ES);
 
 		try {
-			rightRail.clickArchiveHeader();
+			rightRail.expandArchiveHeader();
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "BlogAccordionAction");
@@ -140,11 +140,11 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BLOG_POST_ES);
 
 		try {
-			rightRail.clickArchiveHeader();
+			rightRail.expandArchiveHeader();
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "BlogAccordionAction");
-			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrentsEsp_Post_Expand:Archive");
+			Assert.assertEquals(beacon.props.get(66), "Blog_CancerCurrents_Post_Expand:Archive");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -157,14 +157,14 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BLOG_SERIES_EN);
 
 		try {
-			rightRail.clickArchiveHeader();
+			rightRail.expandArchiveHeader();
 			rightRail.clickArchiveYear("2017");
-			rightRail.clickArchiveMonth("5", "2017");
+			rightRail.clickArchiveMonth("05", "2017");
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "BlogArchiveDateClick");
 			Assert.assertTrue(beacon.hasEvent(55), "Missing event55");
-			Assert.assertEquals(beacon.props.get(50), "2017:5");
+			Assert.assertEquals(beacon.props.get(50), "2017:05");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -177,14 +177,14 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 		setupTestMethod(BLOG_POST_EN);
 
 		try {
-			rightRail.clickArchiveHeader();
+			rightRail.expandArchiveHeader();
 			rightRail.clickArchiveYear("2017");
-			rightRail.clickArchiveMonth("5", "2017");
+			rightRail.clickArchiveMonth("05", "2017");
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "BlogArchiveDateClick");
 			Assert.assertTrue(beacon.hasEvent(55), "Missing event55");
-			Assert.assertEquals(beacon.props.get(50), "2017:5");
+			Assert.assertEquals(beacon.props.get(50), "2017:05");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
@@ -192,13 +192,13 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Blog Post Rail Archive collapse
-	@Test(groups = { "Analytics" })
+	/// @Test(groups = { "Analytics" })
 	public void testBlogPostRailArchiveCollapse() {
 		setupTestMethod(BLOG_POST_EN);
 
 		try {
-			rightRail.clickArchiveHeader();
-			rightRail.clickArchiveHeader();
+			rightRail.expandArchiveHeader();
+			rightRail.collapseArchiveHeader();
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon, "BlogAccordionAction");
@@ -220,7 +220,7 @@ public class BlogRightRailClick_Test extends AnalyticsTestClickBase {
 	private void doCommonClassAssertions(Beacon beacon, String linkName) {
 		// Note: remove this once pageName value is fixed on CDE side
 		Assert.assertEquals(beacon.linkName, linkName);
-		Assert.assertTrue(currentUrl.contains(beacon.props.get(67)), "prop67 incorrect");
+		doCommonClickAssertions(beacon);
 	}
 
 }

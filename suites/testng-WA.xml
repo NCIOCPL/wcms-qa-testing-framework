@@ -18,7 +18,7 @@
 			<parameter name="browser" value="GeckoHeadless" />
 			<parameter name="browser" value="iPhone6" />
 			<parameter name="browser" value="iPad" />
-			<parameter name="environment" value="qa" />
+			<parameter name="environment" value="acsf" />
 			<parameter name="debug" value="false" />
 		-->
 		<groups>
@@ -28,14 +28,11 @@
 		</groups>
 		<classes>
 
+
 			<!-- Blog tracking -->
 			<class name="gov.nci.webanalyticstests.blog.pages.BlogPostLoad_Test" />
 			<class name="gov.nci.webanalyticstests.blog.pages.BlogPostClick_Test" />
-			<class name="gov.nci.webanalyticstests.blog.pages.BlogSeriesLoad_Test">
-				<methods>
-					<exclude name="testBlogSeriesPageLoad" />
-				</methods>
-			</class>
+			<class name="gov.nci.webanalyticstests.blog.pages.BlogSeriesLoad_Test" />
 			<class name="gov.nci.webanalyticstests.blog.pages.BlogSeriesClick_Test" />
 			<class name="gov.nci.webanalyticstests.blog.common.BlogLinksClick_Test" />
 			<class name="gov.nci.webanalyticstests.blog.common.BlogRightRailClick_Test" />
@@ -45,7 +42,11 @@
 			<class name="gov.nci.webanalyticstests.clinicaltrial.pages.AdvancedResultsLoad_Test" />
 			<class name="gov.nci.webanalyticstests.clinicaltrial.pages.AdvancedSearchClick_Test" />
 			<class name="gov.nci.webanalyticstests.clinicaltrial.pages.AdvancedSearchLoad_Test" />
-			<class name="gov.nci.webanalyticstests.clinicaltrial.pages.BasicResultsClick_Test" />
+			<class name="gov.nci.webanalyticstests.clinicaltrial.pages.BasicResultsClick_Test">
+				<methods>
+					<exclude name="testPrintAllItemsOnPage" />
+				</methods>
+			</class>
 			<class name="gov.nci.webanalyticstests.clinicaltrial.pages.BasicResultsLoad_Test" />
 			<class name="gov.nci.webanalyticstests.clinicaltrial.pages.BasicSearchClick_Test" />
 			<class name="gov.nci.webanalyticstests.clinicaltrial.pages.BasicSearchLoad_Test" />
@@ -88,7 +89,7 @@
 
 			<!-- Error page tracking -->
 			<class name="gov.nci.webanalyticstests.error.pages.ErrorLoad_Test" />
-			<class name="gov.nci.webanalyticstests.error.common.ErrorClick_Test" />
+			<!-- class name="gov.nci.webanalyticstests.error.common.ErrorClick_Test" /-->
 
 			<!-- R4R tracking -->
 			<class name="gov.nci.webanalyticstests.r4r.pages.R4RHomePageClick_Test" />
@@ -103,21 +104,16 @@
 
 			<!-- Common component tracking -->
 			<class name="gov.nci.webanalyticstests.commonobjects.CardClick_Test" />
-			<class name="gov.nci.webanalyticstests.commonobjects.MegaMenuClick_Test">
+			<class name="gov.nci.webanalyticstests.commonobjects.MegaMenuClick_Test" />
+			<!-- class name="gov.nci.webanalyticstests.commonobjects.OnThisPageClick_Test" /-->
+			<class name="gov.nci.webanalyticstests.commonobjects.RelatedResourcesClick_Test" />
+			<!-- class name="gov.nci.webanalyticstests.commonobjects.ResizeClick_Test" -->
+			<class name="gov.nci.webanalyticstests.commonobjects.TimingScrollLoad_Test">
 				<methods>
-				 <exclude name="testMegaMenuSubNavLink" />
+					<exclude name="testFullScrollPageLoad" />
+					<exclude name="testEngagement" />
 				</methods>
 			</class>
-			<class name="gov.nci.webanalyticstests.commonobjects.OnThisPageClick_Test" />
-			<class name="gov.nci.webanalyticstests.commonobjects.RelatedResourcesClick_Test" />
-			<class name="gov.nci.webanalyticstests.commonobjects.ResizeClick_Test" />
-				<methods>
-					<exclude name="testResizeToExtraWide" />
-					<exclude name="testResizeToLarge" />
-					<exclude name="testResizeToMedium" />
-					<exclude name="testResizeToMobile" />
-				</methods>
-			<class name="gov.nci.webanalyticstests.commonobjects.TimingScrollLoad_Test" />
 
 			<!-- All other page load tracking -->
 			<class name="gov.nci.webanalyticstests.home.pages.HomeLoad_Test" />

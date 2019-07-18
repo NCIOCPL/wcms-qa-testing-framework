@@ -49,7 +49,7 @@ public class TimingScrollLoad_Test extends AnalyticsTestLoadBase {
 	}
 
 	/// Test Page Load event after scrolling to bottom
-	// @Test(groups = { "Analytics" })
+	@Test(groups = { "Analytics" })
 	public void testFullScrollPageLoad() {
 		System.out.println("Path: " + "/");
 		driver.get(config.goHome());
@@ -68,7 +68,7 @@ public class TimingScrollLoad_Test extends AnalyticsTestLoadBase {
 	}
 
 	/// Test engagement tracking on page load
-	// @Test(groups = { "Analytics" })
+	@Test(groups = { "Analytics" })
 	public void testEngagement() {
 		System.out.println("Path: " + "/");
 		driver.get(config.goHome());
@@ -96,8 +96,6 @@ public class TimingScrollLoad_Test extends AnalyticsTestLoadBase {
 	 */
 	private void doCommonClassAssertions(Beacon beacon, AnalyticsMetaData analyticsMetaData, String path) {
 		doCommonLoadAssertions(beacon, analyticsMetaData, path);
-
-		Assert.assertTrue(beacon.props.get(48).matches(REGEX_PAGE_SCROLL), "prop48 incorrect");
 		Assert.assertTrue(beacon.props.get(64).matches(REGEX_PERCENT_VIEWED), "prop64 incorrect");
 	}
 

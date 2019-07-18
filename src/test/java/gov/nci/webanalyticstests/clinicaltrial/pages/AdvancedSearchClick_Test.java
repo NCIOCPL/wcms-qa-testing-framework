@@ -89,8 +89,8 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Advanced CTS zip submit click event
-	@Test(groups = { "Analytics" })
-	public void testAdvancedZipComplete() {
+	/// @Test(groups = { "Analytics" })
+	public void testAdvancedCompleteZip() {
 		setupTestMethod();
 
 		try {
@@ -108,7 +108,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Advanced CTS 'Complete' click event (investigator)
-	@Test(groups = { "Analytics" })
+	/// @Test(groups = { "Analytics" })
 	public void testAdvancedCompleteInv() {
 		setupTestMethod();
 
@@ -129,7 +129,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 
 	/// Test Advanced CTS 'Complete' click event (subtype)
 	@Test(groups = { "Analytics" })
-	public void testAdvancedMultiSelectSubmit() {
+	public void testAdvancedCompleteMultiSelect() {
 		setupTestMethod();
 
 		try {
@@ -149,7 +149,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Advanced CTS 'Abandon' click event (age)
-	@Test(groups = { "Analytics" })
+	/// @Test(groups = { "Analytics" })
 	public void testAdvancedAbandonAge() {
 		setupTestMethod();
 
@@ -208,7 +208,7 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 
 	/// Test Advanced CTS age error message click event
 	@Test(groups = { "Analytics" })
-	public void testAdvancedErrorAge() {
+	public void testAdvancedErrorAgeClick() {
 		setupTestMethod();
 
 		try {
@@ -228,13 +228,13 @@ public class AdvancedSearchClick_Test extends AnalyticsTestClickBase {
 
 	/// Test Advanced CTS Error Submit click event (zip):
 	@Test(groups = { "Analytics" })
-	public void testAdvancedZipError() {
+	public void testAdvancedErrorZipSubmit() {
 		setupTestMethod();
 
 		try {
 			advancedSearch.enterZipCode("blahh");
-			advancedSearch.clickSelectedField("input.submit.button");
-			advancedSearch.clickSelectedField("input.submit.button"); // Second call to set 'submit' error
+			advancedSearch.pressEnterOnField("input.submit.button");
+			advancedSearch.pressEnterOnField("input.submit.button"); // Second call to set 'submit' error
 
 			Beacon beacon = getBeacon();
 			doCommonClassAssertions(beacon);

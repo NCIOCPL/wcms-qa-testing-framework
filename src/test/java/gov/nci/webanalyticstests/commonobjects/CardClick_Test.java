@@ -43,7 +43,7 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 	// ==================== Test methods ==================== //
 
 	/// Test Home Page Card click events
-	@Test(dataProvider = "HomeCardClickData", groups = { "Analytics" })
+	/// @Test(dataProvider = "HomeCardClickData", groups = { "Analytics" })
 	public void testHomePageCardClick(String path, String titleSel, String linkSel, String cardTypePos) {
 		System.out.println("Path: " + path + ", Card type/position: " + cardTypePos);
 		setupTestMethod(path);
@@ -63,7 +63,7 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Landing Page Card click events
-	@Test(dataProvider = "LandingCardClickData", groups = { "Analytics" })
+	/// @Test(dataProvider = "LandingCardClickData", groups = { "Analytics" })
 	public void testLandingPageCardClick(String path, String titleSel, String linkSel, String cardTypePos) {
 		System.out.println("Path: " + path + ", Card type/position: " + cardTypePos);
 		setupTestMethod(path);
@@ -83,7 +83,7 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 	}
 
 	/// Test Topic Page Card click events
-	@Test(dataProvider = "TopicCardClickData", groups = { "Analytics" })
+	/// @Test(dataProvider = "TopicCardClickData", groups = { "Analytics" })
 	public void testTopicPageCardClick(String path, String titleSel, String linkSel, String cardTypePos) {
 		System.out.println("Path: " + path + ", Card type/position: " + cardTypePos);
 		setupTestMethod(path);
@@ -147,7 +147,7 @@ public class CardClick_Test extends AnalyticsTestClickBase {
 
 		doCommonClickAssertions(beacon);
 		Assert.assertTrue(beacon.hasEvent(27), "Missing event27");
-		Assert.assertEquals(beacon.linkName, "FeatureCardClick");
+		Assert.assertEquals(beacon.linkName, "CardClick");
 		Assert.assertEquals(beacon.props.get(57), titleText.trim());
 		Assert.assertEquals(beacon.props.get(58), linkText.trim());
 		Assert.assertEquals(beacon.props.get(59), typePosition);
