@@ -28,14 +28,11 @@
 		</groups>
 		<classes>
 
+
 			<!-- Blog tracking -->
 			<class name="gov.nci.webanalyticstests.blog.pages.BlogPostLoad_Test" />
 			<class name="gov.nci.webanalyticstests.blog.pages.BlogPostClick_Test" />
-			<class name="gov.nci.webanalyticstests.blog.pages.BlogSeriesLoad_Test">
-				<methods>
-					<exclude name="testBlogSeriesPageLoad" />
-				</methods>
-			</class>
+			<class name="gov.nci.webanalyticstests.blog.pages.BlogSeriesLoad_Test" />
 			<class name="gov.nci.webanalyticstests.blog.pages.BlogSeriesClick_Test" />
 			<class name="gov.nci.webanalyticstests.blog.common.BlogLinksClick_Test" />
 			<class name="gov.nci.webanalyticstests.blog.common.BlogRightRailClick_Test" />
@@ -92,7 +89,7 @@
 
 			<!-- Error page tracking -->
 			<class name="gov.nci.webanalyticstests.error.pages.ErrorLoad_Test" />
-			<class name="gov.nci.webanalyticstests.error.common.ErrorClick_Test" />
+			<!-- class name="gov.nci.webanalyticstests.error.common.ErrorClick_Test" /-->
 
 			<!-- R4R tracking -->
 			<class name="gov.nci.webanalyticstests.r4r.pages.R4RHomePageClick_Test" />
@@ -108,16 +105,9 @@
 			<!-- Common component tracking -->
 			<class name="gov.nci.webanalyticstests.commonobjects.CardClick_Test" />
 			<class name="gov.nci.webanalyticstests.commonobjects.MegaMenuClick_Test" />
-			<class name="gov.nci.webanalyticstests.commonobjects.OnThisPageClick_Test" />
+			<!-- class name="gov.nci.webanalyticstests.commonobjects.OnThisPageClick_Test" /-->
 			<class name="gov.nci.webanalyticstests.commonobjects.RelatedResourcesClick_Test" />
-			<class name="gov.nci.webanalyticstests.commonobjects.ResizeClick_Test" >
-				<methods>
-					<exclude name="testResizeToExtraWide" />
-					<exclude name="testResizeToLarge" />
-					<exclude name="testResizeToMedium" />
-					<exclude name="testResizeToMobile" />
-				</methods>
-			</class>
+			<!-- class name="gov.nci.webanalyticstests.commonobjects.ResizeClick_Test" -->
 			<class name="gov.nci.webanalyticstests.commonobjects.TimingScrollLoad_Test">
 				<methods>
 					<exclude name="testFullScrollPageLoad" />

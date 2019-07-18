@@ -1,13 +1,10 @@
 package gov.nci.webanalyticstests.pdq.pages;
 
 import java.util.Iterator;
-
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.Assert;
-
-import gov.nci.pdq.common.PdqRightNav;
 import gov.nci.pdq.pages.PdqPage;
 import gov.nci.webanalytics.Beacon;
 import gov.nci.webanalyticstests.AnalyticsTestClickBase;
@@ -15,7 +12,6 @@ import gov.nci.webanalyticstests.AnalyticsTestClickBase;
 public class PdqCisClick_Test extends AnalyticsTestClickBase {
 
 	private PdqPage pdqPage;
-	private PdqRightNav pdqRightNav;
 	private String testDataFilePath;
 
 	// ==================== Setup methods ==================== //
@@ -31,7 +27,6 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 		try {
 			driver.get(config.goHome() + path);
 			pdqPage = new PdqPage(driver);
-			pdqRightNav = pdqPage.getRightNav();
 			System.out.println("Path: " + path);
 		} catch (Exception e) {
 			Assert.fail("Error building PDQ page object.");
@@ -41,29 +36,6 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 
 	// ==================== Test methods ==================== //
 
-	// Test Right Nav section click
-	@Test(groups = { "Analytics" }, dataProvider = "RightNavData")
-	public void testRightNavClick(String path, String linkName) {
-		System.out.println("Link name: " + linkName);
-		setupTestMethod(path);
-
-		try {
-			// We need to click the section link twice to ensure that we don't capture the
-			// old GlobalLinkTrack beacon.
-			pdqRightNav.clickSection(linkName);
-			pdqRightNav.clickSection(linkName);
-
-			Beacon beacon = getBeacon();
-			doCommonClickAssertions(beacon);
-			Assert.assertEquals(beacon.linkName, "RightNavLink-");
-			Assert.assertEquals(beacon.props.get(27), linkName);
-			Assert.assertEquals(beacon.props.get(66), "pdq_" + linkName.toLowerCase());
-			Assert.assertEquals(beacon.eVars.get(49), beacon.props.get(27));
-		} catch (Exception e) {
-			handleTestErrors(new Object() {
-			}, e);
-		}
-	}
 
 	// Test Toggle Link details click
 	@Test(groups = { "Analytics" }, dataProvider = "ToggleData")
@@ -77,7 +49,7 @@ public class PdqCisClick_Test extends AnalyticsTestClickBase {
 			Beacon beacon = getBeacon();
 			doCommonClickAssertions(beacon);
 			Assert.assertEquals(beacon.linkName, "GlobalLinkTrack");
-			Assert.assertEquals(beacon.props.get(28), "www.cancer.gov" + path);
+			Assert.assertEquals(beacon.props.get(28), "D=pageName");
 		} catch (Exception e) {
 			handleTestErrors(new Object() {
 			}, e);
